@@ -1,0 +1,47 @@
+bin/
+vendor/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+go.work
+go.work.sum
+target/
+*.wasm
+.env
+.env.local
+.env.*.local
+.envrc
+.idea/
+.vscode/
+*.swp
+*~
+.DS_Store
+keys/
+landing/
+*.pem
+*.secret
+Cargo.lock
+*.bak
+.vercel
+scripts/__pycache__/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+frontend/tsconfig.tsbuildinfo
+
+# Node
+node_modules/
+dist/
+coverage/
+
+# Hardhat
+artifacts/
+cache/
+typechain-types/
