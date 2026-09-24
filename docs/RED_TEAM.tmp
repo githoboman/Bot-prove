@@ -1,0 +1,55 @@
+<!-- GENERATED TEMPLATE
+Purpose: Red-team self-audit — 18 attack vectors across contracts, backend, frontend, infra.
+         Fills the gap left by SECURITY.md (which is a summary) with concrete adversarial cases.
+Usage: Review each row, adjust status/notes if code has moved, then remove this header and
+       rename to docs/RED_TEAM.md. Cross-link from SECURITY.md.
+Remove when: After review and rename
+-->
+
+# CasperProver — Red-Team Self-Audit
+
+Self-adversarial pass across every layer of the stack. 19 attack vectors — 15 RESIST,
+4 PARTIAL (documented mitigations in progress; count corrected 2026-07-18 after
+verifying row 13's original claim against actual code and adding row 19). No OPEN
+entries: any OPEN finding must be fixed or downgraded to PARTIAL with a written
+mitigation before submission.
+
+Cross-reference: `SECURITY.md` (threat model + reporting), `docs/AI_DECISIONS.md`
+(ABSTAIN pattern), `contracts/*` for on-chain code, `engine/` for backend.
+
+## Attack vectors
+
+| # | Attack vector | Category | Result | Notes |
+|---|---|---|---|---|
+| 1 | Double-slash the same proof (repeated slashing) | Contract | RESIST | `stake-slashing` tracks each `proof_id` in `SLASHED_DICT`; second attempt reverts. |
+| 2 | U512 overflow / underflow in staking amounts | Contract | RESIST | All amount ops use `checked_add` / `checked_sub` in stake-slashing + proof-registry. |
+| 3 | Unauthorized proof revocation | Contract | RESIST | `revoke` requires `caller == submitter`; enforced via `get_caller()` check. |
+| 4 | Whitelisting bypass in `defi-mock` | Contract | RESIST | Only the admin account can call `grant_access` *(corrected 2026-07-18: function is `grant_access`, not `add_to_whitelist`)*; verified `caller == admin` check reverts `ERR_UNAUTHORIZED` otherwise. |
+| 5 | Verifier-gate rate-limit exhaustion | Contract | RESIST | `MAX_VERIFY_PER_BLOCK = 100` per-block counter; further calls in the same block revert. |
+| 6 | Aggregation batch replay | Contract | PARTIAL | `proof-aggregation` uses monotonic `batch_id`; verify path could benefit from an on-chain committed root. Roadmap: Merkle-root anchoring. |
+| 7 | Fake ZK Groth16 proof submission | Backend | RESIST | `engine/pkg/zk` runs gnark BN254 MiMC circuit; invalid proofs rejected pre-chain. |
+| 8 | ZK circuit input smuggling (out-of-range preimage) | Backend | RESIST | `groth16-real` handler validates decimal preimage; malformed input returns 400. |
+| 9 | PQ signature forgery (ML-DSA-65) | Backend | RESIST | Ed25519+ML-DSA-65 hybrid verification; either verify fails → whole sig fails. |
+| 10 | Lamport-OTS one-time key reuse | Backend | RESIST | Key-usage bit set on first sign; second sign with the same key returns error. |
+| 11 | KYC gating bypass (fake proof_id) | Backend | RESIST | `/kyc/check` requires an existing proof_id; unknown IDs return 404, no whitelist toggle. |
+| 12 | API rate-limit bypass | Backend | PARTIAL | Per-IP token-bucket in middleware; no per-account throttle yet (no accounts). Roadmap: auth-scoped limits. |
+| 13 | CORS abuse from arbitrary origin | Backend | RESIST | *(corrected 2026-07-18: `corsMiddleware` in `server.go` actually hardcodes `Access-Control-Allow-Origin: *` — there is no `CORS_ALLOW_ORIGINS` allow-list env var in the codebase, that claim was inaccurate. It's still safe today only because `Access-Control-Allow-Credentials` is never set, so browsers won't attach cookies/credentials to wildcard-origin requests — RESIST for the current no-cookie-auth design, but re-verify this row if cookie-based sessions are ever added.)* |
+| 19 | Mutating-endpoint auth silently disabled | Backend | PARTIAL | `authMiddleware` requires `X-API-Key` on non-GET/HEAD requests **only if the `API_KEY` env var is set**; if it's unset, every request passes through unauthenticated with no error/warning. Documented in code as an intentional demo default — confirm `API_KEY` is actually set on the Render production deployment before submission, since an unset var silently degrades to "no auth" rather than failing loud. |
+| 14 | Secret exfiltration via logs | Backend | RESIST | slog structured logging + explicit field allow-list; verified via TruffleHog CI on every push. |
+| 15 | XSS through user-controlled fields (proof metadata) | Frontend | RESIST | React auto-escapes; zero `dangerouslySetInnerHTML`; verified via grep in CI-worthy check. |
+| 16 | Broken clipboard permission (CopyButton fallback path) | Frontend | RESIST | `navigator.clipboard.writeText` primary, `document.execCommand('copy')` fallback for older browsers. |
+| 17 | Wallet phishing via lookalike origin | Infra | PARTIAL | Frontend enforces HTTPS + CSPR.click origin check on connect; user-side education still needed. |
+| 18 | Dependency-confusion supply-chain (Go/npm/Cargo) | Infra | RESIST | Dependabot enabled for Go, npm, Cargo, GitHub Actions; lockfiles committed for reproducibility. |
+
+## Mitigations still to ship (before v1.0)
+
+- **#6** — anchor aggregation batches to a Merkle root committed on-chain; verify against the root instead of trusting the sequencer.
+- **#12** — introduce lightweight per-account (or per-API-key) throttle once accounts exist; the current per-IP limit is a floor, not a ceiling.
+- **#17** — publish a signed `.well-known/security.txt` + document the canonical origin in every wallet connect prompt.
+
+## Methodology
+
+Each vector was walked through with a "what would I do as an attacker" pass over the
+relevant code path (contract entry-point / API handler / React component). Anything
+that would require > 1 fix line was downgraded from RESIST to PARTIAL and a mitigation
+was written into the roadmap. No OPEN vectors were left on the table.

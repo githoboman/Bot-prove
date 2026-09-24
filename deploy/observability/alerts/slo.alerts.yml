@@ -1,0 +1,108 @@
+# CasperProver — multi-window burn-rate SLO alerts
+#
+# Based on the SRE workbook ("Alerting on SLOs", ch. 5). Two windows per
+# severity ensure we do not page on transient blips (short window) unless
+# a sustained trend confirms it (long window).
+#
+# Availability SLO: 99.5% over 30d  -> error budget = 0.5% of requests
+# Latency SLO:      p95 <= 750ms over 30d
+#
+# Burn-rate multipliers (30d window):
+#   fast page:   14.4x (burns 2%  of budget in 1h)   -> pair 1h/5m
+#   slow ticket: 6x    (burns 5%  of budget in 6h)   -> pair 6h/30m
+#   day ticket:  3x    (burns 10% of budget in 1d)   -> pair 1d/2h    (informational)
+#   trend:       1x    (burns 100% of budget in 30d) -> pair 3d/6h    (informational)
+groups:
+  - name: casperprover_slo_availability
+    rules:
+      - alert: CPAvailabilityErrorBudgetBurnFast
+        expr: |
+          (
+            cp:sli_error_ratio:1h > (14.4 * 0.005)
+            and
+            cp:sli_error_ratio:5m > (14.4 * 0.005)
+          )
+        for: 2m
+        labels:
+          severity: page
+          slo: availability
+          burnrate_window: 1h/5m
+        annotations:
+          summary: "CasperProver availability burning error budget fast (route {{ $labels.route }})"
+          description: |
+            Route {{ $labels.route }} is burning the 30d error budget at 14.4x
+            (>2% of budget/hour). Sustained over both 1h and 5m windows.
+            Runbook: docs/OPS_RUNBOOKS.md#availability-burn-fast
+
+      - alert: CPAvailabilityErrorBudgetBurnSlow
+        expr: |
+          (
+            cp:sli_error_ratio:6h > (6 * 0.005)
+            and
+            cp:sli_error_ratio:1h > (6 * 0.005)
+          )
+        for: 15m
+        labels:
+          severity: ticket
+          slo: availability
+          burnrate_window: 6h/1h
+        annotations:
+          summary: "CasperProver availability slow burn (route {{ $labels.route }})"
+          description: |
+            Route {{ $labels.route }} sustained >5%/6h budget burn.
+            Runbook: docs/OPS_RUNBOOKS.md#availability-burn-slow
+
+  - name: casperprover_slo_latency
+    rules:
+      - alert: CPLatencyErrorBudgetBurnFast
+        expr: |
+          (
+            cp:sli_latency_p95:1h > (0.75 * 2)
+            and
+            cp:sli_latency_p95:5m > (0.75 * 2)
+          )
+        for: 2m
+        labels:
+          severity: page
+          slo: latency
+          burnrate_window: 1h/5m
+        annotations:
+          summary: "CasperProver p95 latency far above SLO on {{ $labels.route }}"
+          description: |
+            p95 latency on {{ $labels.route }} is >2x the 750ms SLO on
+            both 1h and 5m windows.
+            Runbook: docs/OPS_RUNBOOKS.md#latency-burn-fast
+
+      - alert: CPLatencyErrorBudgetBurnSlow
+        expr: |
+          (
+            cp:sli_latency_p95:6h > 0.75
+            and
+            cp:sli_latency_p95:1h > 0.75
+          )
+        for: 30m
+        labels:
+          severity: ticket
+          slo: latency
+          burnrate_window: 6h/1h
+        annotations:
+          summary: "CasperProver p95 latency above SLO on {{ $labels.route }}"
+          description: |
+            p95 latency on {{ $labels.route }} sustained above 750ms SLO
+            over 6h and 1h windows.
+            Runbook: docs/OPS_RUNBOOKS.md#latency-burn-slow
+
+  - name: casperprover_infra_saturation
+    rules:
+      - alert: CPHTTPInFlightSaturation
+        expr: max by (route) (http_requests_in_flight) > 128
+        for: 5m
+        labels:
+          severity: ticket
+          category: saturation
+        annotations:
+          summary: "CasperProver HTTP in-flight concurrency saturating on {{ $labels.route }}"
+          description: |
+            In-flight requests >128 for 5m. Consider scaling the green
+            replica set (see blue/green playbook).
+            Runbook: docs/OPS_RUNBOOKS.md#saturation

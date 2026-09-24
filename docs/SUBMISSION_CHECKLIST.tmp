@@ -1,0 +1,74 @@
+<!-- GENERATED TEMPLATE
+Purpose: DoraHacks submission tracker for CasperProver — Casper Agentic Buildathon 2026
+Usage: Review content, remove this header, rename to SUBMISSION_CHECKLIST.md
+Remove when: After review and rename
+-->
+
+# CasperProver — DoraHacks Submission Checklist
+
+Casper Agentic Buildathon 2026. Track every judging criterion before submission.
+
+## Technical excellence
+- [ ] `go test ./...` — all backend tests pass
+- [ ] `cargo test --workspace` — all Rust contract tests pass
+- [ ] `frontend/`: `npm run build` — no TypeScript errors, no ESLint blockers
+- [ ] `verify.sh` — 8/8 checks green
+- [ ] CI on `main`: `check.yml`, `verify.yml`, `secret-scan.yml` — all green (badges in README)
+- [ ] `docs/openapi.yaml` current — matches actual `/proofs`, `/kyc/check`, `/pq/sign-sphincs`, `/inference/*` shapes
+
+## Innovation
+- [ ] ZK Groth16 proofs verified on-chain (gnark BN254)
+- [ ] Post-quantum crypto — ML-DSA-65 (SPHINCS+ legacy name kept for API compat) + Lamport-OTS
+- [ ] Proof aggregation batches — cheaper on-chain settlement
+- [ ] ABSTAIN verdict pattern (documented in `docs/AI_DECISIONS.md`)
+
+## AI / Agentic
+- [ ] AI inference proof pipeline — model registry, deterministic execution attestation
+- [ ] Model registry contract deployed + entry-points listed on Evidence page
+- [ ] Agent identity: proof submitter tracked on-chain via registry
+
+## Real-world value
+- [ ] KYC gating for DeFi (proof-of-KYC without disclosing identity) — `/kyc/check`
+- [ ] Stake-slashing for accountability (proof-registry + stake-slashing contracts)
+- [ ] Insurance-style claim path documented
+
+## UX
+- [ ] Lab playground (`/lab/playground`) — try live proof generation
+- [ ] Mobile responsive — sidebar overlay, hamburger, backdrop dismiss
+- [ ] Skeleton loaders on Overview + Proofs (no bare "Loading…" text)
+- [ ] Empty states on list views (Proofs, Models, Aggregation, KYC)
+- [ ] Copy-to-clipboard on every hash / proof ID / contract address
+- [ ] ErrorBoundary auto-resets on route change
+
+## Contracts
+- [ ] 4 contracts deployed on Casper testnet (documented in `frontend/public/onchain.json`)
+- [ ] Additional 4 in `/contracts/` awaiting deployment slot (roadmap-tagged)
+- [ ] Every deployed contract linked to CSPR.cloud verification + entry_points on Evidence page
+
+## Launch plans
+- [ ] Telegram community: https://t.me/casperprover (placeholder — replace with real handle before submission)
+- [ ] X / Twitter: https://x.com/casperprover (placeholder)
+- [ ] Roadmap section in README + `ROADMAP.md`
+- [ ] Social icons in footer
+
+## Long-term
+- [ ] Post-quantum readiness path in `docs/PQ_READINESS.md`
+- [ ] Multi-chain notes (which parts port cleanly, which need re-implementation)
+- [ ] Governance DAO story (staking → voting, slashing → accountability)
+
+## Submission form (DoraHacks BUIDL)
+- [ ] BUIDL name: `CasperProver`
+- [ ] One-liner: cryptographic proofs for AI agent decisions, anchored on Casper Network
+- [ ] Track: Casper Agentic Buildathon 2026
+- [ ] Demo video URL:
+- [ ] Live site URL: https://casperprover.xyz
+- [ ] GitHub URL: https://github.com/anna-stolbovskaja/CasperProver
+- [ ] Screenshots (3+): Lab overview · Proofs table · Evidence page
+
+## Final review
+- [ ] `README.md` mentions every deployed contract + status badges
+- [ ] `CHANGELOG.md` current
+- [ ] `docs/RED_TEAM.md` present (self-audit table)
+- [ ] `SECURITY.md` present (threat model)
+- [ ] No `.tmp` files remaining in repo (all reviewed + renamed or deleted)
+- [ ] No secrets in git history (TruffleHog CI green)

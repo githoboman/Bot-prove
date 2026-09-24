@@ -1,0 +1,327 @@
+<!-- GENERATED TEMPLATE
+Purpose: Curl-first API reference for all 32 backend endpoints. Complements the
+         auto-generated OpenAPI (docs/openapi.yaml) with copy-paste curl examples
+         grouped by module — the shape a human reader actually needs at 2 AM.
+Usage: Review each block, cross-check against engine/internal/api/server.go, then
+       remove this header and rename to docs/API.md. Link from README's
+       "Developers" section (next to `/docs/api` for the rendered version).
+Remove when: After review and rename
+-->
+
+# CasperProver API Reference
+
+Base URL (prod): `https://casperprover-api-ylsh.onrender.com`
+Base URL (local): `http://localhost:8080`
+
+All endpoints return JSON. Errors follow `{ "error": "…" }` shape with the
+appropriate HTTP status (400 malformed, 401 auth, 404 missing, 429 rate-limit,
+500 internal).
+
+**32 endpoints** across 7 modules: core / kyc / inference / aggregation / zk /
+proof-chain / pq.
+
+---
+
+## Core (9)
+
+### `GET /health`
+Liveness. No auth. Returns build hash + node status.
+
+```bash
+curl -s $API/health
+```
+
+### `GET /stats`
+Aggregate counters — total proofs, unique agents, last-block seen.
+
+```bash
+curl -s $API/stats
+```
+
+### `GET /proofs`
+Paginated proof list. Query params: `limit` (default 50, max 200), `cursor`.
+
+```bash
+curl -s "$API/proofs?limit=25"
+```
+
+### `GET /proofs/{id}`
+Single proof by ID. 404 if unknown.
+
+```bash
+curl -s $API/proofs/prf_abc123
+```
+
+### `POST /proofs`
+Submit a new proof. **NOTE:** endpoint is `/proofs`, not `/prove`.
+
+```bash
+curl -s -X POST $API/proofs \
+  -H 'content-type: application/json' \
+  -d '{"agent":"<pubkey>","claim":"<sha256>","evidence":"<base64>"}'
+```
+
+### `POST /proofs/batch`
+Submit up to 100 proofs in one call.
+
+```bash
+curl -s -X POST $API/proofs/batch \
+  -H 'content-type: application/json' \
+  -d '{"proofs":[{"agent":"…","claim":"…"},{"agent":"…","claim":"…"}]}'
+```
+
+### `POST /verify`
+Verify a proof's signature + merkle path without submitting.
+
+```bash
+curl -s -X POST $API/verify \
+  -H 'content-type: application/json' \
+  -d '{"proof_id":"prf_abc123"}'
+```
+
+### `POST /proofs/{id}/revoke`
+Revoke a proof. Caller must equal original submitter.
+
+```bash
+curl -s -X POST $API/proofs/prf_abc123/revoke \
+  -H 'content-type: application/json' \
+  -d '{"reason":"invalidated by later evidence"}'
+```
+
+### `GET /proofs/{id}/export`
+Export a proof + all attestations as a signed JSON bundle.
+
+```bash
+curl -s $API/proofs/prf_abc123/export > proof_bundle.json
+```
+
+---
+
+## KYC (3)
+
+### `POST /kyc/check`
+Check KYC status for a given proof. **Requires `proof_id`** (not user address).
+
+```bash
+curl -s -X POST $API/kyc/check \
+  -H 'content-type: application/json' \
+  -d '{"proof_id":"prf_abc123"}'
+```
+
+### `POST /kyc/grant`
+Owner-only. Grant KYC-passed status to a user address.
+
+```bash
+curl -s -X POST $API/kyc/grant \
+  -H 'content-type: application/json' \
+  -d '{"user":"<32-byte-hex>","level":"tier1"}'
+```
+
+### `GET /kyc/whitelist/{user}`
+Read-only. Whitelist status for a specific user.
+
+```bash
+curl -s $API/kyc/whitelist/0011..ff
+```
+
+---
+
+## Inference (4)
+
+### `POST /inference/prove`
+Generate a proof for a model output given deterministic inputs.
+
+```bash
+curl -s -X POST $API/inference/prove \
+  -H 'content-type: application/json' \
+  -d '{"model_id":"mdl_xyz","input":"base64…","output":"base64…"}'
+```
+
+### `POST /inference/verify`
+Verify an inference proof against the registered model.
+
+```bash
+curl -s -X POST $API/inference/verify \
+  -H 'content-type: application/json' \
+  -d '{"proof_id":"inf_abc"}'
+```
+
+### `POST /inference/register-model`
+Register a model's weights hash + entry-point spec. Returns `model_id`.
+
+```bash
+curl -s -X POST $API/inference/register-model \
+  -H 'content-type: application/json' \
+  -d '{"name":"mnist-cnn-v1","weights_hash":"sha256:…","entry":"predict"}'
+```
+
+### `GET /inference/model/{id}`
+Read a registered model.
+
+```bash
+curl -s $API/inference/model/mdl_xyz
+```
+
+---
+
+## Aggregation (5)
+
+### `POST /aggregation/create-batch`
+Open a new proof-aggregation batch. Returns `batch_id`.
+
+```bash
+curl -s -X POST $API/aggregation/create-batch \
+  -H 'content-type: application/json' \
+  -d '{"label":"nightly-run-2026-07-18"}'
+```
+
+### `POST /aggregation/add-proof`
+Add a proof to an open batch.
+
+```bash
+curl -s -X POST $API/aggregation/add-proof \
+  -H 'content-type: application/json' \
+  -d '{"batch_id":"agg_001","proof_id":"prf_abc123"}'
+```
+
+### `POST /aggregation/finalize`
+Seal a batch — compute merkle root, ready for on-chain anchor.
+
+```bash
+curl -s -X POST $API/aggregation/finalize \
+  -H 'content-type: application/json' \
+  -d '{"batch_id":"agg_001"}'
+```
+
+### `GET /aggregation/batch/{id}`
+Read batch metadata + status.
+
+```bash
+curl -s $API/aggregation/batch/agg_001
+```
+
+### `GET /aggregation/verify-batch/{id}`
+Verify a finalized batch's merkle root against the on-chain anchor.
+
+```bash
+curl -s $API/aggregation/verify-batch/agg_001
+```
+
+---
+
+## ZK (6)
+
+### `POST /zk/verify-groth16`
+Verify a Groth16 proof (BN254). Simulated verifier — see `/zk/groth16-real/verify` for gnark path.
+
+```bash
+curl -s -X POST $API/zk/verify-groth16 \
+  -H 'content-type: application/json' \
+  -d '{"proof":"…","public_inputs":["…"]}'
+```
+
+### `POST /zk/batch-verify`
+Verify multiple ZK proofs in one call.
+
+```bash
+curl -s -X POST $API/zk/batch-verify \
+  -H 'content-type: application/json' \
+  -d '{"proofs":[{"proof":"…","public_inputs":["…"]}]}'
+```
+
+### `POST /zk/groth16-real/prove`
+Real gnark Groth16 prover over MiMC hash. **Expects `preimage` as decimal string.**
+
+```bash
+curl -s -X POST $API/zk/groth16-real/prove \
+  -H 'content-type: application/json' \
+  -d '{"preimage":"42"}'
+```
+
+### `POST /zk/groth16-real/verify`
+Real gnark Groth16 verifier for the MiMC circuit.
+
+```bash
+curl -s -X POST $API/zk/groth16-real/verify \
+  -H 'content-type: application/json' \
+  -d '{"proof":"<base64>","hash":"<field-element-decimal>"}'
+```
+
+### `POST /zk/challenge`
+Open a ZK-challenge session. Returns `challenge_id`.
+
+```bash
+curl -s -X POST $API/zk/challenge \
+  -H 'content-type: application/json' \
+  -d '{"scheme":"schnorr","statement":"…"}'
+```
+
+### `GET /zk/challenge/{id}`
+Read a challenge's state.
+
+```bash
+curl -s $API/zk/challenge/chal_001
+```
+
+---
+
+## Proof-chain (1)
+
+### `POST /proof-chain/validate`
+Validate a chain of derived proofs (proof-of-proof-of-…). Returns per-link status.
+
+```bash
+curl -s -X POST $API/proof-chain/validate \
+  -H 'content-type: application/json' \
+  -d '{"proof_ids":["prf_a","prf_b","prf_c"]}'
+```
+
+---
+
+## Post-quantum (4)
+
+### `POST /pq/sign-sphincs`
+Post-quantum sign. **Legacy name — the actual algorithm is Lamport-OTS.**
+
+```bash
+curl -s -X POST $API/pq/sign-sphincs \
+  -H 'content-type: application/json' \
+  -d '{"message":"<base64>","key_id":"lamport_k001"}'
+```
+
+### `POST /pq/verify-sphincs`
+Verify a Lamport-OTS signature (`sign-sphincs` name kept for API compat).
+
+```bash
+curl -s -X POST $API/pq/verify-sphincs \
+  -H 'content-type: application/json' \
+  -d '{"message":"<base64>","signature":"<base64>","pubkey":"<base64>"}'
+```
+
+### `POST /pq/hybrid-sign`
+Hybrid Ed25519 + ML-DSA-65 signature (both must verify to be valid).
+
+```bash
+curl -s -X POST $API/pq/hybrid-sign \
+  -H 'content-type: application/json' \
+  -d '{"message":"<base64>"}'
+```
+
+### `POST /pq/hybrid-verify`
+Verify a hybrid signature.
+
+```bash
+curl -s -X POST $API/pq/hybrid-verify \
+  -H 'content-type: application/json' \
+  -d '{"message":"<base64>","signature":"<base64>","pubkey_ed25519":"…","pubkey_mldsa":"…"}'
+```
+
+---
+
+## Notes
+
+- `GET /agents` **does not exist.** Agent identity is embedded in each proof's `agent` field.
+- Rate-limit: 100 req/min per IP (429 on breach). Roadmap: per-account throttle.
+- CORS: allow-list via `CORS_ALLOW_ORIGINS` env var. No `*` in prod.
+- Auth: no per-endpoint auth today; write endpoints will migrate to signed-request auth in v1.3.
+- OpenAPI spec: `docs/openapi.yaml` (auto-generated, source of truth for shapes).

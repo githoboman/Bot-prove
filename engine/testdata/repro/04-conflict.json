@@ -1,0 +1,39 @@
+{
+  "name": "04-conflict",
+  "kind": "conflict",
+  "request": {
+    "agent_id": "kyc-agent-001",
+    "action": "loan_decision",
+    "amount_bps": 5000,
+    "borrower_hash": "9c56cc51b374c3ba189210d5b6d4bf57790d351c96c47c02190ecf1e430635ab",
+    "signals": {
+      "credit_score": 780,
+      "income_verified": true,
+      "kyc_tier": "L2",
+      "duplicate_id": "req-42"
+    }
+  },
+  "response": {
+    "verdict": "REJECT",
+    "risk_tier": "MEDIUM",
+    "reasoning_hash": "abcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabcabca",
+    "reason_code": "IDEMPOTENCY_CONFLICT"
+  },
+  "chain": [
+    {
+      "kind": "decision.request",
+      "request_sha256": "",
+      "response_sha256": ""
+    },
+    {
+      "kind": "decision.conflict",
+      "request_sha256": "",
+      "response_sha256": ""
+    }
+  ],
+  "expected": {
+    "request_sha256": "80d1c68915a2a8171a61cf37e7cd50d0c7d5161723dd28086614b548115a69d9",
+    "response_sha256": "827d42ee6427817c48d687be4fcc2b941b937dd46ed0f1fcb93db4ada2edb0aa",
+    "chain_root_sha256": "156ed10136332080edd518f2fad19554c53f73d8adfb2981c9d358770866f732"
+  }
+}

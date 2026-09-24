@@ -1,0 +1,49 @@
+# Local observability stack for CasperProver — opt-in, dev-only.
+#
+# Runs:
+#   * prometheus (scrapes engine's /metrics)
+#   * grafana    (pre-provisioned datasource + starter dashboard)
+#
+# All images are pinned by tag. All storage is bind-mounted to ./_data so the
+# stack is disposable: `docker compose down -v && rm -rf _data`.
+#
+# The stack ASSUMES the engine is running on the host at 127.0.0.1:8081 (or
+# the port set via CP_ENGINE_PORT). No secrets are used.
+
+version: "3.8"
+
+services:
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    container_name: cp-obs-prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./_data/prometheus:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=7d"
+      - "--web.enable-lifecycle"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  grafana:
+    image: grafana/grafana-oss:11.6.0
+    container_name: cp-obs-grafana
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: admin
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Viewer
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - ./_data/grafana:/var/lib/grafana
+    depends_on:
+      - prometheus

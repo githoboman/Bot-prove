@@ -1,0 +1,116 @@
+name: sdk-publish-npm
+
+# Publishes @casperprover/sdk to npm.
+#
+# CI mode: on every push/PR touching sdk/typescript/**, runs a full
+# `npm pack --dry-run` so a broken package.json / missing file / bad
+# tsconfig fails the PR. No npm auth required.
+#
+# Release mode: fired by a GitHub Release whose tag matches `sdk-ts-v*`
+# (which release-please cuts automatically for the sdk-ts component), or
+# manually via `workflow_dispatch` with `dry_run=false`. Requires the
+# repository secret `NPM_TOKEN` (an automation token with publish rights
+# on the @casperprover npm org). Publish job is gated on a GitHub
+# Environment (`npm-publish`) so a reviewer can hold releases.
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - "sdk/typescript/**"
+      - ".github/workflows/sdk-publish-npm.yml"
+  pull_request:
+    paths:
+      - "sdk/typescript/**"
+      - ".github/workflows/sdk-publish-npm.yml"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry-run only (no publish)"
+        type: boolean
+        default: true
+      tag:
+        description: "npm dist-tag (latest, next, beta, …)"
+        type: string
+        default: "latest"
+  release:
+    types: [published]
+
+concurrency:
+  group: sdk-publish-npm-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-and-verify:
+    name: build + dry-run pack
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"  # need >=22.6 for `node --test --experimental-strip-types`
+          registry-url: "https://registry.npmjs.org"
+      - name: Install build toolchain
+        working-directory: sdk/typescript
+        run: npm install --save-dev typescript@5
+      - name: Type-check + build
+        working-directory: sdk/typescript
+        run: npx tsc -p tsconfig.json
+      - name: Test
+        working-directory: sdk/typescript
+        run: node --test --experimental-strip-types src/client.test.ts
+      - name: Pack (dry-run)
+        working-directory: sdk/typescript
+        run: |
+          npm pack --dry-run 2>&1 | tee pack.log
+          # sanity: dist/ must actually be in the tarball
+          grep -q 'dist/index.js' pack.log
+          grep -q 'dist/index.d.ts' pack.log
+      - name: Verify version matches release tag
+        if: github.event_name == 'release' && startsWith(github.event.release.tag_name, 'sdk-ts-v')
+        working-directory: sdk/typescript
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          expected="${RELEASE_TAG#sdk-ts-v}"
+          actual=$(node -p "require('./package.json').version")
+          if [ "$expected" != "$actual" ]; then
+            echo "release tag $RELEASE_TAG expects version $expected but package.json has $actual" >&2
+            exit 1
+          fi
+
+  publish:
+    name: publish to npm
+    needs: build-and-verify
+    if: |
+      (github.event_name == 'release' &&
+        startsWith(github.event.release.tag_name, 'sdk-ts-v') &&
+        github.event.release.prerelease == false) ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run == 'false')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # for npm provenance
+    environment:
+      name: npm-publish
+      url: https://www.npmjs.com/package/@casperprover/sdk
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          registry-url: "https://registry.npmjs.org"
+      - name: Install + build
+        working-directory: sdk/typescript
+        run: |
+          npm install --save-dev typescript@5
+          npx tsc -p tsconfig.json
+      - name: npm publish
+        working-directory: sdk/typescript
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          tag="${{ github.event.inputs.tag || 'latest' }}"
+          npm publish --provenance --access public --tag "$tag"

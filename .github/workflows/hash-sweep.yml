@@ -1,0 +1,24 @@
+name: hash-sweep
+
+# Guards against stale deployed-contract hashes leaking back into the tree as
+# ACTIVE references (i.e. as if they were the current live address).
+#
+# Historical mentions ("old X was superseded by Y") are fine — the whole point
+# of the codebase knowing what changed. What we're blocking is a stale hash
+# being used as the canonical contract address anywhere.
+#
+# See .github/workflows/hash-sweep.sh for the runnable check and the rule.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  hash-sweep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan for superseded contract hashes
+        run: bash .github/workflows/hash-sweep.sh

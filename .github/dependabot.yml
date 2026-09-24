@@ -1,0 +1,43 @@
+version: 2
+updates:
+  - package-ecosystem: gomod
+    directory: /engine
+    schedule:
+      interval: weekly
+  - package-ecosystem: gomod
+    directory: /sdk
+    schedule:
+      interval: weekly
+  # react / react-dom pinned to 18.x: @make-software/csprclick-ui@2.1.0
+  # pins react-dom@18.3.1 exact (not a range), so a major bump to 19.x
+  # breaks `npm ci` with ERESOLVE and cascades into failed Vercel preview
+  # deploys (PRs #31, #32 on 2026-07-29). Ignoring major bumps until
+  # csprclick-ui ships a React 19-compatible release.
+  - package-ecosystem: npm
+    directory: /frontend
+    schedule:
+      interval: weekly
+    ignore:
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/react-dom"
+        update-types: ["version-update:semver-major"]
+  # casper-types pinned to 6.0 to match on-chain-deployed bytecode / test
+  # harness. A dependabot major bump to 7.x broke CI on the sibling AE402
+  # repo (2026-07-27/28, commit ba8bf44); never merged here but ignoring it
+  # proactively. Patch bumps only.
+  - package-ecosystem: cargo
+    directory: /contracts
+    schedule:
+      interval: weekly
+    ignore:
+      - dependency-name: "casper-types"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

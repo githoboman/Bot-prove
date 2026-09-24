@@ -1,0 +1,67 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:11a8b1f8-7d4a-4630-bca0-b50ac533f181",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-07-23T12:06:19+03:00",
+    "tools": [
+      {
+        "vendor": "CycloneDX",
+        "name": "cyclonedx-gomod",
+        "version": "v1.10.0",
+        "hashes": [
+          {
+            "alg": "MD5",
+            "content": "8408ce5b17582e054fa716debfa5dca6"
+          },
+          {
+            "alg": "SHA-1",
+            "content": "a8db1fb6375fe581a5dac708e33b06827e4fc1f0"
+          },
+          {
+            "alg": "SHA-256",
+            "content": "e0b0aa757a986d3a03687ede17388acbd0dc30e3398ca38784b45c61910526d7"
+          },
+          {
+            "alg": "SHA-384",
+            "content": "2bae6ff691936cde69e31cdc25686d41a5996e61a4647ab7803e409ea522ef3da9ac37d7c9f5d8269342b4b214cd799d"
+          },
+          {
+            "alg": "SHA-512",
+            "content": "7160c4b07a42cb4559251e7baf5791c2c48688d93d21acdb44d204a973eba6e134126d6b1aed733047f8139492732e90078dbcbb7a3f2e5fb6d5b2a6625b3ea7"
+          }
+        ],
+        "externalReferences": [
+          {
+            "url": "https://github.com/CycloneDX/cyclonedx-gomod",
+            "type": "vcs"
+          },
+          {
+            "url": "https://cyclonedx.org",
+            "type": "website"
+          }
+        ]
+      }
+    ],
+    "component": {
+      "bom-ref": "pkg:golang/github.com/anna-stolbovskaja/CasperProver/sdk@v1.2.1-0.20260708000304-aeef84c18b00?type=module",
+      "type": "application",
+      "name": "github.com/anna-stolbovskaja/CasperProver/sdk",
+      "version": "v1.2.1-0.20260708000304-aeef84c18b00",
+      "purl": "pkg:golang/github.com/anna-stolbovskaja/CasperProver/sdk@v1.2.1-0.20260708000304-aeef84c18b00?goarch=amd64\u0026goos=linux\u0026type=module",
+      "externalReferences": [
+        {
+          "url": "https://github.com/anna-stolbovskaja/CasperProver/sdk",
+          "type": "vcs"
+        }
+      ]
+    }
+  },
+  "dependencies": [
+    {
+      "ref": "pkg:golang/github.com/anna-stolbovskaja/CasperProver/sdk@v1.2.1-0.20260708000304-aeef84c18b00?type=module"
+    }
+  ]
+}

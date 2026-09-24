@@ -1,0 +1,31 @@
+# CasperProver — example Alertmanager configuration
+#
+# Local-only. Routes everything to a null webhook so alerts fire without
+# touching any paid pager. Swap `null` for pagerduty / opsgenie /
+# msteams / slack after investment lands (see MAINNET_LAUNCH_PLAN.md).
+
+route:
+  receiver: "null"
+  group_by: ["alertname", "route"]
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 3h
+  routes:
+    - matchers:
+        - severity = page
+      receiver: "null"
+      continue: true
+    - matchers:
+        - severity = ticket
+      receiver: "null"
+      continue: true
+
+receivers:
+  - name: "null"
+
+inhibit_rules:
+  - source_matchers:
+      - severity = page
+    target_matchers:
+      - severity = ticket
+    equal: ["route", "slo"]

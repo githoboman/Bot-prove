@@ -1,0 +1,31 @@
+{
+  "name": "bot-prove-web",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@make-software/csprclick-core-client": "^1.11.0",
+    "@make-software/csprclick-core-types": "^2.1.0",
+    "@make-software/csprclick-ui": "^2.1.0",
+    "casper-js-sdk": "^5.0.12",
+    "lucide-react": "^1.26.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.18.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^6.0.4",
+    "autoprefixer": "^10.5.4",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
+    "typescript": "~7.0.2",
+    "vite": "^8.1.5"
+  }
+}

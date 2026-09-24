@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSPR.click SDK's showTopBar:false is unreliable — hide it via CSS */
+.csprclick-top-bar { display: none !important; }
+#csprclick-ui { position: absolute; top: 0; left: 0; height: 0; overflow: visible; }
+
+/* Toast slide-in animation */
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(1rem) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-toast-in { animation: toast-in 0.25s ease-out; }
+
+@layer base {
+  * { box-sizing: border-box; }
+  html { -webkit-font-smoothing: antialiased; }
+  body { background: #080808; overflow-x: hidden; }
+  ::selection { background: rgba(229,57,53,0.3); color: #fff; }
+  :focus-visible { outline: 2px solid #E53935; outline-offset: 2px; border-radius: 4px; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: #080808; }
+  ::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
+}
+
+@layer components {
+  .cp-section { @apply w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+}
+
+/* Fire glow effect */
+@keyframes fire-glow {
+  0%, 100% { filter: drop-shadow(0 0 20px rgba(229,57,53,0.3)) drop-shadow(0 0 40px rgba(229,57,53,0.1)); }
+  50% { filter: drop-shadow(0 0 40px rgba(229,57,53,0.6)) drop-shadow(0 0 80px rgba(229,57,53,0.3)); }
+}
+@keyframes ember-rise {
+  0% { opacity: 0; transform: translateY(0) scale(0); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-80px) translateX(15px) scale(0.5); }
+}
+@keyframes scan {
+  0% { transform: translateY(100%); }
+  100% { transform: translateY(-100%); }
+}
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.4; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+/* Zoom-breathe for capabilities mascot */
+@keyframes zoom-breathe {
+  0%, 100% { transform: scaleX(-1) scale(1) translateY(0); }
+  50% { transform: scaleX(-1) scale(1.08) translateY(-8px); }
+}
+
+/* Floating blocks around hero mascot */
+@keyframes floatBlock {
+  0%, 100% { transform: translateY(0) translateZ(0) rotate(0deg); }
+  25% { transform: translateY(-12px) translateZ(10px) rotate(1.5deg); }
+  50% { transform: translateY(-6px) translateZ(-5px) rotate(-1deg); }
+  75% { transform: translateY(-15px) translateZ(8px) rotate(0.5deg); }
+}
+
+/* 404 page mascot floats */
+@keyframes float-left {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(-2deg); }
+}
+@keyframes float-right {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+.animate-fire-glow { animation: fire-glow 3s ease-in-out infinite; }
+.animate-ember { animation: ember-rise 2s ease-out infinite; }
+.animate-scan { animation: scan 4s linear infinite; }
+.animate-pulse-ring { animation: pulse-ring 2s ease-out infinite; }
+.animate-zoom-breathe { animation: zoom-breathe 4s ease-in-out infinite; }
+.animate-float-left { animation: float-left 5s ease-in-out infinite; }
+.animate-float-right { animation: float-right 4.5s ease-in-out infinite 0.8s; }

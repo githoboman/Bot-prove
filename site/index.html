@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BOT Chain Prover — Verifiable Agent Decision &amp; Attestation Layer</title>
+  <meta name="description" content="BOT Chain Prover generates cryptographic proofs of AI agent decisions — hashing inputs, outputs, model IDs and timestamps into Merkle trees anchored on BOT Chain." />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <a class="brand" href="./">BOT Chain Prover</a>
+      <div class="links">
+        <a href="#what">What</a>
+        <a href="#how">How</a>
+        <a href="#status">Status</a>
+        <a href="https://github.com/anna-stolbovskaja/CasperProver" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Cryptographic proofs of AI agent decisions.</h1>
+      <p class="lead">
+        Every input, output, model id and timestamp hashed into a Merkle
+        tree, anchored on BOT Chain. Verifiable in-browser,
+        auditable in seconds, tamper-evident by construction.
+      </p>
+      <div class="badges">
+        <span class="badge real">REAL</span>
+        <span class="badge onchain">ON-CHAIN</span>
+        <span class="badge sim">SIMULATION</span>
+      </div>
+      <p class="labelcap">
+        Every claim on this site carries one of these three labels.
+        We don't pretend a mock is real cryptography.
+      </p>
+      <div class="cta">
+        <a class="btn" href="https://github.com/anna-stolbovskaja/CasperProver">Read the code</a>
+        <a class="btn secondary" href="https://github.com/anna-stolbovskaja/CasperProver/blob/main/docs/QUICKSTART.md">2-minute Quickstart</a>
+      </div>
+    </section>
+
+    <section id="what">
+      <h2>What it is</h2>
+      <ul>
+        <li><b>Decision layer</b> — every AI agent decision is hashed with its inputs, outputs, model id and timestamp. <span class="badge real">REAL</span></li>
+        <li><b>Merkle provenance</b> — decisions batch into a Merkle tree with a single 32-byte root. <span class="badge real">REAL</span></li>
+        <li><b>BOT Chain anchor</b> — the root is committed on-chain as a public witness. <span class="badge onchain">ON-CHAIN</span></li>
+        <li><b>ZK add-on</b> — Groth16 proofs for selected decision predicates (opt-in). <span class="badge real">REAL</span></li>
+        <li><b>Client-side verify</b> — a browser can re-derive the root without any API call. <span class="badge real">REAL</span></li>
+      </ul>
+    </section>
+
+    <section id="how">
+      <h2>How it works</h2>
+      <ol>
+        <li>Your agent emits a decision — request/response/model/ts.</li>
+        <li>BOT Chain Prover hashes it canonically (SHA-256), redacting PII by policy.</li>
+        <li>Hashes batch into a Merkle tree; the root anchors on BOT Chain.</li>
+        <li>Anyone with the JSON receipt can re-derive the root — no server trust.</li>
+      </ol>
+    </section>
+
+    <section id="status">
+      <h2>Status</h2>
+      <ul>
+        <li><b>Hackathon MVP</b> — BOT Chain builder round, July 2026.</li>
+        <li><b>4 contracts</b> deployed on testnet; <b>3 more</b> implemented and CI-verified.</li>
+        <li>Live demo, judge guide, and reproducibility CLI in the repo.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 BOT Chain Prover contributors. Built for the BOT Chain hackathon.</p>
+  </footer>
+</body>
+</html>

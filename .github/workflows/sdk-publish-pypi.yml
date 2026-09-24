@@ -1,0 +1,128 @@
+name: sdk-publish-pypi
+
+# Publishes casperprover to PyPI.
+#
+# CI mode: on every push/PR touching sdk/python/**, builds the sdist +
+# wheel with `python -m build` and validates them with `twine check` so a
+# broken pyproject.toml / missing README fails the PR. No PyPI auth
+# required — Trusted Publishing (OIDC) is only used on release.
+#
+# Release mode: fired by a GitHub Release whose tag matches `sdk-py-v*`
+# (release-please cuts these for the sdk-py component), or manually via
+# `workflow_dispatch` with `dry_run=false`. Uses PyPI Trusted Publishing
+# (https://docs.pypi.org/trusted-publishers/) so there is NO long-lived
+# PYPI_API_TOKEN in the repo — a pypi.org project publisher config for
+# this repo + workflow file + environment authorises the upload via OIDC.
+# Gated on the `pypi-publish` GitHub Environment for review.
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - "sdk/python/**"
+      - ".github/workflows/sdk-publish-pypi.yml"
+  pull_request:
+    paths:
+      - "sdk/python/**"
+      - ".github/workflows/sdk-publish-pypi.yml"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry-run only (no publish)"
+        type: boolean
+        default: true
+      test_pypi:
+        description: "Publish to TestPyPI instead of PyPI"
+        type: boolean
+        default: false
+  release:
+    types: [published]
+
+concurrency:
+  group: sdk-publish-pypi-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-and-verify:
+    name: build + twine check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install build toolchain
+        run: python -m pip install --upgrade pip build twine
+      - name: Test
+        working-directory: sdk/python
+        run: python -m unittest casperprover.tests.test_client -v
+      - name: Build sdist + wheel
+        working-directory: sdk/python
+        run: python -m build
+      - name: twine check
+        working-directory: sdk/python
+        run: python -m twine check dist/*
+      - name: Sanity — wheel actually contains the package
+        working-directory: sdk/python
+        run: |
+          set -e
+          wheel=$(ls dist/*.whl | head -n1)
+          python -m zipfile -l "$wheel" | tee /tmp/wheel.list
+          grep -q 'casperprover/client.py' /tmp/wheel.list
+          grep -q 'casperprover/receipt.py' /tmp/wheel.list
+          # tests must NOT ship in the release wheel
+          if grep -q 'casperprover/tests' /tmp/wheel.list; then
+            echo "wheel contains tests/ — pyproject exclude is broken" >&2
+            exit 1
+          fi
+      - name: Verify version matches release tag
+        if: github.event_name == 'release' && startsWith(github.event.release.tag_name, 'sdk-py-v')
+        working-directory: sdk/python
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          expected="${RELEASE_TAG#sdk-py-v}"
+          actual=$(python -c "import tomllib,sys; print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")
+          if [ "$expected" != "$actual" ]; then
+            echo "release tag $RELEASE_TAG expects version $expected but pyproject.toml has $actual" >&2
+            exit 1
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pypi-dist
+          path: sdk/python/dist/*
+          if-no-files-found: error
+
+  publish:
+    name: publish to PyPI (trusted publisher / OIDC)
+    needs: build-and-verify
+    if: |
+      (github.event_name == 'release' &&
+        startsWith(github.event.release.tag_name, 'sdk-py-v') &&
+        github.event.release.prerelease == false) ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run == 'false')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # required for Trusted Publishing
+    environment:
+      name: pypi-publish
+      url: https://pypi.org/project/casperprover/
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: pypi-dist
+          path: dist
+      - name: Publish to TestPyPI
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.test_pypi == 'true'
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+          packages-dir: dist
+      - name: Publish to PyPI
+        if: github.event_name != 'workflow_dispatch' || github.event.inputs.test_pypi != 'true'
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist

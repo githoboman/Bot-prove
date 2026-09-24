@@ -1,0 +1,37 @@
+{
+  "name": "02-abstain",
+  "kind": "abstain",
+  "request": {
+    "agent_id": "kyc-agent-001",
+    "action": "loan_decision",
+    "amount_bps": 5000,
+    "borrower_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+    "signals": {
+      "credit_score": 0,
+      "income_verified": false,
+      "kyc_tier": "L0"
+    }
+  },
+  "response": {
+    "verdict": "ABSTAIN",
+    "risk_tier": "UNKNOWN",
+    "reasoning_hash": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "chain": [
+    {
+      "kind": "decision.request",
+      "request_sha256": "",
+      "response_sha256": ""
+    },
+    {
+      "kind": "decision.abstain",
+      "request_sha256": "",
+      "response_sha256": ""
+    }
+  ],
+  "expected": {
+    "request_sha256": "0246835c47a51151be482a8557926028c99b806185a50481ec2b12ce43916005",
+    "response_sha256": "d23fb5201e276e32f3268050cbf89226a6f8dc878427309962d8054baa5a3fce",
+    "chain_root_sha256": "5105d846ed509acf7e2582aa9ec815b6ae8e0d6b5f8b90609f65e354d275bcf7"
+  }
+}

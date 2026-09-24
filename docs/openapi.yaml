@@ -1,0 +1,617 @@
+openapi: 3.1.0
+info:
+  title: CasperProver API
+  description: |
+    ZK-proof engine for verifiable AI decisions on Casper Network.
+    32 endpoints covering proof generation, ZK verification, post-quantum
+    cryptography, batch aggregation, KYC gating, and proof-chain DAG validation.
+  version: 0.4.0
+  license:
+    name: MPL-2.0
+servers:
+  - url: https://casperprover-api-ylsh.onrender.com
+    description: Production (Casper testnet)
+  - url: http://localhost:9090
+    description: Local development
+tags:
+  - name: System
+    description: Health check and statistics
+  - name: Proofs
+    description: Proof lifecycle — create, list, verify, revoke, export, batch
+  - name: Inference
+    description: AI inference proof generation and model registry
+  - name: Aggregation
+    description: Batch aggregation with Merkle hash-chain
+  - name: ZK
+    description: Zero-knowledge proofs — Groth16 (BN254), batch verify, challenges
+  - name: PQ
+    description: Post-quantum cryptography — SPHINCS+, hybrid Ed25519+ML-DSA-65
+  - name: KYC
+    description: KYC whitelisting with proof-based access control
+  - name: Proof Chain
+    description: DAG validation for multi-step proof chains
+
+paths:
+  /health:
+    get:
+      tags: [System]
+      summary: Health check
+      operationId: health
+      responses:
+        '200':
+          description: Service status and contract addresses
+
+  /stats:
+    get:
+      tags: [System]
+      summary: Engine statistics
+      operationId: stats
+      responses:
+        '200':
+          description: Proof counts, agent stats, performance metrics
+
+  /proofs:
+    get:
+      tags: [Proofs]
+      summary: List proofs
+      operationId: listProofs
+      parameters:
+        - name: agent
+          in: query
+          schema: { type: string }
+        - name: page
+          in: query
+          schema: { type: integer, default: 1 }
+        - name: limit
+          in: query
+          schema: { type: integer, default: 10 }
+      responses:
+        '200':
+          description: Paginated proof list
+    post:
+      tags: [Proofs]
+      summary: Create a proof
+      operationId: submitProof
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [agent, model_hash, input_data]
+              properties:
+                agent: { type: string }
+                model_hash: { type: string }
+                input_data: { type: string }
+                use_case: { type: string }
+      responses:
+        '201':
+          description: Created proof with hash, Merkle root, and deploy hash
+
+  /proofs/batch:
+    post:
+      tags: [Proofs]
+      summary: Batch create proofs
+      operationId: batchProofs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                proofs:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      agent: { type: string }
+                      model_hash: { type: string }
+                      input_data: { type: string }
+                      use_case: { type: string }
+                mode: { type: string, enum: [parallel, sequential] }
+      responses:
+        '200':
+          description: Array of created proofs
+
+  /proofs/{id}:
+    get:
+      tags: [Proofs]
+      summary: Get proof by ID
+      operationId: getProof
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Proof details
+
+  /verify:
+    post:
+      tags: [Proofs]
+      summary: Verify a proof
+      operationId: verifyProof
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [proof_id]
+              properties:
+                proof_id: { type: string }
+      responses:
+        '200':
+          description: Verification result with Merkle path check
+
+  /proofs/{id}/revoke:
+    post:
+      tags: [Proofs]
+      summary: Revoke a proof
+      operationId: revokeProof
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Revocation confirmation
+
+  /proofs/{id}/export:
+    get:
+      tags: [Proofs]
+      summary: Export proof as portable bundle
+      operationId: exportProof
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Proof export with chain metadata
+
+  /inference/prove:
+    post:
+      tags: [Inference]
+      summary: Generate inference proof
+      operationId: inferenceProve
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [model_id, input_data, output_data, agent]
+              properties:
+                model_id: { type: string }
+                input_data: { type: string }
+                output_data: { type: string }
+                agent: { type: string }
+      responses:
+        '200':
+          description: Inference proof with model binding
+
+  /inference/verify:
+    post:
+      tags: [Inference]
+      summary: Verify inference proof
+      operationId: inferenceVerify
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [proof_id]
+              properties:
+                proof_id: { type: string }
+      responses:
+        '200':
+          description: Verification result
+
+  /inference/register-model:
+    post:
+      tags: [Inference]
+      summary: Register AI model
+      operationId: registerModel
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, hash, version]
+              properties:
+                name: { type: string }
+                hash: { type: string }
+                version: { type: string }
+                description: { type: string }
+      responses:
+        '201':
+          description: Registered model
+
+  /inference/model/{id}:
+    get:
+      tags: [Inference]
+      summary: Get model by ID
+      operationId: getModel
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Model details
+
+  /aggregation/create-batch:
+    post:
+      tags: [Aggregation]
+      summary: Create aggregation batch
+      operationId: createBatch
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [batch_id]
+              properties:
+                batch_id: { type: string }
+                max_proofs: { type: integer }
+      responses:
+        '201':
+          description: Created batch
+
+  /aggregation/add-proof:
+    post:
+      tags: [Aggregation]
+      summary: Add proof to batch
+      operationId: addProofToBatch
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [batch_id, proof_hash]
+              properties:
+                batch_id: { type: string }
+                proof_hash: { type: string }
+                leaf_index: { type: integer }
+      responses:
+        '200':
+          description: Updated batch
+
+  /aggregation/finalize:
+    post:
+      tags: [Aggregation]
+      summary: Finalize batch
+      operationId: finalizeBatch
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [batch_id]
+              properties:
+                batch_id: { type: string }
+      responses:
+        '200':
+          description: Finalized batch with computed hash chain
+
+  /aggregation/batch/{id}:
+    get:
+      tags: [Aggregation]
+      summary: Get batch by ID
+      operationId: getBatch
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Batch details
+
+  /aggregation/verify-batch/{id}:
+    get:
+      tags: [Aggregation]
+      summary: Verify batch integrity
+      operationId: verifyBatch
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Batch verification result
+
+  /zk/verify-groth16:
+    post:
+      tags: [ZK]
+      summary: Conceptual Groth16 verification
+      operationId: verifyGroth16
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [proof, vk_hash, public_inputs]
+              properties:
+                proof: { type: string }
+                vk_hash: { type: string }
+                public_inputs:
+                  type: array
+                  items: { type: string }
+      responses:
+        '200':
+          description: Verification result
+
+  /zk/batch-verify:
+    post:
+      tags: [ZK]
+      summary: Batch verify ZK proofs
+      operationId: batchVerifyZK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                proofs:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      proof: { type: string }
+                      public_inputs:
+                        type: array
+                        items: { type: string }
+      responses:
+        '200':
+          description: Batch verification results
+
+  /zk/groth16-real/prove:
+    post:
+      tags: [ZK]
+      summary: Real Groth16 prove (BN254 via gnark)
+      operationId: groth16RealProve
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [preimage]
+              properties:
+                preimage: { type: string }
+      responses:
+        '200':
+          description: Generated proof with verification key
+
+  /zk/groth16-real/verify:
+    post:
+      tags: [ZK]
+      summary: Real Groth16 verify
+      operationId: groth16RealVerify
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [hash, proof]
+              properties:
+                hash: { type: string }
+                proof: { type: string }
+      responses:
+        '200':
+          description: Pairing-based verification result
+
+  /zk/challenge:
+    post:
+      tags: [ZK]
+      summary: Create dispute challenge
+      operationId: challengeZK
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [proof_id, challenger_id]
+              properties:
+                proof_id: { type: string }
+                challenger_id: { type: string }
+                reason: { type: string }
+      responses:
+        '200':
+          description: Created challenge
+
+  /zk/challenge/{id}:
+    get:
+      tags: [ZK]
+      summary: Get challenge by ID
+      operationId: getChallenge
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Challenge details
+
+  /pq/sign-sphincs:
+    post:
+      tags: [PQ]
+      summary: Sign with SPHINCS+
+      operationId: signSphincs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [message]
+              properties:
+                message: { type: string }
+      responses:
+        '200':
+          description: SPHINCS+ signature and public key
+
+  /pq/verify-sphincs:
+    post:
+      tags: [PQ]
+      summary: Verify SPHINCS+ signature
+      operationId: verifySphincs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [message, signature_hex, public_key_hex]
+              properties:
+                message: { type: string }
+                signature_hex: { type: string }
+                public_key_hex: { type: string }
+      responses:
+        '200':
+          description: Verification result
+
+  /pq/hybrid-sign:
+    post:
+      tags: [PQ]
+      summary: Hybrid sign (Ed25519 + ML-DSA-65)
+      operationId: hybridSign
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [message]
+              properties:
+                message: { type: string }
+      responses:
+        '200':
+          description: Dual signature and public keys
+
+  /pq/hybrid-verify:
+    post:
+      tags: [PQ]
+      summary: Verify hybrid signature
+      operationId: hybridVerify
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [message, signature_hex, classic_public_key_hex, pq_public_key_hex]
+              properties:
+                message: { type: string }
+                signature_hex: { type: string }
+                classic_public_key_hex: { type: string }
+                pq_public_key_hex: { type: string }
+      responses:
+        '200':
+          description: Both-valid verification result
+
+  /kyc/check:
+    post:
+      tags: [KYC]
+      summary: Check KYC status
+      operationId: kycCheck
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [proof_id]
+              properties:
+                proof_id: { type: string }
+      responses:
+        '200':
+          description: KYC eligibility check result
+
+  /kyc/grant:
+    post:
+      tags: [KYC]
+      summary: Grant KYC access
+      operationId: kycGrant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [user, proof_id]
+              properties:
+                user: { type: string }
+                proof_id: { type: string }
+      responses:
+        '200':
+          description: Access granted
+
+  /kyc/whitelist/{user}:
+    get:
+      tags: [KYC]
+      summary: Get user whitelist status
+      operationId: kycWhitelist
+      parameters:
+        - name: user
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Whitelist entries for user
+
+  /proof-chain/validate:
+    post:
+      tags: [Proof Chain]
+      summary: Validate proof-chain DAG
+      operationId: validateProofChain
+      description: |
+        Validates a directed acyclic graph of linked proofs.
+        Checks: no cycles, input/output hash continuity between steps,
+        exactly one root, all parent references valid.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id: { type: string }
+                steps:
+                  type: array
+                  items:
+                    type: object
+                    required: [proof_id, parent_ids, model_hash, input_hash, output_hash, step_index]
+                    properties:
+                      proof_id: { type: string }
+                      parent_ids:
+                        type: array
+                        items: { type: string }
+                      model_hash: { type: string }
+                      input_hash: { type: string }
+                      output_hash: { type: string }
+                      step_index: { type: integer }
+      responses:
+        '200':
+          description: Valid chain with depth and status
+        '422':
+          description: Invalid chain — broken DAG

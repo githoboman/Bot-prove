@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CasperProver — equivocation & double-signing battery",
+  "description": "Fixtures for detecting agent equivocation: same agent produces two conflicting proofs for the same (model, input) pair. This is the ZK/multi-agent analog of double-spend / slashing offense. See stake-slashing contract for the on-chain enforcement.",
+  "generated_at": "2026-07-20",
+  "target_flow": "POST /inference/prove twice with same (agent, model_id, input) but different `output`",
+  "invariants": [
+    "Two proofs from the same agent for the same (model, input) with different outputs MUST be detectable as equivocation.",
+    "The equivocation detector MUST be deterministic — same pair of proofs always classified the same way.",
+    "Anchored proofs (with deploy_hash) MUST allow slashing via stake-slashing contract when equivocation is proven on-chain.",
+    "The detector MUST NOT flag benign non-determinism (different model_id, different input, different agent)."
+  ],
+  "cases": [
+    {
+      "id": "EQV-01",
+      "name": "textbook double-attestation",
+      "proof_a": {
+        "agent": "did:casper:agent-1",
+        "model_id": "gpt-x",
+        "input": "is BTC > $50k?",
+        "output": "yes"
+      },
+      "proof_b": {
+        "agent": "did:casper:agent-1",
+        "model_id": "gpt-x",
+        "input": "is BTC > $50k?",
+        "output": "no"
+      },
+      "expect": {
+        "equivocation": true,
+        "reason": "same (agent, model_id, input), different output"
+      }
+    },
+    {
+      "id": "EQV-02",
+      "name": "different agents — NOT equivocation",
+      "proof_a": {
+        "agent": "did:casper:agent-1",
+        "model_id": "gpt-x",
+        "input": "same-question",
+        "output": "yes"
+      },
+      "proof_b": {
+        "agent": "did:casper:agent-2",
+        "model_id": "gpt-x",
+        "input": "same-question",
+        "output": "no"
+      },
+      "expect": {
+        "equivocation": false,
+        "reason": "different agents may legitimately disagree — that's the point of multi-agent quorum"
+      }
+    },
+    {
+      "id": "EQV-03",
+      "name": "different models — NOT equivocation",
+      "proof_a": {
+        "agent": "did:casper:agent-1",
+        "model_id": "gpt-x-v1",
+        "input": "same-question",
+        "output": "yes"
+      },
+      "proof_b": {
+        "agent": "did:casper:agent-1",
+        "model_id": "gpt-x-v2",
+        "input": "same-question",
+        "output": "no"
+      },
+      "expect": {
+        "equivocation": false,
+        "reason": "different models are allowed to produce different answers"
+      }
+    },
+    {
+      "id": "EQV-04",
+      "name": "same output — NOT equivocation (idempotent re-submit)",
+      "proof_a": {
+        "agent": "did:casper:agent-1",
+        "model_id": "gpt-x",
+        "input": "same-question",
+        "output": "yes"
+      },
+      "proof_b": {
+        "agent": "did:casper:agent-1",
+        "model_id": "gpt-x",
+        "input": "same-question",
+        "output": "yes"
+      },
+      "expect": {
+        "equivocation": false,
+        "reason": "identical output = deterministic re-submission, benign"
+      }
+    },
+    {
+      "id": "EQV-05",
+      "name": "whitespace-only output diff",
+      "proof_a": {
+        "agent": "did:casper:agent-1",
+        "model_id": "gpt-x",
+        "input": "same-question",
+        "output": "yes"
+      },
+      "proof_b": {
+        "agent": "did:casper:agent-1",
+        "model_id": "gpt-x",
+        "input": "same-question",
+        "output": " yes"
+      },
+      "expect": {
+        "equivocation": true,
+        "reason": "we hash bytes, not semantics — any byte-level diff = potential equivocation; agent must sign canonical form"
+      }
+    },
+    {
+      "id": "EQV-06",
+      "name": "case-sensitivity",
+      "proof_a": {
+        "agent": "did:casper:agent-1",
+        "model_id": "gpt-x",
+        "input": "same-question",
+        "output": "YES"
+      },
+      "proof_b": {
+        "agent": "did:casper:agent-1",
+        "model_id": "gpt-x",
+        "input": "same-question",
+        "output": "yes"
+      },
+      "expect": {
+        "equivocation": true,
+        "reason": "byte-level diff — canonicalization is the agent's responsibility, not the verifier's"
+      }
+    }
+  ],
+  "on_chain_enforcement": {
+    "contract": "stake-slashing",
+    "entrypoint": "slash_equivocation",
+    "expected_flow": [
+      "1. Two conflicting proofs (proof_a.deploy_hash, proof_b.deploy_hash) submitted via /verify",
+      "2. Verifier confirms same (agent, model, input) but different output",
+      "3. slash_equivocation(proof_a_id, proof_b_id) called by any observer",
+      "4. Contract validates both proofs exist and conflict, deducts agent's stake, emits SlashedEvent",
+      "5. Slashed dict marks the (agent, model, input) tuple as burned — no re-slash possible"
+    ]
+  }
+}

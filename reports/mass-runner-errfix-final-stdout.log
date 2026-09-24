@@ -1,0 +1,9 @@
+report → /data/cp/repo/reports/mass-runner-errfix-final-2026-07-26T01-11-48-474Z.jsonl
+proofs read: 8
+live (non-revoked) proofs: P-298, P-299, P-302, P-303, P-304, P-305
+live per owner: {
+  anna: [ 'P-299', 'P-302', 'P-304' ],
+  dmo: [ 'P-298', 'P-303', 'P-305' ]
+}
+waiting 60s for finality...
+DONE. Report: /data/cp/repo/reports/mass-runner-errfix-final-2026-07-26T01-11-48-474Z.jsonl

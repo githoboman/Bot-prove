@@ -1,0 +1,37 @@
+{
+  "name": "01-approve",
+  "kind": "approve",
+  "request": {
+    "agent_id": "kyc-agent-001",
+    "action": "loan_decision",
+    "amount_bps": 5000,
+    "borrower_hash": "9c56cc51b374c3ba189210d5b6d4bf57790d351c96c47c02190ecf1e430635ab",
+    "signals": {
+      "credit_score": 780,
+      "income_verified": true,
+      "kyc_tier": "L2"
+    }
+  },
+  "response": {
+    "verdict": "APPROVE",
+    "risk_tier": "LOW",
+    "reasoning_hash": "3b1f6d8a52c8f9a17e0f0b47e6f2a55e0c1a2b3c4d5e6f708192a3b4c5d6e7f8"
+  },
+  "chain": [
+    {
+      "kind": "decision.request",
+      "request_sha256": "",
+      "response_sha256": ""
+    },
+    {
+      "kind": "decision.response",
+      "request_sha256": "",
+      "response_sha256": ""
+    }
+  ],
+  "expected": {
+    "request_sha256": "9347a595e7d3f103b35913071729bde933782f91057ba5094654f706f709fd69",
+    "response_sha256": "17d8c84839e38819e8b1042b4384ff463e70cee1400445b8290f1afb6c80d48f",
+    "chain_root_sha256": "26e7a5338a24f182bfb6f172b50d3dfc48f8feaff48c19e4691465086ec21825"
+  }
+}

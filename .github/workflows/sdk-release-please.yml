@@ -1,0 +1,37 @@
+name: sdk-release-please
+
+# release-please (Google, MIT, hosted-free) reads the Conventional Commits
+# history and opens a PR that:
+#   • bumps the version in every SDK's manifest
+#     (sdk/typescript/package.json, sdk/python/pyproject.toml,
+#      version.txt for the Go component)
+#   • regenerates the CHANGELOG.md for that SDK
+# When the PR is merged, release-please cuts a GitHub Release with the
+# right tag (`sdk-ts-vX.Y.Z`, `sdk-py-vX.Y.Z`, `sdk/vX.Y.Z`). The
+# per-language publish workflows in this repo are triggered by that
+# release event.
+#
+# semver enforcement: release-please refuses to cut a MAJOR bump unless
+# a `!` or `BREAKING CHANGE:` footer is present in the commit history
+# for that SDK. See .release-please-manifest.json + release-please-config.json.
+
+on:
+  push:
+    branches:
+      - main
+      - post-hackathon/roadmap
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          config-file: .release-please-config.json
+          manifest-file: .release-please-manifest.json
+          token: ${{ secrets.GITHUB_TOKEN }}

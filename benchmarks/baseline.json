@@ -1,0 +1,160 @@
+{
+  "generated_at": "2026-07-23T16:15:38.988166+00:00",
+  "go_version": "1.24",
+  "benchmarks": [
+    {
+      "name": "BenchmarkBuildTree/leaves=2-32",
+      "iterations": 1605885,
+      "ns_per_op": 754.5,
+      "bytes_per_op": 216.0,
+      "allocs_per_op": 5.0
+    },
+    {
+      "name": "BenchmarkBuildTree/leaves=8-32",
+      "iterations": 307696,
+      "ns_per_op": 3688.0,
+      "bytes_per_op": 1296.0,
+      "allocs_per_op": 27.0
+    },
+    {
+      "name": "BenchmarkBuildTree/leaves=32-32",
+      "iterations": 75112,
+      "ns_per_op": 14759.0,
+      "bytes_per_op": 5664.0,
+      "allocs_per_op": 107.0
+    },
+    {
+      "name": "BenchmarkBuildTree/leaves=128-32",
+      "iterations": 19903,
+      "ns_per_op": 60938.0,
+      "bytes_per_op": 23440.0,
+      "allocs_per_op": 408.0
+    },
+    {
+      "name": "BenchmarkBuildTree/leaves=512-32",
+      "iterations": 5174,
+      "ns_per_op": 245572.0,
+      "bytes_per_op": 95232.0,
+      "allocs_per_op": 1577.0
+    },
+    {
+      "name": "BenchmarkRoot/leaves=2-32",
+      "iterations": 1444092,
+      "ns_per_op": 874.0,
+      "bytes_per_op": 344.0,
+      "allocs_per_op": 7.0
+    },
+    {
+      "name": "BenchmarkRoot/leaves=8-32",
+      "iterations": 315883,
+      "ns_per_op": 4172.0,
+      "bytes_per_op": 1424.0,
+      "allocs_per_op": 29.0
+    },
+    {
+      "name": "BenchmarkRoot/leaves=32-32",
+      "iterations": 75474,
+      "ns_per_op": 15149.0,
+      "bytes_per_op": 5792.0,
+      "allocs_per_op": 109.0
+    },
+    {
+      "name": "BenchmarkRoot/leaves=128-32",
+      "iterations": 19722,
+      "ns_per_op": 60618.0,
+      "bytes_per_op": 23568.0,
+      "allocs_per_op": 410.0
+    },
+    {
+      "name": "BenchmarkRoot/leaves=512-32",
+      "iterations": 5036,
+      "ns_per_op": 245227.0,
+      "bytes_per_op": 95360.0,
+      "allocs_per_op": 1579.0
+    },
+    {
+      "name": "BenchmarkGetPath/leaves=2-32",
+      "iterations": 1387351,
+      "ns_per_op": 863.8,
+      "bytes_per_op": 352.0,
+      "allocs_per_op": 7.0
+    },
+    {
+      "name": "BenchmarkGetPath/leaves=8-32",
+      "iterations": 332702,
+      "ns_per_op": 3849.0,
+      "bytes_per_op": 1696.0,
+      "allocs_per_op": 22.0
+    },
+    {
+      "name": "BenchmarkGetPath/leaves=32-32",
+      "iterations": 76731,
+      "ns_per_op": 14960.0,
+      "bytes_per_op": 6560.0,
+      "allocs_per_op": 60.0
+    },
+    {
+      "name": "BenchmarkGetPath/leaves=128-32",
+      "iterations": 20552,
+      "ns_per_op": 59325.0,
+      "bytes_per_op": 24416.0,
+      "allocs_per_op": 173.0
+    },
+    {
+      "name": "BenchmarkGetPath/leaves=512-32",
+      "iterations": 5133,
+      "ns_per_op": 235471.0,
+      "bytes_per_op": 96672.0,
+      "allocs_per_op": 579.0
+    },
+    {
+      "name": "BenchmarkSHA256-32",
+      "iterations": 5346975,
+      "ns_per_op": 223.5,
+      "bytes_per_op": 0.0,
+      "allocs_per_op": 0.0
+    },
+    {
+      "name": "BenchmarkVerifyProof/payload=64B-32",
+      "iterations": 740364,
+      "ns_per_op": 1693.0,
+      "bytes_per_op": 1024.0,
+      "allocs_per_op": 15.0
+    },
+    {
+      "name": "BenchmarkVerifyProof/payload=1024B-32",
+      "iterations": 168188,
+      "ns_per_op": 6935.0,
+      "bytes_per_op": 3904.0,
+      "allocs_per_op": 15.0
+    },
+    {
+      "name": "BenchmarkVerifyProof/payload=65536B-32",
+      "iterations": 3537,
+      "ns_per_op": 341853.0,
+      "bytes_per_op": 197441.0,
+      "allocs_per_op": 15.0
+    },
+    {
+      "name": "BenchmarkGenerateProof/payload=64B-32",
+      "iterations": 213986,
+      "ns_per_op": 5915.0,
+      "bytes_per_op": 2671.0,
+      "allocs_per_op": 40.0
+    },
+    {
+      "name": "BenchmarkGenerateProof/payload=1024B-32",
+      "iterations": 87098,
+      "ns_per_op": 14622.0,
+      "bytes_per_op": 5562.0,
+      "allocs_per_op": 40.0
+    },
+    {
+      "name": "BenchmarkGenerateProof/payload=65536B-32",
+      "iterations": 2310,
+      "ns_per_op": 620483.0,
+      "bytes_per_op": 199512.0,
+      "allocs_per_op": 40.0
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://casperprover.xyz/schemas/onchain-manifest.v1.json",
+  "title": "CasperProver on-chain deployment manifest (canonical)",
+  "description": "Single source of truth for CP contract addresses, deployer, network, and generated-artifact list. Frontend/API/verify/docs read from this file (or from a build-time-generated copy).",
+  "type": "object",
+  "required": ["network", "project", "deployer", "contracts", "verification"],
+  "additionalProperties": true,
+  "properties": {
+    "$schema": {"type": "string"},
+    "generator": {
+      "type": "object",
+      "required": ["version", "sources_of_truth", "generated_copies"],
+      "properties": {
+        "version": {"type": "string"},
+        "sources_of_truth": {"type": "array", "items": {"type": "string"}},
+        "generated_copies": {"type": "array", "items": {"type": "string"}},
+        "description": {"type": "string"}
+      }
+    },
+    "network": {"type": "string", "enum": ["casper-test", "casper-mainnet"]},
+    "chain_name": {"type": "string"},
+    "project": {"type": "string"},
+    "deployer": {"type": "string", "pattern": "^0[123][0-9a-fA-F]+$"},
+    "explorer": {"type": "string", "format": "uri"},
+    "cspr_cloud": {"type": "string", "format": "uri"},
+    "contracts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["contract_hash", "deploy_hash", "source"],
+        "properties": {
+          "contract_hash": {"type": "string", "pattern": "^[0-9a-fA-F]{64}$"},
+          "contract_package_hash": {"type": "string", "pattern": "^[0-9a-fA-F]{64}$"},
+          "deploy_hash": {"type": "string", "pattern": "^[0-9a-fA-F]{64}$"},
+          "version": {"type": "integer", "minimum": 1},
+          "deployed_at": {"type": "string", "format": "date-time"},
+          "source": {"type": "string"},
+          "entry_points": {"type": "array", "items": {"type": "string"}},
+          "notes": {"type": "string"}
+        }
+      }
+    },
+    "undeployed_contracts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["source", "status"],
+        "properties": {
+          "source": {"type": "string"},
+          "status": {"type": "string", "enum": ["compiled", "wip", "planned"]},
+          "reason": {"type": "string"}
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "required": ["api_health", "frontend"],
+      "properties": {
+        "api_health": {"type": "string", "format": "uri"},
+        "frontend": {"type": "string", "format": "uri"},
+        "verify_script": {"type": "string"}
+      }
+    }
+  }
+}

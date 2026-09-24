@@ -1,0 +1,186 @@
+{
+    "network": "casper-test",
+    "chain_name": "casper-test",
+    "project": "Bot Prove",
+    "deployer_note": "All 8 canonical contracts are deployed by defi_mock_owner (public key 0202da6cfba1c1e595fdcd6539146611326e5506479d89dab735b252dc200b80f7e7, account-hash 84ff0a4692ddeaa2c2991b0a9b084e48772968c242ff9434106571e77d23be10). Previous multi-deployer split is deprecated.",
+    "explorer": "https://testnet.cspr.live",
+    "cspr_cloud": "https://testnet.cspr.cloud",
+    "contracts": {
+        "proof_registry": {
+            "contract_hash": "e11088f1f15a719f21c0c318d1f34d0b96419a22d60ac8fa384ecf5285fa7bc5",
+            "contract_package_hash": "977b11ce7ea702232215fd49aef038897697163350ee0f65accc90b7b5150bfa",
+            "deploy_hash": "c9e0fee7cdb75abbf2a66d893d43bdf9d8d24d6ff7a103b841ad81f4a50d1c84",
+            "deployer": "0202da6cfba1c1e595fdcd6539146611326e5506479d89dab735b252dc200b80f7e7",
+            "version": 1,
+            "deployed_at": "2026-07-26T20:35:00Z",
+            "source": "contracts/proof-registry/src/main.rs",
+            "entry_points": [
+                "submit_proof",
+                "get_proof",
+                "revoke_proof",
+                "register_agent",
+                "get_reputation"
+            ],
+            "notes": "MVP-clean WASM (47393 B) \u2014 Rust nightly -Z build-std=core,alloc,compiler_builtins,panic_abort with target-cpu=mvp and features -bulk-memory,-sign-ext,-mutable-globals,-reference-types; wasm-opt -Oz --signext-lowering. Redeployed from defi_mock_owner to unify canonical set."
+        },
+        "verifier_gate": {
+            "contract_hash": "06d69182b13c4d041613fe7e6e0805cdb06f099eff4291b40154d78cc0c79b66",
+            "contract_package_hash": "4b79786a81b9afa1f0a0f40443965caa4dc09797a919c5d87fc1b6a4fa5e5cfb",
+            "deploy_hash": "43ca896633e77e1ed87d43f7cd76e1fb1f57ccbdd60a249e92b496a7ee5986b2",
+            "deployer": "0202da6cfba1c1e595fdcd6539146611326e5506479d89dab735b252dc200b80f7e7",
+            "version": 1,
+            "deployed_at": "2026-07-26T20:45:00Z",
+            "source": "contracts/verifier-gate/src/main.rs",
+            "entry_points": [
+                "verify",
+                "is_valid",
+                "batch_check"
+            ],
+            "install_args": {
+                "registry_contract_hex": "e11088f1f15a719f21c0c318d1f34d0b96419a22d60ac8fa384ecf5285fa7bc5"
+            },
+            "notes": "MVP-clean WASM (44871 B) \u2014 same recipe as proof_registry. registry_contract wired to freshly deployed defi_mock_owner-owned proof_registry. Redeployed from defi_mock_owner to unify canonical set."
+        },
+        "defi_mock": {
+            "contract_hash": "fe0c45f67c8cd99f0bda0047399a113588870ec0d79d9102f44107303f0b39ef",
+            "contract_package_hash": "54757fa72e6ca1898f3a8bc6e5af1d643b120a8c8605e0b1581fdcc3b76f9a04",
+            "deploy_hash": "7e590fb94fb0c3e41cd01e44e14157c3e537f4766a546d1dedbe5b137210625e",
+            "deployer": "0202da6cfba1c1e595fdcd6539146611326e5506479d89dab735b252dc200b80f7e7",
+            "version": 1,
+            "deployed_at": "2026-07-07T13:19:48Z",
+            "source": "contracts/defi-mock/src/main.rs",
+            "entry_points": [
+                "check_kyc",
+                "grant_access",
+                "revoke_access",
+                "is_whitelisted"
+            ]
+        },
+        "stake_slashing": {
+            "contract_hash": "1ad1b3d94be631532d6daf3a195fafc9dfe8a16504e87d87784d51089b983d52",
+            "contract_package_hash": "e33812f9c9c88e0d3202fdd7a7718cce686cbd21bc673c216b6dbf23c26e2947",
+            "deploy_hash": "ac4712a3ecc29c058330df88781d488f61c3993b7ee2720c2024fc2a231d2532",
+            "deployer": "0202da6cfba1c1e595fdcd6539146611326e5506479d89dab735b252dc200b80f7e7",
+            "version": 2,
+            "deployed_at": "2026-07-19T07:33:00Z",
+            "source": "contracts/stake-slashing/src/main.rs",
+            "entry_points": [
+                "get_purse",
+                "record_stake",
+                "unstake",
+                "report_and_slash",
+                "get_stake"
+            ],
+            "notes": "Hardened redeploy \u2014 checked_mul/checked_sub overflow fix + zero-value slash penalty fix. Old cf70e1fe... superseded. Deployed from defi_mock_owner (own account had no prior stakes/slashed_proofs named keys, avoiding a storage::new_dictionary collision that anna-stolbovskaja's account would hit)."
+        },
+        "proof_aggregation": {
+            "contract_hash": "b29f32abcc029d523de212bd7c87993f2f1bf96ba1523091c7b01adf6d63d2bb",
+            "contract_package_hash": "4d891784b5874b5c1b0f707b318702898e32deb527d42fc236e7da6adabf04b9",
+            "deploy_hash": "35c003e59ef5c335b3758445013b34a86c411cfc3be64da87ed958096d5b5646",
+            "deployer": "0202da6cfba1c1e595fdcd6539146611326e5506479d89dab735b252dc200b80f7e7",
+            "version": 1,
+            "deployed_at": "2026-07-25T23:12:48Z",
+            "source": "contracts/proof-aggregation/src/main.rs",
+            "entry_points": [
+                "create_batch",
+                "add_to_batch",
+                "finalize_batch",
+                "verify_batch_membership",
+                "get_batch",
+                "get_stats"
+            ],
+            "notes": "MVP-clean WASM (~41 KB) \u2014 Rust nightly -Z build-std=core,alloc,compiler_builtins,panic_abort with target-cpu=mvp and features -bulk-memory,-sign-ext,-mutable-globals,-reference-types; wasm-opt -Oz --signext-lowering + strip target_features section. Deployed from defi_mock_owner."
+        },
+        "model_registry": {
+            "contract_hash": "b3cdd1df25714b341e34f6bb29f6c7900267e44c7742c81221e1eab5e64a340a",
+            "contract_package_hash": "7dc3db96942659492b6d14097f3a8c5d596bfb86e06e4fb58a6628f820c3d2c1",
+            "deploy_hash": "fd21b26ec69023aefd6d44d07963f3586b9084addc5ef810422acd6bed07c267",
+            "deployer": "0202da6cfba1c1e595fdcd6539146611326e5506479d89dab735b252dc200b80f7e7",
+            "version": 1,
+            "deployed_at": "2026-07-25T23:13:45Z",
+            "source": "contracts/model-registry/src/main.rs",
+            "entry_points": [
+                "register_model",
+                "get_model",
+                "set_price_bps",
+                "get_price_bps",
+                "revoke_model"
+            ],
+            "notes": "MVP-clean WASM. Deployed from defi_mock_owner."
+        },
+        "proof_of_inference": {
+            "contract_hash": "3d772fe1618fde438c4ffdaec22d83ffd9b4a1d769d6da32a38d56f12498b318",
+            "contract_package_hash": "69053cda288aa30649edb9fbfe17b4e0dfe6d6ec3f9afcd465574a3c885f3dc3",
+            "deploy_hash": "bde5cfb70715f01b1fc7f6bfeb6f331113082ede7dd7973a8fafffb9937da95e",
+            "deployer": "0202da6cfba1c1e595fdcd6539146611326e5506479d89dab735b252dc200b80f7e7",
+            "version": 1,
+            "deployed_at": "2026-07-25T23:14:00Z",
+            "source": "contracts/proof-of-inference/src/main.rs",
+            "entry_points": [
+                "record_inference",
+                "get_inference",
+                "get_stats"
+            ],
+            "notes": "MVP-clean WASM. Deployed from defi_mock_owner."
+        },
+        "governance": {
+            "contract_hash": "38d2fbd24998719fac160c27e2e5435a99bcdebd4c36beac76abe84063a0cf3e",
+            "contract_package_hash": "69df9be9b3ae690ef36ba9b0535770716fbf52282ee5f76d44a65254b205fbe0",
+            "deploy_hash": "5f20ecfe2fc0a254db3daa965eb643b053102f14e53853f8c5c385424bdf60a2",
+            "deployer": "0202e554b557851b894830b3814fc0f5df7e147937400c537fe5252fc53f4e25257e",
+            "version": 1,
+            "deployed_at": "2026-07-26T21:40:00Z",
+            "source": "contracts/governance/src/main.rs",
+            "entry_points": [
+                "propose",
+                "execute",
+                "cancel",
+                "get_proposal",
+                "is_executed",
+                "emergency_pause",
+                "propose_unpause",
+                "execute_unpause",
+                "propose_owner_transfer",
+                "execute_owner_transfer",
+                "sign_recovery",
+                "execute_recovery"
+            ],
+            "install_args": {
+                "guardian_1_acct_hash": "cac1862d745c06860c6acfa275d6afec3be692dedf6c46253ce813dba74ad298",
+                "guardian_2_acct_hash": "84ff0a4692ddeaa2c2991b0a9b084e48772968c242ff9434106571e77d23be10",
+                "guardian_3_acct_hash": "0000000000000000000000000000000000000000000000000000000000000000"
+            },
+            "bootstrapped_owner_acct_hash": "cac1862d745c06860c6acfa275d6afec3be692dedf6c46253ce813dba74ad298",
+            "block_height": 8635118,
+            "notes": "MVP-clean WASM (governance_v2_pkg, unique NamedKeys). Deployed under anna-stolbovskaja after defi_mock_owner NamedKey collision on prior install. Timelock 48h. Owner bootstraps from get_caller at install (anna). 3 guardians: anna + defi_mock_owner + zero-hex reserved slot (to be populated at mainnet ceremony per MAINNET_LAUNCH_PLAN.md). 2-of-3 recovery for lost-key case. Prior contract 03189ea1\u2026548e (under defi_mock_owner) deprecated \u2014 retained on-chain but not authoritative. Closes BACKLOG 1.6, 1.9, 1.10, 1.11 as standalone contract."
+        },
+        "zk_verifier": {
+            "contract_hash": "4500da5d314f11f8a535b9c70fb67729da6b452efc6c302abf292b42b6dc96a1",
+            "contract_package_hash": "1b4faa048f9d5a0366c42ec9a432dd9b3d8128368b889eb125f84d1047564f1a",
+            "deploy_hash": "0c5f87ec45f1c51390203ea09210a2db517784f33f2d5bb9a4419deead9eaacc",
+            "deployer": "0202d6730cb70d42a45f78c605368105f5d4539f7966f530a8849eea766b3b831f3f",
+            "version": 1,
+            "deployed_at": "2026-07-27T10:08:06Z",
+            "source": "contracts/zk-verifier/src/main.rs",
+            "entry_points": [
+                "register_vk",
+                "disable_vk",
+                "get_vk",
+                "is_active_vk",
+                "add_verifier",
+                "remove_verifier",
+                "record_verdict",
+                "revoke_verdict",
+                "get_verdict",
+                "pause",
+                "unpause"
+            ],
+            "notes": "MVP-clean WASM (53107 B) - same nightly-2025-01-01 + build-std recipe as governance/proof-aggregation/model-registry/proof-of-inference. On-chain ZK verifier registry / verdict recorder (BACKLOG 1.8): stores vk digests + records off-chain Groth16 verifier verdicts; NOT a pairing verifier (Casper Condor 2.x has no precompiled pairing, BACKLOG 1.14). Owner = caller at install time (anna-stolbovskaja, same account as the other 8 canonical contracts). This was the one contract still only compiled, never deployed, as of 2026-07-27 - closes that gap; Bot Prove now has 9 contracts live on testnet. REDEPLOYED 2026-07-27/28 to fix a P0 owner-check bypass (see docs/SECURITY_AUDIT.md sec 2.10) - installOrUpgrade from the original anna-stolbovskaja account deterministically reverted (ApiError::InvalidArgument, pre-existing vks/verdicts/verifiers NamedKeys on that account per docs/DEPLOYMENT_LESSONS.md Lesson 3), so this redeploy used a fresh dedicated wallet instead. Owner/admin key for register_vk/disable_vk/pause/unpause is therefore this new deployer key, NOT anna-stolbovskaja (the only one of the 9 contracts where this differs) - see docs/roadmap/ZK_VERIFIER_REDEPLOY_2026-07-27.md."
+        }
+    },
+    "verification": {
+        "api_health": "https://casperprover-api-ylsh.onrender.com/health",
+        "frontend": "https://casperprover.xyz",
+        "verify_script": "./verify.sh"
+    }
+}

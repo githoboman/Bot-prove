@@ -1,0 +1,11 @@
+[casper]
+node_url = "https://node.integration.cspr.cloud/"
+chain_name = "casper-test"
+
+[api]
+port = 10000
+rate_limit = 100
+
+[prover]
+hash_algo = "sha256"
+precomputed_dir = "data/precomputed"

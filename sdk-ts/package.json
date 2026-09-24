@@ -1,0 +1,43 @@
+{
+  "name": "@casperprover/sdk",
+  "version": "0.1.0",
+  "description": "TypeScript client + offline Merkle verifier for CasperProver",
+  "type": "module",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "exports": {
+    ".": "./index.ts",
+    "./client": "./client.ts",
+    "./verify": "./verify.ts",
+    "./types": "./types.ts",
+    "./errors": "./errors.ts"
+  },
+  "files": [
+    "index.ts",
+    "client.ts",
+    "verify.ts",
+    "types.ts",
+    "errors.ts",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test --experimental-strip-types tests/*.test.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "casper",
+    "zero-knowledge",
+    "merkle",
+    "proof",
+    "typescript",
+    "sdk"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "typescript": "^5.5.4"
+  }
+}

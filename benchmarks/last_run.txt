@@ -1,0 +1,34 @@
+goos: linux
+goarch: amd64
+pkg: github.com/anna-stolbovskaja/CasperProver/engine/internal/prover
+cpu: INTEL(R) XEON(R) PLATINUM 8581C CPU @ 2.30GHz
+BenchmarkBuildTree/leaves=2-32         	 1605885	       754.5 ns/op	     216 B/op	       5 allocs/op
+BenchmarkBuildTree/leaves=8-32         	  307696	      3688 ns/op	    1296 B/op	      27 allocs/op
+BenchmarkBuildTree/leaves=32-32        	   75112	     14759 ns/op	    5664 B/op	     107 allocs/op
+BenchmarkBuildTree/leaves=128-32       	   19903	     60938 ns/op	   23440 B/op	     408 allocs/op
+BenchmarkBuildTree/leaves=512-32       	    5174	    245572 ns/op	   95232 B/op	    1577 allocs/op
+BenchmarkRoot/leaves=2-32              	 1444092	       874.0 ns/op	     344 B/op	       7 allocs/op
+BenchmarkRoot/leaves=8-32              	  315883	      4172 ns/op	    1424 B/op	      29 allocs/op
+BenchmarkRoot/leaves=32-32             	   75474	     15149 ns/op	    5792 B/op	     109 allocs/op
+BenchmarkRoot/leaves=128-32            	   19722	     60618 ns/op	   23568 B/op	     410 allocs/op
+BenchmarkRoot/leaves=512-32            	    5036	    245227 ns/op	   95360 B/op	    1579 allocs/op
+BenchmarkGetPath/leaves=2-32           	 1387351	       863.8 ns/op	     352 B/op	       7 allocs/op
+BenchmarkGetPath/leaves=8-32           	  332702	      3849 ns/op	    1696 B/op	      22 allocs/op
+BenchmarkGetPath/leaves=32-32          	   76731	     14960 ns/op	    6560 B/op	      60 allocs/op
+BenchmarkGetPath/leaves=128-32         	   20552	     59325 ns/op	   24416 B/op	     173 allocs/op
+BenchmarkGetPath/leaves=512-32         	    5133	    235471 ns/op	   96672 B/op	     579 allocs/op
+BenchmarkSHA256-32                     	 5346975	       223.5 ns/op	       0 B/op	       0 allocs/op
+PASS
+ok  	github.com/anna-stolbovskaja/CasperProver/engine/internal/prover	27.157s
+goos: linux
+goarch: amd64
+pkg: github.com/anna-stolbovskaja/CasperProver/engine/internal/verifier
+cpu: INTEL(R) XEON(R) PLATINUM 8581C CPU @ 2.30GHz
+BenchmarkVerifyProof/payload=64B-32         	  740364	      1693 ns/op	    1024 B/op	      15 allocs/op
+BenchmarkVerifyProof/payload=1024B-32       	  168188	      6935 ns/op	    3904 B/op	      15 allocs/op
+BenchmarkVerifyProof/payload=65536B-32      	    3537	    341853 ns/op	  197441 B/op	      15 allocs/op
+BenchmarkGenerateProof/payload=64B-32       	  213986	      5915 ns/op	    2671 B/op	      40 allocs/op
+BenchmarkGenerateProof/payload=1024B-32     	   87098	     14622 ns/op	    5562 B/op	      40 allocs/op
+BenchmarkGenerateProof/payload=65536B-32    	    2310	    620483 ns/op	  199512 B/op	      40 allocs/op
+PASS
+ok  	github.com/anna-stolbovskaja/CasperProver/engine/internal/verifier	8.944s

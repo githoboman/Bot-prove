@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://casperprover.xyz/sitemap.xml

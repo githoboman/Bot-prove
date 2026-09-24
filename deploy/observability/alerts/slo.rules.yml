@@ -1,0 +1,106 @@
+# CasperProver — SLI/SLO recording rules
+#
+# These recording rules materialise SLI signals from the raw counters and
+# histograms exposed by the engine's /metrics endpoint (Pack AG). All rules
+# are label-preserving on {route}; job/instance labels flow through
+# Prometheus' scrape config.
+#
+# Constants (edit before deploying):
+#   SLO availability target: 99.5%
+#   SLO latency  target:     750ms p95
+#   Rolling window:          30d
+#
+# The multi-window burn-rate alerts in slo.alerts.yml depend on the series
+# names below — DO NOT rename them without updating the alerts.
+groups:
+  - name: casperprover_slo_recording
+    interval: 30s
+    rules:
+      # --- Request rate (per route, per 5m) ---
+      - record: cp:http_requests:rate5m
+        expr: sum by (route) (rate(http_requests_total[5m]))
+
+      # --- Error rate (5xx, per route, per 5m) ---
+      - record: cp:http_errors:rate5m
+        expr: sum by (route) (rate(http_requests_total{status=~"5.."}[5m]))
+
+      # --- Error ratio SLI (per route, 5m) ---
+      - record: cp:sli_error_ratio:5m
+        expr: |
+          (
+            sum by (route) (rate(http_requests_total{status=~"5.."}[5m]))
+            /
+            clamp_min(sum by (route) (rate(http_requests_total[5m])), 1)
+          )
+
+      # --- Rolling burn-rate windows for availability SLO ---
+      - record: cp:sli_error_ratio:1h
+        expr: |
+          (
+            sum by (route) (rate(http_requests_total{status=~"5.."}[1h]))
+            /
+            clamp_min(sum by (route) (rate(http_requests_total[1h])), 1)
+          )
+      - record: cp:sli_error_ratio:6h
+        expr: |
+          (
+            sum by (route) (rate(http_requests_total{status=~"5.."}[6h]))
+            /
+            clamp_min(sum by (route) (rate(http_requests_total[6h])), 1)
+          )
+      - record: cp:sli_error_ratio:1d
+        expr: |
+          (
+            sum by (route) (rate(http_requests_total{status=~"5.."}[1d]))
+            /
+            clamp_min(sum by (route) (rate(http_requests_total[1d])), 1)
+          )
+      - record: cp:sli_error_ratio:3d
+        expr: |
+          (
+            sum by (route) (rate(http_requests_total{status=~"5.."}[3d]))
+            /
+            clamp_min(sum by (route) (rate(http_requests_total[3d])), 1)
+          )
+
+      # --- Latency SLI (p95, per route, multi-window) ---
+      # Histogram bucket series comes from obs.MiddlewareRoute:
+      #   http_request_duration_seconds_bucket{route,method,le}
+      - record: cp:sli_latency_p95:5m
+        expr: |
+          histogram_quantile(
+            0.95,
+            sum by (route, le) (rate(http_request_duration_seconds_bucket[5m]))
+          )
+      - record: cp:sli_latency_p95:1h
+        expr: |
+          histogram_quantile(
+            0.95,
+            sum by (route, le) (rate(http_request_duration_seconds_bucket[1h]))
+          )
+      - record: cp:sli_latency_p95:6h
+        expr: |
+          histogram_quantile(
+            0.95,
+            sum by (route, le) (rate(http_request_duration_seconds_bucket[6h]))
+          )
+      - record: cp:sli_latency_p95:1d
+        expr: |
+          histogram_quantile(
+            0.95,
+            sum by (route, le) (rate(http_request_duration_seconds_bucket[1d]))
+          )
+      - record: cp:sli_latency_p95:3d
+        expr: |
+          histogram_quantile(
+            0.95,
+            sum by (route, le) (rate(http_request_duration_seconds_bucket[3d]))
+          )
+
+      # --- SLO constants exposed as series (for dashboarding) ---
+      # Availability objective: 99.5% -> allowed error ratio 0.005.
+      - record: cp:slo_availability:target_error_ratio
+        expr: vector(0.005)
+      # Latency objective: 750ms p95.
+      - record: cp:slo_latency:target_p95_seconds
+        expr: vector(0.75)

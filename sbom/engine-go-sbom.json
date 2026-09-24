@@ -1,0 +1,577 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:ac8e857d-d457-4907-b666-587c8c3f6ab8",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-07-23T12:06:19+03:00",
+    "tools": [
+      {
+        "vendor": "CycloneDX",
+        "name": "cyclonedx-gomod",
+        "version": "v1.10.0",
+        "hashes": [
+          {
+            "alg": "MD5",
+            "content": "8408ce5b17582e054fa716debfa5dca6"
+          },
+          {
+            "alg": "SHA-1",
+            "content": "a8db1fb6375fe581a5dac708e33b06827e4fc1f0"
+          },
+          {
+            "alg": "SHA-256",
+            "content": "e0b0aa757a986d3a03687ede17388acbd0dc30e3398ca38784b45c61910526d7"
+          },
+          {
+            "alg": "SHA-384",
+            "content": "2bae6ff691936cde69e31cdc25686d41a5996e61a4647ab7803e409ea522ef3da9ac37d7c9f5d8269342b4b214cd799d"
+          },
+          {
+            "alg": "SHA-512",
+            "content": "7160c4b07a42cb4559251e7baf5791c2c48688d93d21acdb44d204a973eba6e134126d6b1aed733047f8139492732e90078dbcbb7a3f2e5fb6d5b2a6625b3ea7"
+          }
+        ],
+        "externalReferences": [
+          {
+            "url": "https://github.com/CycloneDX/cyclonedx-gomod",
+            "type": "vcs"
+          },
+          {
+            "url": "https://cyclonedx.org",
+            "type": "website"
+          }
+        ]
+      }
+    ],
+    "component": {
+      "bom-ref": "pkg:golang/github.com/anna-stolbovskaja/CasperProver/engine@v1.2.1-0.20260708000304-aeef84c18b00?type=module",
+      "type": "application",
+      "name": "github.com/anna-stolbovskaja/CasperProver/engine",
+      "version": "v1.2.1-0.20260708000304-aeef84c18b00",
+      "purl": "pkg:golang/github.com/anna-stolbovskaja/CasperProver/engine@v1.2.1-0.20260708000304-aeef84c18b00?goarch=amd64\u0026goos=linux\u0026type=module",
+      "externalReferences": [
+        {
+          "url": "https://github.com/anna-stolbovskaja/CasperProver/engine",
+          "type": "vcs"
+        }
+      ]
+    }
+  },
+  "components": [
+    {
+      "bom-ref": "pkg:golang/github.com/bits-and-blooms/bitset@v1.22.0?type=module",
+      "type": "library",
+      "name": "github.com/bits-and-blooms/bitset",
+      "version": "v1.22.0",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "4eabaff52f3e486692dc487203eba9dc55f39a48713c68d040291cb36bb0ef0e"
+        }
+      ],
+      "purl": "pkg:golang/github.com/bits-and-blooms/bitset@v1.22.0?goarch=amd64\u0026goos=linux\u0026type=module",
+      "externalReferences": [
+        {
+          "url": "https://github.com/bits-and-blooms/bitset",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:golang/github.com/blang/semver/v4@v4.0.0?type=module",
+      "type": "library",
+      "name": "github.com/blang/semver/v4",
+      "version": "v4.0.0",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d4f147144eb20824eff02d537b234d6ab0f39ed2e2ef0308e62fe9cea608b003"
+        }
+      ],
+      "purl": "pkg:golang/github.com/blang/semver/v4@v4.0.0?goarch=amd64\u0026goos=linux\u0026type=module",
+      "externalReferences": [
+        {
+          "url": "https://github.com/blang/semver",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:golang/github.com/cloudflare/circl@v1.6.4?type=module",
+      "type": "library",
+      "name": "github.com/cloudflare/circl",
+      "version": "v1.6.4",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "a4e5ee0d3084632cf2760529434090cf72ec8a72a389293a9cd3f92ede4aeb85"
+        }
+      ],
+      "purl": "pkg:golang/github.com/cloudflare/circl@v1.6.4?goarch=amd64\u0026goos=linux\u0026type=module",
+      "externalReferences": [
+        {
+          "url": "https://github.com/cloudflare/circl",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:golang/github.com/consensys/gnark@v0.13.0?type=module",
+      "type": "library",
+      "name": "github.com/consensys/gnark",
+      "version": "v0.13.0",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "343b0c9b2927204240dd2ff6bb53d94ac4884555c5ae82023758d847eb724767"
+        }
+      ],
+      "purl": "pkg:golang/github.com/consensys/gnark@v0.13.0?goarch=amd64\u0026goos=linux\u0026type=module",
+      "externalReferences": [
+        {
+          "url": "https://github.com/consensys/gnark",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:golang/github.com/consensys/gnark-crypto@v0.18.0?type=module",
+      "type": "library",
+      "name": "github.com/consensys/gnark-crypto",
+      "version": "v0.18.0",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "bc8c9efc5a88e7455e02bd01dddc7e623788be67372d6cf8c847db581a5351fd"
+        }
+      ],
+      "purl": "pkg:golang/github.com/consensys/gnark-crypto@v0.18.0?goarch=amd64\u0026goos=linux\u0026type=module",
+      "externalReferences": [
+        {
+          "url": "https://github.com/consensys/gnark-crypto",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:golang/github.com/decred/dcrd/dcrec/secp256k1/v4@v4.0.1?type=module",
+      "type": "library",
+      "name": "github.com/decred/dcrd/dcrec/secp256k1/v4",
+      "version": "v4.0.1",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "60bb4eef5bc28c944205cacf32d43d9ea06caa90359b9b04f76714fa977931c7"
+        }
+      ],
+      "purl": "pkg:golang/github.com/decred/dcrd/dcrec/secp256k1/v4@v4.0.1?goarch=amd64\u0026goos=linux\u0026type=module",
+      "externalReferences": [
+        {
+          "url": "https://github.com/decred/dcrd/dcrec/secp256k1",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:golang/github.com/fxamacker/cbor/v2@v2.8.0?type=module",
+      "type": "library",
+      "name": "github.com/fxamacker/cbor/v2",
+      "version": "v2.8.0",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "7c5b541975335cf1d32147677b9fb3ccc3d37df7e5dd10f9a989e4638d2fb715"
+        }
+      ],
+      "purl": "pkg:golang/github.com/fxamacker/cbor/v2@v2.8.0?goarch=amd64\u0026goos=linux\u0026type=module",
+      "externalReferences": [
+        {
+          "url": "https://github.com/fxamacker/cbor",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:golang/github.com/google/pprof@v0.0.0-20250607225305-033d6d78b36a?type=module",
+      "type": "library",
+      "name": "github.com/google/pprof",
+      "version": "v0.0.0-20250607225305-033d6d78b36a",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "fff29b7b3ca078c2590921c7f878146624de4a88ae16ca5b320d607be7858f5f"
+        }
+      ],
+      "purl": "pkg:golang/github.com/google/pprof@v0.0.0-20250607225305-033d6d78b36a?goarch=amd64\u0026goos=linux\u0026type=module",
+      "externalReferences": [
+        {
+          "url": "https://github.com/google/pprof",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:golang/github.com/ingonyama-zk/icicle-gnark/v3@v3.2.2?type=module",
+      "type": "library",
+      "name": "github.com/ingonyama-zk/icicle-gnark/v3",
+      "version": "v3.2.2",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "07e696560031f869452e1b588c8685d2e1a3537af3a65f7d59ff70656b7e32af"
+        }
+      ],
+      "purl": "pkg:golang/github.com/ingonyama-zk/icicle-gnark/v3@v3.2.2?goarch=amd64\u0026goos=linux\u0026type=module",
+      "externalReferences": [
+        {
+          "url": "https://github.com/ingonyama-zk/icicle-gnark",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:golang/github.com/lib/pq@v1.12.3?type=module",
+      "type": "library",
+      "name": "github.com/lib/pq",
+      "version": "v1.12.3",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "b535b1af660b2b022f2bdd195c4c3c18fed4147b5c6d3b6dcbccec23e623adf4"
+        }
+      ],
+      "purl": "pkg:golang/github.com/lib/pq@v1.12.3?goarch=amd64\u0026goos=linux\u0026type=module",
+      "externalReferences": [
+        {
+          "url": "https://github.com/lib/pq",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:golang/github.com/make-software/casper-go-sdk/v2@v2.0.0?type=module",
+      "type": "library",
+      "name": "github.com/make-software/casper-go-sdk/v2",
+      "version": "v2.0.0",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "93b830a49a2097008aeac6987d2dafb5b958793b776af1d77ea7fe457023114f"
+        }
+      ],
+      "purl": "pkg:golang/github.com/make-software/casper-go-sdk/v2@v2.0.0?goarch=amd64\u0026goos=linux\u0026type=module",
+      "externalReferences": [
+        {
+          "url": "https://github.com/make-software/casper-go-sdk",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:golang/github.com/mattn/go-colorable@v0.1.14?type=module",
+      "type": "library",
+      "name": "github.com/mattn/go-colorable",
+      "version": "v0.1.14",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "f40f4b1d2a85ffb7725555fa83453d7309bda46de43fd812cdcb883c73ec6881"
+        }
+      ],
+      "purl": "pkg:golang/github.com/mattn/go-colorable@v0.1.14?goarch=amd64\u0026goos=linux\u0026type=module",
+      "externalReferences": [
+        {
+          "url": "https://github.com/mattn/go-colorable",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:golang/github.com/mattn/go-isatty@v0.0.20?type=module",
+      "type": "library",
+      "name": "github.com/mattn/go-isatty",
+      "version": "v0.0.20",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "c5f0f4883b842a70e4974deae258a607ebc7f86c4b12d2ff8dbe315494965846"
+        }
+      ],
+      "purl": "pkg:golang/github.com/mattn/go-isatty@v0.0.20?goarch=amd64\u0026goos=linux\u0026type=module",
+      "externalReferences": [
+        {
+          "url": "https://github.com/mattn/go-isatty",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:golang/github.com/ronanh/intcomp@v1.1.1?type=module",
+      "type": "library",
+      "name": "github.com/ronanh/intcomp",
+      "version": "v1.1.1",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "fb56c657fc040621c8d05bf34bb447833a8ea5f6c12732c8c64a8c27d7bacb16"
+        }
+      ],
+      "purl": "pkg:golang/github.com/ronanh/intcomp@v1.1.1?goarch=amd64\u0026goos=linux\u0026type=module",
+      "externalReferences": [
+        {
+          "url": "https://github.com/ronanh/intcomp",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:golang/github.com/rs/zerolog@v1.34.0?type=module",
+      "type": "library",
+      "name": "github.com/rs/zerolog",
+      "version": "v1.34.0",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "938de74cb23071355002771f0b0e0a676558eae918a196813cd384f2dc6539e6"
+        }
+      ],
+      "purl": "pkg:golang/github.com/rs/zerolog@v1.34.0?goarch=amd64\u0026goos=linux\u0026type=module",
+      "externalReferences": [
+        {
+          "url": "https://github.com/rs/zerolog",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:golang/github.com/shopspring/decimal@v1.3.1?type=module",
+      "type": "library",
+      "name": "github.com/shopspring/decimal",
+      "version": "v1.3.1",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "d94b25d67985fd666e72a9056619df158c71c6ef0b1b6d45ea73d0044e60295f"
+        }
+      ],
+      "purl": "pkg:golang/github.com/shopspring/decimal@v1.3.1?goarch=amd64\u0026goos=linux\u0026type=module",
+      "externalReferences": [
+        {
+          "url": "https://github.com/shopspring/decimal",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:golang/github.com/x448/float16@v0.8.4?type=module",
+      "type": "library",
+      "name": "github.com/x448/float16",
+      "version": "v0.8.4",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "a8bc08d48ef4f8d8d1154477cecd493d40a06825d2877496eb6b80293d664813"
+        }
+      ],
+      "purl": "pkg:golang/github.com/x448/float16@v0.8.4?goarch=amd64\u0026goos=linux\u0026type=module",
+      "externalReferences": [
+        {
+          "url": "https://github.com/x448/float16",
+          "type": "vcs"
+        }
+      ]
+    },
+    {
+      "bom-ref": "pkg:golang/golang.org/x/crypto@v0.45.0?type=module",
+      "type": "library",
+      "name": "golang.org/x/crypto",
+      "version": "v0.45.0",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "8cc06bbcaba3db7313953d1b4043817001349a383c98af515c58511fa9f21774"
+        }
+      ],
+      "purl": "pkg:golang/golang.org/x/crypto@v0.45.0?goarch=amd64\u0026goos=linux\u0026type=module"
+    },
+    {
+      "bom-ref": "pkg:golang/golang.org/x/sync@v0.15.0?type=module",
+      "type": "library",
+      "name": "golang.org/x/sync",
+      "version": "v0.15.0",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "2961f78cd66c7f24fac5f01f2a2cfa311366778e81c870d8699eca4a40ad756f"
+        }
+      ],
+      "purl": "pkg:golang/golang.org/x/sync@v0.15.0?goarch=amd64\u0026goos=linux\u0026type=module"
+    },
+    {
+      "bom-ref": "pkg:golang/golang.org/x/sys@v0.38.0?type=module",
+      "type": "library",
+      "name": "golang.org/x/sys",
+      "version": "v0.38.0",
+      "scope": "required",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "df2656c5a2630660965ea84dd6a874d8090e9c2435a682baa05f9aef158be867"
+        }
+      ],
+      "purl": "pkg:golang/golang.org/x/sys@v0.38.0?goarch=amd64\u0026goos=linux\u0026type=module"
+    }
+  ],
+  "dependencies": [
+    {
+      "ref": "pkg:golang/github.com/anna-stolbovskaja/CasperProver/engine@v1.2.1-0.20260708000304-aeef84c18b00?type=module",
+      "dependsOn": [
+        "pkg:golang/github.com/cloudflare/circl@v1.6.4?type=module",
+        "pkg:golang/github.com/consensys/gnark@v0.13.0?type=module",
+        "pkg:golang/github.com/consensys/gnark-crypto@v0.18.0?type=module",
+        "pkg:golang/github.com/lib/pq@v1.12.3?type=module",
+        "pkg:golang/github.com/make-software/casper-go-sdk/v2@v2.0.0?type=module"
+      ]
+    },
+    {
+      "ref": "pkg:golang/github.com/bits-and-blooms/bitset@v1.22.0?type=module"
+    },
+    {
+      "ref": "pkg:golang/github.com/blang/semver/v4@v4.0.0?type=module"
+    },
+    {
+      "ref": "pkg:golang/github.com/cloudflare/circl@v1.6.4?type=module",
+      "dependsOn": [
+        "pkg:golang/golang.org/x/crypto@v0.45.0?type=module",
+        "pkg:golang/golang.org/x/sys@v0.38.0?type=module"
+      ]
+    },
+    {
+      "ref": "pkg:golang/github.com/consensys/gnark@v0.13.0?type=module",
+      "dependsOn": [
+        "pkg:golang/github.com/bits-and-blooms/bitset@v1.22.0?type=module",
+        "pkg:golang/github.com/blang/semver/v4@v4.0.0?type=module",
+        "pkg:golang/github.com/consensys/gnark-crypto@v0.18.0?type=module",
+        "pkg:golang/github.com/fxamacker/cbor/v2@v2.8.0?type=module",
+        "pkg:golang/github.com/google/pprof@v0.0.0-20250607225305-033d6d78b36a?type=module",
+        "pkg:golang/github.com/ingonyama-zk/icicle-gnark/v3@v3.2.2?type=module",
+        "pkg:golang/github.com/mattn/go-colorable@v0.1.14?type=module",
+        "pkg:golang/github.com/mattn/go-isatty@v0.0.20?type=module",
+        "pkg:golang/github.com/ronanh/intcomp@v1.1.1?type=module",
+        "pkg:golang/github.com/rs/zerolog@v1.34.0?type=module",
+        "pkg:golang/github.com/x448/float16@v0.8.4?type=module",
+        "pkg:golang/golang.org/x/crypto@v0.45.0?type=module",
+        "pkg:golang/golang.org/x/sync@v0.15.0?type=module",
+        "pkg:golang/golang.org/x/sys@v0.38.0?type=module"
+      ]
+    },
+    {
+      "ref": "pkg:golang/github.com/consensys/gnark-crypto@v0.18.0?type=module",
+      "dependsOn": [
+        "pkg:golang/github.com/bits-and-blooms/bitset@v1.22.0?type=module",
+        "pkg:golang/golang.org/x/crypto@v0.45.0?type=module",
+        "pkg:golang/golang.org/x/sync@v0.15.0?type=module",
+        "pkg:golang/golang.org/x/sys@v0.38.0?type=module"
+      ]
+    },
+    {
+      "ref": "pkg:golang/github.com/decred/dcrd/dcrec/secp256k1/v4@v4.0.1?type=module"
+    },
+    {
+      "ref": "pkg:golang/github.com/fxamacker/cbor/v2@v2.8.0?type=module",
+      "dependsOn": [
+        "pkg:golang/github.com/x448/float16@v0.8.4?type=module"
+      ]
+    },
+    {
+      "ref": "pkg:golang/github.com/google/pprof@v0.0.0-20250607225305-033d6d78b36a?type=module",
+      "dependsOn": [
+        "pkg:golang/golang.org/x/sys@v0.38.0?type=module"
+      ]
+    },
+    {
+      "ref": "pkg:golang/github.com/ingonyama-zk/icicle-gnark/v3@v3.2.2?type=module",
+      "dependsOn": [
+        "pkg:golang/github.com/bits-and-blooms/bitset@v1.22.0?type=module",
+        "pkg:golang/github.com/consensys/gnark-crypto@v0.18.0?type=module",
+        "pkg:golang/golang.org/x/sys@v0.38.0?type=module"
+      ]
+    },
+    {
+      "ref": "pkg:golang/github.com/lib/pq@v1.12.3?type=module"
+    },
+    {
+      "ref": "pkg:golang/github.com/make-software/casper-go-sdk/v2@v2.0.0?type=module",
+      "dependsOn": [
+        "pkg:golang/github.com/decred/dcrd/dcrec/secp256k1/v4@v4.0.1?type=module",
+        "pkg:golang/github.com/shopspring/decimal@v1.3.1?type=module",
+        "pkg:golang/golang.org/x/crypto@v0.45.0?type=module",
+        "pkg:golang/golang.org/x/sync@v0.15.0?type=module",
+        "pkg:golang/golang.org/x/sys@v0.38.0?type=module"
+      ]
+    },
+    {
+      "ref": "pkg:golang/github.com/mattn/go-colorable@v0.1.14?type=module",
+      "dependsOn": [
+        "pkg:golang/github.com/mattn/go-isatty@v0.0.20?type=module",
+        "pkg:golang/golang.org/x/sys@v0.38.0?type=module"
+      ]
+    },
+    {
+      "ref": "pkg:golang/github.com/mattn/go-isatty@v0.0.20?type=module",
+      "dependsOn": [
+        "pkg:golang/golang.org/x/sys@v0.38.0?type=module"
+      ]
+    },
+    {
+      "ref": "pkg:golang/github.com/ronanh/intcomp@v1.1.1?type=module"
+    },
+    {
+      "ref": "pkg:golang/github.com/rs/zerolog@v1.34.0?type=module",
+      "dependsOn": [
+        "pkg:golang/github.com/mattn/go-colorable@v0.1.14?type=module",
+        "pkg:golang/github.com/mattn/go-isatty@v0.0.20?type=module",
+        "pkg:golang/golang.org/x/sys@v0.38.0?type=module"
+      ]
+    },
+    {
+      "ref": "pkg:golang/github.com/shopspring/decimal@v1.3.1?type=module"
+    },
+    {
+      "ref": "pkg:golang/github.com/x448/float16@v0.8.4?type=module"
+    },
+    {
+      "ref": "pkg:golang/golang.org/x/crypto@v0.45.0?type=module",
+      "dependsOn": [
+        "pkg:golang/golang.org/x/sys@v0.38.0?type=module"
+      ]
+    },
+    {
+      "ref": "pkg:golang/golang.org/x/sync@v0.15.0?type=module"
+    },
+    {
+      "ref": "pkg:golang/golang.org/x/sys@v0.38.0?type=module"
+    }
+  ]
+}

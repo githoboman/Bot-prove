@@ -1,0 +1,13 @@
+{
+  "name": "botchain-contracts",
+  "version": "1.0.0",
+  "description": "Smart contracts for Bot Chain integration",
+  "main": "index.js",
+  "scripts": {
+    "test": "hardhat test"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.29.1"
+  }
+}

@@ -1,0 +1,127 @@
+name: sdk-publish-go
+
+# Publishes the Go SDK to pkg.go.dev.
+#
+# The Go proxy does NOT accept an "upload" step — you cannot push a
+# module. A tag on the repository IS the release: once a tag matching
+# `sdk/v*` is on origin, we (a) verify the module builds against
+# `GOPROXY=proxy.golang.org,direct` from a clean cache, (b) warm the
+# proxy cache so `go get` immediately resolves, (c) fetch the pkg.go.dev
+# page which triggers doc indexing. There is no dry-run flag on the
+# proxy — the dry-run below is a full build + `go list -m -versions`
+# against the pending tag.
+#
+# CI mode: on every push/PR touching sdk/**, runs a full local build so
+# a broken module fails the PR.
+#
+# Release mode: pushed by release-please (or by hand) as `sdk/vX.Y.Z`.
+
+on:
+  push:
+    branches: ["**"]
+    paths:
+      - "sdk/**"
+      - ".github/workflows/sdk-publish-go.yml"
+    tags:
+      - "sdk/v*"
+  pull_request:
+    paths:
+      - "sdk/**"
+      - ".github/workflows/sdk-publish-go.yml"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry-run only (no proxy warmup)"
+        type: boolean
+        default: true
+
+concurrency:
+  group: sdk-publish-go-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-and-verify:
+    name: build + verify
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version: "1.25"
+      - name: Verify module
+        working-directory: sdk
+        run: |
+          go mod tidy -diff
+          go vet ./...
+          go test -race ./...
+      - name: Verify tag matches module (release tag only)
+        if: startsWith(github.ref, 'refs/tags/sdk/v')
+        working-directory: sdk
+        env:
+          TAG_REF: ${{ github.ref_name }}
+        run: |
+          # sdk/vX.Y.Z tag must point at sdk/ which is a Go submodule.
+          # The proxy will read the module path from sdk/go.mod, so all we
+          # can enforce here is that go.mod matches the module we expect.
+          want='github.com/anna-stolbovskaja/CasperProver/sdk'
+          got=$(go list -m 2>/dev/null || head -n1 go.mod | awk '{print $2}')
+          if [ "$got" != "$want" ]; then
+            echo "sdk/go.mod module is $got, expected $want" >&2
+            exit 1
+          fi
+          echo "tag $TAG_REF releases module $got"
+
+  proxy-warmup:
+    name: warm pkg.go.dev
+    needs: build-and-verify
+    if: |
+      startsWith(github.ref, 'refs/tags/sdk/v') ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run == 'false')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/setup-go@v7
+        with:
+          go-version: "1.25"
+      - name: Compute release version
+        id: v
+        env:
+          TAG_REF: ${{ github.ref_name }}
+        run: |
+          if [[ "$TAG_REF" == sdk/v* ]]; then
+            echo "version=${TAG_REF#sdk/}" >> "$GITHUB_OUTPUT"
+          else
+            # manual dispatch: use the latest sdk/v* tag on the branch
+            git fetch --tags --depth=1 origin || true
+            latest=$(git for-each-ref --sort=-creatordate --format='%(refname:short)' 'refs/tags/sdk/v*' | head -n1)
+            echo "version=${latest#sdk/}" >> "$GITHUB_OUTPUT"
+          fi
+      - name: go get @${{ steps.v.outputs.version }} via public proxy
+        env:
+          GOPROXY: https://proxy.golang.org,direct
+          GOSUMDB: sum.golang.org
+        run: |
+          set -e
+          v='${{ steps.v.outputs.version }}'
+          mod='github.com/anna-stolbovskaja/CasperProver/sdk'
+          if [ -z "$v" ]; then
+            echo "no sdk/v* tag found — nothing to warm" >&2
+            exit 0
+          fi
+          tmp=$(mktemp -d)
+          cd "$tmp"
+          go mod init warmup >/dev/null
+          # go get triggers the proxy to fetch + index the module version.
+          for i in 1 2 3 4 5; do
+            if go get "$mod@$v"; then
+              echo "warmed $mod@$v"
+              break
+            fi
+            echo "attempt $i failed; waiting for proxy to see the tag…"
+            sleep 30
+          done
+          # trigger pkg.go.dev indexing (best-effort)
+          curl -fsSL "https://pkg.go.dev/${mod}@${v}" -o /dev/null || true

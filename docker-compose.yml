@@ -1,0 +1,7 @@
+services:
+  engine:
+    build: .
+    ports:
+      - "10000:10000"
+    env_file: .env
+    restart: unless-stopped

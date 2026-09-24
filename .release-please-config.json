@@ -1,0 +1,84 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "simple",
+  "bump-minor-pre-major": true,
+  "bump-patch-for-minor-pre-major": true,
+  "include-v-in-tag": false,
+  "separate-pull-requests": true,
+  "pull-request-title-pattern": "chore(${component}): release ${version}",
+  "packages": {
+    "sdk/typescript": {
+      "release-type": "node",
+      "package-name": "@casperprover/sdk",
+      "component": "sdk-ts",
+      "tag-separator": "-v",
+      "include-component-in-tag": true,
+      "changelog-path": "CHANGELOG.md",
+      "include-v-in-tag": false,
+      "extra-files": []
+    },
+    "sdk/python": {
+      "release-type": "python",
+      "package-name": "casperprover",
+      "component": "sdk-py",
+      "tag-separator": "-v",
+      "include-component-in-tag": true,
+      "changelog-path": "CHANGELOG.md",
+      "include-v-in-tag": false,
+      "extra-files": []
+    },
+    "sdk": {
+      "release-type": "go",
+      "package-name": "github.com/anna-stolbovskaja/CasperProver/sdk",
+      "component": "sdk",
+      "tag-separator": "/",
+      "include-component-in-tag": true,
+      "changelog-path": "CHANGELOG.md",
+      "include-v-in-tag": true,
+      "extra-files": []
+    }
+  },
+  "changelog-sections": [
+    {
+      "type": "feat",
+      "section": "Features"
+    },
+    {
+      "type": "fix",
+      "section": "Bug Fixes"
+    },
+    {
+      "type": "perf",
+      "section": "Performance"
+    },
+    {
+      "type": "revert",
+      "section": "Reverts"
+    },
+    {
+      "type": "docs",
+      "section": "Documentation",
+      "hidden": false
+    },
+    {
+      "type": "refactor",
+      "section": "Refactors",
+      "hidden": false
+    },
+    {
+      "type": "chore",
+      "section": "Miscellaneous",
+      "hidden": true
+    },
+    {
+      "type": "test",
+      "section": "Tests",
+      "hidden": true
+    },
+    {
+      "type": "ci",
+      "section": "CI",
+      "hidden": true
+    }
+  ]
+}

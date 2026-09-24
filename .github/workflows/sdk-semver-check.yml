@@ -1,0 +1,117 @@
+name: sdk-semver-check
+
+# Enforces semver + Conventional Commits on any PR that touches sdk/**.
+# Fails when:
+#   1. The PR title is not a valid Conventional Commit
+#      (feat|fix|perf|refactor|docs|test|ci|chore|revert)(scope)?: subject
+#   2. A commit in the PR touches sdk/typescript/ or sdk/python/ or sdk/
+#      AND bumps that manifest's version by MAJOR without a `!` or
+#      `BREAKING CHANGE:` footer in the PR body / commit list.
+#   3. A commit downgrades an SDK version (e.g. 0.2.0 -> 0.1.9) —
+#      always a bug.
+#
+# This is the guard-rail for the release-please auto-cut; without it a
+# rogue "feat: rewrite everything" commit could silently ship a MAJOR.
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+    paths:
+      - "sdk/**"
+      - ".release-please-config.json"
+      - ".release-please-manifest.json"
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  title:
+    name: PR title is Conventional Commit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR title
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          set -e
+          echo "PR title: $TITLE"
+          regex='^(feat|fix|perf|refactor|docs|test|ci|chore|revert|build)(\([a-z0-9._/-]+\))?!?:[[:space:]].+'
+          if ! [[ "$TITLE" =~ $regex ]]; then
+            cat >&2 <<EOF
+          PR title does not match Conventional Commits:
+            $TITLE
+          Expected one of:
+            feat(sdk): add prove primitive
+            fix(sdk-py): parse anchor response
+            feat(sdk)!: rename Prove to Attest   # (MAJOR bump)
+          See https://www.conventionalcommits.org
+          EOF
+            exit 1
+          fi
+
+  semver-guard:
+    name: SDK version bump is legal
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Compare each SDK version against base branch
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BODY: ${{ github.event.pull_request.body }}
+        run: |
+          set -eu
+          fail=0
+
+          extract_ts()  { node -p "require('./sdk/typescript/package.json').version" 2>/dev/null || echo ""; }
+          extract_py()  { python3 -c "import tomllib,sys; print(tomllib.load(open('sdk/python/pyproject.toml','rb'))['project']['version'])" 2>/dev/null || echo ""; }
+          extract_go()  { [ -f sdk/version.txt ] && cat sdk/version.txt || echo ""; }
+
+          semver_split() {
+            # $1 = version, prints "major minor patch"
+            v="${1%%-*}"; v="${v#v}"
+            IFS=. read -r M m p <<<"$v"
+            echo "${M:-0} ${m:-0} ${p:-0}"
+          }
+
+          check_bump() {
+            # $1=name  $2=old  $3=new
+            name="$1"; old="$2"; new="$3"
+            [ -z "$old" ] && old="0.0.0"
+            [ -z "$new" ] && new="0.0.0"
+            [ "$old" = "$new" ] && return 0
+            read -r OM Om Op <<<"$(semver_split "$old")"
+            read -r NM Nm Np <<<"$(semver_split "$new")"
+            # downgrade?
+            if [ "$NM" -lt "$OM" ] \
+               || { [ "$NM" -eq "$OM" ] && [ "$Nm" -lt "$Om" ]; } \
+               || { [ "$NM" -eq "$OM" ] && [ "$Nm" -eq "$Om" ] && [ "$Np" -lt "$Op" ]; }; then
+              echo "::error::$name downgrades $old -> $new"
+              fail=1; return
+            fi
+            # MAJOR bump requires a breaking marker
+            if [ "$NM" -gt "$OM" ]; then
+              if echo "$BODY" | grep -Eiq '^BREAKING CHANGE:|BREAKING-CHANGE:' \
+                 || git log "$BASE_SHA..HEAD" --pretty=%B | grep -Eiq '^BREAKING CHANGE:|^[a-z]+(\([^)]*\))?!:'; then
+                echo "$name MAJOR bump $old -> $new: OK (BREAKING CHANGE marker present)"
+              else
+                echo "::error::$name MAJOR bump $old -> $new requires a '!' commit or 'BREAKING CHANGE:' footer"
+                fail=1
+              fi
+            fi
+          }
+
+          new_ts=$(extract_ts); new_py=$(extract_py); new_go=$(extract_go)
+
+          git checkout "$BASE_SHA" -- sdk/typescript/package.json sdk/python/pyproject.toml sdk/version.txt 2>/dev/null || true
+          old_ts=$(extract_ts); old_py=$(extract_py); old_go=$(extract_go)
+          git checkout HEAD -- sdk/typescript/package.json sdk/python/pyproject.toml sdk/version.txt 2>/dev/null || true
+
+          check_bump "sdk/typescript"   "$old_ts" "$new_ts"
+          check_bump "sdk/python"       "$old_py" "$new_py"
+          check_bump "sdk (go)"         "$old_go" "$new_go"
+
+          exit "$fail"

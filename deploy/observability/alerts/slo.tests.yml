@@ -1,0 +1,122 @@
+# CasperProver — promtool unit tests for the SLO alert rules.
+#
+# Run with:
+#   promtool test rules deploy/observability/alerts/slo.tests.yml
+#
+# These tests load the rule + alert files directly and drive them with
+# synthetic time-series to prove the burn-rate math and label routing are
+# correct. NO production data is used.
+rule_files:
+  - slo.rules.yml
+  - slo.alerts.yml
+
+evaluation_interval: 30s
+
+tests:
+  # -----------------------------------------------------------------
+  # Test 1: sustained 5xx spike on /anchor lights the FAST availability
+  # alert within a few minutes (14.4x fast-burn multiplier).
+  # Steady state: 10 req/s, 10% error rate.
+  # Budget = 0.5% -> fast-burn threshold = 14.4 * 0.005 = 7.2%.
+  # 10% > 7.2% on both 1h and 5m windows => fast page.
+  # -----------------------------------------------------------------
+  - interval: 1m
+    input_series:
+      - series: 'http_requests_total{route="/anchor",method="POST",status="200"}'
+        values: '0+540x120'
+      - series: 'http_requests_total{route="/anchor",method="POST",status="500"}'
+        values: '0+60x120'
+    alert_rule_test:
+      - eval_time: 5m
+        alertname: CPAvailabilityErrorBudgetBurnFast
+        exp_alerts: []
+      - eval_time: 65m
+        alertname: CPAvailabilityErrorBudgetBurnFast
+        exp_alerts:
+          - exp_labels:
+              severity: page
+              slo: availability
+              burnrate_window: 1h/5m
+              route: /anchor
+            exp_annotations:
+              summary: "CasperProver availability burning error budget fast (route /anchor)"
+              description: |
+                Route /anchor is burning the 30d error budget at 14.4x
+                (>2% of budget/hour). Sustained over both 1h and 5m windows.
+                Runbook: docs/OPS_RUNBOOKS.md#availability-burn-fast
+
+  # -----------------------------------------------------------------
+  # Test 2: clean traffic (no errors) MUST NOT fire either availability
+  # alert, ever. Guards against false-positive regressions.
+  # -----------------------------------------------------------------
+  - interval: 1m
+    input_series:
+      - series: 'http_requests_total{route="/verify",method="POST",status="200"}'
+        values: '0+600x400'
+    alert_rule_test:
+      - eval_time: 60m
+        alertname: CPAvailabilityErrorBudgetBurnFast
+        exp_alerts: []
+      - eval_time: 60m
+        alertname: CPAvailabilityErrorBudgetBurnSlow
+        exp_alerts: []
+      - eval_time: 360m
+        alertname: CPAvailabilityErrorBudgetBurnSlow
+        exp_alerts: []
+
+  # -----------------------------------------------------------------
+  # Test 3: latency SLI — sustained p95 > 2 * 750ms on /prove lights
+  # the FAST latency alert.
+  # 100% of requests land in the >2.5s bucket (le="+Inf" only past 2.5s).
+  # We use histogram buckets to force p95 into the (+Inf) tail.
+  # -----------------------------------------------------------------
+  - interval: 1m
+    input_series:
+      # All requests in the +Inf bucket only (i.e. all > highest finite le).
+      - series: 'http_request_duration_seconds_bucket{route="/prove",method="POST",le="0.1"}'
+        values: '0+0x400'
+      - series: 'http_request_duration_seconds_bucket{route="/prove",method="POST",le="0.5"}'
+        values: '0+0x400'
+      - series: 'http_request_duration_seconds_bucket{route="/prove",method="POST",le="1"}'
+        values: '0+0x400'
+      - series: 'http_request_duration_seconds_bucket{route="/prove",method="POST",le="2.5"}'
+        values: '0+0x400'
+      - series: 'http_request_duration_seconds_bucket{route="/prove",method="POST",le="+Inf"}'
+        values: '0+60x400'
+    alert_rule_test:
+      - eval_time: 65m
+        alertname: CPLatencyErrorBudgetBurnFast
+        exp_alerts:
+          - exp_labels:
+              severity: page
+              slo: latency
+              burnrate_window: 1h/5m
+              route: /prove
+            exp_annotations:
+              summary: "CasperProver p95 latency far above SLO on /prove"
+              description: |
+                p95 latency on /prove is >2x the 750ms SLO on
+                both 1h and 5m windows.
+                Runbook: docs/OPS_RUNBOOKS.md#latency-burn-fast
+
+  # -----------------------------------------------------------------
+  # Test 4: saturation alert fires when in-flight >128 for 5m.
+  # -----------------------------------------------------------------
+  - interval: 30s
+    input_series:
+      - series: 'http_requests_in_flight{route="/anchor"}'
+        values: '150x60'
+    alert_rule_test:
+      - eval_time: 6m
+        alertname: CPHTTPInFlightSaturation
+        exp_alerts:
+          - exp_labels:
+              severity: ticket
+              category: saturation
+              route: /anchor
+            exp_annotations:
+              summary: "CasperProver HTTP in-flight concurrency saturating on /anchor"
+              description: |
+                In-flight requests >128 for 5m. Consider scaling the green
+                replica set (see blue/green playbook).
+                Runbook: docs/OPS_RUNBOOKS.md#saturation

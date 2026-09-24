@@ -1,0 +1,150 @@
+name: check
+on: [push, pull_request]
+jobs:
+  go-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version: "1.25"
+      - run: cd engine && go test -race -v ./...
+
+  go-vet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version: "1.25"
+      - run: cd engine && go vet ./...
+
+  go-bench:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version: "1.25"
+      - run: ./scripts/run_benchmarks.sh --baseline
+      - uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-baseline
+          path: benchmarks/baseline.json
+          retention-days: 30
+
+  go-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version: "1.25"
+      - uses: golangci/golangci-lint-action@v9
+        with:
+          working-directory: engine
+
+  sdk-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version: "1.25"
+      - run: cd sdk && go build ./...
+      - run: cd sdk && go vet ./...
+      - run: cd sdk && go test -race -v ./...
+
+  sdk-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version: "1.25"
+      - uses: golangci/golangci-lint-action@v9
+        with:
+          working-directory: sdk
+
+  sdk-python-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: cd sdk/python && python -m unittest casperprover.tests.test_client -v
+
+  sdk-typescript-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v4
+        with:
+          # --experimental-strip-types (used below) needs Node >=22.6;
+          # this job was pinned to Node 20, so every run failed immediately
+          # with "bad option: --experimental-strip-types" before a single
+          # test executed.
+          node-version: "22"
+      - run: cd sdk/typescript && node --test --experimental-strip-types src/client.test.ts
+
+  build-contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@nightly
+        with:
+          toolchain: nightly-2025-01-15
+          targets: wasm32-unknown-unknown
+      # Deployed contracts (live on testnet)
+      - run: cd contracts/proof-registry && cargo build --release --target wasm32-unknown-unknown --no-default-features
+      - run: cd contracts/verifier-gate && cargo build --release --target wasm32-unknown-unknown --no-default-features
+      - run: cd contracts/defi-mock && cargo build --release --target wasm32-unknown-unknown --no-default-features
+      - run: cd contracts/stake-slashing && cargo build --release --target wasm32-unknown-unknown --no-default-features
+      - run: cd contracts/stake-slashing-session && cargo build --release --target wasm32-unknown-unknown --no-default-features
+      # Undeployed (compiled + archived; deploy path is a Gate 2 decision).
+      - run: cd contracts/proof-of-inference && cargo build --release --target wasm32-unknown-unknown --no-default-features
+      - run: cd contracts/model-registry && cargo build --release --target wasm32-unknown-unknown --no-default-features
+      - run: cd contracts/proof-aggregation && cargo build --release --target wasm32-unknown-unknown --no-default-features
+      - run: cd contracts/governance && cargo build --release --target wasm32-unknown-unknown --no-default-features
+      - run: cd contracts/zk-verifier && cargo build --release --target wasm32-unknown-unknown --no-default-features
+      - name: WASM artifact size report
+        run: |
+          echo '## Contract WASM sizes' >> "$GITHUB_STEP_SUMMARY"
+          echo '| Contract | Size (bytes) | Size (KB) | Deployed |' >> "$GITHUB_STEP_SUMMARY"
+          echo '|---|---:|---:|:--:|' >> "$GITHUB_STEP_SUMMARY"
+          DEPLOYED='proof-registry verifier-gate defi-mock stake-slashing stake-slashing-session proof-aggregation model-registry proof-of-inference'
+          for f in contracts/target/wasm32-unknown-unknown/release/*.wasm; do
+            name=$(basename "$f" .wasm)
+            bytes=$(stat -c%s "$f")
+            kb=$(awk -v b="$bytes" 'BEGIN{printf "%.1f", b/1024}')
+            flag='no'
+            for d in $DEPLOYED; do [ "$d" = "$name" ] && flag='yes'; done
+            echo "| $name | $bytes | $kb | $flag |" >> "$GITHUB_STEP_SUMMARY"
+          done
+      # Hard ceiling: fails CI if any .wasm >200KB (blocks deploy) or missing.
+      - name: contract size report (hard ceiling)
+        run: |
+          ./scripts/contract-size-report.sh
+          ./scripts/contract-size-report.sh --json > contract-sizes.json
+      - uses: actions/upload-artifact@v7
+
+        with:
+          name: contract-wasms
+          path: contracts/target/wasm32-unknown-unknown/release/*.wasm
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        with:
+          name: contract-sizes
+          path: contract-sizes.json
+          retention-days: 30
+
+  test-contracts:
+    runs-on: ubuntu-latest
+    needs: build-contracts
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@nightly
+        with:
+          toolchain: nightly-2025-01-15
+      - run: cd contracts/tests && cargo test --release

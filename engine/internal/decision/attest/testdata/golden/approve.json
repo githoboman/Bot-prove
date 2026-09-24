@@ -1,0 +1,23 @@
+{
+  "scenario": "approve",
+  "inputs": {
+    "id": "golden-approve",
+    "agent_id": "cp-agent",
+    "model_id": "gpt-x",
+    "model_version": "v1.0",
+    "request": "summarize the invoice pdf",
+    "response": "APPROVE: total 1234.56 EUR, due 2026-08-15",
+    "metadata": {"mode": "real", "region": "eu"},
+    "verdict": "allow",
+    "risk_tier": "low",
+    "policy_id": "policy-default",
+    "parent_id": "",
+    "preview_opt_in": false,
+    "timestamp": "2026-07-26T12:00:00Z"
+  },
+  "expected": {
+    "request_hash":  "98b79f0bafab1f928ca825ca4fa53c3b12f1e03087d6cc8816aab15cae033190",
+    "response_hash": "86fb93a2632ffd291fe5c7ab7e67ad28ec15cc05cb42ada4135166d66d41e92f",
+    "chain_root_hash": "4f768f0d17bf3c716eb402065ed1a3fce0e45fdfaf5650c5e89724fe073d3276"
+  }
+}

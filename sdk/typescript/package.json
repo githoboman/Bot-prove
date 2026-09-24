@@ -1,0 +1,50 @@
+{
+  "name": "@casperprover/sdk",
+  "version": "0.1.2",
+  "description": "CasperProver TypeScript SDK - prove, verify, batch, anchor.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anna-stolbovskaja/CasperProver.git",
+    "directory": "sdk/typescript"
+  },
+  "homepage": "https://github.com/anna-stolbovskaja/CasperProver#readme",
+  "bugs": {
+    "url": "https://github.com/anna-stolbovskaja/CasperProver/issues"
+  },
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "node --test --experimental-strip-types src/*.test.ts",
+    "smoke": "node --experimental-strip-types examples/quickstart.ts"
+  },
+  "engines": {
+    "node": ">=20.6.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "casperprover",
+    "zk",
+    "groth16",
+    "attestation",
+    "casper"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "typescript": "^5.9.3"
+  }
+}

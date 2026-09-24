@@ -1,0 +1,25 @@
+{
+  "_comment": "Example attestations.json shape - produced by 'go run ./cmd/ceremony --out zk/ceremony --n 1024 --p1 3 --p2 3 --beacon <public-randomness>'. All hex fields are SHA-256 digests. Full schema in engine/internal/zkverifier/ceremony/ceremony.go (type Transcript).",
+  "duration_seconds": 0.0,
+  "out_dir": "zk/ceremony",
+  "transcript": {
+    "circuit_id": "PreimageCircuit-MiMC-BN254-v1",
+    "circuit_constraints": 0,
+    "phase1_domain_size": 1024,
+    "beacon_challenge_hex": "<hex of --beacon value>",
+    "phase1": [
+      {"phase": 1, "index": 0, "challenge_hex": "<hex>", "digest_hex": "<sha256>", "size_bytes": 0, "contributor": "coordinator-seed-0"},
+      {"phase": 1, "index": 1, "challenge_hex": "<hex>", "digest_hex": "<sha256>", "size_bytes": 0, "contributor": "coordinator-seed-1"},
+      {"phase": 1, "index": 2, "challenge_hex": "<hex>", "digest_hex": "<sha256>", "size_bytes": 0, "contributor": "coordinator-seed-2"}
+    ],
+    "phase2": [
+      {"phase": 2, "index": 0, "challenge_hex": "<hex>", "digest_hex": "<sha256>", "size_bytes": 0, "contributor": "coordinator-seed-0"},
+      {"phase": 2, "index": 1, "challenge_hex": "<hex>", "digest_hex": "<sha256>", "size_bytes": 0, "contributor": "coordinator-seed-1"},
+      {"phase": 2, "index": 2, "challenge_hex": "<hex>", "digest_hex": "<sha256>", "size_bytes": 0, "contributor": "coordinator-seed-2"}
+    ],
+    "final_vk_sha256": "<hex>",
+    "final_pk_sha256": "<hex>",
+    "phase1_commons_sha256": "<hex>",
+    "honesty_label": "SINGLE-COORDINATOR CEREMONY (multi-party upgrade path documented)"
+  }
+}
