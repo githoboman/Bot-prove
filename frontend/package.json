@@ -12,7 +12,7 @@
     "@make-software/csprclick-core-client": "^1.11.0",
     "@make-software/csprclick-core-types": "^2.1.0",
     "@make-software/csprclick-ui": "^2.1.0",
-    "casper-js-sdk": "^5.0.12",
+    "casper-js-sdk": "^5.1.1",
     "lucide-react": "^1.26.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
