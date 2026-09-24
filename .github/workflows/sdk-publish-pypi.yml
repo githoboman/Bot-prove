@@ -89,7 +89,7 @@ jobs:
             echo "release tag $RELEASE_TAG expects version $expected but pyproject.toml has $actual" >&2
             exit 1
           fi
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: pypi-dist
           path: sdk/python/dist/*
