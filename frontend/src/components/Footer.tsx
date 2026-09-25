@@ -5,7 +5,7 @@ export default function Footer() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <img src="/images/logo.webp" alt="Bot Prove" className="h-6 w-auto" />
+              <img src="/images/logo.jpg" alt="Bot Prove" className="h-6 w-auto" />
               <span className="font-bold text-white">Bot Prove</span>
             </div>
             <p className="text-sm text-gray-500 leading-relaxed">

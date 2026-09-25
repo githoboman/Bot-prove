@@ -192,7 +192,7 @@ const LabLayout: React.FC = () => {
           {/* Top row: logo + wallet */}
           <div className="flex items-center justify-between h-14">
             <a href="/" className="flex items-center gap-2">
-              <img src="/images/logo.webp" alt="Bot Prove" className="h-6 w-auto" />
+              <img src="/images/logo.jpg" alt="Bot Prove" className="h-6 w-auto" />
               <span className="font-bold text-white text-base hidden sm:block">Bot Prove</span>
             </a>
 
@@ -312,7 +312,7 @@ const LabLayout: React.FC = () => {
         <div className="fixed inset-0 z-50 bg-[#0b0b10] flex flex-col">
           <div className="flex items-center justify-between px-4 h-14 border-b border-[#222235]">
             <a href="/" className="flex items-center gap-2">
-              <img src="/images/logo.webp" alt="Bot Prove" className="h-6 w-auto" />
+              <img src="/images/logo.jpg" alt="Bot Prove" className="h-6 w-auto" />
               <span className="font-bold text-white text-base">Bot Prove</span>
             </a>
             <button

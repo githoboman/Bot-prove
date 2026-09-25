@@ -52,7 +52,7 @@ export default function Navbar({ mobileOpen, setMobileOpen }: Props) {
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-black/90 backdrop-blur border-b border-gray-800/50' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
         <a href="/" onClick={handleLogoClick} className="flex items-center gap-2">
-          <img src="/images/logo.webp" alt="Bot Prove" className="h-7 w-auto" />
+          <img src="/images/logo.jpg" alt="Bot Prove" className="h-7 w-auto" />
           <span className="font-bold text-white text-lg hidden sm:block">Bot Prove</span>
         </a>
         {!isLab && (
