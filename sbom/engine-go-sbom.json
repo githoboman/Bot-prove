@@ -261,9 +261,9 @@
       ]
     },
     {
-      "bom-ref": "pkg:golang/github.com/make-software/bot-go-sdk/v2@v2.0.0?type=module",
+      "bom-ref": "pkg:golang/github.com/make-software/casper-go-sdk/v2@v2.0.0?type=module",
       "type": "library",
-      "name": "github.com/make-software/bot-go-sdk/v2",
+      "name": "github.com/make-software/casper-go-sdk/v2",
       "version": "v2.0.0",
       "scope": "required",
       "hashes": [
@@ -272,10 +272,10 @@
           "content": "93b830a49a2097008aeac6987d2dafb5b958793b776af1d77ea7fe457023114f"
         }
       ],
-      "purl": "pkg:golang/github.com/make-software/bot-go-sdk/v2@v2.0.0?goarch=amd64\u0026goos=linux\u0026type=module",
+      "purl": "pkg:golang/github.com/make-software/casper-go-sdk/v2@v2.0.0?goarch=amd64\u0026goos=linux\u0026type=module",
       "externalReferences": [
         {
-          "url": "https://github.com/make-software/bot-go-sdk",
+          "url": "https://github.com/make-software/casper-go-sdk",
           "type": "vcs"
         }
       ]
@@ -451,7 +451,7 @@
         "pkg:golang/github.com/consensys/gnark@v0.13.0?type=module",
         "pkg:golang/github.com/consensys/gnark-crypto@v0.18.0?type=module",
         "pkg:golang/github.com/lib/pq@v1.12.3?type=module",
-        "pkg:golang/github.com/make-software/bot-go-sdk/v2@v2.0.0?type=module"
+        "pkg:golang/github.com/make-software/casper-go-sdk/v2@v2.0.0?type=module"
       ]
     },
     {
@@ -522,7 +522,7 @@
       "ref": "pkg:golang/github.com/lib/pq@v1.12.3?type=module"
     },
     {
-      "ref": "pkg:golang/github.com/make-software/bot-go-sdk/v2@v2.0.0?type=module",
+      "ref": "pkg:golang/github.com/make-software/casper-go-sdk/v2@v2.0.0?type=module",
       "dependsOn": [
         "pkg:golang/github.com/decred/dcrd/dcrec/secp256k1/v4@v4.0.1?type=module",
         "pkg:golang/github.com/shopspring/decimal@v1.3.1?type=module",
