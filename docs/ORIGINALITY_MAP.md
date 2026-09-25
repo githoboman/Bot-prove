@@ -1,4 +1,4 @@
-# CasperProver — Originality Map
+# BotProve — Originality Map
 
 *Backlog 15.2.* What is genuinely ours, what we borrow, and where the
 boundary sits. Judges want to know the delta between "we integrated
@@ -6,7 +6,7 @@ X" and "we invented Y." This is that map.
 
 ## Legend
 
-- **built** — designed and written by the CasperProver team.
+- **built** — designed and written by the BotProve team.
 - **wrapped** — built on top of an upstream library, but with
   non-trivial code / configuration / composition around it.
 - **used-as-is** — upstream dependency, essentially untouched.
@@ -26,7 +26,7 @@ X" and "we invented Y." This is that map.
 
 | Component                              | Status      | Upstream / rationale                                                            |
 |----------------------------------------|-------------|---------------------------------------------------------------------------------|
-| Casper deploy submitter                | wrapped     | `casper-go-sdk` v2; retry + idempotency added on top                             |
+| BOT Chain deploy submitter                | wrapped     | `bot-go-sdk` v2; retry + idempotency added on top                             |
 | Contracts (Odra)                       | wrapped     | Odra framework; storage layout + entry-points ours                              |
 | `onchain.json` canonical manifest      | built       | Design + generator + judge one-liner                                            |
 | Deploy pipeline                        | built       | Reproducible via `scripts/deploy_all.sh`                                        |
@@ -72,7 +72,7 @@ X" and "we invented Y." This is that map.
 ## What we deliberately did NOT invent
 
 - We do NOT claim a novel pairing / curve / hash. Real crypto rides on gnark + audited SPHINCS+.
-- We do NOT claim a novel consensus / L2. We anchor to Casper mainnet-testnet.
+- We do NOT claim a novel consensus / L2. We anchor to BOT Chain mainnet-testnet.
 - We do NOT claim a novel LLM. The audit layer covers ANY upstream LLM as a hashed request/response.
 
 ## Traceability

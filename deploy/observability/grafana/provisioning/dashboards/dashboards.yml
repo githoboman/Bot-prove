@@ -1,9 +1,9 @@
 apiVersion: 1
 
 providers:
-  - name: CasperProver
+  - name: BotProve
     orgId: 1
-    folder: CasperProver
+    folder: BotProve
     type: file
     disableDeletion: false
     updateIntervalSeconds: 30

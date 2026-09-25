@@ -11,10 +11,10 @@ import (
 	"sync"
 	"time"
 
-	pqcrypto "github.com/anna-stolbovskaja/CasperProver/engine/internal/crypto"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/crypto/keystore"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/decision/attest"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/hitl"
+	pqcrypto "github.com/anna-stolbovskaja/BotProve/engine/internal/crypto"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/crypto/keystore"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/decision/attest"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/hitl"
 )
 
 // Store is the durable receipt index. In-memory is the default; a

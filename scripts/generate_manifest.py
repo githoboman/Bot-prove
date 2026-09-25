@@ -3,7 +3,7 @@
 generate_manifest.py — regenerate deploy-out/onchain.json (root canonical)
 
 Reads contract hashes from the current root manifest and optionally validates
-them against Casper testnet RPC. Writes deploy-out/onchain.json with fresh
+them against BOT Chain testnet RPC. Writes deploy-out/onchain.json with fresh
 generation metadata, then mirrors the contract data (without metadata) to
 frontend/public/onchain.json so the frontend stays in sync.
 
@@ -30,7 +30,7 @@ from typing import Any
 REPO_ROOT = Path(__file__).resolve().parent.parent
 ROOT_MANIFEST = REPO_ROOT / "deploy-out" / "onchain.json"
 FRONTEND_MANIFEST = REPO_ROOT / "frontend" / "public" / "onchain.json"
-RPC_ENDPOINT = "https://node.testnet.casper.network/rpc"
+RPC_ENDPOINT = "https://node.testnet.bot.network/rpc"
 
 # Fields that live on the root manifest but SHOULD NOT propagate to the
 # frontend copy (they are meta about how the manifest was produced, not
@@ -61,7 +61,7 @@ def dump_json(path: Path, data: dict[str, Any]) -> None:
 
 
 def validate_hash_on_chain(contract_hash: str) -> tuple[bool, str]:
-    """Query Casper testnet RPC for contract hash. Return (ok, detail)."""
+    """Query BOT Chain testnet RPC for contract hash. Return (ok, detail)."""
     payload = {
         "jsonrpc": "2.0",
         "id": 1,
@@ -102,9 +102,9 @@ def build_root_manifest(existing: dict[str, Any], validate_rpc: bool) -> dict[st
 
     root = {
         "$schema": "./onchain.schema.json",
-        "network": existing.get("network", "casper-test"),
-        "chain_name": existing.get("chain_name", "casper-test"),
-        "project": existing.get("project", "CasperProver"),
+        "network": existing.get("network", "bot-test"),
+        "chain_name": existing.get("chain_name", "bot-test"),
+        "project": existing.get("project", "BotProve"),
         "deployer": existing["deployer"],
         "explorer": existing.get("explorer", "https://testnet.cspr.live"),
         "cspr_cloud": existing.get("cspr_cloud", "https://testnet.cspr.cloud"),
@@ -189,7 +189,7 @@ def check_drift(root: dict[str, Any], frontend: dict[str, Any]) -> list[str]:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--no-rpc", action="store_true",
-                        help="Skip live Casper RPC validation")
+                        help="Skip live BOT Chain RPC validation")
     parser.add_argument("--dry-run", action="store_true",
                         help="Print what would be written, do not modify files")
     parser.add_argument("--check", action="store_true",
@@ -221,7 +221,7 @@ def main() -> int:
         return 0
 
     if not args.no_rpc:
-        print("Validating contract hashes against Casper testnet RPC...")
+        print("Validating contract hashes against BOT Chain testnet RPC...")
 
     root = build_root_manifest(existing, validate_rpc=not args.no_rpc)
     frontend = derive_frontend_manifest(root)

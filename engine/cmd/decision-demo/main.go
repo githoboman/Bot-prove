@@ -1,4 +1,4 @@
-// decision-demo is the single-command reproducer for the CasperProver
+// decision-demo is the single-command reproducer for the BotProve
 // decision-attestation vertical slice. It exercises all four end-to-end
 // paths — APPROVE, ABSTAIN, REJECT-by-safety-veto, REJECT-by-equivocation
 // — using the deterministic FixtureProvider, and prints a JSON receipt
@@ -26,7 +26,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/decision/attest"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/decision/attest"
 )
 
 type receipt struct {

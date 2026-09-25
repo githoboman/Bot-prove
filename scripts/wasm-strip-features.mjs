@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Post-process a Wasm binary to remove custom `target_features` and the
-// `DataCount` (section id 12) preamble that Casper Condor 2.x's WASM
+// `DataCount` (section id 12) preamble that BOT Chain Condor 2.x's WASM
 // pre-processor rejects. This does NOT change any function bytecode; it
 // only strips two sections that some rustc versions emit even when the
 // underlying opcodes do not use bulk-memory/reference-types/etc.

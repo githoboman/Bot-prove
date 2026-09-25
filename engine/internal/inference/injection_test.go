@@ -34,7 +34,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/prover"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/prover"
 )
 
 // injectionPayloads are the exact byte sequences observed against LLM

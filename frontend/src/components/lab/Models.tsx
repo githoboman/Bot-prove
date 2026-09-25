@@ -329,7 +329,7 @@ const Models: React.FC = () => {
           </div>
           <div>
             <label htmlFor="verifier_contract" className="block text-sm font-medium text-gray-300 mb-1">
-              Verifier Contract Address (on Casper)
+              Verifier Contract Address (on BOT Chain)
             </label>
             <input
               type="text"

@@ -193,7 +193,7 @@ func GenerateOpenAPI() map[string]any {
 	return map[string]any{
 		"openapi": openAPIVersion,
 		"info": map[string]any{
-			"title":       "CasperProver API",
+			"title":       "BotProve API",
 			"version":     "1.0.0",
 			"description": "Verifiable-compute API. Every mutating call requires X-API-Key; scoped keys additionally restrict which endpoints a caller may invoke.",
 			"contact": map[string]any{

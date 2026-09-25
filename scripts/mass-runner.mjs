@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // mass-runner.mjs — orchestrate 350 tx (25 per contract per signer × 7 contracts × 2 signers)
-// across all 7 CasperProver contracts on testnet.
+// across all 7 BotProve contracts on testnet.
 // Records every tx result to /data/cp/repo/reports/mass-runner-<timestamp>.jsonl
 //
 // Usage:
@@ -24,7 +24,7 @@ import crypto from "node:crypto";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const require = createRequire(import.meta.url);
-const sdk = require(path.resolve(__dirname, "../frontend/node_modules/casper-js-sdk"));
+const sdk = require(path.resolve(__dirname, "../frontend/node_modules/bot-js-sdk"));
 
 const {
   ContractCallBuilder, HttpHandler, RpcClient,
@@ -32,8 +32,8 @@ const {
   Args, CLValue, AccountHash, Key, CLValueParser,
 } = sdk;
 
-const CHAIN = process.env.CASPER_CHAIN || "casper-test";
-const NODE  = process.env.CASPER_NODE  || "https://node.testnet.casper.network/rpc";
+const CHAIN = process.env.CASPER_CHAIN || "bot-test";
+const NODE  = process.env.CASPER_NODE  || "https://node.testnet.bot.network/rpc";
 const ANNA_PEM = process.env.ANNA_PEM || "/tmp/anna.pem";
 const DMO_PEM  = process.env.DMO_PEM  || "/tmp/dmo.pem";
 
@@ -467,7 +467,7 @@ async function main() {
   console.log(`[plan] anna=${annaQueue.length} dmo=${dmoQueue.length}`);
 
   const inFlight = [];
-  // Send phase — spread each queue over time. To avoid same-signer overlap (Casper
+  // Send phase — spread each queue over time. To avoid same-signer overlap (BOT Chain
   // sequences per account), send sequentially per signer, but parallel across the two.
   async function sendQueue(queue, label) {
     const sent = [];

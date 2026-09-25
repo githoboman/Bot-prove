@@ -1,12 +1,12 @@
 # Governance contract deployment — 2026-07-26
 
-Deployment record for the 8th CasperProver contract: `governance` — timelock, emergency pause, owner recovery. Closes BACKLOG items 1.6, 1.9, 1.10, 1.11.
+Deployment record for the 8th BotProve contract: `governance` — timelock, emergency pause, owner recovery. Closes BACKLOG items 1.6, 1.9, 1.10, 1.11.
 
 ## On-chain fingerprint (canonical)
 
 | field | value |
 |---|---|
-| **network** | casper-test |
+| **network** | bot-test |
 | **deploy_hash** | `5f20ecfe2fc0a254db3daa965eb643b053102f14e53853f8c5c385424bdf60a2` |
 | **contract_hash** | `38d2fbd24998719fac160c27e2e5435a99bcdebd4c36beac76abe84063a0cf3e` |
 | **contract_package_hash** | `69df9be9b3ae690ef36ba9b0535770716fbf52282ee5f76d44a65254b205fbe0` |
@@ -23,7 +23,7 @@ An earlier install landed under `defi_mock_owner` at `03189ea1721b517c64073c319e
 
 ## Guardians (3-of-3 slots, 2-of-3 threshold for recovery)
 
-Configured at install-time via runtime args `guardian_1` / `guardian_2` / `guardian_3`. Values are Casper account-hash strings (32-byte hex, no `account-hash-` prefix).
+Configured at install-time via runtime args `guardian_1` / `guardian_2` / `guardian_3`. Values are BOT Chain account-hash strings (32-byte hex, no `account-hash-` prefix).
 
 | slot | account_hash | role |
 |---|---|---|
@@ -41,7 +41,7 @@ Default `timelock_secs = 48 * 60 * 60` (48 h).
 
 ## MVP-clean WASM build recipe
 
-`casper-js-sdk 5.0.12` installOrUpgrade caps modules at ~65_536 bytes AND rejects any wasm carrying non-MVP opcodes (`bulk-memory`, `sign-ext`, `reference-types`, `mutable-globals`). A stock `cargo +nightly build --release` emits `memory.copy` / `memory.fill` from `core` even when RUSTFLAGS forbid them, because `core` is prebuilt for the target. Fix: rebuild `core` with `-Z build-std` **and** `-Z build-std-features=panic_immediate_abort` to eliminate the `rust_begin_unwind` import.
+`bot-js-sdk 5.0.12` installOrUpgrade caps modules at ~65_536 bytes AND rejects any wasm carrying non-MVP opcodes (`bulk-memory`, `sign-ext`, `reference-types`, `mutable-globals`). A stock `cargo +nightly build --release` emits `memory.copy` / `memory.fill` from `core` even when RUSTFLAGS forbid them, because `core` is prebuilt for the target. Fix: rebuild `core` with `-Z build-std` **and** `-Z build-std-features=panic_immediate_abort` to eliminate the `rust_begin_unwind` import.
 
 Exact reproducer used for this deploy (from `contracts/`):
 
@@ -102,7 +102,7 @@ Submitted via `SessionBuilder.installOrUpgrade()` against `https://node.testnet.
 
 Under `defi_mock_owner` the second install attempt of governance failed pre-execution because the `governance` NamedKey slot was already occupied by the deprecated `03189ea1…548e`. Ranaming the WASM package to `governance_v2_pkg` alone did not resolve it — the deployer's existing `governance` root NamedKey blocked `put_key` regardless of the underlying package name. Switching the deployer to `anna-stolbovskaja` (clean namespace, no prior `governance*` NamedKeys) resolved it on the first attempt.
 
-Payment budgets consumed by the failed pre-execution attempts were spent (no refund policy on `casper-node` for early-abort deploys); this is documented for transparency and does not affect the canonical set.
+Payment budgets consumed by the failed pre-execution attempts were spent (no refund policy on `bot-node` for early-abort deploys); this is documented for transparency and does not affect the canonical set.
 
 ## Post-install verification
 

@@ -20,29 +20,29 @@ import (
 	"sync"
 	"time"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/aggregator"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/api/siwe"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/api/tenant"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/config"
-	pqcrypto "github.com/anna-stolbovskaja/CasperProver/engine/internal/crypto"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/crypto/keystore"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/decision/attest"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/hasher"
-	hitlsvc "github.com/anna-stolbovskaja/CasperProver/engine/internal/hitl"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/inference"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/judge/hitl"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/kyc"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/obs"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/observability"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/prover"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/quorum"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/receipts"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/store"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/submitter"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/verifier"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/zkverifier"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/zkverifier/gnarkzk"
-	"github.com/anna-stolbovskaja/CasperProver/engine/pkg/phase2"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/aggregator"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/api/siwe"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/api/tenant"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/config"
+	pqcrypto "github.com/anna-stolbovskaja/BotProve/engine/internal/crypto"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/crypto/keystore"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/decision/attest"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/hasher"
+	hitlsvc "github.com/anna-stolbovskaja/BotProve/engine/internal/hitl"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/inference"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/judge/hitl"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/kyc"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/obs"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/observability"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/prover"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/quorum"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/receipts"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/store"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/submitter"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/verifier"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/zkverifier"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/zkverifier/gnarkzk"
+	"github.com/anna-stolbovskaja/BotProve/engine/pkg/phase2"
 	"github.com/cloudflare/circl/sign/mldsa/mldsa65"
 	"github.com/consensys/gnark-crypto/ecc"
 	"github.com/consensys/gnark/backend/groth16"
@@ -74,7 +74,7 @@ type Server struct {
 	ver       *verifier.LocalVerifier
 	kyc       *kyc.DemoKYC
 	db        *store.PG
-	sub       *submitter.CasperSubmitter
+	sub       *submitter.BOT ChainSubmitter
 	inf       *inference.InferenceService
 	zk        *zkverifier.Groth16Verifier
 	realZK    *gnarkzk.Setup    // legacy PreimageCircuit-only setup, kept for backwards compat
@@ -204,15 +204,15 @@ func New(eng *prover.ProofEngine, port int, db *store.PG) (*Server, error) {
 
 	nodeURL := os.Getenv("CASPER_NODE_URL")
 	if nodeURL == "" {
-		nodeURL = "https://rpc.testnet.casperlabs.io"
+		nodeURL = "https://rpc.testnet.botlabs.io"
 	}
 	chain := os.Getenv("CASPER_CHAIN")
 	if chain == "" {
-		chain = "casper-test"
+		chain = "bot-test"
 	}
 	keyPath := os.Getenv("DEPLOYER_KEY_PATH")
 
-	var sub *submitter.CasperSubmitter
+	var sub *submitter.BOT ChainSubmitter
 	if keyPath != "" {
 		sub = submitter.New(nodeURL, chain, keyPath)
 		slog.Info("submitter configured", "node", nodeURL, "chain", chain)
@@ -460,7 +460,7 @@ func (s *Server) Start() error {
 	//
 	// PRIMARY (real cryptography, gnark BN254 Groth16 with pairing checks) -
 	// see internal/zkverifier/gnarkzk/circuit.go. These are the endpoints
-	// documented as CasperProver's real ZK path.
+	// documented as BotProve's real ZK path.
 	mux.HandleFunc("POST /zk/groth16-real/prove", s.zkGroth16RealProve)
 	mux.HandleFunc("POST /zk/groth16-real/verify", s.zkGroth16RealVerify)
 	// SIMULATION (hash-based, NOT real BN254 pairing math) - kept for
@@ -515,7 +515,7 @@ func (s *Server) Start() error {
 
 	var tracer *obs.Tracer
 	if os.Getenv("CP_TRACES_ENABLED") == "1" {
-		tracer = obs.NewTracer("casperprover-engine", os.Stderr)
+		tracer = obs.NewTracer("botprove-engine", os.Stderr)
 	}
 
 	instrumented := httpMetrics.MiddlewareRoute(tracer, mux, obs.MuxRouteResolver(mux))
@@ -769,7 +769,7 @@ func (s *Server) health(w http.ResponseWriter, _ *http.Request) {
 		"version":      "0.2.0",
 		"uptime_s":     int(time.Since(s.start).Seconds()),
 		"total_proofs": st.Total,
-		"chain":        "casper-test",
+		"chain":        "bot-test",
 		"strict":       s.strict,
 		// Structured auth breakdown. "auth.mode" is the machine-readable
 		// state ({"enabled","disabled"}); "auth.enforced" is the boolean
@@ -1199,7 +1199,7 @@ func (s *Server) exportProof(w http.ResponseWriter, r *http.Request) {
 		"exported":   time.Now().Unix(),
 		"proof":      p,
 		"contract":   s.contracts.ProofRegistry,
-		"chain":      "casper-test",
+		"chain":      "bot-test",
 		"verify_url": verifyURL,
 	}
 
@@ -1620,7 +1620,7 @@ func (s *Server) zkVerifyGroth16(w http.ResponseWriter, r *http.Request) {
 		"note":        "[sim] conceptual hash-based flow, NOT real BN254 pairing math - use /zk/groth16-real/verify for real ZK",
 	}
 	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Warning", `299 - "CasperProver simulation endpoint; not real ZK. Prefer /zk/groth16-real/verify."`)
+	w.Header().Set("Warning", `299 - "BotProve simulation endpoint; not real ZK. Prefer /zk/groth16-real/verify."`)
 	w.Header().Set("Deprecation", "true")
 	w.Header().Set("Sunset", "prefer /zk/groth16-real/verify")
 	_ = json.NewEncoder(w).Encode(result)
@@ -1681,7 +1681,7 @@ func (s *Server) zkBatchVerify(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Warning", `299 - "CasperProver simulation endpoint; not real ZK. Prefer /zk/groth16-real/verify."`)
+	w.Header().Set("Warning", `299 - "BotProve simulation endpoint; not real ZK. Prefer /zk/groth16-real/verify."`)
 	w.Header().Set("Deprecation", "true")
 	w.Header().Set("Sunset", "prefer /zk/groth16-real/verify")
 	_ = json.NewEncoder(w).Encode(map[string]any{
@@ -1845,7 +1845,7 @@ func (s *Server) circuitsGet(w http.ResponseWriter, r *http.Request) {
 }
 
 // circuitsGetVK returns the on-chain-deployable verifying key bytes as hex.
-// Callers can copy this into a Casper contract (or another chain) to
+// Callers can copy this into a BOT Chain contract (or another chain) to
 // verify proofs off-server.
 func (s *Server) circuitsGetVK(w http.ResponseWriter, r *http.Request) {
 	if s.zkReg == nil {

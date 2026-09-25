@@ -11,12 +11,12 @@ Every adapter self-labels via `Adapter.Label()`:
 
 | Chain ID       | Adapter                | Label       |
 |----------------|------------------------|-------------|
-| `casper-test`  | `CasperAdapter`        | ON-CHAIN    |
+| `bot-test`  | `BOT ChainAdapter`        | ON-CHAIN    |
 | `eth-sim`      | `EthereumStubAdapter`  | SIMULATION  |
 | `solana-sim`   | `SolanaStubAdapter`    | SIMULATION  |
 | `cosmos-sim`   | `CosmosStubAdapter`    | SIMULATION  |
 
-Only `casper-test` is a real anchor. The three stubs exist so the SDK,
+Only `bot-test` is a real anchor. The three stubs exist so the SDK,
 frontend, and integration tests can prove the anchor path is
 chain-agnostic without paying gas or requiring a live node. **Judges,
 FE, and demos must render the SIMULATION badge for any receipt whose
@@ -60,8 +60,8 @@ gate is a scheduled roll-out, not budget. Tracked in
 ## Router usage
 
 ```go
-r := chainadapter.NewRouter("casper-test")
-r.Register(NewCasperAdapter(...))
+r := chainadapter.NewRouter("bot-test")
+r.Register(NewBOT ChainAdapter(...))
 r.Register(NewEthereumStub("eth-sim"))
 r.Register(NewSolanaStub("solana-sim"))
 r.Register(NewCosmosStub("cosmos-sim"))

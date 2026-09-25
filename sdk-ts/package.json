@@ -1,7 +1,7 @@
 {
-  "name": "@casperprover/sdk",
+  "name": "@botprove/sdk",
   "version": "0.1.0",
-  "description": "TypeScript client + offline Merkle verifier for CasperProver",
+  "description": "TypeScript client + offline Merkle verifier for BotProve",
   "type": "module",
   "main": "./index.ts",
   "types": "./index.ts",
@@ -28,7 +28,7 @@
     "node": ">=18"
   },
   "keywords": [
-    "casper",
+    "bot",
     "zero-knowledge",
     "merkle",
     "proof",

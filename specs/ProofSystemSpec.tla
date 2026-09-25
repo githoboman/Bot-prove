@@ -1,6 +1,6 @@
 ------------------------------ MODULE ProofSystemSpec ------------------------------
 (***************************************************************************)
-(* Formal specification of the CasperProver proof-registry / decision      *)
+(* Formal specification of the BotProve proof-registry / decision      *)
 (* attestation state machine.                                              *)
 (*                                                                         *)
 (* This is an executable spec: TLC can enumerate the entire finite         *)

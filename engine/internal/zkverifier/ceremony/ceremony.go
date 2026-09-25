@@ -37,7 +37,7 @@ import (
 	"github.com/consensys/gnark/frontend"
 	"github.com/consensys/gnark/frontend/cs/r1cs"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/zkverifier/gnarkzk"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/zkverifier/gnarkzk"
 )
 
 // Config parameterises a ceremony run.
@@ -82,7 +82,7 @@ func DefaultConfig() Config {
 		N:                  1024,
 		Phase1Contributors: 3,
 		Phase2Contributors: 3,
-		BeaconChallenge:    []byte("casperprover-ceremony-test-beacon-v1"),
+		BeaconChallenge:    []byte("botprove-ceremony-test-beacon-v1"),
 	}
 }
 

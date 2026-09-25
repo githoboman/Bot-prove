@@ -1,4 +1,4 @@
-# Threat Model — CasperProver
+# Threat Model — BotProve
 
 Expands on the summary in [`SECURITY.md`](../SECURITY.md) with a structured
 threat model: assets, actors, attack surfaces, and mitigations. Update this
@@ -14,7 +14,7 @@ document whenever a new contract, endpoint, or trust boundary is added.
 | DeFi-mock whitelist | Owner-controlled KYC whitelist | Unauthorized DeFi access if whitelist can be bypassed |
 | PQ / hybrid signing keys | Ed25519 + ML-DSA-65 hybrid keys, Lamport-OTS | Forged proofs/signatures if key material leaks |
 | ZK proving/verifying keys (gnark, BN254/MiMC) | Groth16 setup artifacts | Forged ZK proofs if trusted setup is compromised |
-| Submitter credentials | secp256k1 keys used for Casper RPC submission | Unauthorized on-chain submission if leaked |
+| Submitter credentials | secp256k1 keys used for BOT Chain RPC submission | Unauthorized on-chain submission if leaked |
 | API server | Go backend: verify, batch-verify, resilience layer | Availability loss, tampered verification results |
 
 ## 2. Actors / Trust Boundaries
@@ -24,8 +24,8 @@ document whenever a new contract, endpoint, or trust boundary is added.
 | Proof submitter | Untrusted (external) | Submits proof_id + input/output/model; server independently re-derives and checks, never trusts client-asserted validity |
 | Verifier caller (judge, agent, dashboard) | Untrusted (external) | `/verify` and `/verify/batch` re-check existence, hash match, commit validity, and Merkle-path validity server-side |
 | Contract owner (defi-mock admin) | Trusted infra | Sole party able to whitelist; no other privileged path |
-| Casper network / validators | Trusted (base layer) | Standard blockchain consensus assumptions apply |
-| Casper RPC node (global-state queries) | Semi-trusted, assumed unreliable | Treated as a flaky dependency, not a trust anchor — see resilience layer below |
+| BOT Chain network / validators | Trusted (base layer) | Standard blockchain consensus assumptions apply |
+| BOT Chain RPC node (global-state queries) | Semi-trusted, assumed unreliable | Treated as a flaky dependency, not a trust anchor — see resilience layer below |
 
 ## 3. Attack Surfaces & Mitigations
 
@@ -42,7 +42,7 @@ document whenever a new contract, endpoint, or trust boundary is added.
 - **RNG panic on ID generation** — `genID()` falls back to a timestamp-based ID instead of panicking on RNG failure.
 
 ### 3.3 On-chain query resilience (submitter layer)
-- **Flaky/unreachable Casper RPC** — `engine/internal/submitter/resilience.go`'s `ResilientQuerier` wraps global-state queries with exponential-backoff retry (bounded attempts, context-cancellation aware) plus a three-state circuit breaker (closed → open → half-open) that fails fast (`ErrCircuitOpen`) while open and self-probes after cooldown. 8 unit tests cover retry exhaustion, breaker open/reopen, half-open probe success/failure, and context cancellation mid-backoff.
+- **Flaky/unreachable BOT Chain RPC** — `engine/internal/submitter/resilience.go`'s `ResilientQuerier` wraps global-state queries with exponential-backoff retry (bounded attempts, context-cancellation aware) plus a three-state circuit breaker (closed → open → half-open) that fails fast (`ErrCircuitOpen`) while open and self-probes after cooldown. 8 unit tests cover retry exhaustion, breaker open/reopen, half-open probe success/failure, and context cancellation mid-backoff.
 - Rationale: an untrusted/unreliable RPC endpoint should degrade the *submitter's* behavior (fail fast, retry, recover) — it must never be treated as ground truth for consensus.
 
 ### 3.4 Backend API
@@ -72,7 +72,7 @@ Compact index of the concrete threats sections 3.1–3.5 mitigate, with likeliho
 | T-09 | Repudiation | Verifier claims tampered result | Verification integrity | L | M | Structured `slog` audit log per request; deterministic re-derivation | `engine/internal/api/server.go` `logMiddleware` |
 | T-10 | Information Disclosure | XSS via judge dashboard | User session | L | M | React auto-escaping, no `dangerouslySetInnerHTML` | `frontend/` |
 | T-11 | Information Disclosure | API key leak via frontend bundle | Mutating endpoints | L | H | API key server-side only, `.env.example` placeholders | `.env.example`, frontend bundle |
-| T-12 | Denial of Service | Casper RPC failure blocks verification | Backend availability | M | L | Circuit breaker + exponential backoff; verification correctness independent of RPC | `engine/internal/submitter/resilience.go` |
+| T-12 | Denial of Service | BOT Chain RPC failure blocks verification | Backend availability | M | L | Circuit breaker + exponential backoff; verification correctness independent of RPC | `engine/internal/submitter/resilience.go` |
 | T-13 | Spoofing | Forged signature via classical break | Signing keys | L (short-term) / M (long-term) | H | Hybrid Ed25519 + ML-DSA-65 — requires break of *both* schemes | proof-generation signing path |
 | T-14 | Tampering | Log injection via user input | Audit trail | L | L | All logging via `slog` structured JSON, no format-string interpolation | `engine/internal/api/server.go` |
 | T-15 | Denial of Service | RNG failure crashes ID generation | Backend availability | L | L | `genID()` falls back to timestamp-based ID, never panics | `engine/internal/model/registry.go:83-90` |
@@ -90,7 +90,7 @@ See [`docs/KNOWN_LIMITATIONS.md`](KNOWN_LIMITATIONS.md) for the full list (real 
 - No proof can be marked valid without independently re-deriving hash/commit/Merkle-path checks server-side — client-asserted validity is never trusted.
 - No slash can be applied twice to the same `proof_id`.
 - No party other than the contract owner can mutate the DeFi-mock whitelist.
-- An unreachable/misbehaving Casper RPC node degrades submitter *availability*, never verification *correctness* — the circuit breaker and retry logic live entirely below the trust boundary.
+- An unreachable/misbehaving BOT Chain RPC node degrades submitter *availability*, never verification *correctness* — the circuit breaker and retry logic live entirely below the trust boundary.
 
 ## 6. Review Cadence
 

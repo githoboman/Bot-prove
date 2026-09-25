@@ -1,7 +1,7 @@
 # Deployment verification — three MVP-clean contracts
 
 **Date:** 2026-07-25 → verified 2026-07-26
-**Network:** casper-test
+**Network:** bot-test
 **Deployer account:** secondary signer (redacted — non-Anna).
 Anna's account has a `storage::new_dictionary` name-collision on prior
 `stakes` / `slashed_proofs` named keys, so the three new contracts were
@@ -56,7 +56,7 @@ Rust nightly with
 - `target_features` custom section stripped
 
 Result: 0 non-MVP opcodes, 0 `rust_begin_unwind` imports — all three WASMs
-pass the Casper 1.5.x MVP validator (which was the previous blocker that had
+pass the BOT Chain 1.5.x MVP validator (which was the previous blocker that had
 these three sitting in `undeployed_contracts` since the hackathon).
 
 ## Verification commands (reproducible)
@@ -68,11 +68,11 @@ for h in 35c003e5…d5b5646 fd21b26e…bed07c267 bde5cfb7…7da95e; do
 done
 
 # 2. Confirm entry_points live in global state (indexer-independent)
-STATE=$(curl -s -X POST https://node.testnet.casper.network/rpc \
+STATE=$(curl -s -X POST https://node.testnet.bot.network/rpc \
   -H 'Content-Type: application/json' \
   -d '{"jsonrpc":"2.0","id":1,"method":"chain_get_state_root_hash"}' \
   | jq -r .result.state_root_hash)
-curl -s -X POST https://node.testnet.casper.network/rpc \
+curl -s -X POST https://node.testnet.bot.network/rpc \
   -H 'Content-Type: application/json' \
   -d "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"state_get_item\",\"params\":{\"state_root_hash\":\"$STATE\",\"key\":\"hash-<contract_hash>\",\"path\":[]}}" \
   | jq '.result.stored_value.Contract | {entry_points: [.entry_points[].name], named_keys_count: (.named_keys | length)}'

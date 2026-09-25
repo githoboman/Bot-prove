@@ -1,4 +1,4 @@
-# CasperProver — VIDEO SCRIPT v2 (2026-07-27 update)
+# BotProve — VIDEO SCRIPT v2 (2026-07-27 update)
 
 **Format:** Faceless tutorial | ~2 min | English
 **Style:** Terminal-first, ZK-proof-first (old v1 opened on KYC; the site's own
@@ -21,7 +21,7 @@ script coverage yet.
 
 ## HOOK (first 5 seconds)
 
-[SHOW: casperprover.xyz hero — red "geni" figure, terminal: `casper-prover verify --model gpt-4o --input "loan_42" --anchor testnet`]
+[SHOW: botprove.xyz hero — red "geni" figure, terminal: `bot-prover verify --model gpt-4o --input "loan_42" --anchor testnet`]
 [SUBTITLE: "Your AI made a decision. Now prove it — cryptographically, on-chain."]
 
 ---
@@ -36,7 +36,7 @@ script coverage yet.
 
 [SHOW: Contracts tab → click `proof_registry` → testnet.cspr.live opens on the real deploy]
 
-[TOOLTIP: "9 contracts, all live on Casper testnet — not a mockup."]
+[TOOLTIP: "9 contracts, all live on BOT Chain testnet — not a mockup."]
 
 ---
 
@@ -86,9 +86,9 @@ script coverage yet.
 
 ## OUTRO (1:55–2:00)
 
-[SHOW: casperprover.xyz hero, stats bar: `9 contracts · 250+ testnet txns · 32 endpoints · 32 SDK/MCP tools`]
-[SUBTITLE: "CasperProver. AI accountability, on-chain."]
-[B-ROLL: github.com/anna-stolbovskaja/CasperProver]
+[SHOW: botprove.xyz hero, stats bar: `9 contracts · 250+ testnet txns · 32 endpoints · 32 SDK/MCP tools`]
+[SUBTITLE: "BotProve. AI accountability, on-chain."]
+[B-ROLL: github.com/anna-stolbovskaja/BotProve]
 
 ---
 
@@ -96,7 +96,7 @@ script coverage yet.
 
 | Context | Text |
 |---------|------|
-| Deploy hash appears | `Live on Casper testnet` |
+| Deploy hash appears | `Live on BOT Chain testnet` |
 | ZK verify pass | `Real Groth16, gnark BN254 — not simulated` |
 | ZK verify fail (tamper test) | `Tamper detected — proof invalidated` |
 | PQ sign | `ML-DSA-65 (FIPS 204) hybrid signing` |

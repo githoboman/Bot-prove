@@ -1,9 +1,9 @@
 /**
- * CasperProver server DTOs, mirrored from `engine/internal/prover/types.go`
+ * BotProve server DTOs, mirrored from `engine/internal/prover/types.go`
  * and `engine/internal/api/server.go`. Field names match the on-wire JSON.
  */
 
-/** A proof record as returned by the CasperProver API. */
+/** A proof record as returned by the BotProve API. */
 export interface ProofRecord {
   /** Unique proof identifier (server-generated). */
   id: string;
@@ -33,11 +33,11 @@ export interface ProofRecord {
   use_case: string;
   /** Optional ed25519 public key of the submitter, hex-encoded. */
   public_key?: string;
-  /** Deploy hash on Casper (populated only for `anchored` mode). */
+  /** Deploy hash on BOT Chain (populated only for `anchored` mode). */
   deploy_hash?: string;
   /** Milliseconds the server took to generate the proof. */
   generation_ms: number;
-  /** "local" (in-memory) or "anchored" (submitted to Casper). */
+  /** "local" (in-memory) or "anchored" (submitted to BOT Chain). */
   mode?: "local" | "anchored" | string;
 }
 

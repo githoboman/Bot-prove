@@ -1,6 +1,6 @@
-# CasperProver — Secret Handling Policy
+# BotProve — Secret Handling Policy
 
-*Backlog 10.4.* How CasperProver classifies, stores, rotates, and
+*Backlog 10.4.* How BotProve classifies, stores, rotates, and
 audits every secret it touches. The rules apply to the deployed
 service, the SDK examples, and any developer running the codebase
 locally.
@@ -9,7 +9,7 @@ locally.
 
 | Class            | Examples                                              | Storage                                                        | Rotation |
 |------------------|-------------------------------------------------------|----------------------------------------------------------------|----------|
-| **T1 — chain key** | Owner secret keys for deployed Casper contracts       | Offline hardware wallet or an env-only PEM never committed     | 90 d     |
+| **T1 — chain key** | Owner secret keys for deployed BOT Chain contracts       | Offline hardware wallet or an env-only PEM never committed     | 90 d     |
 | **T2 — API key**   | `API_KEY` env var (server)                            | Env only; never checked in; injected via secret manager        | 30 d     |
 | **T3 — model key**  | Third-party LLM provider keys (OpenAI, Anthropic, …) | Server env only; NEVER passed to clients                       | 90 d     |
 | **T4 — signed url** | Short-lived S3/GCS artefact URLs                      | Ephemeral memory                                               | ≤ 15 min |

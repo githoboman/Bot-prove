@@ -43,7 +43,7 @@ merkle_root = merkle([
     num: '04',
     title: 'Anchor On-Chain',
     desc: 'The proof hash and Merkle root are stored on BOT Chain. Immutable, timestamped, publicly verifiable.',
-    code: `casper.deploy("store_proof", {
+    code: `bot.deploy("store_proof", {
   proof_hash: "0x7f3a...",
   merkle_root: "0x2c91...",
   agent: "agent-alpha",

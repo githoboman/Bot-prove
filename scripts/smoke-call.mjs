@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// smoke-call.mjs — call one entrypoint on a deployed contract via casper-js-sdk 5.0.12
+// smoke-call.mjs — call one entrypoint on a deployed contract via bot-js-sdk 5.0.12
 // Prints gas cost + success. Sequential caller: designed to be driven by a wrapper.
 //
 // Usage:
@@ -9,7 +9,7 @@
 //   '{"proof_hash":"deadbeef","input_hash":"aa","output_hash":"bb","model_hash":"m1"}'
 //
 // Env:
-//   CASPER_NODE, CASPER_CHAIN (defaults: casper testnet public rpc)
+//   CASPER_NODE, CASPER_CHAIN (defaults: bot testnet public rpc)
 //   PAYMENT_MOTES (default 3_000_000_000 = 3 CSPR)
 
 import fs from "node:fs";
@@ -20,7 +20,7 @@ import { createRequire } from "node:module";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const require = createRequire(import.meta.url);
-const sdk = require(path.resolve(__dirname, "../frontend/node_modules/casper-js-sdk"));
+const sdk = require(path.resolve(__dirname, "../frontend/node_modules/bot-js-sdk"));
 
 const {
   ContractCallBuilder, HttpHandler, RpcClient,
@@ -39,8 +39,8 @@ async function main() {
   if (!fs.existsSync(keyPath)) die(`key not found: ${keyPath}`);
   if (!/^[0-9a-fA-F]{64}$/.test(contractHex)) die(`bad contract hash: ${contractHex}`);
 
-  const chainName = process.env.CASPER_CHAIN || "casper-test";
-  const nodeUrl   = process.env.CASPER_NODE  || "https://node.testnet.casper.network/rpc";
+  const chainName = process.env.CASPER_CHAIN || "bot-test";
+  const nodeUrl   = process.env.CASPER_NODE  || "https://node.testnet.bot.network/rpc";
   const payment   = Number(process.env.PAYMENT_MOTES || "3000000000"); // 3 CSPR default
 
   const pem = fs.readFileSync(keyPath, "utf8");

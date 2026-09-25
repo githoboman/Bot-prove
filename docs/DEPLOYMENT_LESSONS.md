@@ -1,10 +1,10 @@
-# CasperProver Casper Testnet Deployment — Lessons Learned
+# BotProve BOT Chain Testnet Deployment — Lessons Learned
 
 **Compiled**: 2026-07-19 after the stake-slashing redeploy at `1ad1b3d9…983d52`.
 
-**Audience**: whoever runs the next contract deploy against `casper-test` — either from `anna-stolbovskaja`, `defi_mock_owner`, or a fresh wallet.
+**Audience**: whoever runs the next contract deploy against `bot-test` — either from `anna-stolbovskaja`, `defi_mock_owner`, or a fresh wallet.
 
-**Source**: real-world diagnosis of failed and successful deploys on 2026-07-18, cross-checked against the `casper-contract` 5.1.1 crate source (not the public docs, which lag).
+**Source**: real-world diagnosis of failed and successful deploys on 2026-07-18, cross-checked against the `bot-contract` 5.1.1 crate source (not the public docs, which lag).
 
 ---
 
@@ -21,12 +21,12 @@
 
 ### What broke
 
-- `nightly-2025-03-01` produces WASM that Casper testnet preprocessing rejects outright with `Bulk memory operations are not supported`.
+- `nightly-2025-03-01` produces WASM that BOT Chain testnet preprocessing rejects outright with `Bulk memory operations are not supported`.
 - The failure happens **before** the contract executes, so no useful chain-side error is emitted. Testnet payment is still consumed for the deploy attempt.
 
 ### Why
 
-Recent rustc/LLVM nightlies emit bulk-memory instructions (`memory.copy`, `memory.fill`, etc.) that Casper's WASM preprocessor doesn't accept. This has nothing to do with the Casper SDK version — it's the codegen path.
+Recent rustc/LLVM nightlies emit bulk-memory instructions (`memory.copy`, `memory.fill`, etc.) that BOT Chain's WASM preprocessor doesn't accept. This has nothing to do with the BOT Chain SDK version — it's the codegen path.
 
 ### Fix
 
@@ -36,7 +36,7 @@ Pin to `nightly-2025-01-01`. This has been confirmed deploy-compatible by the su
 
 1. Change `contracts/rust-toolchain.toml`.
 2. Run the full contract build.
-3. Deploy the smallest contract in the repo to `casper-test` from a **disposable** wallet with ~200 CSPR balance.
+3. Deploy the smallest contract in the repo to `bot-test` from a **disposable** wallet with ~200 CSPR balance.
 4. Query the deploy result until it succeeds or fails.
 5. **Only then** update the pin for the rest of the team.
 
@@ -56,7 +56,7 @@ An earlier internal note in the shared skill said "`install_or_upgrade` rejects 
 
 ### Why `install_or_upgrade` is actually required
 
-Reading the `casper-contract` 5.1.1 crate source directly (not the docs):
+Reading the `bot-contract` 5.1.1 crate source directly (not the docs):
 
 - `storage::new_contract(...)` unconditionally attempts to associate the new contract with the caller's account permissions.
 - Without `install_or_upgrade` set on the transaction envelope, the chain treats the call as a **version upgrade** of an existing (nonexistent) contract → `NotAllowedToAddContractVersion`.
@@ -67,7 +67,7 @@ Reading the `casper-contract` 5.1.1 crate source directly (not the docs):
 Set the flag when constructing the transaction:
 
 ```rust
-// pseudo — actual SDK call depends on which Casper SDK you use
+// pseudo — actual SDK call depends on which BOT Chain SDK you use
 transaction_builder
     .with_install_or_upgrade(true)
     .with_session_wasm(wasm_bytes)
@@ -86,7 +86,7 @@ Several stake-slashing redeploy attempts from `anna-stolbovskaja` failed with `A
 
 The error was silent about the cause; from the outside it looked like a corrupt argument.
 
-### Why (from `casper-contract` crate source)
+### Why (from `bot-contract` crate source)
 
 `storage::new_dictionary(name)` requires that the deployer's account **does not already own a named key with that exact name**. It doesn't merge, it doesn't reuse — it rejects.
 
@@ -152,4 +152,4 @@ These require credentials no automated agent currently holds. Track them here so
 
 ## Change log
 
-- **2026-07-19** — File created after stake-slashing redeploy at `1ad1b3d9…983d52`. Root causes for previous failed attempts documented from `casper-contract` 5.1.1 crate source.
+- **2026-07-19** — File created after stake-slashing redeploy at `1ad1b3d9…983d52`. Root causes for previous failed attempts documented from `bot-contract` 5.1.1 crate source.

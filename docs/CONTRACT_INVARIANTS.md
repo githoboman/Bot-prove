@@ -14,7 +14,7 @@ only, not the full current set of eight.)*
 Scope is intentionally narrow: this is a **living reference for reviewers and
 future contributors**, not a formal proof. Everything here is enforced in
 source (`contracts/*/src/main.rs`) and, where noted, in the API middleware
-that fronts these contracts (`engine/internal/api/*`, `engine/internal/submitter/casper.go`).
+that fronts these contracts (`engine/internal/api/*`, `engine/internal/submitter/bot.go`).
 
 ## Trust model
 
@@ -37,7 +37,7 @@ scope — see `OWNER_LIFECYCLE.md` for what a shipping design would add.
 (proof-registry). Every write path validates `runtime::get_caller() == owner`
 before touching a named key.
 
-**I-2 · No reentrancy.** Casper's execution model is not EVM: a contract
+**I-2 · No reentrancy.** BOT Chain's execution model is not EVM: a contract
 cannot call itself recursively within a single deploy, and cross-contract
 calls are executed as separate host-visible sessions rather than nested
 call frames. We still respect the CEI pattern (checks → effects →
@@ -102,7 +102,7 @@ deploy immediately sees which hash is being used.
 
 **F-2 · CP_STRICT=1 fails closed on anchor errors.** When
 `CP_STRICT=1`, the API refuses any request that would otherwise return a
-non-anchored receipt (Casper node unreachable, contract hash unset,
+non-anchored receipt (BOT Chain node unreachable, contract hash unset,
 signing failure). See `engine/internal/api/server.go` for the guard and
 `.env.example` for the switch.
 

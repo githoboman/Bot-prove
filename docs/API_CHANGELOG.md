@@ -1,4 +1,4 @@
-# CasperProver API — versioning + changelog
+# BotProve API — versioning + changelog
 
 Contract for external SDK authors and integrators.
 

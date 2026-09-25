@@ -1,7 +1,7 @@
 # Smoke verification — 3 MVP-clean contracts, read-only entrypoints
 
 **Date:** 2026-07-26
-**Network:** casper-test (`https://node.testnet.casper.network/rpc`)
+**Network:** bot-test (`https://node.testnet.bot.network/rpc`)
 **Signer:** `anna-stolbovskaja` (public key
 `0202e554b557851b894830b3814fc0f5df7e147937400c537fe5252fc53f4e25257e`,
 SECP256K1). No other keys involved — Anna is the only account we use
@@ -23,7 +23,7 @@ arguments:
 | `model_registry`    | `get_price_bps` | returns `u64` |
 | `proof_of_inference`| `get_stats` | returns 4-tuple `(u64,u64,u64,u64)` |
 
-The Casper 2.0 storage model requires an on-chain deploy even for
+The BOT Chain 2.0 storage model requires an on-chain deploy even for
 read-only entrypoints (they run `runtime::ret` and consume gas). We
 send the minimum viable transaction from Anna, wait for finality on
 the public RPC, and read `execution_result.Version2.error_message`
@@ -31,7 +31,7 @@ to confirm success.
 
 Driver:
 `scripts/smoke-call.mjs <secret.pem> <contract-hash-hex> <entry_point> {}`
-(uses `casper-js-sdk@5.0.12`, 3 CSPR payment cap, `WAIT_TIMEOUT_MS`
+(uses `bot-js-sdk@5.0.12`, 3 CSPR payment cap, `WAIT_TIMEOUT_MS`
 env default 7 min).
 
 ## Results
@@ -67,7 +67,7 @@ Explorer:
 
 ## What this proves
 
-- All three contracts are callable on Casper testnet from a
+- All three contracts are callable on BOT Chain testnet from a
   non-installer signer.
 - Their WASM (MVP-clean, non-installer entrypoints) accepts calls,
   runs, and returns without error.

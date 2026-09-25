@@ -1,7 +1,7 @@
 {
-  "name": "CasperProver",
+  "name": "BotProve",
   "short_name": "CP",
-  "description": "Verifiable agent decision & attestation layer on Casper Network. Offline-first verification, honest claims labelling, chain-rooted audit records.",
+  "description": "Verifiable agent decision & attestation layer on BOT Chain Network. Offline-first verification, honest claims labelling, chain-rooted audit records.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

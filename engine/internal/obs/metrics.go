@@ -1,4 +1,4 @@
-// Package obs provides zero-dependency observability primitives for CasperProver:
+// Package obs provides zero-dependency observability primitives for BotProve:
 //
 //   - Prometheus text-exposition format metrics (counters, gauges, histograms)
 //     exposed on GET /metrics.

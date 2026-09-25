@@ -1,17 +1,17 @@
-# @casperprover/sdk
+# @botprove/sdk
 
-**TypeScript SDK for [CasperProver](../)** — HTTP client for the proof-generation API plus an *offline* Merkle-inclusion verifier that runs the same BLAKE2b-256 the server uses.
+**TypeScript SDK for [BotProve](../)** — HTTP client for the proof-generation API plus an *offline* Merkle-inclusion verifier that runs the same BLAKE2b-256 the server uses.
 
 The SDK is deliberately **zero-build**: the source ships as raw `.ts` files, and every runtime we target (Node 22+, Node 24 with native TS, Bun, Deno, Vite, esbuild) either imports `.ts` directly or hands it to a bundler untouched. There is no `dist/`, no compile step, no publish-and-hope pipeline. Consume it exactly like the AE402 TS SDK.
 
 ## Install
 
-Right now this is consumed in-tree from the CasperProver monorepo. Once the package is published:
+Right now this is consumed in-tree from the BotProve monorepo. Once the package is published:
 
 ```bash
-npm install @casperprover/sdk
+npm install @botprove/sdk
 # or
-pnpm add @casperprover/sdk
+pnpm add @botprove/sdk
 ```
 
 Node 18+ is required (built-in `fetch`). If you're on Node 22.6+ you also get native TypeScript loading via `--experimental-strip-types`; on Node 24+ it's on by default.
@@ -19,9 +19,9 @@ Node 18+ is required (built-in `fetch`). If you're on Node 22.6+ you also get na
 ## Quickstart
 
 ```ts
-import { CasperProverClient, verifyOffline } from "@casperprover/sdk";
+import { BotProveClient, verifyOffline } from "@botprove/sdk";
 
-const cp = new CasperProverClient({
+const cp = new BotProveClient({
   baseUrl: "https://cp.example.com",
   apiKey: process.env.CP_API_KEY,      // optional; sent as X-API-Key
   publicKey: process.env.CP_PUBLIC_KEY, // optional; sent as X-Public-Key
@@ -85,7 +85,7 @@ Every HTTP failure is mapped to a typed exception so callers can `catch` the one
 - `RateLimitError` (429) — carries `retryAfterSec` when the server sent `Retry-After`
 - `ServerError` (5xx) · `APIError` (other 4xx)
 - `NetworkError` — connection refused, DNS failure, `AbortError` on timeout
-- All extend `CasperProverError`, all extend `Error`
+- All extend `BotProveError`, all extend `Error`
 
 The client's `error.body` field carries the parsed response body when available, so callers can pull out server-specific fields without reparsing.
 

@@ -23,15 +23,15 @@ import crypto from "node:crypto";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const require = createRequire(import.meta.url);
-const sdk = require(path.resolve(__dirname, "../frontend/node_modules/casper-js-sdk"));
+const sdk = require(path.resolve(__dirname, "../frontend/node_modules/bot-js-sdk"));
 
 const {
   ContractCallBuilder, HttpHandler, RpcClient,
   PrivateKey, KeyAlgorithm, Args, CLValue,
 } = sdk;
 
-const CHAIN = "casper-test";
-const NODE = process.env.CASPER_NODE || "https://node.testnet.casper.network/rpc";
+const CHAIN = "bot-test";
+const NODE = process.env.CASPER_NODE || "https://node.testnet.bot.network/rpc";
 const ANNA = PrivateKey.fromPem(fs.readFileSync(process.env.ANNA_PEM || "/tmp/anna.pem", "utf8"), KeyAlgorithm.SECP256K1);
 const DMO  = PrivateKey.fromPem(fs.readFileSync(process.env.DMO_PEM  || "/tmp/dmo.pem",  "utf8"), KeyAlgorithm.SECP256K1);
 const ANNA_AH = ANNA.publicKey.accountHash().toBytes();

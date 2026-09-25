@@ -1,4 +1,4 @@
-# CasperProver — Local observability stack
+# BotProve — Local observability stack
 
 Opt-in Prometheus + Grafana for dev-only use. Zero paid services.
 
@@ -27,7 +27,7 @@ docker compose down -v && rm -rf _data
 - `prometheus/prometheus.yml` — one static scrape target.
 - `grafana/provisioning/` — auto-provisioned Prometheus datasource +
   dashboards folder.
-- `grafana/dashboards/casperprover-engine.json` — starter dashboard: request
+- `grafana/dashboards/botprove-engine.json` — starter dashboard: request
   rate, p50/p95 latency, 5xx rate, in-flight.
 
 Full docs: [`docs/OBSERVABILITY.md`](../../docs/OBSERVABILITY.md).

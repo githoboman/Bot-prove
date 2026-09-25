@@ -202,7 +202,7 @@ func main() {
 	proofs := [][]byte{proof1, proof2, proof3}
 
 	// Create a STARKPack
-	metadata := map[string]string{"batch_id": "batch-001", "prover": "CasperProver"}
+	metadata := map[string]string{"batch_id": "batch-001", "prover": "BotProve"}
 	pack, err := aggregator.CreateSTARKPack(proofs, metadata)
 	if err != nil {
 		slog.Error("Failed to create STARKPack", "error", err)

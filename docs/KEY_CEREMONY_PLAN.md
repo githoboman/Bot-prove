@@ -77,7 +77,7 @@ contribution: contribution N+1 must chain to contribution N via the
 `WriteTo`/`ReadFrom` primitive already exercised in the AF tests.
 
 After the last contribution, the Coordinator publishes the transcript to a
-public location (repo release + IPFS pin, or repo release + Casper
+public location (repo release + IPFS pin, or repo release + BOT Chain
 on-chain commit). The Auditor role independently re-runs the verification
 step; a mismatch between Auditor and Coordinator MUST halt the ceremony
 and trigger a restart.
@@ -90,7 +90,7 @@ and re-seals the final `pk`/`vk`. Acceptable beacons:
 - **NIST Randomness Beacon** (public draw at fixed hour).
 - **Ethereum block hash at height H** where H is published *before* T_close
   (the future block hash is not predictable at close time).
-- **Casper block hash** at a height announced before T_close.
+- **BOT Chain block hash** at a height announced before T_close.
 
 The specific beacon MUST be announced in the transcript **before** T_close
 so a Contributor cannot predict it and pre-compute a trapdoor.

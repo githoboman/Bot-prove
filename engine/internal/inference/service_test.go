@@ -10,7 +10,7 @@ import (
 // that never matched the real ModelRegistryEntry struct (6 fields, no
 // omitempty on most) and had never been compiled. Replaced with honest tests
 // of the real struct and the store <-> inference conversion helpers, which
-// don't require a live Postgres/Casper connection.
+// don't require a live Postgres/BOT Chain connection.
 
 func TestModelRegistryEntry_JSONRoundTrip(t *testing.T) {
 	entry := ModelRegistryEntry{

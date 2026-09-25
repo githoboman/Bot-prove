@@ -1,12 +1,12 @@
-# CasperProver — Roadmap
+# BotProve — Roadmap
 
-> Cryptographic proof engine for AI inference verification on Casper Network
+> Cryptographic proof engine for AI inference verification on BOT Chain Network
 
 ---
 
 ## ✅ Shipped
 
-- [x] 7 smart contracts on Casper testnet (proof-registry, verifier-gate, defi-mock, stake-slashing, proof-aggregation, model-registry, proof-of-inference)
+- [x] 7 smart contracts on BOT Chain testnet (proof-registry, verifier-gate, defi-mock, stake-slashing, proof-aggregation, model-registry, proof-of-inference)
 - [x] 3 additional contracts written, not yet deployed (zk-verifier, stake-slashing-session, governance)
 - [x] Go API server — 32 endpoints, PostgreSQL persistence, rate limiting
 - [x] Merkle tree builder (SHA-256, configurable depth, <50ms)
@@ -19,8 +19,8 @@
 - [x] Stake-slashing — real CSPR economic penalty (20% slash, permissionless bounty)
 - [x] Go SDK — 32 methods, 1:1 API mapping
 - [x] MCP server — 32 tools with full InputSchema definitions
-- [x] React lab at casperprover.xyz — 11 interactive tabs, all calling real API
-- [x] Casper Wallet integration with demo fallback
+- [x] React lab at botprove.xyz — 11 interactive tabs, all calling real API
+- [x] BOT Chain Wallet integration with demo fallback
 - [x] 194 tests (172 Go + 22 Rust)
 - [x] CI via GitHub Actions
 - [x] API-key auth, rate limiting (60 req/min), input validation
@@ -40,7 +40,7 @@
 - [x] A2A provider pool + HTTP provider adapter + HITL policy service (`docs/DECISION_A2A_HITL.md`) — `decision.ProviderPool`+`Router` with trust levels (`system`/`delegated`/`observational`) and per-facet capabilities; `HTTPProviderAdapter` (JSON-over-HTTP contract, fixture fallback); `hitl.Service` with declarative policy (veto on critical REJECT / escalate on critical ABSTAIN or low confidence) and a `TicketStore` interface (in-memory default; Postgres-backed drop-in). Opt-in via `CP_DECISION_ENABLE=1`; endpoints: `POST /v1/decision/evaluate`, `GET /v1/decision/pool`, `GET/POST /v1/hitl/tickets*`.
 - [x] Merkle-recursion aggregation (`docs/MERKLE_RECURSION.md`) — SHA-256 Merkle tree over proof-commitment digests, labelled `merkle-recursion-v1`. Domain-separated leaf/interior tags (0x00 / 0x01); Bitcoin-style odd-count padding. Verifier does O(log n) SHA-256 hashes on an inclusion path against the aggregate root; aggregate itself is O(1) size regardless of k. NOT a STARK recursion (does not re-verify the underlying proof — only proves inclusion of the commitment); the `stark-recursion-v1` label remains reserved for a future real recursive STARK. HTTP surface: `POST /v1/aggregation/merkle-aggregate`, `POST /v1/aggregation/merkle-inclusion`, `POST /v1/aggregation/merkle-verify`.
 - [x] Pedersen fold on BLS12-381 G1 (`docs/PEDERSEN_FOLD.md`) — intermediate cryptographic upgrade of `hash-fold-v1`, labelled `pedersen-fold-v1`. Two independent generators (`G` canonical, `H` = HashToG1("CP_PED_H_V1")); per-step scalars `m_i, r_i` derived by domain-separated SHA-256 hashes; accumulator `C = Σ (m_i·G + r_i·H)`. Real cryptographic binding under DLP + real homomorphism across splits (`PedersenHomomorphismCheck`). NOT a Nova folding scheme (does not reduce R1CS instances); the `nova-go-v1` label remains reserved for the eventual real Nova. HTTP surface reused: `POST /v1/aggregation/fold` and `POST /v1/aggregation/verify-fold` dispatch on the `scheme` field (`hash-fold-v1` default, `pedersen-fold-v1` opt-in).
-- [x] BLS12-381 threshold quorum registry (`docs/BLS_QUORUM.md`) — real BLS aggregate signatures over BLS12-381 (`engine/internal/quorum/`): keypair generation over `Fr`, pubkey in `G2`, hash-to-curve via SSWU (RFC 9380), pairing check `e(H(m), pk_agg) == e(agg_sig, G2)`. Thread-safe `Registry` with `active → slashed`/`removed` lifecycle, idempotent `Slash`, active-count-aware `ByzantineThreshold(n) = ⌊2n/3⌋+1` (clamped). `VerifyQuorum` emits a canonical `QuorumWitness` (SHA-256 commitment over deterministic serialisation) whose hash is order-invariant across bitset shuffles. Opt-in via `CP_QUORUM_ENABLE=1`; endpoints: `POST /v1/quorum/signers`, `GET /v1/quorum/signers`, `POST /v1/quorum/signers/{id}/slash`, `POST /v1/quorum/signers/{id}/retire`, `POST /v1/quorum/verify`, `GET /v1/quorum/threshold`. Reserved scheme label `bls12-381-tss-v1` for future DKG-based TSS; today the shipped label is `bls12-381-g1-agg-v1`. On-chain BLS pairing verifier requires a Casper VM precompile and remains a follow-up — the current wire commits `witness_hash_hex` on-chain (same trust model as receipts).
+- [x] BLS12-381 threshold quorum registry (`docs/BLS_QUORUM.md`) — real BLS aggregate signatures over BLS12-381 (`engine/internal/quorum/`): keypair generation over `Fr`, pubkey in `G2`, hash-to-curve via SSWU (RFC 9380), pairing check `e(H(m), pk_agg) == e(agg_sig, G2)`. Thread-safe `Registry` with `active → slashed`/`removed` lifecycle, idempotent `Slash`, active-count-aware `ByzantineThreshold(n) = ⌊2n/3⌋+1` (clamped). `VerifyQuorum` emits a canonical `QuorumWitness` (SHA-256 commitment over deterministic serialisation) whose hash is order-invariant across bitset shuffles. Opt-in via `CP_QUORUM_ENABLE=1`; endpoints: `POST /v1/quorum/signers`, `GET /v1/quorum/signers`, `POST /v1/quorum/signers/{id}/slash`, `POST /v1/quorum/signers/{id}/retire`, `POST /v1/quorum/verify`, `GET /v1/quorum/threshold`. Reserved scheme label `bls12-381-tss-v1` for future DKG-based TSS; today the shipped label is `bls12-381-g1-agg-v1`. On-chain BLS pairing verifier requires a BOT Chain VM precompile and remains a follow-up — the current wire commits `witness_hash_hex` on-chain (same trust model as receipts).
 - [x] Admin dashboard rollup endpoint (`docs/roadmap/ADMIN_SUMMARY.md`) — `GET /v1/admin/summary` returns a single read-only rollup (subsystems on/off, keystore info + key metadata, webhook aggregate state, scopes summary, contract addresses). Never leaks secrets; enforced by `TestAdminSummary_NoSecretsInPayload`. Scope: `admin:read`. This is the engine side of the FE admin dashboard — no FE changes ship in this slot.
 - [x] Webhook subsystem Prometheus instrumentation (`docs/roadmap/WEBHOOK_METRICS.md`) — `cp_webhook_*` counters (enqueued/attempts/delivered/dead_lettered/replayed), attempt-duration histogram (label: event + status_class), live queue/dead-letter depth gauges. Same `/metrics` endpoint as `cp_http_*`; zero new module deps.
 - [x] Formal-verification scaffolding (`docs/roadmap/FORMAL_VERIFICATION.md`) — 3 TLA+ specs (`ProofSystemSpec` — proof-registry state machine; `QuorumSpec` — BLS quorum registry; `ReceiptLineageSpec` — lineage DAG), a portable `specs/run-tlc.sh` driver, and a `.github/workflows/formal-verification.yml` workflow that runs TLC on every push and PR touching `specs/`. Full formal verification of the whole system remains a multi-month effort; this slot makes formal verification an always-green CI signal so drift is caught the moment a spec breaks.

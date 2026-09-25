@@ -1,6 +1,6 @@
-# CasperProver — Service Level Objectives (SLO catalogue)
+# BotProve — Service Level Objectives (SLO catalogue)
 
-*Backlog 10.3.* Public commitment for what CasperProver's hosted API
+*Backlog 10.3.* Public commitment for what BotProve's hosted API
 and on-chain surface promise, measured, and reports against.
 
 The point isn't a marketing number — the point is that every metric
@@ -15,7 +15,7 @@ route to the on-call.
 | `GET /health`            | 99.9%  | 30-day rolling | Uptime probe every 30 s; a `2xx` under 500 ms counts as success             |
 | `POST /v1/proofs`        | 99.5%  | 30-day rolling | 202/201 within 30 s at 60 req/min per IP                                    |
 | `POST /v1/verify`        | 99.5%  | 30-day rolling | 200 within 5 s at 60 req/min per IP                                         |
-| Casper on-chain anchor   | 99.0%  | 30-day rolling | Submit-and-confirm within 5 minutes on Casper testnet 2.0                   |
+| BOT Chain on-chain anchor   | 99.0%  | 30-day rolling | Submit-and-confirm within 5 minutes on BOT Chain testnet 2.0                   |
 
 Anything below target is reported in the `/health` payload as
 `degraded: true`; sustained breach (>1 h continuous) opens a `SEV-2`
@@ -30,7 +30,7 @@ in `docs/SECURITY.md`.
 | Groth16-real verify                         | ≤ 25 ms     | Pairing check only                                                          |
 | PQ (SPHINCS+) sign                          | ≤ 700 ms    | Reference impl; not tuned                                                    |
 | PQ verify                                   | ≤ 30 ms     |                                                                              |
-| On-chain deploy submit → finalized         | ≤ 5 min      | Casper testnet block time is ~30 s; 10x buffer                              |
+| On-chain deploy submit → finalized         | ≤ 5 min      | BOT Chain testnet block time is ~30 s; 10x buffer                              |
 
 ## Correctness
 
@@ -51,8 +51,8 @@ in `docs/SECURITY.md`.
 ## What is NOT covered
 
 - Client-side network reliability (browser → API).
-- Casper Network consensus delays beyond 5 min (an ecosystem-wide
-  incident, not a CasperProver SLO breach).
+- BOT Chain Network consensus delays beyond 5 min (an ecosystem-wide
+  incident, not a BotProve SLO breach).
 - Third-party LLM inference latency — the audit log records the
   request/response hashes, not the upstream latency.
 

@@ -28,7 +28,7 @@ export interface UndeployedContractEntry {
 }
 
 export interface OnChainManifest {
-  network: 'casper-test' | 'casper-mainnet';
+  network: 'bot-test' | 'bot-mainnet';
   chain_name: string;
   project: string;
   deployer: string;

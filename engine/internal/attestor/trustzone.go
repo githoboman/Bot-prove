@@ -6,7 +6,7 @@ package attestor
 // A real implementation would drive OP-TEE from a small C or Rust
 // helper (there is no first-party Go binding today) and package the
 // resulting attestation into Quote.Blob. Relevant mostly for
-// on-device / edge agents, not server-side CasperProver deployments.
+// on-device / edge agents, not server-side BotProve deployments.
 //
 // This stub does none of that.
 type TrustZoneStub struct{ stub }

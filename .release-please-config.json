@@ -9,7 +9,7 @@
   "packages": {
     "sdk/typescript": {
       "release-type": "node",
-      "package-name": "@casperprover/sdk",
+      "package-name": "@botprove/sdk",
       "component": "sdk-ts",
       "tag-separator": "-v",
       "include-component-in-tag": true,
@@ -19,7 +19,7 @@
     },
     "sdk/python": {
       "release-type": "python",
-      "package-name": "casperprover",
+      "package-name": "botprove",
       "component": "sdk-py",
       "tag-separator": "-v",
       "include-component-in-tag": true,
@@ -29,7 +29,7 @@
     },
     "sdk": {
       "release-type": "go",
-      "package-name": "github.com/anna-stolbovskaja/CasperProver/sdk",
+      "package-name": "github.com/anna-stolbovskaja/BotProve/sdk",
       "component": "sdk",
       "tag-separator": "/",
       "include-component-in-tag": true,

@@ -1,11 +1,11 @@
-# CasperProver — On-chain Transaction Manifest
+# BotProve — On-chain Transaction Manifest
 
 > Every claim of "on-chain" the project makes is backed by a concrete
 > testnet transaction. This document is the single source of truth.
 > Update it whenever a contract is deployed or a new evidence tx is
 > emitted; never invent a hash.
 
-**Network**: `casper-test` (testnet).
+**Network**: `bot-test` (testnet).
 **Explorer base**: https://testnet.cspr.live/
 
 ---
@@ -65,10 +65,10 @@ with `[hash-prefix...suffix](https://testnet.cspr.live/deploy/<full-hash>)`.
 Every row in section 1 is reproducible without trust:
 
 ```bash
-casper-client query-global-state \
-  --node-address https://rpc.testnet.casperlabs.io \
-  --state-root-hash "$(casper-client get-state-root-hash \
-      --node-address https://rpc.testnet.casperlabs.io \
+bot-client query-global-state \
+  --node-address https://rpc.testnet.botlabs.io \
+  --state-root-hash "$(bot-client get-state-root-hash \
+      --node-address https://rpc.testnet.botlabs.io \
       | jq -r .result.state_root_hash)" \
   --key hash-<PACKAGE_HASH> \
   --path '' | jq
@@ -80,9 +80,9 @@ list and named-key map — the same shape cspr.live renders.
 
 ## 5. Anti-linking pass
 
-**CasperProver contracts are not shared with any other Casper hackathon
+**BotProve contracts are not shared with any other BOT Chain hackathon
 submission.** All eight package hashes above resolve to accounts under
-the CasperProver deployer key. No shared deploys with AgentEscrow402
+the BotProve deployer key. No shared deploys with AgentEscrow402
 or any other submission.
 
 ## 6. Change log

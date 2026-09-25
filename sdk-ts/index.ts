@@ -1,22 +1,22 @@
 /**
- * Public exports for the CasperProver TypeScript SDK.
+ * Public exports for the BotProve TypeScript SDK.
  *
- * Consumers import from `@casperprover/sdk` (or the local relative path):
+ * Consumers import from `@botprove/sdk` (or the local relative path):
  *
  * ```ts
- * import { CasperProverClient, verifyOffline } from "@casperprover/sdk";
+ * import { BotProveClient, verifyOffline } from "@botprove/sdk";
  * ```
  *
  * See `README.md` for a quickstart.
  */
 
-export { CasperProverClient, proofStatus } from "./client.ts";
-export type { CasperProverClientOptions } from "./client.ts";
+export { BotProveClient, proofStatus } from "./client.ts";
+export type { BotProveClientOptions } from "./client.ts";
 
 export {
   APIError,
   BadRequestError,
-  CasperProverError,
+  BotProveError,
   ForbiddenError,
   NetworkError,
   NotFoundError,

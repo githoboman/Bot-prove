@@ -1,7 +1,7 @@
 # SDK Versioning Strategy
 
 **Status**: `DRAFT — versioning policy`. Establishes the contract
-CasperProver's SDKs, MCP server, and API surface follow so downstream
+BotProve's SDKs, MCP server, and API surface follow so downstream
 Operators can depend on them without surprise breakage. **No code is
 changed by this document. No dependency is added.**
 
@@ -25,7 +25,7 @@ without a written migration path), downstream Operators pay for the
 mismatch. This document specifies the promise precisely so nobody has
 to guess.
 
-CasperProver has three publish surfaces:
+BotProve has three publish surfaces:
 
 1. **API contract** — the wire format Operators talk to. Anchored at
    `api/v<major>/...`.
@@ -42,7 +42,7 @@ prevents.
 
 ## 2. Semantic versioning contract
 
-CasperProver SDKs and API contracts follow **SemVer 2.0.0** with the
+BotProve SDKs and API contracts follow **SemVer 2.0.0** with the
 following clarifications:
 
 - **MAJOR** — breaks the API contract, the receipt schema, or a
@@ -102,7 +102,7 @@ forces an SDK MAJOR (because the serialisation changed).
 - **PATCH windows**: security patches for 12 months on any supported
   MAJOR.
 
-**Publish policy.** No CasperProver SDK is published to a public
+**Publish policy.** No BotProve SDK is published to a public
 package registry until:
 1. AK G6 (ops readiness) has been reached, OR
 2. The publication is explicitly tagged `-alpha`/`-beta` and
@@ -160,9 +160,9 @@ the schema itself can still be verified offline via the shipped tools.
   cp:receipt:v<n>`.
 - **Receipt canonical serialisation**: leading `"cp:receipt:v<n>"`
   purpose tag as required by AN Q2.
-- **SDK packages**: `github.com/anna-stolbovskaja/casperprover-go/v<n>`
-  (Go module semantic import path); PyPI `casperprover-py==vX.Y.Z`
-  (planned); npm `@casperprover/sdk-ts@vX.Y.Z` (planned).
+- **SDK packages**: `github.com/anna-stolbovskaja/botprove-go/v<n>`
+  (Go module semantic import path); PyPI `botprove-py==vX.Y.Z`
+  (planned); npm `@botprove/sdk-ts@vX.Y.Z` (planned).
 - **MCP server**: version reported via `initialize` response
   `serverInfo.version`.
 - **CLI**: `verify.sh --version` returns the compatibility window.
@@ -262,5 +262,5 @@ promises auditable.
 ---
 
 *This is a versioning policy. It ships no code and publishes no SDK.
-Its only purpose is to make CasperProver's version promises auditable
+Its only purpose is to make BotProve's version promises auditable
 across API, receipt schema, and SDK simultaneously.*

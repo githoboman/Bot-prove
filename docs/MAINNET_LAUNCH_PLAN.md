@@ -27,7 +27,7 @@ that has to exist and be signed off before the gate is called closed.
 Until every gate is closed, the honesty labels in the repo
 (`REAL / ON-CHAIN / SIMULATION`) must not be changed to imply a live
 mainnet surface. In particular, no marketing, no docs, and no code
-comment may state or imply that CasperProver runs on mainnet before
+comment may state or imply that BotProve runs on mainnet before
 Gate 8 is closed.
 
 This plan itself is **not sufficient** to launch. The gate criteria
@@ -41,7 +41,7 @@ For the purpose of this plan, **mainnet** means all of the following
 simultaneously:
 
 - Anchor commitments (Merkle roots + minimal metadata) are written to
-  the **Casper Network mainnet** — not testnet, not a devnet, not a
+  the **BOT Chain Network mainnet** — not testnet, not a devnet, not a
   local single-node fork.
 - The public API surface (`/attest`, `/verify`, `/audit/*`) is
   reachable at a **stable public hostname** with valid CA-issued TLS.
@@ -255,7 +255,7 @@ meeting.
 
 Even after Gate 8, mainnet is not opened at full traffic on day zero.
 The rollout has three phases; each phase has an exit criterion before
-progressing to the next. **All phases run against Casper mainnet;** the
+progressing to the next. **All phases run against BOT Chain mainnet;** the
 "canary" name refers to *traffic exposure*, not to a separate network.
 
 ### Phase 4.1 — Canary (invitation-only)
@@ -356,7 +356,7 @@ otherwise must be corrected before Gate 8:
   Interfaces exist but no live hardware attestation is claimed at
   launch.
 - **Fiat rails, custody of user funds, or any regulated financial
-  activity.** CasperProver anchors proofs; it does not custody assets.
+  activity.** BotProve anchors proofs; it does not custody assets.
   Any change to this posture is a separate legal review outside this
   plan.
 

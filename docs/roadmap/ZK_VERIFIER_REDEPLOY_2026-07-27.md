@@ -21,7 +21,7 @@ revert.
 Actual cause, confirmed by inspecting the account's live NamedKeys via
 `state_get_entity`: `storage::new_dictionary()` / `storage::new_uref()`
 write their NamedKey directly onto the **calling account's** context, and
-Casper rejects the call if a key with that exact name already exists there.
+BOT Chain rejects the call if a key with that exact name already exists there.
 `anna-stolbovskaja` already held `vks` / `verdicts` / `verifiers` (and other
 per-contract keys) from the *first* zk-verifier install, months earlier —
 already documented generically for a different contract in
@@ -53,7 +53,7 @@ confirming the Lesson-3 prescribed fix (clean wallet) as the real one.
 
 | field | value |
 |---|---|
-| network | casper-test |
+| network | bot-test |
 | contract_hash | `4500da5d314f11f8a535b9c70fb67729da6b452efc6c302abf292b42b6dc96a1` |
 | contract_package_hash | `1b4faa048f9d5a0366c42ec9a432dd9b3d8128368b889eb125f84d1047564f1a` |
 | deploy_hash | `0c5f87ec45f1c51390203ea09210a2db517784f33f2d5bb9a4419deead9eaacc` |
@@ -82,7 +82,7 @@ whether to take custody of it or leave it managed by the agent sandbox.
 
 `4a5d09419fbc147e4114adb2e50473addd5d7057ae58c6223e0edaa4fb89a262` /
 package `1c13c999edcb0c9ef52acfd310a3769bf096a9ec09a58356f6438ce4a3d8c807`
-remains on-chain (Casper has no contract deletion) but is deprecated —
+remains on-chain (BOT Chain has no contract deletion) but is deprecated —
 still running the vulnerable pre-fix code. All docs/env/manifest references
 have been repointed to the new hash above.
 

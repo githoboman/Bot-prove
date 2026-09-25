@@ -54,10 +54,10 @@ func TestOpenRouter_ExtraHeaders(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Complete: %v", err)
 	}
-	if got := captured.Header.Get("HTTP-Referer"); got != "https://casperprover.ai" {
+	if got := captured.Header.Get("HTTP-Referer"); got != "https://botprove.ai" {
 		t.Errorf("HTTP-Referer = %q", got)
 	}
-	if got := captured.Header.Get("X-Title"); got != "CasperProver Judge" {
+	if got := captured.Header.Get("X-Title"); got != "BotProve Judge" {
 		t.Errorf("X-Title = %q", got)
 	}
 	if got := captured.Header.Get("Authorization"); !strings.HasPrefix(got, "Bearer ") {

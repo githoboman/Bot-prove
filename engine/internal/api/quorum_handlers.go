@@ -21,7 +21,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/quorum"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/quorum"
 )
 
 // registerQuorumRoutes wires the /v1/quorum/* endpoints.

@@ -8,9 +8,9 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/decision/attest"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/hitl"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/receipts"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/decision/attest"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/hitl"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/receipts"
 )
 
 // initReceiptsService wires the provenance-lineage receipt service.
@@ -327,7 +327,7 @@ func (s *Server) writeJSON(w http.ResponseWriter, status int, body any) {
 }
 
 // closeReceipts released the receipt sink if one is attached. It was never
-// wired into a graceful-shutdown path (cmd/casperprover/main.go has none
+// wired into a graceful-shutdown path (cmd/botprove/main.go has none
 // today), so it was always dead code per the linter. Removed rather than
 // kept unused; re-add + wire to a signal handler if/when the server gains
 // graceful shutdown.

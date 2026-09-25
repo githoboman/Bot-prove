@@ -3,7 +3,7 @@
 **Status**: `DRAFT — research spike`. Non-binding survey. **No code is shipped as
 part of this document. No third-party service is authorised. No architectural
 commitment is made.** This file exists solely to justify — with an auditable
-paper trail — why CasperProver's ML-inference claims are labelled
+paper trail — why BotProve's ML-inference claims are labelled
 `SIMULATION` today and what would have to change (mathematically, operationally,
 economically) before any of them could be re-labelled `REAL`.
 
@@ -21,9 +21,9 @@ Cross-refs:
 
 ---
 
-## 1. Framing — what "ZK-ML" actually means in CasperProver's context
+## 1. Framing — what "ZK-ML" actually means in BotProve's context
 
-CasperProver anchors *attestations of agent decisions*: inputs, outputs, model
+BotProve anchors *attestations of agent decisions*: inputs, outputs, model
 identifier, timestamp, hashed into a Merkle tree with a chain-anchor receipt.
 "ZK-ML" is the (much stronger) claim that the receipt *also* carries a
 succinct cryptographic proof that a **named model, on the named inputs,
@@ -49,7 +49,7 @@ justifies re-labelling from `SIMULATION`.
    would still be `REAL (fixed circuit, model-id X, weights-hash Y)`.
 4. **Proof of correct execution of an *arbitrary* named model** (universal
    ML verifier) — an open research problem. No production system today
-   satisfies this at model sizes CasperProver cares about (>10^7 parameters)
+   satisfies this at model sizes BotProve cares about (>10^7 parameters)
    in a way that is cheap enough for per-inference attestation. If it
    existed, it would be the honest `REAL` rung the marketing wants.
 
@@ -88,7 +88,7 @@ soundness proofs.
   "proof of a *simplification* of the model", and that gap must be
   disclosed to remain honest.
 
-**Fit for CasperProver.** Compatible with rung 3 for a **single, small,
+**Fit for BotProve.** Compatible with rung 3 for a **single, small,
 well-defined model**. Structurally incompatible with rung 4 (universal
 verifier).
 
@@ -108,7 +108,7 @@ adopted in AD.
 - Verifier is fast in absolute terms but expensive in on-chain gas relative
   to Groth16.
 
-**Fit for CasperProver.** Structurally the *most honest* rung 3 option
+**Fit for BotProve.** Structurally the *most honest* rung 3 option
 because it composes with the AD/AJ posture (no trusted setup, PQ hedged).
 Still not rung 4.
 
@@ -131,15 +131,15 @@ inference. Ergonomically closest to rung 4.
   had disclosed soundness bugs in the past 24 months (public record via
   their security advisories; details in §5).
 
-**Fit for CasperProver.** Aspirational rung 4 candidate; not viable for
-per-inference attestation at CasperProver's target throughputs today.
+**Fit for BotProve.** Aspirational rung 4 candidate; not viable for
+per-inference attestation at BotProve's target throughputs today.
 Revisit in G2 (mainnet audit gate) for models below a hard size ceiling.
 
 ### 2.4 Lookup-argument-heavy DSLs (halo2-lookup, Plonkup, cq)
 
 **How they work.** Non-arithmetic operations (softmax, activation, integer
 quantisation) are handled with lookup tables and range proofs — the same
-primitive family CasperProver already ships as `SIMULATION` stubs in AC
+primitive family BotProve already ships as `SIMULATION` stubs in AC
 (`docs`: 2.13, 2.14). Combined with a base PLONKish arithmetisation to
 close the ML inference circuit.
 
@@ -155,7 +155,7 @@ than 2.1/2.2. Composable with universal-setup PLONK.
   IOP's soundness is subtle — a common source of published attacks in
   the last three years.
 
-**Fit for CasperProver.** Rung 3 candidate with better honesty story for
+**Fit for BotProve.** Rung 3 candidate with better honesty story for
 non-arithmetic ops. Structural cost is a permanent per-model engineering
 tax.
 
@@ -166,7 +166,7 @@ SuperNova, folding schemes; SNARKs-of-SNARKs) reduce per-inference cost
 by batching. Composes with any of the above at the price of more moving
 parts and larger dependency surface.
 
-**Fit for CasperProver.** Not a rung; a cost-reduction technique layered
+**Fit for BotProve.** Not a rung; a cost-reduction technique layered
 on top of a chosen rung. Reject until a rung-3 prover is actually shipping
 and its unbatched economics are measured.
 
@@ -192,9 +192,9 @@ Called out here so a reader does not confuse a TEE deployment with ZK-ML.
 
 ---
 
-## 3. Feasibility matrix for CasperProver
+## 3. Feasibility matrix for BotProve
 
-Score is qualitative on the axes CasperProver actually cares about, not
+Score is qualitative on the axes BotProve actually cares about, not
 abstract cryptographic aesthetics. Cells are `-2 blocker / -1 pain / 0
 tolerable / +1 good / +2 excellent`. Aggregate is the sum, not a
 weighted composite (weighting is intentionally not encoded so the reader
@@ -216,7 +216,7 @@ does not confuse the spike for a decision).
 
 **Reading of the table.** Nothing in the surveyed landscape is a
 clear +6 to +10 win. The category with the least-bad aggregate for
-CasperProver's specific posture (transparent setup, PQ hedge, existing
+BotProve's specific posture (transparent setup, PQ hedge, existing
 provenance-vector primitives, upcoming G2 audit) is **STARK/FRI-family
 rung-3 provers**, at aggregate +3. That is not "ready to ship"; that is
 "least-bad candidate to prototype in a *research* branch behind a hard
@@ -231,7 +231,7 @@ transient.
 
 ## 4. Honest verdict — why the label stays `SIMULATION` today
 
-For a CasperProver claim to move from `SIMULATION` to `REAL (ZK-ML)`
+For a BotProve claim to move from `SIMULATION` to `REAL (ZK-ML)`
 the following four conditions all have to hold. None of them hold today.
 
 1. **A single, specific, named model** is compiled to a specific circuit
@@ -313,7 +313,7 @@ and a named model — none of which this document proposes.
 - It does not treat trusted-hardware attestation as ZK-ML.
 
 The single deliverable of this spike is a paper trail justifying **why
-CasperProver's ML claims remain `SIMULATION` today** and **what would
+BotProve's ML claims remain `SIMULATION` today** and **what would
 have to be true before that label could honestly change**. Anything
 beyond that scope is future work gated by G2.
 

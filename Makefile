@@ -2,13 +2,13 @@
         judge-demo judge-repro judge-verify judge-all gate3-demo bench bench-baseline sync-onchain
 
 build:
-	cd engine && go build -o ../bin/casperprover ./cmd/casperprover
+	cd engine && go build -o ../bin/botprove ./cmd/botprove
 
 # One-command Gate 3 agentic vertical slice — approve + malicious + conflict
 # + abstain paths, no network I/O. Prints a JSON receipt to stdout and a
 # human summary to stderr. Exit code non-zero on any scenario failure.
 gate3-demo: build
-	./bin/casperprover gate3
+	./bin/botprove gate3
 
 test:
 	cd engine && go test -v -race ./...

@@ -38,7 +38,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/decision/attest"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/decision/attest"
 )
 
 // Action is what Decide returns.

@@ -1,6 +1,6 @@
 # On-chain Manifest — Single Source of Truth
 
-CasperProver keeps every contract hash, package hash, and deploy hash in **one canonical file** so nothing drifts between backend, frontend, `verify.sh`, and the README explorer links.
+BotProve keeps every contract hash, package hash, and deploy hash in **one canonical file** so nothing drifts between backend, frontend, `verify.sh`, and the README explorer links.
 
 ## Files
 
@@ -21,16 +21,16 @@ If you edit the root manifest, run:
 python scripts/generate_manifest.py
 ```
 
-This regenerates `frontend/public/onchain.json`, validates each hash against Casper testnet RPC, and stamps a fresh `generated_at` timestamp.
+This regenerates `frontend/public/onchain.json`, validates each hash against BOT Chain testnet RPC, and stamps a fresh `generated_at` timestamp.
 
 ## Schema (root canonical only)
 
 ```jsonc
 {
   "$schema": "./onchain.schema.json",
-  "network": "casper-test",
-  "chain_name": "casper-test",
-  "project": "CasperProver",
+  "network": "bot-test",
+  "chain_name": "bot-test",
+  "project": "BotProve",
   "deployer": "0203975636c0c327...",
   "explorer": "https://testnet.cspr.live",
   "cspr_cloud": "https://testnet.cspr.cloud",
@@ -82,11 +82,11 @@ python scripts/generate_manifest.py --check
 
 ## How `verify.sh` uses it
 
-`verify.sh` no longer contains hardcoded hashes. It loads the root manifest at runtime with `jq`, extracts every `contracts.<name>.contract_hash`, and queries Casper testnet RPC for each one. If the manifest is missing or empty, `verify.sh` exits with code 2 and tells the operator to regenerate it. See the "On-chain contracts" section of `verify.sh` for the loader.
+`verify.sh` no longer contains hardcoded hashes. It loads the root manifest at runtime with `jq`, extracts every `contracts.<name>.contract_hash`, and queries BOT Chain testnet RPC for each one. If the manifest is missing or empty, `verify.sh` exits with code 2 and tells the operator to regenerate it. See the "On-chain contracts" section of `verify.sh` for the loader.
 
 ## Adding a new contract
 
-1. Deploy the contract to Casper testnet.
+1. Deploy the contract to BOT Chain testnet.
 2. Append its entry under `contracts.<name>` in `deploy-out/onchain.json` (same shape as existing entries).
 3. Run `python scripts/generate_manifest.py`.
 4. Confirm the RPC validation prints `✅` for the new contract.

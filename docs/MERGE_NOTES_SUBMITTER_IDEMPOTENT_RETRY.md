@@ -54,7 +54,7 @@ call — this is exactly what makes idempotent retry possible.
 
 ## Interface change
 
-`CasperSubmitter.client` moved from the concrete `rpc.Client` to a small
+`BOT ChainSubmitter.client` moved from the concrete `rpc.Client` to a small
 `txSubmitter` interface exposing exactly the two methods the retry loop
 needs:
 
@@ -65,7 +65,7 @@ type txSubmitter interface {
 }
 ```
 
-The concrete `rpc.Client` from `make-software/casper-go-sdk/v2` satisfies
+The concrete `rpc.Client` from `make-software/bot-go-sdk/v2` satisfies
 this interface without any adapter — the constructor is unchanged. The
 interface exists only so unit tests can inject a `fakeSubmitter` that
 plays scripted put/lookup responses without touching a real node.
@@ -121,10 +121,10 @@ prover, submitter, verifier, worker, zkverifier, or gnarkzk.
 
 ## Files changed
 
-- `engine/internal/submitter/casper.go` — retry loop + idempotency
+- `engine/internal/submitter/bot.go` — retry loop + idempotency
   lookup + safety hatch. Existing `Submit` / `Revoke` /
   `SubmitModelRegistration` untouched.
-- `engine/internal/submitter/casper_test.go` — the 13 tests above.
+- `engine/internal/submitter/bot_test.go` — the 13 tests above.
 
 ## Verification (for the merge-agent)
 

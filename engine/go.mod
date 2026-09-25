@@ -1,4 +1,4 @@
-module github.com/anna-stolbovskaja/CasperProver/engine
+module github.com/anna-stolbovskaja/BotProve/engine
 
 go 1.25.7
 
@@ -9,7 +9,7 @@ require (
 	github.com/consensys/gnark-crypto v0.20.1
 	github.com/leanovate/gopter v0.2.11
 	github.com/lib/pq v1.12.3
-	github.com/make-software/casper-go-sdk/v2 v2.0.0
+	github.com/make-software/bot-go-sdk/v2 v2.0.0
 )
 
 require (

@@ -150,7 +150,7 @@ const SCENARIOS: AttackScenario[] = [
     storyline:
       'Compromise was detected and the proof was revoked on-chain. The attacker replays the old (still cryptographically valid) proof anyway, hoping downstream systems skipped the revocation check.',
     narrative:
-      'Every proof carries a revoked flag. Revocation is anchored via the Casper contract; once flipped, /verify returns "proof … revoked" no matter how correct the tuple is.',
+      'Every proof carries a revoked flag. Revocation is anchored via the BOT Chain contract; once flipped, /verify returns "proof … revoked" no matter how correct the tuple is.',
     detectionField: 'revoked=true',
     icon: Ban,
     color: 'text-pink-400',

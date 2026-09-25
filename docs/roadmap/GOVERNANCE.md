@@ -92,7 +92,7 @@ Naïve `renounce` bricks a contract. Instead:
 
 - On-chain voting weight based on token holdings. Not in scope — governance
   is admin-multi-sig, not tokenised DAO.
-- Full cross-contract atomic transactions. Casper does not natively
+- Full cross-contract atomic transactions. BOT Chain does not natively
   support them; each cross-call is checked at the boundary.
 
 ## Acceptance criteria

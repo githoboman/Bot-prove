@@ -44,15 +44,15 @@ import crypto from "node:crypto";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const require = createRequire(import.meta.url);
-const sdk = require(path.resolve(__dirname, "../frontend/node_modules/casper-js-sdk"));
+const sdk = require(path.resolve(__dirname, "../frontend/node_modules/bot-js-sdk"));
 
 const {
   ContractCallBuilder, HttpHandler, RpcClient,
   PrivateKey, KeyAlgorithm, Args, CLValue, CLTypeString,
 } = sdk;
 
-const CHAIN = "casper-test";
-const NODE = process.env.CASPER_NODE || "https://node.testnet.casper.network/rpc";
+const CHAIN = "bot-test";
+const NODE = process.env.CASPER_NODE || "https://node.testnet.bot.network/rpc";
 const ANNA = PrivateKey.fromPem(fs.readFileSync(process.env.ANNA_PEM || "/tmp/anna.pem", "utf8"), KeyAlgorithm.SECP256K1);
 const DMO  = PrivateKey.fromPem(fs.readFileSync(process.env.DMO_PEM  || "/tmp/dmo.pem",  "utf8"), KeyAlgorithm.SECP256K1);
 const ANNA_HEX = ANNA.publicKey.toHex();
@@ -154,7 +154,7 @@ async function send(signer, ep, contractName, argsMap, note) {
   const annaAhStr = Buffer.from(ANNA_AH).toString("hex");
   const dmoAhStr = Buffer.from(DMO_AH).toString("hex");
   for (const [name, signer, ahStr] of [["anna", ANNA, annaAhStr], ["dmo", DMO, dmoAhStr]]) {
-    // agents dict key = raw hex (Casper 2.x AccountHash::to_string in this contract returns raw hex).
+    // agents dict key = raw hex (BOT Chain 2.x AccountHash::to_string in this contract returns raw hex).
     const key = ahStr;
     const registered = await isAgentRegistered(key);
     console.log(`[${name}] agent registered: ${registered}`);

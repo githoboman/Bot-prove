@@ -1,7 +1,7 @@
 # Metadata Privacy
 
 **Status**: `DRAFT — design plan`. This document catalogues the
-*metadata* CasperProver's Service processes (traffic patterns, timing,
+*metadata* BotProve's Service processes (traffic patterns, timing,
 counterparty identifiers, external observers) and specifies the
 minimisation, unlinkability, and disclosure posture per class. **No
 code is shipped. No dependency is added. No paid service is
@@ -24,7 +24,7 @@ Cross-refs:
 
 ## 1. Framing — the metadata problem
 
-CasperProver's hash-only payload boundary (`LEGAL/DATA_PROTECTION.md`)
+BotProve's hash-only payload boundary (`LEGAL/DATA_PROTECTION.md`)
 solves *what* the Service sees: nothing but hashes. It does not solve
 *how much can be inferred from the fact that the Service saw
 anything*. The following are all metadata leaks even when payloads are
@@ -37,7 +37,7 @@ hashed:
   client cert, API-key fingerprint, HTTP `Referer` — each identifies
   the Operator to the Service and to any on-path observer that
   breaks TLS.
-- **Chain-side linkability**: an anchor transaction on Casper Network
+- **Chain-side linkability**: an anchor transaction on BOT Chain Network
   is public; the transaction's from-address, fee, timing, and value
   all leak information about the anchoring Operator, even if the
   Merkle root itself is opaque.
@@ -199,7 +199,7 @@ your privacy" marketing claim.
 | API HMAC audit                          | 90d        | security log store             | AI                  |
 | Trace spans                             | 7d         | observability backend          | AI, AG              |
 | Metrics                                 | 15d        | Prometheus / metrics store     | AI, AG              |
-| Anchor tx metadata (on-chain)           | perpetual  | Casper Network (public)        | AI                  |
+| Anchor tx metadata (on-chain)           | perpetual  | BOT Chain Network (public)        | AI                  |
 | Confidential-storage access log         | 7y (draft) | separate CSL audit store       | AL                  |
 | Anchored root public mirror             | perpetual  | public mirror                  | this doc, §2.4      |
 | Attestation receipt (hash-only)         | perpetual  | Operator-controlled store      | AI                  |
@@ -259,7 +259,7 @@ addressed by separate documents.
   metadata deletion, unlinkable aggregator anchoring. Not shipped;
   labelled `SIMULATION` if referenced anywhere.
 - **Explicitly out of scope**: anonymity guarantees against a
-  well-resourced global observer. CasperProver does not attempt this
+  well-resourced global observer. BotProve does not attempt this
   and does not claim to.
 
 Any commit anywhere in the tree that promises "anonymous attestation"
@@ -311,4 +311,4 @@ metadata as well as payload.
 ---
 
 *This is a design plan. It ships no code. Its only purpose is to
-make CasperProver's metadata-privacy posture auditable per class.*
+make BotProve's metadata-privacy posture auditable per class.*

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""E2E judge-verify one-liner for a single CasperProver proof.
+"""E2E judge-verify one-liner for a single BotProve proof.
 
 Usage:
     python scripts/verify_proof_by_id.py <proof_id> [--api URL] [--input FILE] \\
@@ -14,7 +14,7 @@ Stages checked and logged in order:
     01  API health probe
     02  Proof-record fetch (GET /proofs/{id})
     03  Merkle root+path consistency (recomputed off-chain)
-    04  On-chain Proof Registry query (Casper testnet RPC)
+    04  On-chain Proof Registry query (BOT Chain testnet RPC)
     05  Groth16 verification (off-chain gnark round-trip) [optional]
     06  Signature check on the proof envelope (if signed)
     07  Final PASS / FAIL summary
@@ -38,8 +38,8 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 
 
-DEFAULT_API = "https://casperprover-api-ylsh.onrender.com"
-RPC = "https://node.testnet.casper.network/rpc"
+DEFAULT_API = "https://botprove-api-ylsh.onrender.com"
+RPC = "https://node.testnet.bot.network/rpc"
 PROOF_REGISTRY_CONTRACT = (
     "96e97c4d564fe7374ba4e938355fb89f5be2f448decbe9b7727bd3c978a10708"
 )
@@ -209,7 +209,7 @@ def stage_04_on_chain_registry(log: RunLog) -> None:
             4,
             "on_chain_registry",
             "PASS" if ok else "FAIL",
-            f"contract={PROOF_REGISTRY_CONTRACT[:16]}… queryable on Casper testnet"
+            f"contract={PROOF_REGISTRY_CONTRACT[:16]}… queryable on BOT Chain testnet"
             if ok
             else str(body.get("error", "not found")),
             ms,
@@ -329,7 +329,7 @@ def _friendly(exc: Exception) -> str:
 
 def render_log(log: RunLog) -> str:
     out = []
-    out.append(f"=== CasperProver judge-verify log ===")
+    out.append(f"=== BotProve judge-verify log ===")
     out.append(f"proof_id: {log.proof_id}")
     out.append(f"api:      {log.api}")
     out.append(f"started:  {log.started_at}")
@@ -349,7 +349,7 @@ def render_log(log: RunLog) -> str:
 
 
 def main() -> int:
-    p = argparse.ArgumentParser(description="E2E judge-verify one-liner for CasperProver")
+    p = argparse.ArgumentParser(description="E2E judge-verify one-liner for BotProve")
     p.add_argument("proof_id", help="Proof ID to verify (from GET /proofs listing)")
     p.add_argument("--api", default=DEFAULT_API)
     p.add_argument("--input", type=argparse.FileType("rb"), help="Original input file (for full Merkle round-trip)")

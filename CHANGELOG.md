@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to CasperProver are documented here.
+All notable changes to BotProve are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 Versions follow [Semantic Versioning](https://semver.org/).
 
@@ -53,7 +53,7 @@ Found and fixed real production issues, not just doc drift:
   `go 1.25.7` directive (bumped alongside gnark 0.13→0.15) didn't match the
   Dockerfile's `golang:1.24-alpine` builder, so every deploy since then
   failed at `go mod tidy` with "go.mod requires go >= 1.25.7". The live
-  API (`casperprover-api-ylsh.onrender.com`) had been silently frozen on a
+  API (`botprove-api-ylsh.onrender.com`) had been silently frozen on a
   ~3.5-hour-old build serving stale contract hashes and missing the
   CP_STRICT auth block, while `TX_MANIFEST.md`, `judge_demo.py`, and 3 SDK
   releases all landed on `main` without ever going live. Bumped the
@@ -82,7 +82,7 @@ Found and fixed real production issues, not just doc drift:
   cleanup) to match the current 10-page Lab UI instead of the old
   Generate/Proofs/Verify/Demo tab layout.
 
-*Frontend polish, DoraHacks submission prep, docs hardening, backend hardening, CI/deps sweep, Casper 2.0 SDK migration.*
+*Frontend polish, DoraHacks submission prep, docs hardening, backend hardening, CI/deps sweep, BOT Chain 2.0 SDK migration.*
 
 ### Added (2026-07-19)
 - **CP_STRICT=1 + `API_KEY` fail-closed** (`engine/internal/api/server.go`, feat/cp-api-key-fail-closed). `api.New()` now returns an error instead of a running server when CP_STRICT=1 is set with an empty API_KEY -- `main.go` turns that error into `os.Exit(1)`, so an operator who opted into strict mode gets an immediate crash instead of a silently-anonymous deployment. Loose mode + empty key still works (dev / demo). `/health` gained a structured `auth` block ({mode, enforced, strict}) so `verify.sh` and the frontend can gate on the deployment posture without parsing the log stream. `verify.sh` gained a `verify_auth` section that WARNs on unenforced auth and hard-FAILs on the impossible "strict + not enforced" state (fail-close bypass detection). 7 unit tests in `engine/internal/api/apikey_failclosed_test.go` cover the 2×2 (strict, key) precondition matrix and the three `/health.auth` shapes (enabled + enforced, disabled loose, prod strict). Closes CP_AGENT_SPEC v2 Gate 1.2 ("startup fails or prominently degrades if API_KEY missing").
@@ -103,7 +103,7 @@ Found and fixed real production issues, not just doc drift:
 - `scripts/sync-onchain-manifest.sh` and `make sync-onchain` — one-liner that copies the canonical manifest into `frontend/public/onchain.json`; wired into frontend `prebuild` + `predev` hooks so the SPA can never drift from the API.
 - `scripts/judge_demo.py` — reads contract hashes from the canonical manifest (with a loud stderr fallback) instead of hardcoding them.
 - `verify.sh` — loads contract addresses from `deploy-out/onchain.json` via `jq`; pinned list retained only as a fallback for stripped environments.
-- `CP_STRICT=1` production preflight in `cmd/casperprover/serve` — refuses to start with `API_KEY=""`; unauthenticated writes are only permitted in dev mode.
+- `CP_STRICT=1` production preflight in `cmd/botprove/serve` — refuses to start with `API_KEY=""`; unauthenticated writes are only permitted in dev mode.
 
 ### Added
 - `docs/SECURITY_AUDIT.md` — full owner/admin/renounce lifecycle audit + reentrancy/cross-contract invariant review for all 8 contract crates (Gate 1, item 4 of the deadline plan). No P0 findings; one P1 blocker for `proof-aggregation` (silent `create_batch` overwrite) filed as pre-Gate-2 follow-up.
@@ -136,7 +136,7 @@ Found and fixed real production issues, not just doc drift:
 - `ErrorBoundary` auto-resets on route change via `key={location.pathname}` — no stale error screens across nav.
 - Mobile Lab sidebar auto-closes on route change.
 - `README.md` badges regrouped: CI status row + capability row.
-- **Migrated `internal/submitter` to `casper-go-sdk/v2` and refactored to sign & submit real `TransactionV1` payloads (Condor); `gnark` bumped `0.12 → 0.13` (`212c429`).**
+- **Migrated `internal/submitter` to `bot-go-sdk/v2` and refactored to sign & submit real `TransactionV1` payloads (Condor); `gnark` bumped `0.12 → 0.13` (`212c429`).**
 - Contract hashes moved out of hard-coded literals into env vars (`CONTRACT_PROOF_REGISTRY`, `CONTRACT_VERIFIER_GATE`, `CONTRACT_DEFI_MOCK`, `CONTRACT_STAKE_SLASHING`) with sane defaults; redeploys no longer require a code change (`be66ac4`).
 - Logging migrated from ad-hoc `fmt.Printf` to structured `slog` across CLI and demo code (`907eec9`).
 - `genID` now falls back gracefully on `crypto/rand` failure instead of `panic` (`0dc68a2`).
@@ -148,7 +148,7 @@ Found and fixed real production issues, not just doc drift:
 ### Fixed
 - Vite env types wired via `src/vite-env.d.ts` so `import.meta.env.DEV` type-checks under `strict`.
 - **stake-slashing `record_stake` now self-verifies against the actual purse balance — the previous implementation trusted the caller-supplied amount, so out-of-band calls could inflate recorded stake with no backing funds** (`392e4f0`; regression discovered in the internal audit).
-- **Casper 2.0 `Key` compatibility: contracts now use `into_entity_hash_addr` where the old code assumed the pre-Condor addressable-entity model** (`9f4c40a`).
+- **BOT Chain 2.0 `Key` compatibility: contracts now use `into_entity_hash_addr` where the old code assumed the pre-Condor addressable-entity model** (`9f4c40a`).
 - Checked arithmetic added in stake-slashing and proof-registry to eliminate silent overflow (`a5e2aa4`).
 - RED_TEAM audit: corrected 2 inaccurate agent-report claims (nonexistent CORS env-var, wrong function name) and added the missing API_KEY-unset auth-gap vector (`6d3d434`).
 - Small lab polish: removed cross-project reference in a comment, replaced ✕ emoji with SVG X icon (`0347127`); replaced 💡 emoji with `Lightbulb` SVG in `LabLayout` (`462eb6c`).
@@ -169,8 +169,8 @@ Found and fixed real production issues, not just doc drift:
 ### Added
 - **stake-slashing** contract deployed on testnet — 20% CSPR slash + permissionless bounty
 - **defi-mock** contract redeployed with hardened `is_whitelisted(user: ByteArray32)` signature
-- CSPR.click wallet integration (Casper Wallet, Ledger, MetaMask Snap, Google SSO)
-- On-chain proof anchoring via wallet signing (`casper-js-sdk ^5.0.12`)
+- CSPR.click wallet integration (BOT Chain Wallet, Ledger, MetaMask Snap, Google SSO)
+- On-chain proof anchoring via wallet signing (`bot-js-sdk ^5.0.12`)
 - Real Groth16 ZK-SNARK proofs via gnark (BN254 pairing-based cryptography)
 - ML-DSA-65 post-quantum signing (FIPS 204, cloudflare/circl) + Lamport OTS
 - 11 interactive Lab pages with sticky header, toast system, demo/live mode
@@ -233,20 +233,20 @@ Found and fixed real production issues, not just doc drift:
 ## [1.0.0] — 2026-06-30
 
 ### Added
-- **Proof Registry contract** deployed on Casper testnet ([96e97c4d...a10708](https://testnet.cspr.live/contract/e11088f1f15a719f21c0c318d1f34d0b96419a22d60ac8fa384ecf5285fa7bc5)) — stores Merkle roots, proof metadata, verification status
+- **Proof Registry contract** deployed on BOT Chain testnet ([96e97c4d...a10708](https://testnet.cspr.live/contract/e11088f1f15a719f21c0c318d1f34d0b96419a22d60ac8fa384ecf5285fa7bc5)) — stores Merkle roots, proof metadata, verification status
 - **Verifier Gate contract** ([a37f9cde...9f77d3](https://testnet.cspr.live/contract/06d69182b13c4d041613fe7e6e0805cdb06f099eff4291b40154d78cc0c79b66)) — checks inclusion proofs, manages access control
 - **DeFi Mock contract** ([b9b11a97...b81d3](https://testnet.cspr.live/contract/b9b11a976af20b4b5d128c44e5ee118b8830c26a79f4b603cdf0a00e537b81d3)) — sample vault gated by verifier-gate, demonstrating KYC-gated DeFi flow
 - **Merkle tree builder** in Go engine — SHA-256 leaf hashing over `{H(input), H(output), H(model)}` triplets, binary tree construction, path serialization
 - **Four proof types supported**: `merkle-inclusion`, `kyc-eligibility`, `balance-range`, `transaction-membership`
-- **REST API** at `https://casperprover-api-ylsh.onrender.com` — endpoints: `POST /api/v1/proof/submit`, `POST /api/v1/proof/verify`, `GET /api/v1/proofs`, `GET /api/v1/stats`
-- **Lab** at `casperprover.xyz/lab` — 72 live proofs registered on testnet, proof type breakdown, verification status badges
+- **REST API** at `https://botprove-api-ylsh.onrender.com` — endpoints: `POST /api/v1/proof/submit`, `POST /api/v1/proof/verify`, `GET /api/v1/proofs`, `GET /api/v1/stats`
+- **Lab** at `botprove.xyz/lab` — 72 live proofs registered on testnet, proof type breakdown, verification status badges
 - **Go SDK** (`sdk/`) — `client.go` with submit/verify helpers, Python client (`python_client.py`)
-- **MCP server** (`sdk/mcp_server.go`) — Model Context Protocol adapter so AI frameworks (Claude, LangChain) can call CasperProver as a tool
+- **MCP server** (`sdk/mcp_server.go`) — Model Context Protocol adapter so AI frameworks (Claude, LangChain) can call BotProve as a tool
 - **Contract test suite** (`contracts/tests/`) — integration tests covering registry, gate, and mock interactions
 - Configuration via `config.toml` — node URL, chain name, API port, rate limit, hash algorithm, precomputed proof directory
 
 ### Infrastructure
-- Deployed on Casper testnet (chain: `casper-test`)
+- Deployed on BOT Chain testnet (chain: `bot-test`)
 - API hosted on Render
 - Frontend hosted on Vercel
 - CI via GitHub Actions (`check.yml`)

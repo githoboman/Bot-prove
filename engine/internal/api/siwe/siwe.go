@@ -1,5 +1,5 @@
 // Package siwe implements a lightweight SIWE-like (Sign-In With
-// Ed25519) challenge-response authentication mechanism for CasperProver.
+// Ed25519) challenge-response authentication mechanism for BotProve.
 //
 // STATUS: REAL (Ed25519 signature verification, deterministic nonce
 // binding). This is a defence-in-depth layer that complements the
@@ -8,7 +8,7 @@
 // binds an action to a specific Ed25519 public key without shipping
 // the private key to the server.
 //
-// Scope for CasperProver:
+// Scope for BotProve:
 //   - This package issues a random 128-bit nonce (challenge) bound
 //     to the requesting client's public key (as hex) and a purpose
 //     tag (domain separation).
@@ -20,7 +20,7 @@
 //     TTL expiry) and stored only in memory.
 //
 // Non-goals (kept honest):
-//   - This is NOT full EIP-4361 (SIWE) — CasperProver does not
+//   - This is NOT full EIP-4361 (SIWE) — BotProve does not
 //     require Ethereum semantics; we only borrow the challenge-nonce-
 //     signature shape.
 //   - This is NOT a session-management layer. It authenticates a

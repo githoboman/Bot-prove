@@ -15,7 +15,7 @@ import (
 	"sync"
 	"time"
 
-	pqcrypto "github.com/anna-stolbovskaja/CasperProver/engine/internal/crypto"
+	pqcrypto "github.com/anna-stolbovskaja/BotProve/engine/internal/crypto"
 )
 
 // VaultTransitKeystore is a real driver on top of HashiCorp Vault's

@@ -57,7 +57,7 @@ import (
 func main() {
     ctx := context.Background()
     c := sdk.NewClient(
-        sdk.WithBaseURL("https://casperprover-api-ylsh.onrender.com"),
+        sdk.WithBaseURL("https://botprove-api-ylsh.onrender.com"),
         sdk.WithAPIKey("your-api-key"),   // for mutating endpoints
     )
 
@@ -89,7 +89,7 @@ func main() {
           <div className="bg-black/60 rounded-xl border border-cp-border p-5 overflow-x-auto">
             <pre className="text-sm font-mono text-gray-300 leading-relaxed"><code>{`from sdk.python_client import ProverClient
 
-client = ProverClient("https://casperprover-api-ylsh.onrender.com")
+client = ProverClient("https://botprove-api-ylsh.onrender.com")
 proof = client.submit("agent-1", b"input", b"output", b"model", "inference")
 print(proof["id"], proof["proof_hash"])
 

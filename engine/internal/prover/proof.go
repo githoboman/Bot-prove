@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/hasher"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/hasher"
 )
 
 type ProofEngine struct {

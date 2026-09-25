@@ -1,12 +1,12 @@
 <!-- GENERATED TEMPLATE
-Purpose: DoraHacks submission tracker for CasperProver — Casper Agentic Buildathon 2026
+Purpose: DoraHacks submission tracker for BotProve — BOT Chain Agentic Buildathon 2026
 Usage: Review content, remove this header, rename to SUBMISSION_CHECKLIST.md
 Remove when: After review and rename
 -->
 
-# CasperProver — DoraHacks Submission Checklist
+# BotProve — DoraHacks Submission Checklist
 
-Casper Agentic Buildathon 2026. Track every judging criterion before submission.
+BOT Chain Agentic Buildathon 2026. Track every judging criterion before submission.
 
 ## Technical excellence
 - [ ] `go test ./...` — all backend tests pass
@@ -41,13 +41,13 @@ Casper Agentic Buildathon 2026. Track every judging criterion before submission.
 - [ ] ErrorBoundary auto-resets on route change
 
 ## Contracts
-- [ ] 4 contracts deployed on Casper testnet (documented in `frontend/public/onchain.json`)
+- [ ] 4 contracts deployed on BOT Chain testnet (documented in `frontend/public/onchain.json`)
 - [ ] Additional 4 in `/contracts/` awaiting deployment slot (roadmap-tagged)
 - [ ] Every deployed contract linked to CSPR.cloud verification + entry_points on Evidence page
 
 ## Launch plans
-- [ ] Telegram community: https://t.me/casperprover (placeholder — replace with real handle before submission)
-- [ ] X / Twitter: https://x.com/casperprover (placeholder)
+- [ ] Telegram community: https://t.me/botprove (placeholder — replace with real handle before submission)
+- [ ] X / Twitter: https://x.com/botprove (placeholder)
 - [ ] Roadmap section in README + `ROADMAP.md`
 - [ ] Social icons in footer
 
@@ -57,12 +57,12 @@ Casper Agentic Buildathon 2026. Track every judging criterion before submission.
 - [ ] Governance DAO story (staking → voting, slashing → accountability)
 
 ## Submission form (DoraHacks BUIDL)
-- [ ] BUIDL name: `CasperProver`
-- [ ] One-liner: cryptographic proofs for AI agent decisions, anchored on Casper Network
-- [ ] Track: Casper Agentic Buildathon 2026
+- [ ] BUIDL name: `BotProve`
+- [ ] One-liner: cryptographic proofs for AI agent decisions, anchored on BOT Chain Network
+- [ ] Track: BOT Chain Agentic Buildathon 2026
 - [ ] Demo video URL:
-- [ ] Live site URL: https://casperprover.xyz
-- [ ] GitHub URL: https://github.com/anna-stolbovskaja/CasperProver
+- [ ] Live site URL: https://botprove.xyz
+- [ ] GitHub URL: https://github.com/anna-stolbovskaja/BotProve
 - [ ] Screenshots (3+): Lab overview · Proofs table · Evidence page
 
 ## Final review

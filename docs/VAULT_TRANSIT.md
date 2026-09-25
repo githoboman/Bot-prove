@@ -63,7 +63,7 @@ export CP_KEYSTORE_KIND=vault-transit
 export CP_VAULT_ADDR=https://vault.internal:8200
 export CP_VAULT_TOKEN="$(vault write -field=token auth/kubernetes/login role=cp-signer jwt=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token))"
 export CP_KEYRING_ENABLE=1
-./casperprover
+./botprove
 ```
 
 ## What happens when the engine calls Create/Sign/Verify

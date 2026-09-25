@@ -111,7 +111,7 @@ const DemoModeInfo: React.FC<{ onClose: () => void }> = ({ onClose }) => (
           </p>
           <p className="text-gray-300 leading-relaxed">
             <strong className="text-green-400">Testnet Mode</strong> (with wallet connected):
-            transactions are signed with your Casper wallet keys directly on testnet.
+            transactions are signed with your BOT Chain wallet keys directly on testnet.
           </p>
         </div>
 
@@ -401,7 +401,7 @@ const LabLayout: React.FC = () => {
               >
                 Learn more
               </button>{' '}
-              or connect a Casper wallet to sign with your own keys.
+              or connect a BOT Chain wallet to sign with your own keys.
             </span>
           </div>
         </div>

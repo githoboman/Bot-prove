@@ -1,6 +1,6 @@
 {
-    "network": "casper-test",
-    "chain_name": "casper-test",
+    "network": "bot-test",
+    "chain_name": "bot-test",
     "project": "Bot Prove",
     "deployer_note": "All 8 canonical contracts are deployed by defi_mock_owner (public key 0202da6cfba1c1e595fdcd6539146611326e5506479d89dab735b252dc200b80f7e7, account-hash 84ff0a4692ddeaa2c2991b0a9b084e48772968c242ff9434106571e77d23be10). Previous multi-deployer split is deprecated.",
     "explorer": "https://testnet.cspr.live",
@@ -175,12 +175,12 @@
                 "pause",
                 "unpause"
             ],
-            "notes": "MVP-clean WASM (53107 B) - same nightly-2025-01-01 + build-std recipe as governance/proof-aggregation/model-registry/proof-of-inference. On-chain ZK verifier registry / verdict recorder (BACKLOG 1.8): stores vk digests + records off-chain Groth16 verifier verdicts; NOT a pairing verifier (Casper Condor 2.x has no precompiled pairing, BACKLOG 1.14). Owner = caller at install time (anna-stolbovskaja, same account as the other 8 canonical contracts). This was the one contract still only compiled, never deployed, as of 2026-07-27 - closes that gap; Bot Prove now has 9 contracts live on testnet. REDEPLOYED 2026-07-27/28 to fix a P0 owner-check bypass (see docs/SECURITY_AUDIT.md sec 2.10) - installOrUpgrade from the original anna-stolbovskaja account deterministically reverted (ApiError::InvalidArgument, pre-existing vks/verdicts/verifiers NamedKeys on that account per docs/DEPLOYMENT_LESSONS.md Lesson 3), so this redeploy used a fresh dedicated wallet instead. Owner/admin key for register_vk/disable_vk/pause/unpause is therefore this new deployer key, NOT anna-stolbovskaja (the only one of the 9 contracts where this differs) - see docs/roadmap/ZK_VERIFIER_REDEPLOY_2026-07-27.md."
+            "notes": "MVP-clean WASM (53107 B) - same nightly-2025-01-01 + build-std recipe as governance/proof-aggregation/model-registry/proof-of-inference. On-chain ZK verifier registry / verdict recorder (BACKLOG 1.8): stores vk digests + records off-chain Groth16 verifier verdicts; NOT a pairing verifier (BOT Chain Condor 2.x has no precompiled pairing, BACKLOG 1.14). Owner = caller at install time (anna-stolbovskaja, same account as the other 8 canonical contracts). This was the one contract still only compiled, never deployed, as of 2026-07-27 - closes that gap; Bot Prove now has 9 contracts live on testnet. REDEPLOYED 2026-07-27/28 to fix a P0 owner-check bypass (see docs/SECURITY_AUDIT.md sec 2.10) - installOrUpgrade from the original anna-stolbovskaja account deterministically reverted (ApiError::InvalidArgument, pre-existing vks/verdicts/verifiers NamedKeys on that account per docs/DEPLOYMENT_LESSONS.md Lesson 3), so this redeploy used a fresh dedicated wallet instead. Owner/admin key for register_vk/disable_vk/pause/unpause is therefore this new deployer key, NOT anna-stolbovskaja (the only one of the 9 contracts where this differs) - see docs/roadmap/ZK_VERIFIER_REDEPLOY_2026-07-27.md."
         }
     },
     "verification": {
-        "api_health": "https://casperprover-api-ylsh.onrender.com/health",
-        "frontend": "https://casperprover.xyz",
+        "api_health": "https://botprove-api-ylsh.onrender.com/health",
+        "frontend": "https://botprove.xyz",
         "verify_script": "./verify.sh"
     }
 }

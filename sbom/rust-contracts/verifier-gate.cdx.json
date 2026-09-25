@@ -14,7 +14,7 @@
     ],
     "component": {
       "type": "application",
-      "bom-ref": "path+file:///data/casper-hackathon/repos/cp/contracts/verifier-gate#0.1.0",
+      "bom-ref": "path+file:///data/bot-hackathon/repos/cp/contracts/verifier-gate#0.1.0",
       "name": "verifier-gate",
       "version": "0.1.0",
       "scope": "required",
@@ -22,7 +22,7 @@
       "components": [
         {
           "type": "application",
-          "bom-ref": "path+file:///data/casper-hackathon/repos/cp/contracts/verifier-gate#0.1.0 bin-target-0",
+          "bom-ref": "path+file:///data/bot-hackathon/repos/cp/contracts/verifier-gate#0.1.0 bin-target-0",
           "name": "verifier-gate",
           "version": "0.1.0",
           "purl": "pkg:cargo/verifier-gate@0.1.0?download_url=file://.#src/main.rs"
@@ -326,11 +326,11 @@
     },
     {
       "type": "library",
-      "bom-ref": "registry+https://github.com/rust-lang/crates.io-index#casper-contract@5.1.1",
-      "author": "Michał Papierski <michal@casper.network>, Mateusz Górski <gorski.mateusz@protonmail.ch>",
-      "name": "casper-contract",
+      "bom-ref": "registry+https://github.com/rust-lang/crates.io-index#bot-contract@5.1.1",
+      "author": "Michał Papierski <michal@bot.network>, Mateusz Górski <gorski.mateusz@protonmail.ch>",
+      "name": "bot-contract",
       "version": "5.1.1",
-      "description": "A library for developing Casper network smart contracts.",
+      "description": "A library for developing BOT Chain network smart contracts.",
       "scope": "required",
       "hashes": [
         {
@@ -343,29 +343,29 @@
           "expression": "Apache-2.0"
         }
       ],
-      "purl": "pkg:cargo/casper-contract@5.1.1",
+      "purl": "pkg:cargo/bot-contract@5.1.1",
       "externalReferences": [
         {
           "type": "documentation",
-          "url": "https://docs.rs/casper-contract"
+          "url": "https://docs.rs/bot-contract"
         },
         {
           "type": "website",
-          "url": "https://casper.network"
+          "url": "https://bot.network"
         },
         {
           "type": "vcs",
-          "url": "https://github.com/casper-network/casper-node/tree/master/smart_contracts/contract"
+          "url": "https://github.com/bot-network/bot-node/tree/master/smart_contracts/contract"
         }
       ]
     },
     {
       "type": "library",
-      "bom-ref": "registry+https://github.com/rust-lang/crates.io-index#casper-types@6.1.0",
-      "author": "Ed Hastings <ed@casper.network>",
-      "name": "casper-types",
+      "bom-ref": "registry+https://github.com/rust-lang/crates.io-index#bot-types@6.1.0",
+      "author": "Ed Hastings <ed@bot.network>",
+      "name": "bot-types",
       "version": "6.1.0",
-      "description": "Types shared by many casper crates for use on the Casper network.",
+      "description": "Types shared by many bot crates for use on the BOT Chain network.",
       "scope": "required",
       "hashes": [
         {
@@ -378,19 +378,19 @@
           "expression": "Apache-2.0"
         }
       ],
-      "purl": "pkg:cargo/casper-types@6.1.0",
+      "purl": "pkg:cargo/bot-types@6.1.0",
       "externalReferences": [
         {
           "type": "documentation",
-          "url": "https://docs.rs/casper-types"
+          "url": "https://docs.rs/bot-types"
         },
         {
           "type": "website",
-          "url": "https://casper.network"
+          "url": "https://bot.network"
         },
         {
           "type": "vcs",
-          "url": "https://github.com/casper-network/casper-node/tree/master/types"
+          "url": "https://github.com/bot-network/bot-node/tree/master/types"
         }
       ]
     },
@@ -1990,7 +1990,7 @@
     {
       "type": "library",
       "bom-ref": "registry+https://github.com/rust-lang/crates.io-index#serde-map-to-array@1.1.1",
-      "author": "Fraser Hutchison <fraser@casperlabs.io>",
+      "author": "Fraser Hutchison <fraser@botlabs.io>",
       "name": "serde-map-to-array",
       "version": "1.1.1",
       "description": "Helpers to support converting a map to a sequence of named key-value pairs for human-readable encoding formats",
@@ -2683,10 +2683,10 @@
   ],
   "dependencies": [
     {
-      "ref": "path+file:///data/casper-hackathon/repos/cp/contracts/verifier-gate#0.1.0",
+      "ref": "path+file:///data/bot-hackathon/repos/cp/contracts/verifier-gate#0.1.0",
       "dependsOn": [
-        "registry+https://github.com/rust-lang/crates.io-index#casper-contract@5.1.1",
-        "registry+https://github.com/rust-lang/crates.io-index#casper-types@6.1.0"
+        "registry+https://github.com/rust-lang/crates.io-index#bot-contract@5.1.1",
+        "registry+https://github.com/rust-lang/crates.io-index#bot-types@6.1.0"
       ]
     },
     {
@@ -2725,15 +2725,15 @@
       "ref": "registry+https://github.com/rust-lang/crates.io-index#byteorder@1.5.0"
     },
     {
-      "ref": "registry+https://github.com/rust-lang/crates.io-index#casper-contract@5.1.1",
+      "ref": "registry+https://github.com/rust-lang/crates.io-index#bot-contract@5.1.1",
       "dependsOn": [
-        "registry+https://github.com/rust-lang/crates.io-index#casper-types@6.1.0",
+        "registry+https://github.com/rust-lang/crates.io-index#bot-types@6.1.0",
         "registry+https://github.com/rust-lang/crates.io-index#hex_fmt@0.3.0",
         "registry+https://github.com/rust-lang/crates.io-index#wee_alloc@0.4.5"
       ]
     },
     {
-      "ref": "registry+https://github.com/rust-lang/crates.io-index#casper-types@6.1.0",
+      "ref": "registry+https://github.com/rust-lang/crates.io-index#bot-types@6.1.0",
       "dependsOn": [
         "registry+https://github.com/rust-lang/crates.io-index#base16@0.2.1",
         "registry+https://github.com/rust-lang/crates.io-index#base64@0.13.1",

@@ -14,7 +14,7 @@ func TestClassicEd25519_SignVerifyRoundTrip(t *testing.T) {
 	if err != nil {
 		t.Fatalf("keygen failed: %v", err)
 	}
-	msg := []byte("hello casperprover")
+	msg := []byte("hello botprove")
 	sig, err := SignClassic(priv, msg)
 	if err != nil {
 		t.Fatalf("sign failed: %v", err)
@@ -27,7 +27,7 @@ func TestClassicEd25519_SignVerifyRoundTrip(t *testing.T) {
 
 func TestClassicEd25519_RejectsTamperedMessageAndSignature(t *testing.T) {
 	priv, pub, _ := GenerateEd25519KeyPair()
-	msg := []byte("hello casperprover")
+	msg := []byte("hello botprove")
 	sig, _ := SignClassic(priv, msg)
 
 	if valid, _ := VerifyClassic(pub, []byte("tampered message"), sig); valid {
@@ -45,7 +45,7 @@ func TestMLDSA_SignVerifyRoundTrip(t *testing.T) {
 	if err != nil {
 		t.Fatalf("keygen failed: %v", err)
 	}
-	msg := []byte("hello casperprover")
+	msg := []byte("hello botprove")
 	sig, err := SignMLDSA(priv, msg)
 	if err != nil {
 		t.Fatalf("sign failed: %v", err)
@@ -58,7 +58,7 @@ func TestMLDSA_SignVerifyRoundTrip(t *testing.T) {
 
 func TestMLDSA_RejectsTamperedMessageAndSignature(t *testing.T) {
 	priv, pub, _ := GenerateMLDSAKeyPair()
-	msg := []byte("hello casperprover")
+	msg := []byte("hello botprove")
 	sig, _ := SignMLDSA(priv, msg)
 
 	if valid, _ := VerifyMLDSA(pub, []byte("tampered message"), sig); valid {
@@ -74,7 +74,7 @@ func TestMLDSA_RejectsTamperedMessageAndSignature(t *testing.T) {
 func TestMLDSA_RejectsWrongKeyPair(t *testing.T) {
 	_, pub1, _ := GenerateMLDSAKeyPair()
 	priv2, _, _ := GenerateMLDSAKeyPair()
-	msg := []byte("hello casperprover")
+	msg := []byte("hello botprove")
 	sig, _ := SignMLDSA(priv2, msg)
 	if valid, _ := VerifyMLDSA(pub1, msg, sig); valid {
 		t.Error("expected signature from a different key pair to be rejected")
@@ -86,7 +86,7 @@ func TestLamportOTS_SignVerifyRoundTrip(t *testing.T) {
 	if err != nil {
 		t.Fatalf("keygen failed: %v", err)
 	}
-	msg := []byte("hello casperprover")
+	msg := []byte("hello botprove")
 	sig, err := SignSPHINCS(priv, msg)
 	if err != nil {
 		t.Fatalf("sign failed: %v", err)
@@ -99,7 +99,7 @@ func TestLamportOTS_SignVerifyRoundTrip(t *testing.T) {
 
 func TestLamportOTS_RejectsTamperedMessageAndSignature(t *testing.T) {
 	priv, pub, _ := GenerateLamportKeyPair()
-	msg := []byte("hello casperprover")
+	msg := []byte("hello botprove")
 	sig, _ := SignSPHINCS(priv, msg)
 
 	if valid, _ := VerifySPHINCS(pub, []byte("tampered message"), sig); valid {
@@ -115,7 +115,7 @@ func TestLamportOTS_RejectsTamperedMessageAndSignature(t *testing.T) {
 func TestLamportOTS_RejectsWrongKeyPair(t *testing.T) {
 	_, pub1, _ := GenerateLamportKeyPair()
 	priv2, _, _ := GenerateLamportKeyPair()
-	msg := []byte("hello casperprover")
+	msg := []byte("hello botprove")
 	sig, _ := SignSPHINCS(priv2, msg)
 	if valid, _ := VerifySPHINCS(pub1, msg, sig); valid {
 		t.Error("expected signature from a different key pair to be rejected")
@@ -140,7 +140,7 @@ func TestHybridSignature_MarshalUnmarshalRoundTrip(t *testing.T) {
 func TestHybridSignVerify_RoundTrip(t *testing.T) {
 	classicPriv, classicPub, _ := GenerateEd25519KeyPair()
 	pqPriv, pqPub, _ := GenerateMLDSAKeyPair()
-	msg := []byte("hello casperprover")
+	msg := []byte("hello botprove")
 
 	sig, err := HybridSign(classicPriv, pqPriv, msg)
 	if err != nil {
@@ -156,7 +156,7 @@ func TestHybridVerify_RejectsIfEitherComponentInvalid(t *testing.T) {
 	classicPriv, classicPub, _ := GenerateEd25519KeyPair()
 	pqPriv, pqPub, _ := GenerateMLDSAKeyPair()
 	otherPQPriv, _, _ := GenerateMLDSAKeyPair()
-	msg := []byte("hello casperprover")
+	msg := []byte("hello botprove")
 
 	// Valid classic component, PQ component signed with the wrong key.
 	sig, err := HybridSign(classicPriv, otherPQPriv, msg)

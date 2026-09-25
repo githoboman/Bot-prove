@@ -3,7 +3,7 @@
 ## Scope
 
 Pack BA adds first-class multi-tenant support to the API layer of the
-CasperProver Service, opt-in via env, backwards-compatible with the
+BotProve Service, opt-in via env, backwards-compatible with the
 existing single-shared-key mode.
 
 What lands:
@@ -71,7 +71,7 @@ Tenant mode is *off by default*. To turn it on:
     ```
     TENANTS_FILE=/path/to/tenants.json \
     TENANT_ADMIN_TOKEN=<a-strong-random> \
-    ./casperprover ...
+    ./botprove ...
     ```
 
    `TENANTS_FILE` unset ⇒ tenant mode is disabled, legacy

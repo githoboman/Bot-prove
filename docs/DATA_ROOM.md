@@ -1,4 +1,4 @@
-# CasperProver — Data Room Index
+# BotProve — Data Room Index
 
 *Backlog 14.4, 14.5.* Single-page pointer to every artefact a judge
 (or investor / auditor / integrator) needs to independently verify

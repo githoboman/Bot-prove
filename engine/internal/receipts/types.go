@@ -23,7 +23,7 @@
 //
 // The three shapes are *lossless in one direction*: internal → W3C-VC and
 // internal → agent-receipt. Round-tripping W3C-VC → internal is not
-// supported — receipts are produced, not consumed, by CasperProver, so
+// supported — receipts are produced, not consumed, by BotProve, so
 // unmarshalling is intentionally omitted. This keeps the surface small and
 // makes the canonical hash the only thing that ever needs to be recomputed.
 //
@@ -38,7 +38,7 @@ package receipts
 import (
 	"time"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/decision/attest"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/decision/attest"
 )
 
 // Verdict mirrors attest.Verdict as its canonical string form. Copied

@@ -15,7 +15,7 @@ branch is cut from that one, not from main. Merge PR-3 first.
 ### Two-step wallet-signed issuance
 
 **Step 1 — `POST /admin/keys/challenge`** (admin-gated):
-Request `{"wallet": "<casper address>"}` → server returns
+Request `{"wallet": "<bot address>"}` → server returns
 `{"nonce": "<32-byte hex>", "wallet": "<echo>", "message": "<exact bytes to sign>",
 "expires_at": <unix>, "ttl_secs": 300}`.
 
@@ -30,7 +30,7 @@ Server enforces, in order:
 2. Scope ∈ `{submit, verify_only, admin_readonly}`.
 3. Challenge with this nonce exists, unconsumed, unexpired, belongs to
    the same wallet.
-4. `pubkey_hex` is 32-byte ed25519 and matches `wallet` via Casper's
+4. `pubkey_hex` is 32-byte ed25519 and matches `wallet` via BOT Chain's
    `01<pubkey_hex>` convention.
 5. `signature_hex` is a valid ed25519 signature over
    `"cp-issue-key:" || nonce || ":" || wallet` under `pubkey_hex`.
@@ -123,7 +123,7 @@ Existing DBs upgrade in-place on next start; no manual migration needed.
 
 ## Not in this PR
 
-- **secp256k1 wallets.** Casper supports two wallet flavours; this PR
+- **secp256k1 wallets.** BOT Chain supports two wallet flavours; this PR
   ships ed25519 only. secp256k1 issuance is a small follow-up (parse
   compressed pubkey, use `crypto/ecdsa`); the closed scope enum and
   challenge/consume machinery are unchanged. Documented in

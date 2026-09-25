@@ -60,7 +60,7 @@ to blanket auth otherwise (matches the wider engine pattern).
   "scopes": {
     "loaded":      true,
     "key_count":   6,
-    "source_path": "/etc/casperprover/scoped-keys.json"
+    "source_path": "/etc/botprove/scoped-keys.json"
   },
 
   "contracts": {

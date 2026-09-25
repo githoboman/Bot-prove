@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read-only CasperProver judge demo; live writes require explicit opt-in.
+"""Read-only BotProve judge demo; live writes require explicit opt-in.
 
 Contract hashes, API URL, and frontend URL are loaded from the canonical
 on-chain manifest at ``deploy-out/onchain.json`` (Gate 1.5). Falls back to
@@ -21,9 +21,9 @@ _FALLBACK_CONTRACTS = {
     "Governance": "38d2fbd24998719fac160c27e2e5435a99bcdebd4c36beac76abe84063a0cf3e",
     "ZK Verifier": "4a5d09419fbc147e4114adb2e50473addd5d7057ae58c6223e0edaa4fb89a262",
 }
-_FALLBACK_API = "https://casperprover-api-ylsh.onrender.com"
-_FALLBACK_SITE = "https://casperprover.xyz"
-RPC = "https://node.testnet.casper.network/rpc"
+_FALLBACK_API = "https://botprove-api-ylsh.onrender.com"
+_FALLBACK_SITE = "https://botprove.xyz"
+RPC = "https://node.testnet.bot.network/rpc"
 
 _MANIFEST_KEYS = {
     "Proof Registry": "proof_registry",
@@ -107,7 +107,7 @@ class Client:
     def __init__(self, timeout: float = 20): self.timeout = timeout
     def request(self, url: str, *, method="GET", payload=None, api_key=""):
         data = json.dumps(payload).encode() if payload is not None else None
-        headers = {"Accept": "application/json", "User-Agent": "CasperProver-Judge-Demo/1.0"}
+        headers = {"Accept": "application/json", "User-Agent": "BotProve-Judge-Demo/1.0"}
         if data: headers["Content-Type"] = "application/json"
         if api_key: headers["X-API-Key"] = api_key
         req = urllib.request.Request(url, data=data, headers=headers, method=method)
@@ -121,7 +121,7 @@ def contract_checks(client: Client) -> list[Result]:
         payload = {"jsonrpc":"2.0","id":1,"method":"query_global_state","params":{"state_identifier":None,"key":f"hash-{contract_hash}","path":[]}}
         try:
             _, body = client.request(RPC, method="POST", payload=payload)
-            out.append(Result(name, "result" in body, f"{contract_hash[:16]}… on Casper testnet" if "result" in body else str(body.get("error", "not found"))))
+            out.append(Result(name, "result" in body, f"{contract_hash[:16]}… on BOT Chain testnet" if "result" in body else str(body.get("error", "not found"))))
         except Exception as exc: out.append(Result(name, False, friendly_error(exc)))
     return out
 
@@ -137,10 +137,10 @@ def read_checks(client: Client, api: str, site: str) -> list[Result]:
         checks.append(Result("Proof registry API", True, f"{count} proof record(s) readable"))
     except Exception as exc: checks.append(Result("Proof registry API", False, friendly_error(exc)))
     try:
-        req = urllib.request.Request(site, headers={"User-Agent":"CasperProver-Judge-Demo/1.0"})
+        req = urllib.request.Request(site, headers={"User-Agent":"BotProve-Judge-Demo/1.0"})
         with urllib.request.urlopen(req, timeout=client.timeout) as response:
             text = response.read(200_000).decode(errors="replace").lower()
-        checks.append(Result("Frontend", "casperprover" in text, site))
+        checks.append(Result("Frontend", "botprove" in text, site))
     except Exception as exc: checks.append(Result("Frontend", False, friendly_error(exc)))
     return checks
 
@@ -167,7 +167,7 @@ def print_result(r: Result):
     print(f"{color}[{status}]\033[0m {r.name}: {r.detail}")
 
 def main() -> int:
-    p = argparse.ArgumentParser(description="Reproducible, read-only-by-default CasperProver judge demo")
+    p = argparse.ArgumentParser(description="Reproducible, read-only-by-default BotProve judge demo")
     p.add_argument("--api", default=DEFAULT_API); p.add_argument("--site", default=DEFAULT_SITE)
     p.add_argument("--api-key", default=os.getenv("CP_JUDGE_API_KEY", ""), help="or set CP_JUDGE_API_KEY; never committed")
     p.add_argument("--timeout", type=float, default=20); p.add_argument("--json", action="store_true")
@@ -183,8 +183,8 @@ def main() -> int:
     if args.json: print(json.dumps([r.__dict__ for r in results], indent=2))
     else:
         for result in results: print_result(result)
-        print("\nProof boundary: REAL CRYPTO = off-chain gnark/BN254 MiMC; ON-CHAIN = Casper hashes/registries; SIMULATION = legacy conceptual endpoints.")
-        print("Docs: https://github.com/anna-stolbovskaja/CasperProver#readme")
+        print("\nProof boundary: REAL CRYPTO = off-chain gnark/BN254 MiMC; ON-CHAIN = BOT Chain hashes/registries; SIMULATION = legacy conceptual endpoints.")
+        print("Docs: https://github.com/anna-stolbovskaja/BotProve#readme")
     failures = sum(not r.ok for r in results)
     skipped = sum(r.detail.startswith("SKIP") for r in results)
     passed = len(results) - failures - skipped

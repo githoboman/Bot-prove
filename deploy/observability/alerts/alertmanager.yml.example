@@ -1,4 +1,4 @@
-# CasperProver — example Alertmanager configuration
+# BotProve — example Alertmanager configuration
 #
 # Local-only. Routes everything to a null webhook so alerts fire without
 # touching any paid pager. Swap `null` for pagerduty / opsgenie /

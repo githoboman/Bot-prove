@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/make-software/casper-go-sdk/v2/rpc"
+	"github.com/make-software/bot-go-sdk/v2/rpc"
 )
 
 // fakeQuerier is a GlobalStateQuerier test double whose behavior is driven

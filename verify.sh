@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# verify.sh — single-command proof that CasperProver is real
+# verify.sh — single-command proof that BotProve is real
 #
 # Usage:  ./verify.sh [--api URL]
-# Default API: https://casperprover-api-ylsh.onrender.com
+# Default API: https://botprove-api-ylsh.onrender.com
 #
 # Checks:
-#   1. All contracts in deploy-out/onchain.json exist on Casper testnet (via RPC) — 9 as of 2026-07-27
+#   1. All contracts in deploy-out/onchain.json exist on BOT Chain testnet (via RPC) — 9 as of 2026-07-27
 #   2. API is live and returns health
 #   3. Proof creation round-trip works
 #   4. Frontend serves HTML
@@ -14,8 +14,8 @@
 # Requirements: curl, jq
 set -euo pipefail
 
-API="${1:-https://casperprover-api-ylsh.onrender.com}"
-FRONTEND="https://casperprover.xyz"
+API="${1:-https://botprove-api-ylsh.onrender.com}"
+FRONTEND="https://botprove.xyz"
 PASS=0
 FAIL=0
 WARN=0
@@ -35,9 +35,9 @@ check() {
 
 # ── 1. On-chain contract verification ────────────────────────────────────
 
-bold "═══ CasperProver Verification ═══"
+bold "═══ BotProve Verification ═══"
 echo ""
-bold "1. On-chain contracts (Casper testnet)"
+bold "1. On-chain contracts (BOT Chain testnet)"
 
 # Load contract manifest — root canonical is deploy-out/onchain.json
 # (see docs/MANIFEST.md and scripts/generate_manifest.py). Never edit hashes
@@ -64,7 +64,7 @@ verify_contract() {
   local name="${1%%:*}"
   local hash="${1##*:}"
   local resp
-  resp=$(curl -sf "https://node.testnet.casper.network/rpc" \
+  resp=$(curl -sf "https://node.testnet.bot.network/rpc" \
     -H "Content-Type: application/json" \
     -d "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"query_global_state\",\"params\":{\"state_identifier\":null,\"key\":\"hash-${hash}\",\"path\":[]}}" \
     2>/dev/null || echo "FAIL")
@@ -195,7 +195,7 @@ bold "4. Frontend"
 verify_frontend() {
   local resp
   resp=$(curl -sf "${FRONTEND}" 2>/dev/null | head -c 500 || echo "FAIL")
-  if echo "$resp" | grep -qi "CasperProver\|casperprover"; then
+  if echo "$resp" | grep -qi "BotProve\|botprove"; then
     green "Frontend serves HTML at ${FRONTEND}"
     return 0
   else
@@ -221,7 +221,7 @@ verify_stake_slashing_tombstone() {
   # or the redeploy silently failed.
   local slashing_hash="1ad1b3d94be631532d6daf3a195fafc9dfe8a16504e87d87784d51089b983d52"
   local resp
-  resp=$(curl -sf "https://node.testnet.casper.network/rpc" \
+  resp=$(curl -sf "https://node.testnet.bot.network/rpc" \
     -H "Content-Type: application/json" \
     -d "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"query_global_state\",\"params\":{\"state_identifier\":null,\"key\":\"hash-${slashing_hash}\",\"path\":[]}}" \
     2>/dev/null || echo "FAIL")

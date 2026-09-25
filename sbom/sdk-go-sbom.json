@@ -46,14 +46,14 @@
       }
     ],
     "component": {
-      "bom-ref": "pkg:golang/github.com/anna-stolbovskaja/CasperProver/sdk@v1.2.1-0.20260708000304-aeef84c18b00?type=module",
+      "bom-ref": "pkg:golang/github.com/anna-stolbovskaja/BotProve/sdk@v1.2.1-0.20260708000304-aeef84c18b00?type=module",
       "type": "application",
-      "name": "github.com/anna-stolbovskaja/CasperProver/sdk",
+      "name": "github.com/anna-stolbovskaja/BotProve/sdk",
       "version": "v1.2.1-0.20260708000304-aeef84c18b00",
-      "purl": "pkg:golang/github.com/anna-stolbovskaja/CasperProver/sdk@v1.2.1-0.20260708000304-aeef84c18b00?goarch=amd64\u0026goos=linux\u0026type=module",
+      "purl": "pkg:golang/github.com/anna-stolbovskaja/BotProve/sdk@v1.2.1-0.20260708000304-aeef84c18b00?goarch=amd64\u0026goos=linux\u0026type=module",
       "externalReferences": [
         {
-          "url": "https://github.com/anna-stolbovskaja/CasperProver/sdk",
+          "url": "https://github.com/anna-stolbovskaja/BotProve/sdk",
           "type": "vcs"
         }
       ]
@@ -61,7 +61,7 @@
   },
   "dependencies": [
     {
-      "ref": "pkg:golang/github.com/anna-stolbovskaja/CasperProver/sdk@v1.2.1-0.20260708000304-aeef84c18b00?type=module"
+      "ref": "pkg:golang/github.com/anna-stolbovskaja/BotProve/sdk@v1.2.1-0.20260708000304-aeef84c18b00?type=module"
     }
   ]
 }

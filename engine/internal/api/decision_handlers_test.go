@@ -9,8 +9,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/decision/attest"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/hitl"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/decision/attest"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/hitl"
 )
 
 // enableDecisionPipeline mimics initDecisionPipeline() without touching env.

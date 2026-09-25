@@ -85,7 +85,7 @@ export default function McpDocs() {
 go build -o bot-prove-mcp ./sdk/cmd/mcpserver
 
 # Run with environment config
-CASPERPROVER_API_URL=https://casperprover-api-ylsh.onrender.com \\
+CASPERPROVER_API_URL=https://botprove-api-ylsh.onrender.com \\
 CASPERPROVER_API_KEY=your-api-key \\
   ./bot-prove-mcp`}</code></pre>
           </div>
@@ -102,7 +102,7 @@ CASPERPROVER_API_KEY=your-api-key \\
       "command": "bot-prove-mcp",
       "env": {
         "CASPERPROVER_API_URL":
-          "https://casperprover-api-ylsh.onrender.com",
+          "https://botprove-api-ylsh.onrender.com",
         "CASPERPROVER_API_KEY": "your-api-key"
       }
     }

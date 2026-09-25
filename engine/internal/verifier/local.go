@@ -4,8 +4,8 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/hasher"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/prover"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/hasher"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/prover"
 )
 
 type LocalVerifier struct{}

@@ -88,7 +88,7 @@ const Contracts: React.FC = () => {
     <div className="p-4">
       <SectionIntro
         title="Smart Contracts"
-        description={`${contracts.length} Rust/Wasm smart contracts built for Bot Prove: ${deployed.length} deployed on ${manifest.network} and ${written.length} written but not yet deployed. Each contract is verified on-chain with real deploy hashes — click to view on Casper Explorer.`}
+        description={`${contracts.length} Rust/Wasm smart contracts built for Bot Prove: ${deployed.length} deployed on ${manifest.network} and ${written.length} written but not yet deployed. Each contract is verified on-chain with real deploy hashes — click to view on BOT Chain Explorer.`}
         dataSource={`Live from /onchain.json (generated from deploy-out/onchain.json). Network: ${manifest.network}.`}
         badge="On-chain verified"
         badgeColor="green"
@@ -126,7 +126,7 @@ const Contracts: React.FC = () => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-md text-xs font-medium transition-colors"
               >
-                <LinkIcon size={14} /> CasperLive
+                <LinkIcon size={14} /> BOT ChainLive
               </a>
               <a
                 href={`${GITHUB_BASE_URL}${c.name}`}
@@ -170,7 +170,7 @@ const Contracts: React.FC = () => {
       <div className="bg-[#1a1a2a] p-5 rounded-lg border border-[#222235] shadow-md">
         <h3 className="text-lg font-semibold text-gray-100 mb-3">Architecture Notes</h3>
         <ul className="text-gray-400 text-sm space-y-2">
-          <li>• All contracts are written in Rust for Casper 2.x (CEP-18 compatible)</li>
+          <li>• All contracts are written in Rust for BOT Chain 2.x (CEP-18 compatible)</li>
           <li>• <strong>stake-slashing</strong> uses cross-contract calls to read proof state from <strong>proof-registry</strong></li>
           <li>• <strong>defi-mock</strong> demonstrates KYC gating via cross-contract verification against stored proofs</li>
           <li>• <strong>stake-slashing-session</strong> — helper session contract for initiating stake/slash operations</li>

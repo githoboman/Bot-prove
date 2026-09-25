@@ -1,7 +1,7 @@
 # HSM Plan — Key Custody Roadmap (DRAFT)
 
 > **Status:** DRAFT — not implemented. This document defines the target key-custody
-> architecture for CasperProver as it moves from hackathon testnet posture to a
+> architecture for BotProve as it moves from hackathon testnet posture to a
 > production-grade signing surface. No HSM is provisioned today.
 >
 > **Honesty label:** `SIMULATION` — the current codebase signs with software keys
@@ -16,7 +16,7 @@ publishes or the operator relies on):
 
 | Key class | Purpose | Rotation target | Current custody | Target custody |
 |---|---|---|---|---|
-| `anchor-operator` | Signs Casper anchor deploys (attest Merkle root to chain) | 90 days | ENV / PEM file | HSM PKCS#11 slot, quorum 2-of-3 unwrap |
+| `anchor-operator` | Signs BOT Chain anchor deploys (attest Merkle root to chain) | 90 days | ENV / PEM file | HSM PKCS#11 slot, quorum 2-of-3 unwrap |
 | `attestation-signer` | Signs receipt bundles handed to callers | 30 days | ENV / PEM file | HSM PKCS#11 slot |
 | `slh-dsa-fips205` (post-quantum) | FIPS 205 SLH-DSA-SHA2-128s signing for PQ receipt lane | 180 days | in-memory seed | HSM with PQ-capable slot OR software vault with sealed backup |
 | `groth16-vk-sealed` | Verifier key committed alongside ceremony transcript | tied to ceremony epoch | filesystem artifact | filesystem + hash committed on-chain; **not HSM-resident** |

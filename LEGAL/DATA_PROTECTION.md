@@ -1,4 +1,4 @@
-# CasperProver — Data Protection Notice
+# BotProve — Data Protection Notice
 
 > **Status: DRAFT — self-authored, not reviewed by counsel or by a DPO.**
 > This document is a good-faith draft of the intended data-protection
@@ -11,14 +11,14 @@
 
 **Effective date (draft):** 2026-07-26
 **Version:** 0.1-draft
-**Data controller (draft):** CasperProver project maintainers
+**Data controller (draft):** BotProve project maintainers
 **Contact:** khrol.studio@gmail.com
 
 ---
 
 ## 1. Scope
 
-This notice describes how the CasperProver Service ("the Service")
+This notice describes how the BotProve Service ("the Service")
 processes data provided by operators, and by data subjects whose data
 operators submit for hashing and attestation. It is written to be
 compatible with the General Data Protection Regulation (Regulation
@@ -53,7 +53,7 @@ maintainers never observe personal data in the clear:
 - Only the digest, the model identifier, the timestamp, the operator
   identifier, and the resulting Merkle root are ever seen by the
   Service.
-- The Merkle **root** is then anchored on the Casper Network testnet.
+- The Merkle **root** is then anchored on the BOT Chain Network testnet.
   On-chain state contains only the root and the anchoring transaction
   metadata — **never** raw personal data.
 
@@ -163,7 +163,7 @@ In response to your access request dated [DATE], we can confirm that on
 you.
 
 For integrity purposes, the decision has been anchored via
-CasperProver, an independent verifiable-attestation service, under
+BotProve, an independent verifiable-attestation service, under
 receipt ID [RECEIPT_ID]. The receipt binds:
 
   - the SHA-256 hash of the inputs used for that decision,
@@ -178,7 +178,7 @@ outputs in the clear, (b) a copy of the receipt so that you can
 independently verify integrity via `verify.sh`, and (c) our decision
 justification.
 
-Note: CasperProver never sees the inputs or outputs in the clear; it
+Note: BotProve never sees the inputs or outputs in the clear; it
 only sees their hashes. It therefore cannot itself answer this
 request on our behalf.
 
@@ -227,7 +227,7 @@ because such data is never processed in the clear (§3).
 
 ```
 +-----------------+        +--------------------+        +---------------------+
-| Operator's edge |--(1)-->| CasperProver API   |--(4)-->| Casper testnet      |
+| Operator's edge |--(1)-->| BotProve API   |--(4)-->| BOT Chain testnet      |
 |  (raw PD here)  |        |  (hash-only zone)  |        | (Merkle root only)  |
 +-----------------+        +--------------------+        +---------------------+
         |                          |
@@ -244,7 +244,7 @@ because such data is never processed in the clear (§3).
 1. Operator's edge sends only digests (never PD in the clear).
 2. Operator SDK hashes and signs locally.
 3. Service records aggregated telemetry (§4) with rolling retention.
-4. Only the Merkle root reaches the Casper testnet.
+4. Only the Merkle root reaches the BOT Chain testnet.
 
 ## 12. Contact & changes
 

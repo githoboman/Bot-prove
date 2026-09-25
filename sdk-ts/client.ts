@@ -1,5 +1,5 @@
 /**
- * TypeScript client for the CasperProver HTTP API.
+ * TypeScript client for the BotProve HTTP API.
  *
  * Zero-build: consumed directly as `.ts` files via `tsx` / `vitest` / Node 24+'s
  * native TypeScript loader. See `sdk-ts/README.md`.
@@ -23,8 +23,8 @@ import type {
 } from "./types.ts";
 
 /** Options for constructing a client. */
-export interface CasperProverClientOptions {
-  /** Base URL of the CasperProver API, no trailing slash needed (default `http://localhost:8080`). */
+export interface BotProveClientOptions {
+  /** Base URL of the BotProve API, no trailing slash needed (default `http://localhost:8080`). */
   baseUrl?: string;
   /** Optional API key. When set, sent as `X-API-Key: <key>`. */
   apiKey?: string;
@@ -43,14 +43,14 @@ export function proofStatus(p: ProofRecord): ProofStatus {
   return "invalid";
 }
 
-export class CasperProverClient {
+export class BotProveClient {
   private readonly baseUrl: string;
   private readonly apiKey?: string;
   private readonly publicKey?: string;
   private readonly timeoutMs: number;
   private readonly fetchImpl: typeof fetch;
 
-  constructor(options: CasperProverClientOptions = {}) {
+  constructor(options: BotProveClientOptions = {}) {
     this.baseUrl = (options.baseUrl ?? "http://localhost:8080").replace(/\/+$/, "");
     this.apiKey = options.apiKey;
     this.publicKey = options.publicKey;

@@ -5,7 +5,7 @@
 
 ## 0. Why this plan exists
 
-CasperProver's core architectural boundary is **hash-only**: the Service
+BotProve's core architectural boundary is **hash-only**: the Service
 observes SHA-256 (and, in AC, SLH-DSA / VRF-tagged) commitments of agent
 inputs, outputs, model ids, and timestamps. It does **not** observe the
 plaintext. That property is the reason `LEGAL/DATA_PROTECTION.md` can
@@ -51,7 +51,7 @@ the hash-only property for Operators who don't.
 
 ```
 +---------------------------+           +---------------------------+
-|    Operator app / agent   |   TLS     |   CasperProver Service    |
+|    Operator app / agent   |   TLS     |   BotProve Service    |
 | (data controller)         +---------->+   (hash-only path)        |
 |                           |           |   /attest, /verify        |
 +------------+--------------+           +---------------------------+
@@ -59,7 +59,7 @@ the hash-only property for Operators who don't.
              | (parallel, out-of-band)                | commitments only
              v                                        v
 +---------------------------+           +---------------------------+
-|   Confidential Storage    |           |   Casper testnet /        |
+|   Confidential Storage    |           |   BOT Chain testnet /        |
 |   Layer (CSL) — OPTIONAL  |           |   anchor stubs (AA)       |
 |   Encrypted payload blobs |           +---------------------------+
 |   keyed by receipt digest |

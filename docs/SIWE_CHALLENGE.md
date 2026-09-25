@@ -25,7 +25,7 @@ user-scoped actions (as opposed to service-scoped) can be
 cryptographically authenticated without shipping the private key to
 the server.
 
-Not full EIP-4361 (SIWE). CasperProver does not require Ethereum
+Not full EIP-4361 (SIWE). BotProve does not require Ethereum
 semantics. Only the challenge → nonce → signature shape is borrowed.
 
 ## HTTP surface

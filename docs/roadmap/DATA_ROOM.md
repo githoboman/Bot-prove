@@ -2,7 +2,7 @@
 
 Ref: `handoff/CP_FINAL_TASKS_V2.md` §E.
 
-**Audience:** seed / seed-extension investors evaluating CasperProver as an
+**Audience:** seed / seed-extension investors evaluating BotProve as an
 "AI accountability infrastructure" company for a regulated buyer profile.
 
 **Constraint:** everything here is *plan*, not vapor. When a claim goes

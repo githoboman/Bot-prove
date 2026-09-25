@@ -8,19 +8,19 @@ import (
 	"log/slog"
 	"time"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/prover"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/store"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/submitter"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/prover"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/store"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/submitter"
 )
 
-// ModelRegistryEntry represents a registered AI model on the Casper blockchain.
+// ModelRegistryEntry represents a registered AI model on the BOT Chain blockchain.
 type ModelRegistryEntry struct {
 	ModelID          string            `json:"model_id"`
 	ModelHash        string            `json:"model_hash"`         // Hash of the model's weights/architecture
-	VerifierContract string            `json:"verifier_contract"`  // Casper contract address for on-chain verification
+	VerifierContract string            `json:"verifier_contract"`  // BOT Chain contract address for on-chain verification
 	Metadata         map[string]string `json:"metadata,omitempty"` // Additional model metadata
 	RegisteredAt     int64             `json:"registered_at"`
-	DeployHash       string            `json:"deploy_hash,omitempty"` // Hash of the Casper deploy transaction
+	DeployHash       string            `json:"deploy_hash,omitempty"` // Hash of the BOT Chain deploy transaction
 }
 
 // InferenceService provides functionalities for generating and verifying
@@ -28,12 +28,12 @@ type ModelRegistryEntry struct {
 type InferenceService struct {
 	eng *prover.ProofEngine
 	db  *store.PG
-	sub *submitter.CasperSubmitter
+	sub *submitter.BOT ChainSubmitter
 	log *slog.Logger
 }
 
 // New creates a new InferenceService instance.
-func New(eng *prover.ProofEngine, db *store.PG, sub *submitter.CasperSubmitter) *InferenceService {
+func New(eng *prover.ProofEngine, db *store.PG, sub *submitter.BOT ChainSubmitter) *InferenceService {
 	return &InferenceService{
 		eng: eng,
 		db:  db,
@@ -59,16 +59,16 @@ func (s *InferenceService) GenerateInferenceProof(
 	// The ProofEngine handles hashing and Merkle tree generation.
 	proof := s.eng.GenerateWithKey(agent, pubKey, input, output, model, uc, "inference")
 
-	// Optionally, submit the proof hash to the Casper blockchain if a submitter is available
+	// Optionally, submit the proof hash to the BOT Chain blockchain if a submitter is available
 	if s.sub != nil && pubKey != "" {
-		s.log.Info("submitting inference proof to Casper", "proof_id", proof.ID, "public_key", pubKey)
+		s.log.Info("submitting inference proof to BOT Chain", "proof_id", proof.ID, "public_key", pubKey)
 		deployHash, err := s.sub.Submit(proof)
 		if err != nil {
-			s.log.Error("failed to submit proof to Casper", "proof_id", proof.ID, "error", err)
+			s.log.Error("failed to submit proof to BOT Chain", "proof_id", proof.ID, "error", err)
 			// Continue without deploy hash, as local proof generation was successful
 		} else {
 			proof.Deploy = deployHash
-			s.log.Info("proof submitted to Casper", "proof_id", proof.ID, "deploy_hash", deployHash)
+			s.log.Info("proof submitted to BOT Chain", "proof_id", proof.ID, "deploy_hash", deployHash)
 		}
 	}
 
@@ -100,7 +100,7 @@ func (s *InferenceService) GenerateInferenceProof(
 
 // VerifyInferenceProof verifies an existing inference proof by its ID.
 // It retrieves the proof from the ProofEngine and performs a local verification.
-// For on-chain verification, the deploy hash would be used to query the Casper blockchain.
+// For on-chain verification, the deploy hash would be used to query the BOT Chain blockchain.
 func (s *InferenceService) VerifyInferenceProof(ctx context.Context, proofID string) (bool, error) {
 	s.log.Info("verifying inference proof", "proof_id", proofID)
 
@@ -122,11 +122,11 @@ func (s *InferenceService) VerifyInferenceProof(ctx context.Context, proofID str
 	}
 
 	// If the proof was anchored on-chain, additional verification could involve
-	// querying the Casper blockchain for the deploy hash and its status.
+	// querying the BOT Chain blockchain for the deploy hash and its status.
 	// This example focuses on local verification.
 	if p.Deploy != "" {
 		s.log.Debug("proof has deploy hash, on-chain verification would be performed here", "proof_id", proofID, "deploy_hash", p.Deploy)
-		// Example: Call a Casper RPC method to check deploy status or contract state
+		// Example: Call a BOT Chain RPC method to check deploy status or contract state
 		// Local Merkle verification is authoritative; on-chain state is an immutable anchor.
 	}
 
@@ -142,7 +142,7 @@ func (s *InferenceService) VerifyInferenceProof(ctx context.Context, proofID str
 	return isValid, nil
 }
 
-// RegisterModel registers an AI model with its hash and a Casper verifier contract address.
+// RegisterModel registers an AI model with its hash and a BOT Chain verifier contract address.
 // This information is stored in the database and optionally submitted to the blockchain.
 func (s *InferenceService) RegisterModel(
 	ctx context.Context,
@@ -173,16 +173,16 @@ func (s *InferenceService) RegisterModel(
 		}
 	}
 
-	// Optionally, submit model registration to Casper blockchain
+	// Optionally, submit model registration to BOT Chain blockchain
 	if s.sub != nil {
-		s.log.Info("submitting model registration to Casper", "model_id", modelID)
+		s.log.Info("submitting model registration to BOT Chain", "model_id", modelID)
 		deployHash, err := s.sub.SubmitModelRegistration(modelID, modelHash, verifierContract, metadata)
 		if err != nil {
-			s.log.Error("failed to submit model registration to Casper", "model_id", modelID, "error", err)
+			s.log.Error("failed to submit model registration to BOT Chain", "model_id", modelID, "error", err)
 			// Continue without deploy hash
 		} else {
 			entry.DeployHash = deployHash
-			s.log.Info("model registration submitted to Casper", "model_id", modelID, "deploy_hash", deployHash)
+			s.log.Info("model registration submitted to BOT Chain", "model_id", modelID, "deploy_hash", deployHash)
 			// Update the entry in DB with deploy hash
 			if s.db != nil {
 				_ = s.db.SaveModelRegistryEntry(ctx, toStoreEntry(entry)) // Update with deploy hash
@@ -248,7 +248,7 @@ func fromStoreEntry(e *store.ModelRegistryEntry) *ModelRegistryEntry {
 }
 
 // emitCEP88Event is a helper to simulate emitting a CEP-88 compliant event.
-// In a real Casper environment, this would interact with a smart contract
+// In a real BOT Chain environment, this would interact with a smart contract
 // or a specific event emission mechanism. For this backend, it's a log entry.
 func (s *InferenceService) emitCEP88Event(eventType string, data map[string]interface{}) error {
 	eventData, err := json.Marshal(data)

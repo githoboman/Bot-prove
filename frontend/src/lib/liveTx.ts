@@ -1,13 +1,13 @@
 /**
  * Client-side transaction building for wallet-signed on-chain operations.
  *
- * When a Casper wallet is connected, write operations (submit_proof,
+ * When a BOT Chain wallet is connected, write operations (submit_proof,
  * register_agent) can be signed and submitted directly by the user's wallet
  * instead of the backend's server key. Standard CSPR.click flow:
  * build a ContractCallBuilder tx → clickRef.send() → wallet popup
  * → user signs → tx submitted to BOT Chain testnet.
  *
- * Contract: proof_registry (deployed on casper-test)
+ * Contract: proof_registry (deployed on bot-test)
  * Entry points: submit_proof, register_agent, revoke_proof
  */
 import {
@@ -15,14 +15,14 @@ import {
   CLValue,
   ContractCallBuilder,
   PublicKey,
-} from 'casper-js-sdk'
+} from 'bot-js-sdk'
 import type { ICSPRClickSDK } from '@make-software/csprclick-core-types'
 import { loadManifest, getCachedManifest } from './onchain'
 
 // Chain name is per-network; kept as a constant because the CSPR.click SDK
 // needs it synchronously for tx construction. If we ever ship to mainnet
 // this becomes manifest-driven too.
-export const CASPER_CHAIN_NAME = 'casper-test'
+export const CASPER_CHAIN_NAME = 'bot-test'
 
 // Boot-time fallback: last known proof_registry hash. The real value comes
 // from the manifest via loadManifest() below. The export stays for backward

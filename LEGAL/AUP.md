@@ -1,4 +1,4 @@
-# CasperProver — Acceptable Use Policy
+# BotProve — Acceptable Use Policy
 
 > **Status: DRAFT — self-authored, not reviewed by counsel.**
 > This AUP is a good-faith draft. It has **not** been reviewed by
@@ -14,7 +14,7 @@
 
 ## 1. Purpose
 
-CasperProver ("the Service") exists so that AI agents can produce
+BotProve ("the Service") exists so that AI agents can produce
 verifiable, timestamped, cryptographically anchored evidence of their
 decisions. This AUP describes the categories of use that are compatible
 with that mission — and the ones that are not.

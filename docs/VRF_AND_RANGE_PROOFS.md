@@ -111,9 +111,9 @@ Tests (`rangeproof_test.go`):
 
 Both primitives are **REAL CRYPTO** — they are not simulations, mocks, or
 "looks-like" placeholders. They are also **not on-chain**: neither has a
-Casper Rust contract shipping today. On-chain verification of a VRF proof
+BOT Chain Rust contract shipping today. On-chain verification of a VRF proof
 or a range proof would require either a pairing precompile (blocked on
-Condor 2.x) or bit-serial reimplementation inside a Casper contract — both
+Condor 2.x) or bit-serial reimplementation inside a BOT Chain contract — both
 are follow-up tickets.
 
 Where the honest label lives:

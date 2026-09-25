@@ -1,5 +1,5 @@
 /**
- * Type-shape smoke tests for the CasperProver SDK.
+ * Type-shape smoke tests for the BotProve SDK.
  *
  * These are structural checks — the compile-time contract is enforced by
  * `tsc --noEmit`; at runtime we just make sure the exports exist and the
@@ -13,13 +13,13 @@ import * as sdk from "../index.ts";
 
 describe("SDK public surface", () => {
   it("exports the client class + status helper", () => {
-    assert.equal(typeof sdk.CasperProverClient, "function");
+    assert.equal(typeof sdk.BotProveClient, "function");
     assert.equal(typeof sdk.proofStatus, "function");
   });
 
   it("exports every declared error class", () => {
     for (const name of [
-      "CasperProverError",
+      "BotProveError",
       "APIError",
       "BadRequestError",
       "UnauthorizedError",

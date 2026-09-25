@@ -69,7 +69,7 @@ Sample Prometheus scrape config:
 
 ```yaml
 scrape_configs:
-  - job_name: casperprover
+  - job_name: botprove
     static_configs:
       - targets: ["cp-engine:8080"]
     metrics_path: /metrics
@@ -199,7 +199,7 @@ docker compose up -d
 Grafana comes up with:
 
 - Datasource `Prometheus` (auto-provisioned) pointing at `prometheus:9090`.
-- Dashboard **CasperProver engine** with request rate, p50/p95 latency, 5xx
+- Dashboard **BotProve engine** with request rate, p50/p95 latency, 5xx
   rate, and in-flight requests.
 
 ## Tear-down / reset

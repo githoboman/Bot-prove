@@ -1,4 +1,4 @@
-// Package phase2 provides extended infrastructure for CasperProver.
+// Package phase2 provides extended infrastructure for BotProve.
 //
 // Includes proof-chain DAG validation, hardware attestation interfaces,
 // distributed prover configuration, and verification mode selection.

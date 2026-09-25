@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-// deploy-wasm.mjs — deploy one shrunk .wasm contract to Casper testnet via
-// casper-js-sdk 5.0.12. Uses SessionBuilder (module-bytes session code) with
+// deploy-wasm.mjs — deploy one shrunk .wasm contract to BOT Chain testnet via
+// bot-js-sdk 5.0.12. Uses SessionBuilder (module-bytes session code) with
 // a targeted payment amount and prints the deploy hash + wait for finality.
 //
 // Usage:
@@ -8,7 +8,7 @@
 //
 // Env:
 //   CASPER_NODE=<rpc-url>   default https://node.testnet.cspr.cloud/rpc
-//   CASPER_CHAIN=<name>     default casper-test
+//   CASPER_CHAIN=<name>     default bot-test
 //
 // The script fails FAST with a clear message on:
 //   * missing wasm / key
@@ -28,8 +28,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const require = createRequire(import.meta.url);
 
-// Reach into frontend/node_modules for casper-js-sdk 5.0.12.
-const sdk = require(path.resolve(__dirname, "../frontend/node_modules/casper-js-sdk"));
+// Reach into frontend/node_modules for bot-js-sdk 5.0.12.
+const sdk = require(path.resolve(__dirname, "../frontend/node_modules/bot-js-sdk"));
 
 const {
   SessionBuilder,
@@ -60,7 +60,7 @@ async function main() {
   if (!Number.isFinite(paymentMotes)) die(`invalid payment: ${paymentRaw}`);
   console.log(`[deploy] payment=${paymentMotes} motes`);
 
-  const chainName = process.env.CASPER_CHAIN || "casper-test";
+  const chainName = process.env.CASPER_CHAIN || "bot-test";
   const nodeUrl   = process.env.CASPER_NODE  || "https://node.testnet.cspr.cloud/rpc";
   const apiKey    = process.env.CSPR_CLOUD_API_KEY || "";
   console.log(`[deploy] chain=${chainName}  node=${nodeUrl}${apiKey?"  auth=on":""}`);
@@ -70,7 +70,7 @@ async function main() {
   console.log(`[deploy] signer=${key.publicKey.toHex()}`);
 
   // Build the deploy: session = module bytes, deploy body = the wasm.
-  // NB casper-js-sdk 5.0.12 API is chainable:
+  // NB bot-js-sdk 5.0.12 API is chainable:
   //   .wasm(bytes).installOrUpgrade().runtimeArgs({})
   //   .from(pk).chainName(...).payment(...).build()
   const deploy = new SessionBuilder()

@@ -7,7 +7,7 @@ returns `attestor: unavailable` at runtime.**
 ## Why this document exists
 
 Backlog items 6.1–6.4 target hardware root-of-trust attestation for
-CasperProver agents:
+BotProve agents:
 
 - 6.1 TPM 2.0 (Trusted Platform Module) — commodity x86/ARM boards.
 - 6.2 Intel SGX (Software Guard Extensions) — enclave attestation.
@@ -159,7 +159,7 @@ The stubs are ~200 LOC total. They compile everywhere Go compiles
   mobile / edge.
 - Go binding: none first-party; typically driven from C or Rust.
   For a Go engine this means an out-of-process helper.
-- Deferred as low-priority for the CasperProver server-side path;
+- Deferred as low-priority for the BotProve server-side path;
   relevant if we ever ship an on-device agent.
 
 ## Interaction with the rest of the engine
@@ -186,7 +186,7 @@ None of that is wired today. The package sits on the shelf, waiting.
   today. Landing the interface is the whole scope. Wiring is
   post-invest.
 - **NOT-ON-CHAIN** — hardware attestation is a Service-layer
-  concept. Anchoring an attestation hash on Casper is
+  concept. Anchoring an attestation hash on BOT Chain is
   contemplated in the rollout section but out of scope for AT.
 - **NO-PAID-SERVICES** — no vendor SDK linked in. No PCS / KDS /
   TPM-CA call in the build. Compile is hermetic and does not

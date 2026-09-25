@@ -31,7 +31,7 @@ Verified on chain in the errfix run: `pctr` went from 297 → 305 across 8 submi
 
 ### 2. `submit_proof` block-ordering is not send-ordering
 
-Serial `send()` does *not* guarantee serial `pid` assignment. Casper packs several deploys of the same sender into the same block; within a block, node ordering (not client timestamp) decides which deploy consumes the counter first. So when Anna sends `submit#0` and DMO sends `submit#1` back-to-back and they both land in block N, the counter could assign `P-298` to *either* of them.
+Serial `send()` does *not* guarantee serial `pid` assignment. BOT Chain packs several deploys of the same sender into the same block; within a block, node ordering (not client timestamp) decides which deploy consumes the counter first. So when Anna sends `submit#0` and DMO sends `submit#1` back-to-back and they both land in block N, the counter could assign `P-298` to *either* of them.
 
 Verified: in the errfix run, `submit#0` came from Anna but `P-298` was owned by DMO.
 
@@ -43,7 +43,7 @@ Result in errfix-final: 4/4 revokes ok.
 
 `register_verifier` is installer-only (installer = DMO). The prior runners just called `verify_proof` from Anna/DMO without registering either as a verifier → `ERR_NOT_VERIFIER` (`User error: 6`) on every call.
 
-The bigger trap: `verifier_key(caller.to_string())` at line 172 of `contracts/proof-of-inference/src/main.rs`. On Casper 2.x, `AccountHash::to_string()` on the contract side returns **raw hex** (not the `account-hash-<hex>` prefixed form). So `verifier_id` at registration time must equal the caller's raw account-hash hex, **not** the public key hex. Registering with `pub_key_hex` (as the first-pass runner would have) creates the record under the wrong key and `verify_proof` still fails.
+The bigger trap: `verifier_key(caller.to_string())` at line 172 of `contracts/proof-of-inference/src/main.rs`. On BOT Chain 2.x, `AccountHash::to_string()` on the contract side returns **raw hex** (not the `account-hash-<hex>` prefixed form). So `verifier_id` at registration time must equal the caller's raw account-hash hex, **not** the public key hex. Registering with `pub_key_hex` (as the first-pass runner would have) creates the record under the wrong key and `verify_proof` still fails.
 
 **Fix**:
 ```js

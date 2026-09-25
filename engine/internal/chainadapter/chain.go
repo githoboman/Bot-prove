@@ -1,13 +1,13 @@
 // Package chainadapter — pluggable anchor backend interface.
 //
-// Right now every proof anchors to Casper via submitter.CasperSubmitter.
+// Right now every proof anchors to BOT Chain via submitter.BOT ChainSubmitter.
 // This package lifts that concrete dependency into an interface so the
 // codebase can add EVM (Ethereum / Base / Polygon) or Cosmos anchors
 // without touching the API/decision layers.
 //
 // Not a full multi-chain deployment — the honest boundary is:
 //
-//   * CasperAdapter → wraps submitter.CasperSubmitter (REAL / ON-CHAIN).
+//   * BOT ChainAdapter → wraps submitter.BOT ChainSubmitter (REAL / ON-CHAIN).
 //   * EthereumStubAdapter → deterministic simulator that returns
 //     bit-reproducible pseudo-tx-hashes. Marked SIMULATION so no judge
 //     mistakes it for a live Ethereum anchor. Its job is to prove the
@@ -20,7 +20,7 @@
 //     canonicalized request, Tendermint convention). SIMULATION only.
 //
 // A ChainRouter picks an adapter by ChainID
-// ("casper-test" / "eth-sim" / "solana-sim" / "cosmos-sim").
+// ("bot-test" / "eth-sim" / "solana-sim" / "cosmos-sim").
 //
 // Closes: 5.4 (interface layer) + 5.5 (multi-chain stubs — Solana,
 //         Cosmos). Live EVM/Solana/Cosmos adapters remain deferred.
@@ -48,7 +48,7 @@ type AnchorRequest struct {
 
 // AnchorReceipt is the chain-agnostic response.
 type AnchorReceipt struct {
-	ChainID    string    // "casper-test", "eth-sim", …
+	ChainID    string    // "bot-test", "eth-sim", …
 	TxHash     string    // native tx / deploy hash
 	AnchoredAt time.Time
 	Label      TrustLabel

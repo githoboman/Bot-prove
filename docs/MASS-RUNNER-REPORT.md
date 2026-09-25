@@ -1,9 +1,9 @@
 # Mass Runner Report — Testnet Coverage Sprint
 
 **Date**: 2026-07-26 00:20–00:44 UTC
-**Network**: `casper-test` (Casper 2.x testnet)
-**Node**: `https://node.testnet.casper.network/rpc`
-**Objective**: Exercise every write-entrypoint on every deployed CasperProver
+**Network**: `bot-test` (BOT Chain 2.x testnet)
+**Node**: `https://node.testnet.bot.network/rpc`
+**Objective**: Exercise every write-entrypoint on every deployed BotProve
 contract from two distinct signers, with enough per-entrypoint volume to
 show real usage, gather gas cost data, and prove all 7 contracts are alive.
 
@@ -78,7 +78,7 @@ cost for 492 tx is on the order of 50–100 CSPR.**
 
 ## Understanding the revert count
 
-**Every "err" tx is a healthy tx.** The Casper node accepted the
+**Every "err" tx is a healthy tx.** The BOT Chain node accepted the
 transaction, sealed it in a block, ran the WASM, and the contract's
 own validation logic decided to revert. This is *the correct behaviour*
 of a defensive contract; it is *not* a network or deployment defect.
@@ -128,7 +128,7 @@ Root causes of the reverts, per contract:
    in a block, and produced deterministic results.
 2. **No infrastructure faults.** Zero timeouts, zero rejected-at-node
    errors after the balance issue was resolved and payment cap was set to
-   3 CSPR (the effective minimum for contract calls on Casper 2.x).
+   3 CSPR (the effective minimum for contract calls on BOT Chain 2.x).
 3. **Contract-level defensive validation works.** `proof_registry`
    correctly refused duplicate agents. `model_registry` correctly refused
    badly-formed model hashes. `verifier_gate` correctly bubbled a real

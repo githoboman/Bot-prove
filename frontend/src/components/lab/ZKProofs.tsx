@@ -166,7 +166,7 @@ const ZKProofs: React.FC = () => {
       <div className="bg-[#12121a] border border-yellow-500/40 rounded-md px-4 py-3 text-xs text-yellow-200/90 flex items-start gap-2">
         <AlertTriangle size={16} className="text-yellow-500 flex-shrink-0 mt-0.5" />
         <span>
-          <strong>Boundary:</strong> Real Groth16 prove &amp; verify runs <strong>off-chain</strong> in the Bot Prove engine (gnark BN254). Only the resulting proof handle can be anchored on-chain. On-chain Casper pairing verification is roadmap, not shipped.
+          <strong>Boundary:</strong> Real Groth16 prove &amp; verify runs <strong>off-chain</strong> in the Bot Prove engine (gnark BN254). Only the resulting proof handle can be anchored on-chain. On-chain BOT Chain pairing verification is roadmap, not shipped.
         </span>
       </div>
 

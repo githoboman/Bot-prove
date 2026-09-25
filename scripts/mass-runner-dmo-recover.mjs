@@ -13,18 +13,18 @@ import crypto from "node:crypto";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const require = createRequire(import.meta.url);
-const sdk = require(path.resolve(__dirname, "../frontend/node_modules/casper-js-sdk"));
+const sdk = require(path.resolve(__dirname, "../frontend/node_modules/bot-js-sdk"));
 
 const {
   ContractCallBuilder, HttpHandler, RpcClient,
   PrivateKey, KeyAlgorithm, Args, CLValue,
 } = sdk;
 
-const CHAIN = process.env.CASPER_CHAIN || "casper-test";
-const NODE  = process.env.CASPER_NODE  || "https://node.testnet.casper.network/rpc";
+const CHAIN = process.env.CASPER_CHAIN || "bot-test";
+const NODE  = process.env.CASPER_NODE  || "https://node.testnet.bot.network/rpc";
 const DMO_PEM = process.env.DMO_PEM || "/tmp/dmo.pem";
 const ANNA_PEM = process.env.ANNA_PEM || "/tmp/anna.pem";
-const PAYMENT = 3_000_000_000; // 3 CSPR (Casper 2.x minimum for contract calls)
+const PAYMENT = 3_000_000_000; // 3 CSPR (BOT Chain 2.x minimum for contract calls)
 
 const ONCHAIN = JSON.parse(fs.readFileSync(
   path.resolve(__dirname, "../frontend/public/onchain.json"), "utf8"));

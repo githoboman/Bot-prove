@@ -1,6 +1,6 @@
 # Adversarial input fixtures
 
-Runnable adversarial batteries for the CasperProver proof pipeline.
+Runnable adversarial batteries for the BotProve proof pipeline.
 
 ## Files
 

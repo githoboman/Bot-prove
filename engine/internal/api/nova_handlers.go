@@ -20,7 +20,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/aggregator"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/aggregator"
 )
 
 // foldStepDTO is the wire form of aggregator.FoldStep: hex strings instead

@@ -35,7 +35,7 @@ const cases = [
   {
     icon: Globe,
     title: 'Cross-Chain Verification',
-    desc: 'Proofs anchored on Casper can be verified by any chain or off-chain system. SDK and MCP make integration trivial.',
+    desc: 'Proofs anchored on BOT Chain can be verified by any chain or off-chain system. SDK and MCP make integration trivial.',
     tag: 'Live: 32-tool MCP server',
   },
 ]

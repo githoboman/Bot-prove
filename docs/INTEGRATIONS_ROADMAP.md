@@ -1,7 +1,7 @@
 # Integrations Roadmap
 
 **Status**: `DRAFT — design plan`. This document sketches the
-integration surfaces CasperProver plausibly grows into (SDK-side,
+integration surfaces BotProve plausibly grows into (SDK-side,
 Operator-side, Verifier-side, ecosystem-side) and, for each, what
 must be true before the integration can ship under a `REAL` label
 instead of `SIMULATION`. **No code is shipped. No vendor is
@@ -18,7 +18,7 @@ Cross-refs:
 - `docs/METADATA_PRIVACY.md` (AO) — every integration adds a metadata
   surface; must be evaluated against the seven metadata classes.
 - `docs/HSM_PLAN.md` (AJ) — any integration that signs on behalf of
-  CasperProver must route through the `Signer` interface, not
+  BotProve must route through the `Signer` interface, not
   side-channel a soft-key.
 - `docs/REPUTATION_ECONOMICS.md` (AL) — third-party integrations that
   attest on behalf of others become Attesters in the reputation model
@@ -28,23 +28,23 @@ Cross-refs:
 
 ## 1. Framing — what an "integration" is here
 
-An integration is any interface across which CasperProver exchanges
+An integration is any interface across which BotProve exchanges
 work or trust with a system it does not own. That includes:
 
 - **SDKs** — code the Operator embeds; runs under Operator control;
   the honesty question is *whether the SDK enforces the same
   contracts the Service does*.
-- **Sinks** — where CasperProver receipts land: object storage,
+- **Sinks** — where BotProve receipts land: object storage,
   logging pipelines, SIEM, analytics tools.
-- **Sources** — where the raw work CasperProver attests comes from:
+- **Sources** — where the raw work BotProve attests comes from:
   agent frameworks, model-serving stacks, decision-logging harnesses.
-- **Chains** — Casper Network (target), and any multi-chain anchor
+- **Chains** — BOT Chain Network (target), and any multi-chain anchor
   stubs from AA. Each chain is an integration with its own
   operational model.
 - **Verifier tooling** — receipt viewers, block explorers, dispute
   UIs that live outside the Service.
 - **Standards** — cryptographic and audit standards that
-  CasperProver claims to conform to (FIPS-204/205, RFC-5869, etc.);
+  BotProve claims to conform to (FIPS-204/205, RFC-5869, etc.);
   conformance is an integration commitment.
 
 Every category has different failure modes; a single "integrations
@@ -169,7 +169,7 @@ document classifies them separately.
 
 ## 5. Chain integrations
 
-### 5.1 Casper Network (target)
+### 5.1 BOT Chain Network (target)
 
 - **Status**: testnet-anchor path is `REAL / ON-CHAIN` (testnet).
 - **Preconditions for mainnet**: all G1–G8 gates from
@@ -186,7 +186,7 @@ document classifies them separately.
   2. The chain's fee model is documented in
      `docs/MAINNET_LAUNCH_PLAN.md` §8 with a real cost estimate.
   3. G2 has audited the anchor-write path *for that chain* (a
-     Casper G2 audit does not transitively cover a second chain).
+     BOT Chain G2 audit does not transitively cover a second chain).
   4. LEGAL/DATA_PROTECTION.md is amended if the second chain has
      different data-retention semantics.
 - **Migration urgency**: low; multi-chain is a scale concern, not a
@@ -333,5 +333,5 @@ commitments.
 ---
 
 *This is a design plan. It ships no code and commits to no partner.
-Its only purpose is to make CasperProver's integration surface
+Its only purpose is to make BotProve's integration surface
 auditable per category, per honesty label.*

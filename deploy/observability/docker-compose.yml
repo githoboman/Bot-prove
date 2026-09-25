@@ -1,4 +1,4 @@
-# Local observability stack for CasperProver — opt-in, dev-only.
+# Local observability stack for BotProve — opt-in, dev-only.
 #
 # Runs:
 #   * prometheus (scrapes engine's /metrics)

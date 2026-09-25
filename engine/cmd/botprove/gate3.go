@@ -28,10 +28,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/judge"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/judge/equivocation"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/judge/hitl"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/llm"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/judge"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/judge/equivocation"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/judge/hitl"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/llm"
 )
 
 // scriptedProvider is a deterministic per-facet provider used only by this CLI.
@@ -105,7 +105,7 @@ func runGate3Demo() {
 		AllPassed:     true,
 	}
 
-	fmt.Fprintln(os.Stderr, "=== CasperProver Gate 3 — Agentic Vertical Slice ===")
+	fmt.Fprintln(os.Stderr, "=== BotProve Gate 3 — Agentic Vertical Slice ===")
 	fmt.Fprintln(os.Stderr, "")
 
 	for _, sc := range scenarios {
@@ -132,7 +132,7 @@ func runGate3Demo() {
 	}
 
 	// Machine-readable receipt on stdout, human summary on stderr.
-	// Pipe with: casperprover gate3 > receipt.json 2>summary.txt
+	// Pipe with: botprove gate3 > receipt.json 2>summary.txt
 	enc := json.NewEncoder(os.Stdout)
 	enc.SetIndent("", "  ")
 	_ = enc.Encode(receipt)

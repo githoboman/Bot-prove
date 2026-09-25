@@ -1,6 +1,6 @@
 # site/
 
-Static one-pager for CasperProver. No build step — plain HTML + CSS.
+Static one-pager for BotProve. No build step — plain HTML + CSS.
 
 ## Local preview
 

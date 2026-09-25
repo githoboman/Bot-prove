@@ -126,7 +126,7 @@ export default function CsprClickWrapper({ children }: { children: ReactNode }) 
       value={{
         connected,
         publicKey: account,
-        accountHash: account, // Mirroring publicKey for compatibility with Casper UI components
+        accountHash: account, // Mirroring publicKey for compatibility with BOT Chain UI components
         provider: 'EVM',
         clickRef: undefined,
         ready,

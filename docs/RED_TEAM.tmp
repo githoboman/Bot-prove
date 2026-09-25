@@ -6,7 +6,7 @@ Usage: Review each row, adjust status/notes if code has moved, then remove this 
 Remove when: After review and rename
 -->
 
-# CasperProver — Red-Team Self-Audit
+# BotProve — Red-Team Self-Audit
 
 Self-adversarial pass across every layer of the stack. 19 attack vectors — 15 RESIST,
 4 PARTIAL (documented mitigations in progress; count corrected 2026-07-18 after

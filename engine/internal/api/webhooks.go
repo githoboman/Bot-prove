@@ -19,7 +19,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/observability"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/observability"
 )
 
 // Webhook subsystem — outbound event delivery to caller-registered URLs.

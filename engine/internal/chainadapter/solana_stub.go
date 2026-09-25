@@ -91,7 +91,7 @@ func base58EncodeBytes(b []byte) string {
 }
 
 // hexOfSHA512 was intended for callers with strict hex expectations (e.g.
-// contract-tests round-tripping via Casper hex) to compare the underlying
+// contract-tests round-tripping via BOT Chain hex) to compare the underlying
 // digest without depending on the base58 encoding -- but it's unexported
 // and nothing ever called it, so it was always dead code. Removed; re-add
 // if a real caller needs it.

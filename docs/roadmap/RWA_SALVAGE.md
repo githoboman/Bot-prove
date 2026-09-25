@@ -8,9 +8,9 @@ RWA-Sentinel (`triumphkrug/RWA-Sentinel`) is an Apache-2.0-licensed
 hackathon codebase that did not advance past round 1. It contains a
 handful of independently reusable technical patterns. A salvage catalog
 maintained separately from this repo — under
-`/data/casper/casper_research/rwa-s-salvage/` — enumerates them.
+`/data/bot/bot_research/rwa-s-salvage/` — enumerates them.
 
-**Nothing from RWA-Sentinel has been ported into CasperProver yet.** This
+**Nothing from RWA-Sentinel has been ported into BotProve yet.** This
 document is the plan; the actual salvage happens on branches downstream
 of this one after cofounder + reviewer sign-off.
 
@@ -21,8 +21,8 @@ must obey:
 
 1. **No verbatim copy.** Patterns are algorithmic + architectural
    reference, not a paste source. Rename all identifiers, restructure to
-   match CasperProver's Go / Rust style, rewrite comments in
-   CasperProver's own voice.
+   match BotProve's Go / Rust style, rewrite comments in
+   BotProve's own voice.
 2. **No RWA-Sentinel references in the code itself.** No "adapted from
    RWA-Sentinel" comments. Attribution belongs in the commit body and in
    this design doc, not in the shipped source.
@@ -30,7 +30,7 @@ must obey:
    override the hackathon submission's originality rule. Every port must
    pass a substantial-rewrite test.
 4. **Test parity.** Every ported pattern ships with tests written in
-   CasperProver's own test style (`_test.go` for Go, Rust `#[test]`
+   BotProve's own test style (`_test.go` for Go, Rust `#[test]`
    for contracts, `pytest` for Python).
 5. **Reviewer + owner sign-off** before push.
 
@@ -41,7 +41,7 @@ must obey:
 - **BLS12-381 3-of-5 threshold consensus** — informs the
   `docs/roadmap/BLS_QUORUM.md` design, but does not become a drop-in
   port. RWA-Sentinel's implementation is TypeScript via `@noble/curves`;
-  CasperProver's target is Go via `gnark-crypto`. What is portable is
+  BotProve's target is Go via `gnark-crypto`. What is portable is
   the *algorithmic shape* (signer registry, threshold check, aggregate
   verification) and the *challenge lifecycle*, not the code.
 - **`oracle-slashing` challenge lifecycle and severity logic** — the
@@ -59,20 +59,20 @@ must obey:
   can seed additional property-based tests).
 - **`kyc-gate` provider lifecycle / cross-contract pattern** — informs
   the cross-contract discipline in
-  `docs/roadmap/GOVERNANCE.md`. CasperProver does NOT currently have a
+  `docs/roadmap/GOVERNANCE.md`. BotProve does NOT currently have a
   `kyc_oracle` contract (contrary to `CP_FINAL_TASKS_V2.md` v1); the
   pattern is aspirational for the compliance-gated flow.
-- **42-line TLA+ spec stub** — CasperProver already ships a fuller TLA+
+- **42-line TLA+ spec stub** — BotProve already ships a fuller TLA+
   spec (`crypto/formal/*.tla`) with a TLC pass on a small model (commit
   `b6218d8`). The RWA-Sentinel stub is inferior; use only as a source
   of additional invariant ideas, not as a template.
 
 ### Reference-only (do NOT port)
 
-- **Deposit-session module.** CasperProver has no matching primitive.
-- **UI / wallet integration.** Frontend is CasperProver's own.
+- **Deposit-session module.** BotProve has no matching primitive.
+- **UI / wallet integration.** Frontend is BotProve's own.
 - **RWA-specific modules** (asset-registry, custody adapters).
-- **Generic MCP / SDK bootstrap.** CasperProver's SDK is already deeper.
+- **Generic MCP / SDK bootstrap.** BotProve's SDK is already deeper.
 
 ## Originality guardrails
 
@@ -103,7 +103,7 @@ phase. Each port is its own PR.
 
 - Wholesale merge of the RWA-Sentinel repo.
 - A "compatibility layer" translating RWA-Sentinel primitives 1:1.
-- Any implication in copy or marketing that CasperProver is a
+- Any implication in copy or marketing that BotProve is a
   continuation of RWA-Sentinel.
 
 ## Acceptance criteria (per port)

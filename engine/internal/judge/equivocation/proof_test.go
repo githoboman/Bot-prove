@@ -8,10 +8,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/judge"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/judge/equivocation"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/judge/pifixture"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/llm"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/judge"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/judge/equivocation"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/judge/pifixture"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/llm"
 )
 
 // runDisagreeCase spins the pifixture "system-override" case through the

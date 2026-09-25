@@ -25,7 +25,7 @@ receipt in three interoperable shapes:
 The three shapes are **lossless in one direction only**: internal →
 W3C-VC and internal → agent-receipt. Round-tripping back to internal
 is not supported. Rationale: receipts are produced, not consumed, by
-CasperProver — omitting the reverse path keeps the surface small and
+BotProve — omitting the reverse path keeps the surface small and
 makes the canonical hash the only thing that ever has to be
 recomputed by a verifier.
 

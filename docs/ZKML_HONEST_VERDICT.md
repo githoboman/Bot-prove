@@ -3,12 +3,12 @@
 **Status**: `DRAFT — decision record`. Companion to
 `docs/ZKML_RESEARCH_SPIKE.md`. This file is the single-page answer that
 maintainers, auditors, and reviewers should be able to read in 60
-seconds to understand *why every ML-inference claim in CasperProver is
+seconds to understand *why every ML-inference claim in BotProve is
 currently `SIMULATION`* and *what would have to change*.
 
 ## The verdict
 
-Every claim in the CasperProver tree that implies a cryptographic proof
+Every claim in the BotProve tree that implies a cryptographic proof
 of a model's inference — as opposed to an attestation of inputs, outputs,
 and a model identifier — is labelled `SIMULATION`. This label is not
 provisional. It reflects the state of publicly reviewable ZK-ML
@@ -30,7 +30,7 @@ Four conditions must all hold before any ML claim can be relabelled to
    `docs/REPUTATION_ECONOMICS.md` §5 can afford to reproduce it.
    Public benchmarks for the surveyed prover categories exceed the
    viable cost ceiling by orders of magnitude for the model sizes
-   CasperProver targets.
+   BotProve targets.
 4. **Receipt format extension** to carry circuit hash, verifying-key
    hash, weights hash, and toolchain version. This is a breaking
    schema change and must be scheduled as such.
@@ -44,7 +44,7 @@ outcome is explicitly rejected.
 (Groth16/PLONK-family, STARK/FRI, zkVM, lookup+PLONK, recursion) and
 one out-of-scope comparator (trusted-hardware attestation). The
 feasibility matrix in §3 scores each approach against ten axes that
-matter to CasperProver's specific posture (transparent setup, PQ hedge,
+matter to BotProve's specific posture (transparent setup, PQ hedge,
 existing provenance-vector primitives, upcoming audit gate). No
 approach reaches a clear win.
 
@@ -73,7 +73,7 @@ under third-party review and not as a marketing calendar item.
 ## What this document does
 
 It provides a durable, in-tree, auditable answer to the question
-"*why does CasperProver label ML inference claims as `SIMULATION`?*" so
+"*why does BotProve label ML inference claims as `SIMULATION`?*" so
 that:
 
 - Reviewers of AA–AL can trust that no downstream pack has quietly

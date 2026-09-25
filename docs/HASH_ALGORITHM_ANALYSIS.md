@@ -1,7 +1,7 @@
 # Hash Algorithm Analysis
 
 **Status**: `DRAFT — design analysis`. This file catalogues the hash
-functions used in CasperProver, the property each one is asked to
+functions used in BotProve, the property each one is asked to
 provide, the honesty label each one currently carries, and the migration
 posture (both defensive and post-quantum). **No code is changed by this
 document. No dependency is added. No paid service is authorised. No
@@ -25,7 +25,7 @@ Cross-refs:
 A single hash function name (SHA-256, Keccak-256, Poseidon, BLAKE3, …)
 is not a security posture. The same primitive can be safe in one usage
 and catastrophically wrong in another. This document classifies every
-hash usage in CasperProver by **the security property it is asked to
+hash usage in BotProve by **the security property it is asked to
 provide**, because relabelling a bad choice as "REAL" without pinning
 the property is exactly the failure mode the honesty ladder exists to
 prevent.
@@ -61,7 +61,7 @@ is enumerated in §4.**
 
 ---
 
-## 2. Registry — hash usages in CasperProver (as of `main`)
+## 2. Registry — hash usages in BotProve (as of `main`)
 
 ### 2.1 Merkle tree over attestation records (existing)
 
@@ -73,7 +73,7 @@ is enumerated in §4.**
 - **Analysis**: SHA-256 is a Merkle-Damgård construction. In the Merkle
   tree it is used only as `H(left || right)` at each level; there is no
   length-extension surface (both children are fixed-length hashes).
-  Collision resistance for the batch sizes CasperProver targets is not
+  Collision resistance for the batch sizes BotProve targets is not
   at risk. Domain separation is achieved by prefixing internal nodes
   differently from leaf nodes; **the current implementation must be
   audited to confirm this prefix exists** (open question, §4-Q1).
@@ -155,7 +155,7 @@ is enumerated in §4.**
 - **Analysis**: these primitives are **immature by the standards of
   SHA-2 and SHA-3**. Published cryptanalysis has caused parameter
   changes multiple times in the past 24 months. Any use in
-  CasperProver must ship behind a `SIMULATION` label and cannot be
+  BotProve must ship behind a `SIMULATION` label and cannot be
   relabelled `REAL` until the primitive itself is under independent
   audit (routed through G2). Non-negotiable.
 - **Migration**: parameterisation is field-dependent; the choice of
@@ -250,7 +250,7 @@ payload. If it does not, receipts across versions could hash-collide
 in a way that laundered them into each other.
 
 **Q3 — SHA-256 monoculture.** Is the single-primitive-family posture
-acceptable, or should CasperProver introduce a secondary primitive
+acceptable, or should BotProve introduce a secondary primitive
 (BLAKE3, SHA-3) in one high-value chain (e.g. the Merkle root) to
 provide diversity? This is a G2 conversation, not a hackathon
 decision. Defensible answer today: **no diversity change until G2**,
@@ -267,7 +267,7 @@ default cannot silently drift.
 prototype must ship behind a `SIMULATION` label, non-negotiable, until
 the chosen arithmetic-friendly hash has an independent cryptanalytic
 review. Poseidon has changed parameters multiple times in recent years;
-CasperProver must not silently ride those changes.
+BotProve must not silently ride those changes.
 
 **Q6 — HKDF `info` labels.** Every KDF call site must be catalogued
 with its `info` label before it ships. Missing labels = missing
@@ -293,7 +293,7 @@ and pre-dates this document.
   KEM) and route through G2. Explicitly out of scope for this
   document.
 
-**Consequence.** CasperProver's PQ posture is already dominated by
+**Consequence.** BotProve's PQ posture is already dominated by
 SLH-DSA. The hash layer is *not the weakest link* today; the ZK-ML
 label (`SIMULATION`) and the trusted-setup ceremony (`SIMULATION` until
 KEY_CEREMONY_PLAN executes) are.
@@ -318,5 +318,5 @@ against implicit assumptions.
 ---
 
 *This is a design analysis. It ships no code and commits to no
-migration. Its only purpose is to make CasperProver's hash-primitive
+migration. Its only purpose is to make BotProve's hash-primitive
 posture auditable, per usage, per property.*

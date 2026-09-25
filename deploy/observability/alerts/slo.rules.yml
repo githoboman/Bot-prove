@@ -1,4 +1,4 @@
-# CasperProver — SLI/SLO recording rules
+# BotProve — SLI/SLO recording rules
 #
 # These recording rules materialise SLI signals from the raw counters and
 # histograms exposed by the engine's /metrics endpoint (Pack AG). All rules
@@ -13,7 +13,7 @@
 # The multi-window burn-rate alerts in slo.alerts.yml depend on the series
 # names below — DO NOT rename them without updating the alerts.
 groups:
-  - name: casperprover_slo_recording
+  - name: botprove_slo_recording
     interval: 30s
     rules:
       # --- Request rate (per route, per 5m) ---

@@ -64,7 +64,7 @@ All 6 pass in <2s.
 
 - **REAL POST-QUANTUM CRYPTOGRAPHY.** Standardised, audited, third-party
   implementation. This is not a simulation.
-- **NOT ON-CHAIN.** No Casper Rust contract verifies a FIPS 205 signature
+- **NOT ON-CHAIN.** No BOT Chain Rust contract verifies a FIPS 205 signature
   today. On-chain verification would need either a precompile (Condor
   2.x, not yet available) or an in-contract implementation (large — a
   follow-up ticket).

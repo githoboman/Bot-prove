@@ -2,7 +2,7 @@
 
 ## Reporting
 
-Report security issues via [GitHub Security Advisories](https://github.com/anna-stolbovskaja/CasperProver/security/advisories/new).
+Report security issues via [GitHub Security Advisories](https://github.com/anna-stolbovskaja/BotProve/security/advisories/new).
 
 Do not open public issues for vulnerabilities.
 
@@ -19,7 +19,7 @@ Do not open public issues for vulnerabilities.
 | | Proof engine | ✅ | Merkle-tree integrity, SHA-256 leaf hashing |
 | | ZK (gnark) | ✅ | BN254 MiMC circuit, real Groth16 prove+verify |
 | | PQ crypto | ✅ | Ed25519+ML-DSA-65 hybrid sign, Lamport-OTS |
-| | Submitter | ✅ | Casper RPC integration, secp256k1 signing |
+| | Submitter | ✅ | BOT Chain RPC integration, secp256k1 signing |
 | **Frontend** | XSS | ✅ | React auto-escaping, no `dangerouslySetInnerHTML` |
 | | ErrorBoundary | ✅ | Catches Lab errors, prevents blank screens |
 | | Secrets | ✅ | No secrets in frontend; API key is server-side only |

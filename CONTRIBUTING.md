@@ -80,7 +80,7 @@ Reviewer confirms **every** item before approving.
       claim carries the correct **TrustBadge** (REAL / ON-CHAIN /
       SIMULATION).
 - [ ] No new secret appears in the diff (grep for `ghp_`, `sk_`,
-      `-----BEGIN`, `casper_`, `AKIA`; run `gitleaks detect --no-git`).
+      `-----BEGIN`, `bot_`, `AKIA`; run `gitleaks detect --no-git`).
 - [ ] `KNOWN_LIMITATIONS.md` is updated when a mock is added, changed,
       or lifted to a real primitive.
 

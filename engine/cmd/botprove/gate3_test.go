@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-// TestGate3_ReproducibleReceipt runs `casperprover gate3` twice and asserts the
+// TestGate3_ReproducibleReceipt runs `botprove gate3` twice and asserts the
 // two receipts have identical scenario digests. Reproducibility is what makes
 // the demo auditable — a judge can diff evidence hashes across machines.
 //

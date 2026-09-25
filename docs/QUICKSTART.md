@@ -6,7 +6,7 @@ Point three SDKs at the same running API. Copy-paste, expect JSON back.
 
 ```bash
 cd engine
-go run ./cmd/casperprover serve
+go run ./cmd/botprove serve
 # server now listens on :9090
 ```
 

@@ -1,13 +1,13 @@
-# CasperProver CLI (`cprover`)
+# BotProve CLI (`cprover`)
 
-The `cprover` command ships with the [`casperprover-sdk`](../sdk/python) Python package. It gives agents and humans a shell-friendly way to submit and verify CasperProver proofs.
+The `cprover` command ships with the [`botprove-sdk`](../sdk/python) Python package. It gives agents and humans a shell-friendly way to submit and verify BotProve proofs.
 
-> The entry point is named **`cprover`** (short) and **`casperprover`** (long alias). We do not register `cp` because Unix already ships a `cp` (copy) command.
+> The entry point is named **`cprover`** (short) and **`botprove`** (long alias). We do not register `cp` because Unix already ships a `cp` (copy) command.
 
 ## Install
 
 ```bash
-pip install casperprover-sdk
+pip install botprove-sdk
 # or from source:
 pip install -e sdk/python
 ```
@@ -15,7 +15,7 @@ pip install -e sdk/python
 ## Configure
 
 ```bash
-export CP_BASE_URL=https://api.casperprover.xyz   # or http://localhost:9090 in dev
+export CP_BASE_URL=https://api.botprove.xyz   # or http://localhost:9090 in dev
 ```
 
 Every command also accepts `--base-url` and `--timeout`.
@@ -81,7 +81,7 @@ cprover proofs submit \
 ```bash
 $ cprover version
 {
-  "casperprover_sdk": "0.1.0"
+  "botprove_sdk": "0.1.0"
 }
 ```
 
@@ -96,7 +96,7 @@ $ cprover version
 The same package exposes the SDK:
 
 ```python
-from casperprover_sdk import ProverClient
+from botprove_sdk import ProverClient
 
 client = ProverClient("http://localhost:9090")
 proof = client.submit(

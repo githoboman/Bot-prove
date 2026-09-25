@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/observability"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/observability"
 )
 
 // TestMetricsEndpoint checks the observability handler serves the

@@ -1,7 +1,7 @@
 /**
- * Unit tests for the CasperProver HTTP client.
+ * Unit tests for the BotProve HTTP client.
  *
- * We inject a fake `fetch` via `CasperProverClient({ fetch })` and record
+ * We inject a fake `fetch` via `BotProveClient({ fetch })` and record
  * the request the client issues. No live server, no MSW — this keeps the
  * SDK zero-dep and the tests reproducible in every JS runtime.
  *
@@ -11,7 +11,7 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 
-import { CasperProverClient } from "../client.ts";
+import { BotProveClient } from "../client.ts";
 import {
   BadRequestError,
   ForbiddenError,
@@ -88,10 +88,10 @@ const fakeProof: ProofRecord = {
   mode: "local",
 };
 
-describe("CasperProverClient — routing and headers", () => {
+describe("BotProveClient — routing and headers", () => {
   it("hits /health with GET", async () => {
     const { fetchImpl, requests } = makeFakeFetch([{ status: 200, body: { status: "ok" } }]);
-    const c = new CasperProverClient({ baseUrl: "http://cp:8080/", fetch: fetchImpl });
+    const c = new BotProveClient({ baseUrl: "http://cp:8080/", fetch: fetchImpl });
     const res = await c.health();
     assert.equal(res.status, "ok");
     assert.equal(requests[0].url, "http://cp:8080/health");
@@ -102,7 +102,7 @@ describe("CasperProverClient — routing and headers", () => {
 
   it("sends X-API-Key and X-Public-Key when configured", async () => {
     const { fetchImpl, requests } = makeFakeFetch([{ status: 200, body: { status: "ok" } }]);
-    const c = new CasperProverClient({
+    const c = new BotProveClient({
       baseUrl: "http://cp:8080",
       apiKey: "test-key",
       publicKey: "deadbeef",
@@ -115,7 +115,7 @@ describe("CasperProverClient — routing and headers", () => {
 
   it("POSTs generateProof with JSON body", async () => {
     const { fetchImpl, requests } = makeFakeFetch([{ status: 200, body: fakeProof }]);
-    const c = new CasperProverClient({ fetch: fetchImpl });
+    const c = new BotProveClient({ fetch: fetchImpl });
     const p = await c.generateProof({
       agent: "a",
       input: "i",
@@ -134,7 +134,7 @@ describe("CasperProverClient — routing and headers", () => {
   });
 
   it("rejects generateProof without required fields client-side", async () => {
-    const c = new CasperProverClient();
+    const c = new BotProveClient();
     await assert.rejects(
       () => c.generateProof({ agent: "", input: "i", output: "o", model: "m" }),
       /agent, input, output, model are required/,
@@ -143,7 +143,7 @@ describe("CasperProverClient — routing and headers", () => {
 
   it("URL-encodes proof IDs on GET /proofs/{id}", async () => {
     const { fetchImpl, requests } = makeFakeFetch([{ status: 200, body: fakeProof }]);
-    const c = new CasperProverClient({ fetch: fetchImpl });
+    const c = new BotProveClient({ fetch: fetchImpl });
     await c.getProof("weird id/with slash");
     assert.match(requests[0].url, /\/proofs\/weird%20id%2Fwith%20slash$/);
   });
@@ -154,7 +154,7 @@ describe("CasperProverClient — routing and headers", () => {
       { status: 200, body: { ...fakeProof, valid: false, revoked: true } },
       { status: 200, body: { ...fakeProof, valid: false, revoked: false } },
     ]);
-    const c = new CasperProverClient({ fetch: fetchImpl });
+    const c = new BotProveClient({ fetch: fetchImpl });
     assert.equal(await c.getProofStatus("a"), "valid");
     assert.equal(await c.getProofStatus("b"), "revoked");
     assert.equal(await c.getProofStatus("c"), "invalid");
@@ -164,7 +164,7 @@ describe("CasperProverClient — routing and headers", () => {
     const { fetchImpl, requests } = makeFakeFetch([
       { status: 200, body: { proofs: [], total: 0, page: 1, limit: 20 } },
     ]);
-    const c = new CasperProverClient({ fetch: fetchImpl });
+    const c = new BotProveClient({ fetch: fetchImpl });
     await c.listProofs({ agent: "a-1", mode: "anchored", page: 2, limit: 10 });
     assert.match(requests[0].url, /agent=a-1/);
     assert.match(requests[0].url, /mode=anchored/);
@@ -177,7 +177,7 @@ describe("CasperProverClient — routing and headers", () => {
       { status: 200, body: { proof_id: "p1", valid: true, revoked: false } },
       { status: 200, body: { proof_id: "p2", valid: true, revoked: false } },
     ]);
-    const c = new CasperProverClient({ fetch: fetchImpl });
+    const c = new BotProveClient({ fetch: fetchImpl });
     const out = await c.batchVerify(["p1", "p2"]);
     assert.equal(out.length, 2);
     assert.equal(requests.length, 2);
@@ -185,17 +185,17 @@ describe("CasperProverClient — routing and headers", () => {
   });
 
   it("batchGenerate enforces server-side batch size limit client-side", async () => {
-    const c = new CasperProverClient();
+    const c = new BotProveClient();
     const many = Array.from({ length: 51 }, () => ({ agent: "a", input: "i", output: "o", model: "m" }));
     await assert.rejects(() => c.batchGenerate({ proofs: many }), /larger than 50/);
     await assert.rejects(() => c.batchGenerate({ proofs: [] }), /at least one proof entry/);
   });
 });
 
-describe("CasperProverClient — error mapping", () => {
+describe("BotProveClient — error mapping", () => {
   it("maps 400 to BadRequestError with server message", async () => {
     const { fetchImpl } = makeFakeFetch([{ status: 400, body: { error: "bad input" } }]);
-    const c = new CasperProverClient({ fetch: fetchImpl });
+    const c = new BotProveClient({ fetch: fetchImpl });
     await assert.rejects(() => c.getProof("x"), (e) => {
       assert.ok(e instanceof BadRequestError, "expected BadRequestError");
       assert.equal((e as BadRequestError).message, "bad input");
@@ -210,7 +210,7 @@ describe("CasperProverClient — error mapping", () => {
       { status: 403, body: { error: "wrong scope" } },
       { status: 404, body: { error: "no proof" } },
     ]);
-    const c = new CasperProverClient({ fetch: fetchImpl });
+    const c = new BotProveClient({ fetch: fetchImpl });
     await assert.rejects(() => c.getProof("a"), UnauthorizedError);
     await assert.rejects(() => c.getProof("b"), ForbiddenError);
     await assert.rejects(() => c.getProof("c"), NotFoundError);
@@ -220,7 +220,7 @@ describe("CasperProverClient — error mapping", () => {
     const { fetchImpl } = makeFakeFetch([
       { status: 429, body: { error: "slow down" }, headers: { "Retry-After": "12" } },
     ]);
-    const c = new CasperProverClient({ fetch: fetchImpl });
+    const c = new BotProveClient({ fetch: fetchImpl });
     await assert.rejects(() => c.getProof("a"), (e) => {
       assert.ok(e instanceof RateLimitError, "expected RateLimitError");
       assert.equal((e as RateLimitError).retryAfterSec, 12);
@@ -230,13 +230,13 @@ describe("CasperProverClient — error mapping", () => {
 
   it("maps 5xx to ServerError", async () => {
     const { fetchImpl } = makeFakeFetch([{ status: 503, body: { error: "backend down" } }]);
-    const c = new CasperProverClient({ fetch: fetchImpl });
+    const c = new BotProveClient({ fetch: fetchImpl });
     await assert.rejects(() => c.getProof("a"), ServerError);
   });
 
   it("falls back to plain-text error body when server returned text/plain", async () => {
     const { fetchImpl } = makeFakeFetch([{ status: 400, body: "invalid JSON body" }]);
-    const c = new CasperProverClient({ fetch: fetchImpl });
+    const c = new BotProveClient({ fetch: fetchImpl });
     await assert.rejects(() => c.getProof("a"), (e) => {
       assert.ok(e instanceof BadRequestError);
       assert.equal((e as BadRequestError).message, "invalid JSON body");
@@ -245,17 +245,17 @@ describe("CasperProverClient — error mapping", () => {
   });
 });
 
-describe("CasperProverClient — constructor", () => {
+describe("BotProveClient — constructor", () => {
   it("strips trailing slashes from baseUrl", async () => {
     const { fetchImpl, requests } = makeFakeFetch([{ status: 200, body: { status: "ok" } }]);
-    const c = new CasperProverClient({ baseUrl: "http://cp:8080///", fetch: fetchImpl });
+    const c = new BotProveClient({ baseUrl: "http://cp:8080///", fetch: fetchImpl });
     await c.health();
     assert.equal(requests[0].url, "http://cp:8080/health");
   });
 
   it("uses default baseUrl when omitted", async () => {
     const { fetchImpl, requests } = makeFakeFetch([{ status: 200, body: { status: "ok" } }]);
-    const c = new CasperProverClient({ fetch: fetchImpl });
+    const c = new BotProveClient({ fetch: fetchImpl });
     await c.health();
     assert.equal(requests[0].url, "http://localhost:8080/health");
   });
@@ -266,7 +266,7 @@ describe("CasperProverClient — constructor", () => {
     try {
       // @ts-expect-error — deliberately clearing.
       globalThis.fetch = undefined;
-      assert.throws(() => new CasperProverClient(), /no fetch\(\) available/);
+      assert.throws(() => new BotProveClient(), /no fetch\(\) available/);
     } finally {
       globalThis.fetch = originalFetch;
     }

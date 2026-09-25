@@ -25,8 +25,8 @@
 package pifixture
 
 import (
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/judge"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/llm"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/judge"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/llm"
 )
 
 // Case is one prompt-injection scenario.

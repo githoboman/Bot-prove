@@ -2,7 +2,7 @@
 
 > **Status: `[SPEC / DEFERRED / POST-AUDIT]`**
 > This document defines the *design* for interactive fraud proofs over
-> CasperProver decision traces. **No runtime code is shipped for this
+> BotProve decision traces. **No runtime code is shipped for this
 > component in the hackathon build.** The seam is the audited proof-trace
 > format already emitted by `receipts/` and `aggregator/`.
 >
@@ -16,9 +16,9 @@
 
 ## 1 · Motivation
 
-The default CasperProver anchoring is **non-interactive** — the prover signs
+The default BotProve anchoring is **non-interactive** — the prover signs
 `(inputs, outputs, model_id, timestamp)`, hashes into a Merkle tree, anchors
-the root on Casper. Verification is a single-shot Merkle-inclusion check.
+the root on BOT Chain. Verification is a single-shot Merkle-inclusion check.
 
 That model is efficient but **fragile against a lying prover**: if the prover
 publishes a root that is inconsistent with its declared inputs (e.g. a
@@ -37,7 +37,7 @@ one of two outcomes:
    depth budget; the challenger's bond is forfeit.
 
 The construction is essentially the **Optimistic Rollup dispute game**
-adapted from Arbitrum/Truebit, specialised to CasperProver decision
+adapted from Arbitrum/Truebit, specialised to BotProve decision
 traces. The novelty for our stack is that the *underlying "computation"*
 being bisected is not a VM but an **agent decision trace** — an ordered
 sequence of `(inputs, model_id, prompt_hash, output_hash)` steps.
@@ -252,7 +252,7 @@ For a trace of `n ≤ 2^d` steps:
 | Execution round    | 1 | canonical witness (bounded by inputs+prompt+output size) |
 
 With `d ≤ 20` total, the on-chain cost is bounded by **~40 messages** and
-**~2 KB** of Merkle path data per game. Well within Casper mainnet limits.
+**~2 KB** of Merkle path data per game. Well within BOT Chain mainnet limits.
 
 ---
 
@@ -301,7 +301,7 @@ The arbiter model server is a trust root; if compromised, `A` can bribe
 it to lie in § 6.4. Mitigations:
 
 - **Attested execution.** Arbiter runs behind AT-attestor interfaces
-  (TPM / SGX / SEV-SNP). Attestation quotes are anchored on Casper
+  (TPM / SGX / SEV-SNP). Attestation quotes are anchored on BOT Chain
   alongside the arbiter registration.
 - **Rotation cadence.** New arbiter every 30 days. Old arbiter kept as
   cold reserve for 90 days for possible dispute over old traces.
@@ -400,7 +400,7 @@ Hooks:
 - Teutsch & Reitwießner — *A scalable verification solution for
   blockchains* (Truebit, 2017).
 - Optimism — *Fault Proofs Alpha* (2024).
-- CasperProver internal:
+- BotProve internal:
   - `docs/DISTRIBUTED_PROVER_MPC.md` (AU)
   - `docs/MULTI_VERIFIER_GOSSIP.md` (BC)
   - `docs/SLASH_EQUIVOCATION_SPEC.md` (BD)

@@ -2,7 +2,7 @@
 
 > **Update (2026-07-26):** the three contracts this doc used to track as
 > "not yet deployed" (`proof-of-inference`, `model-registry`,
-> `proof-aggregation`) were deployed to Casper testnet on 2026-07-25 from
+> `proof-aggregation`) were deployed to BOT Chain testnet on 2026-07-25 from
 > the secondary deployer account (`0202da6cfba1...`), using an MVP-clean
 > WASM build (Rust nightly `-Z build-std=core,alloc,compiler_builtins,panic_abort`,
 > bulk-memory-opt/sign-ext/reference-types disabled, `wasm-opt
@@ -22,7 +22,7 @@
 > `api.testnet.cspr.cloud/deploys/<hash>`.
 >
 > Canonical status now lives in [`TX_MANIFEST.md`](TX_MANIFEST.md) —
-> CasperProver has **9 contracts live** on testnet, none pending.
+> BotProve has **9 contracts live** on testnet, none pending.
 
 | Contract | Contract hash | Deploy hash | Deployed |
 |---|---|---|---|

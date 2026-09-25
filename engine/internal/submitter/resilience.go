@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/make-software/casper-go-sdk/v2/rpc"
+	"github.com/make-software/bot-go-sdk/v2/rpc"
 )
 
 // circuitState models the classic three-state circuit breaker.
@@ -33,7 +33,7 @@ type RetryConfig struct {
 	Multiplier  float64       // exponential backoff multiplier
 }
 
-// DefaultRetryConfig is a sane default for querying a Casper node over
+// DefaultRetryConfig is a sane default for querying a BOT Chain node over
 // JSON-RPC: a handful of quick retries with capped exponential backoff.
 func DefaultRetryConfig() RetryConfig {
 	return RetryConfig{
@@ -67,9 +67,9 @@ type GlobalStateQuerier interface {
 	QueryLatestGlobalState(ctx context.Context, key string, path []string) (rpc.QueryGlobalStateResult, error)
 }
 
-// ResilientQuerier wraps a casper-go-sdk rpc.Client's read-only global
+// ResilientQuerier wraps a bot-go-sdk rpc.Client's read-only global
 // state queries with retry-with-backoff and a circuit breaker, so that a
-// flaky or temporarily-unreachable Casper node degrades gracefully
+// flaky or temporarily-unreachable BOT Chain node degrades gracefully
 // instead of hammering the node or blocking callers indefinitely.
 type ResilientQuerier struct {
 	client GlobalStateQuerier
@@ -84,7 +84,7 @@ type ResilientQuerier struct {
 }
 
 // NewResilientQuerier builds a ResilientQuerier around an existing
-// casper-go-sdk rpc.Client using the supplied retry/breaker config.
+// bot-go-sdk rpc.Client using the supplied retry/breaker config.
 func NewResilientQuerier(client GlobalStateQuerier, retry RetryConfig, cb CircuitBreakerConfig) *ResilientQuerier {
 	return &ResilientQuerier{
 		client: client,

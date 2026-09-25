@@ -1,6 +1,6 @@
-[casper]
+[bot]
 node_url = "https://node.integration.cspr.cloud/"
-chain_name = "casper-test"
+chain_name = "bot-test"
 
 [api]
 port = 10000

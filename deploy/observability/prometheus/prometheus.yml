@@ -4,11 +4,11 @@ global:
   evaluation_interval: 15s
 
 scrape_configs:
-  - job_name: casperprover-engine
+  - job_name: botprove-engine
     metrics_path: /metrics
     static_configs:
       - targets:
           - host.docker.internal:8081
         labels:
-          service: casperprover-engine
+          service: botprove-engine
           env: local

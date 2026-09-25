@@ -20,7 +20,7 @@
 The single-signer proof-attestation path today is:
 
 ```
-inputs → engine → hash → sign(sk) → anchor(Casper) → receipt
+inputs → engine → hash → sign(sk) → anchor(BOT Chain) → receipt
 ```
 
 The signer holds a single private key. That key is the trust bottleneck of the
@@ -66,7 +66,7 @@ production, BLS-threshold for on-chain aggregation.**
 |----------------|---------------|------------|----------------------|----------------|-------|
 | Shamir + BLS   | BLS12-381     | Trusted or verifiable-DKG | O(1) pairing | Fully async | Native aggregation with `MULTI_VERIFIER_GOSSIP.md` BLS quorum sigs; requires pairing. |
 | FROST (Ed25519)| Schnorr-Ed25519 | DKG (Pedersen-VSS or FROST-DKG) | O(1) Ed25519 verify (30k gas) | 2-round or 1-round preprocessed | Rewinding-free, no random oracle beyond hash. Recommended for hackathon evolution. |
-| GG20 (ECDSA-secp256k1) | ECDSA-secp256k1 | Interactive DKG | O(1) ECDSA verify | 6-round classic | Compatible with existing Casper ECDSA verifier if pursued; heavier round complexity. |
+| GG20 (ECDSA-secp256k1) | ECDSA-secp256k1 | Interactive DKG | O(1) ECDSA verify | 6-round classic | Compatible with existing BOT Chain ECDSA verifier if pursued; heavier round complexity. |
 
 The reference implementation planned post-audit is **FROST** because:
 
@@ -175,7 +175,7 @@ lagrange_coefs   : {λᵢ}  interpolation coefficients for the chosen subset
 commitments      : {Cᵢ}  public commitments to each share
 ```
 
-The DKG artifact is anchored on Casper as a **group public key registration**
+The DKG artifact is anchored on BOT Chain as a **group public key registration**
 (new contract entry point `register_group_key(group_id, PK, threshold, n)`
 to be added post-audit).
 
@@ -261,7 +261,7 @@ without refresh. Every 90 days the group runs a **proactive secret sharing
 4. Old shares are securely erased.
 
 The group public key `PK` is **unchanged** — refresh is transparent to
-downstream verifiers. Casper anchoring of the refresh transcript is optional
+downstream verifiers. BOT Chain anchoring of the refresh transcript is optional
 (same group_id, incremented refresh_epoch).
 
 ---
@@ -378,8 +378,8 @@ committed in this branch.**
 
 ## 12 · Open Questions
 
-- **Casper on-chain verifier**: Ed25519 verification precompile availability
-  on Casper Condor 2.x is tracked in `docs/MAINNET_LAUNCH_PLAN.md`; if
+- **BOT Chain on-chain verifier**: Ed25519 verification precompile availability
+  on BOT Chain Condor 2.x is tracked in `docs/MAINNET_LAUNCH_PLAN.md`; if
   absent, sig verification stays off-chain (proof-of-signing anchored, sig
   verified by relayer).
 - **HSM integration**: signer shares should live in HSMs. Interface mapping
@@ -398,7 +398,7 @@ committed in this branch.**
 - Herzberg et al. — *Proactive Secret Sharing* (1995).
 - Gennaro & Goldfeder — *One Round Threshold ECDSA* (GG20).
 - Shoup — *Practical Threshold Signatures* (2000).
-- CasperProver internal:
+- BotProve internal:
   - `docs/HARDWARE_ATTESTOR_INTERFACES.md` (AT)
   - `docs/MULTI_VERIFIER_GOSSIP.md` (BC)
   - `docs/SLASH_EQUIVOCATION_SPEC.md` (BD)

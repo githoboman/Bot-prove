@@ -38,7 +38,7 @@ import (
 	"filippo.io/edwards25519"
 )
 
-const rangeProofSuite = "casperprover-rangeproof-v1"
+const rangeProofSuite = "botprove-rangeproof-v1"
 
 var (
 	rangeG *edwards25519.Point // basepoint in prime-order subgroup

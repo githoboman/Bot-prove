@@ -1,4 +1,4 @@
-# CasperProver — SLO alerts & error budgets
+# BotProve — SLO alerts & error budgets
 
 **Honesty label:** REAL / LOCAL-STACK / DRAFT-RULES.
 The rule files here are Prometheus alert/recording rules — plain YAML you can
@@ -11,7 +11,7 @@ tracked in `docs/MAINNET_LAUNCH_PLAN.md`.
 
 - `slo.rules.yml` — recording rules that materialise the per-route SLI series
   (request rate, error rate, latency histograms) from the `/metrics` endpoint
-  exposed by the CasperProver engine (see Pack AG — `docs/OBSERVABILITY.md`).
+  exposed by the BotProve engine (see Pack AG — `docs/OBSERVABILITY.md`).
 - `slo.alerts.yml` — burn-rate multi-window alerts on the recorded SLIs
   (fast-burn 1h & 6h, slow-burn 24h & 3d) following the Google SRE workbook
   ("Alerting on SLOs", ch. 5). Two SLOs are defined:

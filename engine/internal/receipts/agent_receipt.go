@@ -103,7 +103,7 @@ func ToAgentReceipt(r DecisionReceipt) (AgentReceipt, error) {
 		}
 	}
 
-	tags := []string{"casper-prover", "decision-receipt", "spec-" + r.SpecID}
+	tags := []string{"bot-prover", "decision-receipt", "spec-" + r.SpecID}
 	if r.VetoedBy != "" {
 		tags = append(tags, "vetoed-by-"+r.VetoedBy)
 	}

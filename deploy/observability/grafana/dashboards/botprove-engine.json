@@ -79,11 +79,11 @@
   ],
   "refresh": "30s",
   "schemaVersion": 39,
-  "tags": ["casperprover"],
+  "tags": ["botprove"],
   "templating": { "list": [] },
   "time": { "from": "now-1h", "to": "now" },
   "timezone": "",
-  "title": "CasperProver engine",
+  "title": "BotProve engine",
   "uid": "cp-engine",
   "version": 1
 }

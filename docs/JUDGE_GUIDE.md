@@ -1,6 +1,6 @@
 # Judge Verification Guide
 
-Shortest reproducible path through CasperProver, mapped to the eight judging criteria. Every claim is labeled **REAL CRYPTO**, **ON-CHAIN**, or **SIMULATION** so it can be verified rather than trusted.
+Shortest reproducible path through BotProve, mapped to the eight judging criteria. Every claim is labeled **REAL CRYPTO**, **ON-CHAIN**, or **SIMULATION** so it can be verified rather than trusted.
 
 ## 0. One-command evidence
 
@@ -8,7 +8,7 @@ Shortest reproducible path through CasperProver, mapped to the eight judging cri
 python3 scripts/judge_demo.py
 ```
 
-Read-only by default: queries all **nine** Casper testnet contracts, API health/proofs, and the frontend. For the real Groth16 write round-trip:
+Read-only by default: queries all **nine** BOT Chain testnet contracts, API health/proofs, and the frontend. For the real Groth16 write round-trip:
 
 ```bash
 CP_JUDGE_API_KEY='request-from-team' python3 scripts/judge_demo.py
@@ -24,7 +24,7 @@ Second lane, if you prefer a shell-only path:
 
 ## 1. Canonical on-chain surface (`deploy-out/onchain.json`)
 
-Eight contracts, all Casper testnet, all cross-linked in the frontend `/lab/contracts`:
+Eight contracts, all BOT Chain testnet, all cross-linked in the frontend `/lab/contracts`:
 
 | Contract | Hash (first…last) | Deployer | Purpose |
 |---|---|---|---|
@@ -43,7 +43,7 @@ Anchor: `deploy-out/onchain.json` is the single source of truth (SDK, frontend, 
 
 | # | Action | Expected evidence | Boundary |
 |---|---|---|---|
-| 1 | Open `https://casperprover.xyz/lab/contracts` | All eight deployed contracts + explorer links | **ON-CHAIN** |
+| 1 | Open `https://botprove.xyz/lab/contracts` | All eight deployed contracts + explorer links | **ON-CHAIN** |
 | 2 | Run `python3 scripts/judge_demo.py` | Contract queries + API/frontend checks pass | **ON-CHAIN / LIVE SERVICE** |
 | 3 | Open `/lab/zk-proofs`, prove preimage `42`, then verify | Valid gnark BN254/MiMC Groth16 proof | **REAL CRYPTO, OFF-CHAIN** |
 | 4 | Flip one byte of `proof_hex`, verify again | Verification fails | **NEGATIVE SECURITY TEST** |
@@ -58,23 +58,23 @@ Anchor: `deploy-out/onchain.json` is the single source of truth (SDK, frontend, 
 | # | Criterion | Where to look | Evidence |
 |---|---|---|---|
 | 1 | **Technical execution** | `scripts/judge_demo.py`, `./verify.sh`, contracts in `contracts/*/src/main.rs` | 9/9 contracts deployed on testnet, verify.sh 9/9 pass rate, gitleaks clean, no `unsafe` in engine, Rust nightly MVP-clean WASM (sign-ext lowered, mutable-globals off) |
-| 2 | **Innovation / originality** | `docs/architecture.md`, `docs/originality.md`, `contracts/proof-aggregation/`, `contracts/proof-of-inference/` | Merkle-anchored agent-decision attestations on Casper; hybrid PQ signatures (Ed25519 + ML-DSA-65); batched proof aggregation; governance timelock with 2-of-3 guardian recovery |
-| 3 | **Casper Network fit** | `deploy-out/onchain.json`, `deploy/scripts/*.sh`, `sdk/casper-native/` | Purse-backed staking, NamedKey addressing, contract packages (versioned), native `casper_client` deploys, no external L1 dependency |
+| 2 | **Innovation / originality** | `docs/architecture.md`, `docs/originality.md`, `contracts/proof-aggregation/`, `contracts/proof-of-inference/` | Merkle-anchored agent-decision attestations on BOT Chain; hybrid PQ signatures (Ed25519 + ML-DSA-65); batched proof aggregation; governance timelock with 2-of-3 guardian recovery |
+| 3 | **BOT Chain Network fit** | `deploy-out/onchain.json`, `deploy/scripts/*.sh`, `sdk/bot-native/` | Purse-backed staking, NamedKey addressing, contract packages (versioned), native `bot_client` deploys, no external L1 dependency |
 | 4 | **Real-world use case** | `docs/use-cases.md`, `/lab/defi-mock` frontend, `contracts/defi-mock/` | Regulated lending gate (KYC + on-chain whitelist), healthcare provenance path, agent audit for HITL policy |
 | 5 | **Business model** | `docs/business-model.md`, `docs/pricing.md`, `docs/MAINNET_LAUNCH_PLAN.md` | SDK subscription tier, per-proof anchor fee, enterprise governance seat pricing, launch plan documented |
 | 6 | **Security & honest claims** | `README.md` badges, `docs/threat-model.md`, `docs/hackathon/CP_STRICT_MODE.md` | REAL / ON-CHAIN / SIMULATION labels on every surface; no "on-chain Groth16", no "ZK proof of ML inference"; reentrancy tests, invariant tests, gitleaks in CI |
 | 7 | **Documentation & DX** | `README.md`, `docs/quickstart.md`, `sdk/*/examples/`, `docs/JUDGE_GUIDE.md` | One-command demo, Go SDK quickstart, MCP server quickstart, architecture doc, data-room `/data-room` |
-| 8 | **Presentation** | `README.md`, submission video (link in DoraHacks), `docs/pitch.md` | Video walkthrough of `/lab/*`, honest scope in `CP_STRICT_MODE.md`, live deployed frontend `casperprover.xyz` |
+| 8 | **Presentation** | `README.md`, submission video (link in DoraHacks), `docs/pitch.md` | Video walkthrough of `/lab/*`, honest scope in `CP_STRICT_MODE.md`, live deployed frontend `botprove.xyz` |
 
 ## 4. Claim boundary
 
-| Label | What CasperProver actually does |
+| Label | What BotProve actually does |
 |---|---|
 | **REAL CRYPTO** | gnark/BN254 Groth16 for a MiMC preimage circuit; ML-DSA-65 + Ed25519 hybrid signatures; Lamport OTS education path |
-| **ON-CHAIN** | Eight Casper testnet contracts store/validate proof metadata, hashes, access state, stake/slashing state, model provenance, inference attestations, and governance timelock |
+| **ON-CHAIN** | Eight BOT Chain testnet contracts store/validate proof metadata, hashes, access state, stake/slashing state, model provenance, inference attestations, and governance timelock |
 | **SIMULATION** | Legacy conceptual Groth16/STARK-style hash flows, kept for comparison and explicitly labeled in UI + code |
 
-CasperProver does **not** claim a Casper-native pairing verifier or a ZK proof of arbitrary ML inference. The current real Groth16 circuit proves knowledge of a MiMC preimage.
+BotProve does **not** claim a BOT Chain-native pairing verifier or a ZK proof of arbitrary ML inference. The current real Groth16 circuit proves knowledge of a MiMC preimage.
 
 ## 5. Governance contract — full disclosure
 
@@ -83,7 +83,7 @@ CasperProver does **not** claim a Casper-native pairing verifier or a ZK proof o
   - `guardian_1` = `cac1862d…d298` (anna-stolbovskaja, contract owner bootstrap)
   - `guardian_2` = `84ff0a46…be10` (defi_mock_owner, second live signer)
   - `guardian_3` = `0000…0000` **RESERVED PLACEHOLDER** — populated at mainnet key ceremony per `docs/MAINNET_LAUNCH_PLAN.md`. On testnet this means the 2-of-3 threshold is currently satisfiable by anna+defi_mock_owner alone; documented rather than hidden.
-- **Prior deployment** `03189ea1…548e` (under defi_mock_owner) is deprecated but remains on-chain (Casper testnet cannot delete contract packages). Not referenced by SDK/frontend/verify.
+- **Prior deployment** `03189ea1…548e` (under defi_mock_owner) is deprecated but remains on-chain (BOT Chain testnet cannot delete contract packages). Not referenced by SDK/frontend/verify.
 
 ## 6. Failure behavior
 
@@ -93,8 +93,8 @@ A failed check exits non-zero and prints a bounded HTTP/network error without se
 
 - **Reproducible demo:** `scripts/judge_demo.py`, `verify.sh`
 - **On-chain manifest:** `deploy-out/onchain.json`
-- **Frontend:** `https://casperprover.xyz` (routes `/lab/contracts`, `/lab/zk-proofs`, `/lab/pq-crypto`, `/lab/decisions`, `/lab/playground`)
-- **API health:** `https://casperprover-api-ylsh.onrender.com/health`
+- **Frontend:** `https://botprove.xyz` (routes `/lab/contracts`, `/lab/zk-proofs`, `/lab/pq-crypto`, `/lab/decisions`, `/lab/playground`)
+- **API health:** `https://botprove-api-ylsh.onrender.com/health`
 - **SDK entry:** `sdk/go/README.md`, `sdk/mcp/README.md`
 - **Architecture:** `docs/architecture.md`
 - **Honesty gates:** `docs/hackathon/CP_STRICT_MODE.md`, README claim badges

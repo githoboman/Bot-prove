@@ -1,4 +1,4 @@
-# CasperProver — Ops Runbooks
+# BotProve — Ops Runbooks
 
 **Honesty label:** DRAFT · REAL for local + testnet · Playbook, not production
 policy. Nothing here binds a hosting provider, an on-call rotation, or a paid
@@ -14,7 +14,7 @@ links back to an anchor in this file.
 
 ## 1. Scope
 
-- **In-scope:** the CasperProver engine HTTP API (`/anchor`, `/verify`,
+- **In-scope:** the BotProve engine HTTP API (`/anchor`, `/verify`,
   `/prove`, `/metrics`, `/version`) plus the local observability stack from
   Pack AG.
 - **Out-of-scope for this doc:** contract deployments (see
@@ -59,7 +59,7 @@ Deployments behind a Service selector, or AWS ECS blue/green target groups.
 5. `gitleaks detect --no-git` clean on the release tree.
 6. Release SHA present in `deploy-out/onchain.json` build metadata (for the
    contract-adjacent builds; N/A for engine-only builds).
-7. Grafana dashboard "CasperProver — Engine RED" open in a browser tab.
+7. Grafana dashboard "BotProve — Engine RED" open in a browser tab.
 8. Last 30m error-ratio < 0.5% on blue (steady-state guard).
 
 If **any** item fails, abort — the deploy is not authorised.
@@ -118,7 +118,7 @@ Post-rollback:
 - Schema-breaking DB migrations — those require a separate expand/contract
   playbook. This repo has no server-side DB today; when it does, this section
   gets an `expand-migrate-contract` sub-runbook.
-- Contract deploys — each Casper testnet deploy is one-shot; there is no LB
+- Contract deploys — each BOT Chain testnet deploy is one-shot; there is no LB
   in front of a contract. The contract runbook lives in
   [`docs/TX_MANIFEST.md`](./TX_MANIFEST.md).
 - ZK ceremony transcript rotations — see
@@ -140,14 +140,14 @@ consumed per hour.
 
 **Response (target: mitigate within 15 minutes).**
 
-1. **Confirm:** open Grafana → "CasperProver — Engine RED" → filter by the
+1. **Confirm:** open Grafana → "BotProve — Engine RED" → filter by the
    route from the alert label. Confirm the 5xx spike is real (not a scrape
    glitch: `up{job="cp-engine"} == 1`).
 2. **Correlate:** check the last deploy timestamp. If a deploy happened
    in the last 30 minutes, treat this as a bad deploy and **execute
    rollback (§2.4) immediately** — even before deep RCA.
 3. If NO recent deploy:
-   - Check downstream — Casper RPC health, contract endpoints, KMS/keystore
+   - Check downstream — BOT Chain RPC health, contract endpoints, KMS/keystore
      availability.
    - Check saturation — `http_requests_in_flight` and container CPU/memory.
    - If a single downstream is guilty, degrade gracefully:
@@ -186,7 +186,7 @@ over 1h and 5m windows.
 2. Correlate to last deploy — same reflex as §3.1 step 2.
 3. If no recent deploy: check `http_requests_in_flight` — if saturated, see
    §3.4.
-4. Downstream latency: Casper RPC round-trip, contract call latency, ZK prover
+4. Downstream latency: BOT Chain RPC round-trip, contract call latency, ZK prover
    queue depth. If ZK prover is the culprit, back-pressure `/prove` with 429s
    until queue drains.
 5. Communicate + post-incident review as in §3.1.

@@ -12,7 +12,7 @@ import (
 	"github.com/consensys/gnark/frontend"
 	"github.com/consensys/gnark/frontend/cs/r1cs"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/zkverifier/gnarkzk"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/zkverifier/gnarkzk"
 )
 
 // runCeremony is a shared helper: DefaultConfig N=8 with 3 contributors on

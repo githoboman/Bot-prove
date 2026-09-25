@@ -10,7 +10,7 @@ Ref: `handoff/CP_FINAL_TASKS_V2.md` §E.
 | Engine signing key (ML-DSA-65)     | PQ half of hybrid signature                     | HSM (with software fallback)    |
 | Ceremony coordinator key           | Sign ceremony transcript entries                | HSM                             |
 | Governance multi-sig keys          | Emergency pause, ownership recovery             | Distributed hardware (m-of-n)   |
-| Casper deploy keys                 | Deploy / upgrade contracts                      | HSM + m-of-n approval           |
+| BOT Chain deploy keys                 | Deploy / upgrade contracts                      | HSM + m-of-n approval           |
 | DB DEKs (data-encryption keys)     | Encrypt PII columns at rest                     | Wrapped by KMS root; rotated qtr|
 | Object storage encryption keys     | Encrypt receipt / evidence blobs at rest        | KMS-managed                     |
 | Tenant API-key hashing salt        | Compute SHA-256 hash of raw keys                | KMS-derived, per-tenant         |

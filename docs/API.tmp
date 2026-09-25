@@ -8,9 +8,9 @@ Usage: Review each block, cross-check against engine/internal/api/server.go, the
 Remove when: After review and rename
 -->
 
-# CasperProver API Reference
+# BotProve API Reference
 
-Base URL (prod): `https://casperprover-api-ylsh.onrender.com`
+Base URL (prod): `https://botprove-api-ylsh.onrender.com`
 Base URL (local): `http://localhost:8080`
 
 All endpoints return JSON. Errors follow `{ "error": "…" }` shape with the

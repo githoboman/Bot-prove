@@ -1,8 +1,8 @@
-# CasperProver — Terms of Service
+# BotProve — Terms of Service
 
 > **Status: DRAFT — self-authored, not reviewed by counsel.**
 > This document is a good-faith draft prepared by the project maintainers to
-> describe the intended terms under which CasperProver software and any
+> describe the intended terms under which BotProve software and any
 > hosted endpoints are made available during the hackathon and early beta
 > period. It has **not** been reviewed by qualified legal counsel and must
 > not be relied upon as legal advice. Before any commercial launch, this
@@ -18,8 +18,8 @@
 
 ## 1. Definitions
 
-- **"Service"** — the CasperProver software, including the Go SDK, the MCP
-  server, the on-chain smart contracts deployed on the Casper Network
+- **"Service"** — the BotProve software, including the Go SDK, the MCP
+  server, the on-chain smart contracts deployed on the BOT Chain Network
   testnet, and any HTTP APIs or dashboards operated by the project
   maintainers.
 - **"You" / "Operator"** — the natural person or legal entity that installs,
@@ -28,9 +28,9 @@
   proof, or signature) that a given AI-agent decision was recorded at a
   specific time with specific inputs, outputs and model identifier.
 - **"Receipt"** — the JSON artefact returned by the Service that binds an
-  Attestation to on-chain evidence (currently: a Casper testnet Merkle-root
+  Attestation to on-chain evidence (currently: a BOT Chain testnet Merkle-root
   anchoring transaction).
-- **"Testnet"** — the Casper Network testnet used exclusively during the
+- **"Testnet"** — the BOT Chain Network testnet used exclusively during the
   hackathon and beta period. **The Service does not currently touch
   mainnet.** Any language in this document that references "on-chain"
   refers to the testnet unless explicitly stated.
@@ -63,7 +63,7 @@ Service is redistributed or embedded.
 
 You acknowledge that:
 
-- All on-chain anchoring happens on the Casper Network **testnet**, using
+- All on-chain anchoring happens on the BOT Chain Network **testnet**, using
   test-CSPR tokens with no monetary value.
 - Testnet contracts may be re-deployed, wiped, or reset at short notice by
   the network operator or the project maintainers.

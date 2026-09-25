@@ -2,37 +2,37 @@
 
 <div align="center">
 
-# CasperProver
+# BotProve
 
 **Cryptographic audit-trail engine for AI agent decisions — Merkle-anchored on-chain, ZK-augmented, post-quantum ready**
 
-*Commit an agent's inputs & outputs to Casper. Verify the commitment in milliseconds. ZK & PQ layers optional; ZK verification is off-chain (gnark).*
+*Commit an agent's inputs & outputs to BOT Chain. Verify the commitment in milliseconds. ZK & PQ layers optional; ZK verification is off-chain (gnark).*
 
-[![CI](https://github.com/anna-stolbovskaja/CasperProver/actions/workflows/check.yml/badge.svg)](https://github.com/anna-stolbovskaja/CasperProver/actions/workflows/check.yml)
-[![Verify](https://github.com/anna-stolbovskaja/CasperProver/actions/workflows/verify.yml/badge.svg)](https://github.com/anna-stolbovskaja/CasperProver/actions/workflows/verify.yml)
-[![Secret Scan](https://github.com/anna-stolbovskaja/CasperProver/actions/workflows/secret-scan.yml/badge.svg)](https://github.com/anna-stolbovskaja/CasperProver/actions/workflows/secret-scan.yml)
+[![CI](https://github.com/anna-stolbovskaja/BotProve/actions/workflows/check.yml/badge.svg)](https://github.com/anna-stolbovskaja/BotProve/actions/workflows/check.yml)
+[![Verify](https://github.com/anna-stolbovskaja/BotProve/actions/workflows/verify.yml/badge.svg)](https://github.com/anna-stolbovskaja/BotProve/actions/workflows/verify.yml)
+[![Secret Scan](https://github.com/anna-stolbovskaja/BotProve/actions/workflows/secret-scan.yml/badge.svg)](https://github.com/anna-stolbovskaja/BotProve/actions/workflows/secret-scan.yml)
 [![Go 1.24+](https://img.shields.io/badge/Go-1.24+-00ADD8.svg?style=flat-square&logo=go&logoColor=white)](https://go.dev)
-[![Casper 2.x](https://img.shields.io/badge/Casper-2.x-FF0000.svg?style=flat-square)](https://casper.network)
+[![BOT Chain 2.x](https://img.shields.io/badge/BOT Chain-2.x-FF0000.svg?style=flat-square)](https://bot.network)
 [![MPL-2.0](https://img.shields.io/badge/license-MPL--2.0-orange.svg?style=flat-square)](LICENSE)
-[![Live Demo](https://img.shields.io/badge/demo-casperprover.xyz-6366f1.svg?style=flat-square)](https://casperprover.xyz/lab)
+[![Live Demo](https://img.shields.io/badge/demo-botprove.xyz-6366f1.svg?style=flat-square)](https://botprove.xyz/lab)
 
 ![Contracts](https://img.shields.io/badge/contracts-9%20deployed-brightgreen)
 ![Proofs](https://img.shields.io/badge/proofs-102%2B-blue)
 ![PQ Ready](https://img.shields.io/badge/post--quantum-ready-purple)
 
-[**Live Demo →**](https://casperprover.xyz/lab) · [Judge Verification](docs/JUDGE_GUIDE.md) · [Architecture](docs/ARCHITECTURE.md) · [SDK](docs/SDK.md) · [Status & Roadmap](docs/KNOWN_LIMITATIONS.md)
+[**Live Demo →**](https://botprove.xyz/lab) · [Judge Verification](docs/JUDGE_GUIDE.md) · [Architecture](docs/ARCHITECTURE.md) · [SDK](docs/SDK.md) · [Status & Roadmap](docs/KNOWN_LIMITATIONS.md)
 
 **Three entry points on the landing page:**
-[Try the product](https://casperprover.xyz/lab/playground) ·
-[For developers (API / SDK / MCP)](https://casperprover.xyz/docs/api) ·
-[For evaluators (Proof & architecture)](https://casperprover.xyz/lab/contracts) ·
+[Try the product](https://botprove.xyz/lab/playground) ·
+[For developers (API / SDK / MCP)](https://botprove.xyz/docs/api) ·
+[For evaluators (Proof & architecture)](https://botprove.xyz/lab/contracts) ·
 [Video script](docs/VIDEO_SCRIPT.md)
 
 </div>
 
 ---
 
-> **9 smart contracts** live on Casper testnet · **248+ transactions** on-chain · **32 API endpoints** · **32 SDK/MCP tools** · **11 interactive lab tabs** · Real Groth16 ZK proofs (off-chain, gnark BN254 MiMC) · Post-quantum cryptography (ML-DSA-65 + Ed25519 hybrid) · Merkle-anchored proof-chain DAG
+> **9 smart contracts** live on BOT Chain testnet · **248+ transactions** on-chain · **32 API endpoints** · **32 SDK/MCP tools** · **11 interactive lab tabs** · Real Groth16 ZK proofs (off-chain, gnark BN254 MiMC) · Post-quantum cryptography (ML-DSA-65 + Ed25519 hybrid) · Merkle-anchored proof-chain DAG
 
 ## 📸 Screenshots
 
@@ -44,7 +44,7 @@
 |---|---|---|
 | ![ZK Proofs](docs/screenshots/04-zk-proofs.png) | ![Contracts](docs/screenshots/05-contracts.png) | ![PQ Crypto](docs/screenshots/06-pq-crypto.png) |
 
-> Live at [casperprover.xyz](https://casperprover.xyz)
+> Live at [botprove.xyz](https://botprove.xyz)
 
 ---
 
@@ -52,9 +52,9 @@
 
 AI agents are executing critical workflows — KYC checks, financial decisions, compliance rules. But there is **no tamper-evident audit trail**. Without one, you have to re-run the model to check a past decision, and even that only proves the model can produce the same output — not that this particular decision was made.
 
-CasperProver closes the **audit-trail** gap. It does **not** prove the model's internal computation was correct (that is a research-grade zkML problem — see Growth Potential). It commits inputs, outputs and model fingerprint to Casper, so any later party can verify the record has not been altered:
+BotProve closes the **audit-trail** gap. It does **not** prove the model's internal computation was correct (that is a research-grade zkML problem — see Growth Potential). It commits inputs, outputs and model fingerprint to BOT Chain, so any later party can verify the record has not been altered:
 
-| Without CasperProver | With CasperProver |
+| Without BotProve | With BotProve |
 |---|---|
 | Re-run the model to check a past decision | Verify the Merkle inclusion proof in milliseconds |
 | Trust the agent operator's log | Verify the Merkle root is anchored on-chain |
@@ -71,7 +71,7 @@ CasperProver closes the **audit-trail** gap. It does **not** prove the model's i
 flowchart LR
     A["🤖 AI Agent"] -->|"input + output + model"| B["🌳 Merkle Builder"]
     B -->|"SHA-256 leaves"| C["📦 Proof Engine"]
-    C -->|"Merkle root"| D["⛓️ Casper Network"]
+    C -->|"Merkle root"| D["⛓️ BOT Chain Network"]
     C -->|"ZK proof"| E["🔐 Groth16 Verifier"]
     C -->|"PQ signature"| F["🛡️ ML-DSA-65 / Lamport"]
     D -->|"on-chain anchor"| G["✅ Verifiable Forever"]
@@ -88,10 +88,10 @@ flowchart LR
 ```
 
 **How it works:**
-Given `f(x) = y` with model `M`, CasperProver produces `π = MerkleProof(H(x), H(y), H(M))` where `H = SHA-256`. The root is committed on-chain; the inclusion proof is stored and queryable forever without re-running the model.
+Given `f(x) = y` with model `M`, BotProve produces `π = MerkleProof(H(x), H(y), H(M))` where `H = SHA-256`. The root is committed on-chain; the inclusion proof is stored and queryable forever without re-running the model.
 
 For stronger guarantees, the same commitment can be:
-- **ZK-augmented** with real BN254 Groth16 circuits (gnark) — proofs generated & verified **off-chain** in the engine; the resulting proof handle is stored alongside the Merkle root. On-chain Casper verification of Groth16 is not implemented.
+- **ZK-augmented** with real BN254 Groth16 circuits (gnark) — proofs generated & verified **off-chain** in the engine; the resulting proof handle is stored alongside the Merkle root. On-chain BOT Chain verification of Groth16 is not implemented.
 - **Post-quantum signed** with hybrid Ed25519+ML-DSA-65 or Lamport OTS
 - **Chained** into a DAG with cycle detection and input continuity validation
 
@@ -102,16 +102,16 @@ For stronger guarantees, the same commitment can be:
 | Feature | Description | Status |
 |---|---|---|
 | **Merkle Proofs** | SHA-256 + Merkle tree, <50ms generation | ✅ Live |
-| **Real ZK Proofs (off-chain)** | BN254 Groth16 via gnark — R1CS circuits, trusted setup, pairing verification runs in the engine; on-chain Casper Groth16 verifier is roadmap | ✅ Live (off-chain) |
+| **Real ZK Proofs (off-chain)** | BN254 Groth16 via gnark — R1CS circuits, trusted setup, pairing verification runs in the engine; on-chain BOT Chain Groth16 verifier is roadmap | ✅ Live (off-chain) |
 | **Post-Quantum Crypto** | ML-DSA-65 (FIPS 204), hybrid Ed25519+ML-DSA, Lamport OTS | ✅ Live |
 | **Batch Aggregation** | Hash-chain aggregation with Postgres persistence | ✅ Live |
 | **Proof-Chain DAG** | Multi-step proof validation: cycle detection, input continuity, single root | ✅ Live |
-| **On-Chain Anchoring** | 9 smart contracts on Casper testnet | ✅ Live |
+| **On-Chain Anchoring** | 9 smart contracts on BOT Chain testnet | ✅ Live |
 | **Stake & Slash** | Economic penalties for revoked proofs, permissionless reporting bounty | ✅ Live |
 | **KYC Gating** | Proof-based DeFi access control with cross-contract verification | ✅ Live |
 | **SDK (Go)** | 32 methods, 1:1 API mapping | ✅ Live |
 | **MCP Server** | 32 tools for AI agent frameworks | ✅ Live |
-| **Wallet Connect** | CSPR.click SDK — Casper Wallet, Ledger, MetaMask Snap, Google SSO | ✅ Live |
+| **Wallet Connect** | CSPR.click SDK — BOT Chain Wallet, Ledger, MetaMask Snap, Google SSO | ✅ Live |
 | **Interactive Lab** | 10-tab proof explorer with real API calls | ✅ Live |
 
 ---
@@ -136,7 +136,7 @@ graph TB
         KYC[KYC Demo]
     end
 
-    subgraph "Smart Contracts (Rust / Casper 2.x)"
+    subgraph "Smart Contracts (Rust / BOT Chain 2.x)"
         PR[proof-registry]
         VG[verifier-gate]
         DM[defi-mock]
@@ -154,7 +154,7 @@ graph TB
 
     subgraph "Storage"
         PG[(PostgreSQL)]
-        CS[Casper Testnet]
+        CS[BOT Chain Testnet]
     end
 
     UI --> API
@@ -182,18 +182,18 @@ graph TB
 
 ## Quickstart
 
-**Prerequisites:** Go 1.24+, access to Casper testnet node
+**Prerequisites:** Go 1.24+, access to BOT Chain testnet node
 
 ```bash
-git clone https://github.com/anna-stolbovskaja/CasperProver
-cd CasperProver
+git clone https://github.com/anna-stolbovskaja/BotProve
+cd BotProve
 go mod download
 go run ./engine/cmd/...
 ```
 
 **Submit a proof:**
 ```bash
-curl https://casperprover-api-ylsh.onrender.com/proofs \
+curl https://botprove-api-ylsh.onrender.com/proofs \
   -H "Content-Type: application/json" \
   -d '{
     "agent": "agent-alpha",
@@ -205,14 +205,14 @@ curl https://casperprover-api-ylsh.onrender.com/proofs \
 
 **Real ZK proof:**
 ```bash
-curl https://casperprover-api-ylsh.onrender.com/zk/groth16-real/prove \
+curl https://botprove-api-ylsh.onrender.com/zk/groth16-real/prove \
   -H "Content-Type: application/json" \
   -d '{"secret": 42}'
 ```
 
 **Post-quantum hybrid sign:**
 ```bash
-curl https://casperprover-api-ylsh.onrender.com/pq/hybrid-sign \
+curl https://botprove-api-ylsh.onrender.com/pq/hybrid-sign \
   -H "Content-Type: application/json" \
   -d '{"message": "signed with Ed25519 + ML-DSA-65"}'
 ```
@@ -232,7 +232,7 @@ curl https://casperprover-api-ylsh.onrender.com/pq/hybrid-sign \
 
 ---
 
-## Smart Contracts (Casper Testnet)
+## Smart Contracts (BOT Chain Testnet)
 
 All nine contracts are live — canonical manifest: [`deploy-out/onchain.json`](deploy-out/onchain.json).
 
@@ -266,7 +266,7 @@ The `stake-slashing` contract adds real economic consequences for dishonest agen
 
 ## Use Cases
 
-| Domain | Application | CasperProver Feature |
+| Domain | Application | BotProve Feature |
 |---|---|---|
 | **DeFi & Lending** | AI-driven loan approvals with verifiable audit trail | KYC gating, proof anchoring |
 | **Healthcare AI** | Prove diagnostic recommendations without exposing records | ZK proofs, Merkle verification |
@@ -295,9 +295,9 @@ The `stake-slashing` contract adds real economic consequences for dishonest agen
 ### Python SDK + `cprover` CLI
 
 ```bash
-pip install -e sdk/python   # or: pip install casperprover-sdk
+pip install -e sdk/python   # or: pip install botprove-sdk
 
-export CP_BASE_URL=https://casperprover-api-ylsh.onrender.com
+export CP_BASE_URL=https://botprove-api-ylsh.onrender.com
 cprover health
 cprover proofs list
 cprover proofs verify <proof_id>
@@ -306,16 +306,16 @@ cprover proofs submit --agent-id agent-1 \
     --use-case inference
 ```
 
-Entry points: `cprover` (short), `casperprover` (long alias). We intentionally do **not** register `cp` — it collides with the built-in Unix copy command.
+Entry points: `cprover` (short), `botprove` (long alias). We intentionally do **not** register `cp` — it collides with the built-in Unix copy command.
 
 Full CLI reference: [`docs/CLI.md`](docs/CLI.md).
 
 ### Go SDK (32 methods)
 
 ```go
-import "github.com/anna-stolbovskaja/CasperProver/sdk"
+import "github.com/anna-stolbovskaja/BotProve/sdk"
 
-client := sdk.New("https://casperprover-api-ylsh.onrender.com")
+client := sdk.New("https://botprove-api-ylsh.onrender.com")
 proof, _ := client.SubmitProof(ctx, sdk.ProofInput{...})
 zkProof, _ := client.Groth16RealProve(ctx, 42)
 sig, _ := client.HybridSign(ctx, "message")
@@ -325,7 +325,7 @@ chain, _ := client.ValidateProofChain(ctx, dag)
 ### MCP Server (32 tools)
 
 ```bash
-CASPERPROVER_API_URL=https://casperprover-api-ylsh.onrender.com go run ./sdk/cmd/mcpserver
+CASPERPROVER_API_URL=https://botprove-api-ylsh.onrender.com go run ./sdk/cmd/mcpserver
 ```
 
 Every tool maps 1:1 to a live API endpoint. Categories: proofs (7), inference (4), ZK (6), aggregation (5), PQ crypto (4), KYC (3), models (2), proof-chain (1).
@@ -345,7 +345,7 @@ Extended infrastructure — real code, wired to the API:
 | `proof_chain.go` | `ProofChain`, `ChainStep` — DAG types with 5 verification statuses |
 | `prover_config.go` | `ProverConfig` — distributed proving with MPC threshold support |
 | `verifier_config.go` | `VerifierConfig` — Optimistic / ZK / Hybrid verification modes |
-| `target_vm.go` | `TargetVM` — CasperVM / EVM / extensible target enum |
+| `target_vm.go` | `TargetVM` — BOT ChainVM / EVM / extensible target enum |
 | `attestation_type.go` | `AttestationType` — 5-level attestation (Software → TrustZone) |
 
 ---
@@ -363,7 +363,7 @@ Extended infrastructure — real code, wired to the API:
 | GPU required | **None** |
 | API endpoints | **32** |
 | SDK/MCP tools | **32** |
-| Smart contracts | **9 live** on Casper testnet |
+| Smart contracts | **9 live** on BOT Chain testnet |
 | Testnet transactions | **248+** |
 
 ---
@@ -372,7 +372,7 @@ Extended infrastructure — real code, wired to the API:
 
 | Layer | Technology |
 |---|---|
-| Smart contracts | Rust / Casper 2.x |
+| Smart contracts | Rust / BOT Chain 2.x |
 | Proof engine | Go 1.24 |
 | ZK proofs | gnark (BN254 Groth16) |
 | PQ crypto | cloudflare/circl (ML-DSA-65), Lamport OTS |
@@ -381,14 +381,14 @@ Extended infrastructure — real code, wired to the API:
 | SDK | Go client (32 methods) |
 | MCP | Model Context Protocol server (32 tools) |
 | Hosting | Vercel (frontend) · Render (API) |
-| Chain | Casper testnet (`casper-test`) |
+| Chain | BOT Chain testnet (`bot-test`) |
 
 ---
 
 ## Project Structure
 
 ```
-CasperProver/
+BotProve/
 ├── contracts/              # Rust smart contracts (9 deployed on testnet)
 │   ├── proof-registry/     # Immutable proof store
 │   ├── verifier-gate/      # Merkle inclusion checker

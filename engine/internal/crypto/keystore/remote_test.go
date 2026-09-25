@@ -10,7 +10,7 @@ import (
 	"strings"
 	"testing"
 
-	pqcrypto "github.com/anna-stolbovskaja/CasperProver/engine/internal/crypto"
+	pqcrypto "github.com/anna-stolbovskaja/BotProve/engine/internal/crypto"
 )
 
 func TestRemoteStub_NotConfigured(t *testing.T) {

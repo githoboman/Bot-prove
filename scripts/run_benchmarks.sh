@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# CI-runnable benchmark suite for CasperProver's hot paths (Merkle tree
+# CI-runnable benchmark suite for BotProve's hot paths (Merkle tree
 # build/root/path, raw hashing, proof generate/verify).
 #
 # Usage:

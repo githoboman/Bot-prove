@@ -1,6 +1,6 @@
 # Screenshots
 
-Real screenshots from casperprover.xyz (July 27, 2026)
+Real screenshots from botprove.xyz (July 27, 2026)
 
 ## 01-homepage.png
 Landing page — "Your AI made a decision. Prove it." with mascot and terminal demo
@@ -15,7 +15,7 @@ Proof Registry — browsable table with agent, use case, Merkle root, mode, stat
 ZK Proofs tab — Groth16 zero-knowledge proof generation and verification
 
 ## 05-contracts.png
-Smart Contracts — 8 deployed on Casper testnet with contract hashes and deploy dates
+Smart Contracts — 8 deployed on BOT Chain testnet with contract hashes and deploy dates
 
 ## 06-pq-crypto.png
 Post-Quantum Crypto — ML-DSA-65 signing, Lamport OTS, hybrid Ed25519+ML-DSA

@@ -1,4 +1,4 @@
-# CasperProver — promtool unit tests for the SLO alert rules.
+# BotProve — promtool unit tests for the SLO alert rules.
 #
 # Run with:
 #   promtool test rules deploy/observability/alerts/slo.tests.yml
@@ -39,7 +39,7 @@ tests:
               burnrate_window: 1h/5m
               route: /anchor
             exp_annotations:
-              summary: "CasperProver availability burning error budget fast (route /anchor)"
+              summary: "BotProve availability burning error budget fast (route /anchor)"
               description: |
                 Route /anchor is burning the 30d error budget at 14.4x
                 (>2% of budget/hour). Sustained over both 1h and 5m windows.
@@ -93,7 +93,7 @@ tests:
               burnrate_window: 1h/5m
               route: /prove
             exp_annotations:
-              summary: "CasperProver p95 latency far above SLO on /prove"
+              summary: "BotProve p95 latency far above SLO on /prove"
               description: |
                 p95 latency on /prove is >2x the 750ms SLO on
                 both 1h and 5m windows.
@@ -115,7 +115,7 @@ tests:
               category: saturation
               route: /anchor
             exp_annotations:
-              summary: "CasperProver HTTP in-flight concurrency saturating on /anchor"
+              summary: "BotProve HTTP in-flight concurrency saturating on /anchor"
               description: |
                 In-flight requests >128 for 5m. Consider scaling the green
                 replica set (see blue/green playbook).

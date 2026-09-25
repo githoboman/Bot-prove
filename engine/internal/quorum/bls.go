@@ -25,7 +25,7 @@
 //
 // Domain-separation tag follows the "ciphersuite ID" convention from
 // RFC 9380 §8.8.1: BLS_SIG_BLS12381G1_XMD:SHA-256_SSWU_RO_NUL_ with a
-// project-specific 6-byte tail so casperprover signatures can never be
+// project-specific 6-byte tail so botprove signatures can never be
 // confused with, say, Ethereum's BLS12-381 signatures on the same key.
 package quorum
 
@@ -44,7 +44,7 @@ import (
 // DomainSeparationTag is the RFC 9380 ciphersuite ID used for every
 // signature this package produces. Tail "_CP_QUORUM_2026" is
 // project-specific so BLS12-381 keys used elsewhere cannot cross-sign
-// against a casperprover quorum evidence root by accident.
+// against a botprove quorum evidence root by accident.
 var DomainSeparationTag = []byte("BLS_SIG_BLS12381G1_XMD:SHA-256_SSWU_RO_NUL_CP_QUORUM_2026")
 
 // Errors surfaced to callers.

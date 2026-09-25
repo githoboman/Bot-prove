@@ -1,12 +1,12 @@
 # Attack Evidence Lab
 
-**Path**: `/lab/attack-evidence` (new tab in the CasperProver Lab).
+**Path**: `/lab/attack-evidence` (new tab in the BotProve Lab).
 **Component**: `frontend/src/components/lab/AttackEvidence.tsx`.
 **Backend contract test**: `engine/internal/verifier/attack_evidence_test.go`.
 
 ## What it demonstrates
 
-Five real-world tampering attempts, each executed against the **live** CasperProver verifier (`POST /verify`) — nothing is mocked. Every scenario:
+Five real-world tampering attempts, each executed against the **live** BotProve verifier (`POST /verify`) — nothing is mocked. Every scenario:
 
 1. Mints a fresh proof via `POST /proofs` with a known `(input, output, model)` tuple.
 2. Calls `POST /verify` with the *honest* tuple → **baseline must succeed**.
@@ -28,7 +28,7 @@ Every substring in the right-hand column is asserted by `TestAttackEvidenceScena
 
 ## Why these five?
 
-They span the four cryptographic bindings CasperProver anchors on-chain plus the on-chain revocation flag:
+They span the four cryptographic bindings BotProve anchors on-chain plus the on-chain revocation flag:
 
 - `IH = sha256(input)` — protects **against input tampering**.
 - `OH = sha256(output)` — protects **against output/verdict tampering**.

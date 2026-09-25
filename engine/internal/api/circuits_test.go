@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/zkverifier/gnarkzk"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/zkverifier/gnarkzk"
 )
 
 // helper: pull a JSON response body into a map for spot-checks.

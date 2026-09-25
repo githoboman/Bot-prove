@@ -15,10 +15,10 @@ import (
 	"github.com/consensys/gnark/frontend"
 	"github.com/consensys/gnark-crypto/ecc"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/zkverifier/gnarkzk"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/zkverifier/gnarkzk"
 )
 
-// End-to-end: /v1/zk/anchor-verdict without a live Casper submitter returns
+// End-to-end: /v1/zk/anchor-verdict without a live BOT Chain submitter returns
 // valid=true, anchored=false with an explanatory anchor_error message.
 // (CP_STRICT=0 default lets the handler soft-fail so demos work offline.)
 func TestZkAnchorVerdict_OffchainMode(t *testing.T) {

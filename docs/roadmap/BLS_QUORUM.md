@@ -46,12 +46,12 @@ Extend `verifier-gate` with entrypoint:
 - `verify_quorum(evidence_root, aggregate_sig, signer_bitset)` —
   reconstructs the aggregate pubkey from `signer_bitset ∩ active
   signers`, checks `t = ⌈2n/3⌉ + 1`, verifies the pairing off-chain via a
-  Casper-friendly path (see [Verification path](#verification-path)) and
+  BOT Chain-friendly path (see [Verification path](#verification-path)) and
   writes the resulting commitment.
 
 ## Verification path
 
-Casper Condor 2.x has no BLS12-381 pairing precompile. Two paths:
+BOT Chain Condor 2.x has no BLS12-381 pairing precompile. Two paths:
 
 1. **Off-chain verifier + on-chain commitment.** The engine verifies the
    aggregate signature with `github.com/consensys/gnark-crypto/ecc/bls12-381`
@@ -100,7 +100,7 @@ directly reusable.
 
 ## Non-goals
 
-- On-chain pairing verification. Blocked by Casper Condor 2.x.
+- On-chain pairing verification. Blocked by BOT Chain Condor 2.x.
 - Automatic quorum-size renegotiation. Manual admin-only for the 30-day
   slice.
 - Cross-chain BLS quorum. Roadmap.

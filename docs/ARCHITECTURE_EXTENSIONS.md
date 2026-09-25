@@ -31,7 +31,7 @@ digging through code; new contributors deciding where a change belongs.
 └────────┬───────────────────────────────┬──────────────────────────┘
          │                               │
          ▼                               ▼
-   Postgres store                Casper Testnet
+   Postgres store                BOT Chain Testnet
    (aggregation_batches,        (proof-registry,
     proof_ledger,                verifier-gate,
     idempotency_keys)            stake-slashing,
@@ -45,7 +45,7 @@ digging through code; new contributors deciding where a change belongs.
 | SPA/PWA ↔ API                    | Network | HTTPS + CORS; API key on writes                         |
 | SDK ↔ API                        | Network | X-API-Key + X-Idempotency-Key + `Accept: application/vnd.cp.v1+json` |
 | API ↔ Postgres                   | Network | Password + TLS; least-privilege role                    |
-| API ↔ Casper Testnet             | Network | Signed deploy with `defi_mock_owner` PEM                |
+| API ↔ BOT Chain Testnet             | Network | Signed deploy with `defi_mock_owner` PEM                |
 | Frontend `TrustBadge`            | UX      | Every crypto claim tagged REAL / ON-CHAIN / SIMULATION  |
 | verify.sh                        | Client  | Reproduces `chain_root_sha256` against `onchain.json`   |
 
@@ -91,7 +91,7 @@ calls happen offline.
 | Label        | Meaning                                                          | Where enforced |
 | ------------ | ---------------------------------------------------------------- | -------------- |
 | REAL         | Real cryptography executed at call time                          | `TrustBadge`   |
-| ON-CHAIN     | State lives on Casper Testnet (query `deploy-out/onchain.json`)  | `TrustBadge`   |
+| ON-CHAIN     | State lives on BOT Chain Testnet (query `deploy-out/onchain.json`)  | `TrustBadge`   |
 | SIMULATION   | Deterministic stub; no external primitive; honest by-design      | `TrustBadge`   |
 
 Every user-facing surface that advertises a crypto/on-chain claim must

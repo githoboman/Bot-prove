@@ -54,7 +54,7 @@ const (
 	VRFSKSeedSize  = ed25519.SeedSize // 32
 	VRFProofSize   = 96
 	VRFOutputSize  = 64
-	vrfSuiteString = "casperprover-vrf-v1"
+	vrfSuiteString = "botprove-vrf-v1"
 )
 
 var (

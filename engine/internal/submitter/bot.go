@@ -1,6 +1,6 @@
-// Package submitter builds and signs Casper 2.0 (Condor) TransactionV1
-// payloads using the official casper-go-sdk/v2 and submits them to a
-// Casper node via JSON-RPC.
+// Package submitter builds and signs BOT Chain 2.0 (Condor) TransactionV1
+// payloads using the official bot-go-sdk/v2 and submits them to a
+// BOT Chain node via JSON-RPC.
 package submitter
 
 import (
@@ -16,14 +16,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/make-software/casper-go-sdk/v2/casper"
-	"github.com/make-software/casper-go-sdk/v2/rpc"
-	"github.com/make-software/casper-go-sdk/v2/types"
-	"github.com/make-software/casper-go-sdk/v2/types/clvalue"
-	"github.com/make-software/casper-go-sdk/v2/types/key"
-	"github.com/make-software/casper-go-sdk/v2/types/keypair"
+	"github.com/make-software/bot-go-sdk/v2/bot"
+	"github.com/make-software/bot-go-sdk/v2/rpc"
+	"github.com/make-software/bot-go-sdk/v2/types"
+	"github.com/make-software/bot-go-sdk/v2/types/clvalue"
+	"github.com/make-software/bot-go-sdk/v2/types/key"
+	"github.com/make-software/bot-go-sdk/v2/types/keypair"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/prover"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/prover"
 )
 
 const (
@@ -39,10 +39,10 @@ const (
 	defaultBackoffFactor  = 2.0
 )
 
-// txSubmitter is the subset of the casper-go-sdk rpc.Client surface the
+// txSubmitter is the subset of the bot-go-sdk rpc.Client surface the
 // submitter depends on. Extracting an interface lets unit tests inject
 // a mock RPC that returns programmed errors / successes / lookup results
-// without hitting a real Casper node.
+// without hitting a real BOT Chain node.
 //
 // The retry loop needs BOTH:
 //   - PutTransactionV1: send the signed transaction
@@ -61,24 +61,24 @@ type retryConfig struct {
 	backoffFactor  float64
 }
 
-// CasperSubmitter signs and submits TransactionV1 calls to on-chain
-// CasperProver contracts via the casper-go-sdk RPC client.
-type CasperSubmitter struct {
+// BOT ChainSubmitter signs and submits TransactionV1 calls to on-chain
+// BotProve contracts via the bot-go-sdk RPC client.
+type BOT ChainSubmitter struct {
 	chain  string
 	keys   keypair.PrivateKey
 	client txSubmitter
 	retry  retryConfig
 }
 
-// New creates a CasperSubmitter. keyPath must point to a PEM file
+// New creates a BOT ChainSubmitter. keyPath must point to a PEM file
 // (ED25519 or SECP256K1) whose corresponding account is the contract
 // deployer / has the named keys for the target contracts.
-func New(nodeURL, chain, keyPath string) *CasperSubmitter {
+func New(nodeURL, chain, keyPath string) *BOT ChainSubmitter {
 	// Try secp256k1 first (the project's deployer keys are secp256k1),
 	// then fall back to ed25519.
-	keys, err := casper.NewSECP256k1PrivateKeyFromPEMFile(keyPath)
+	keys, err := bot.NewSECP256k1PrivateKeyFromPEMFile(keyPath)
 	if err != nil {
-		keys, err = casper.NewED25519PrivateKeyFromPEMFile(keyPath)
+		keys, err = bot.NewED25519PrivateKeyFromPEMFile(keyPath)
 		if err != nil {
 			slog.Error("failed to load deployer key", "path", keyPath, "err", err)
 			return nil
@@ -91,7 +91,7 @@ func New(nodeURL, chain, keyPath string) *CasperSubmitter {
 	httpClient := &http.Client{Timeout: 30 * time.Second}
 	rpcClient := rpc.NewClient(rpc.NewHttpHandler(nodeURL+"/rpc", httpClient))
 
-	return &CasperSubmitter{
+	return &BOT ChainSubmitter{
 		chain:  chain,
 		keys:   keys,
 		client: rpcClient,
@@ -177,7 +177,7 @@ func isNotFoundError(err error) bool {
 
 // putTransaction builds, signs, and submits a TransactionV1 that calls
 // the given entry point on a contract identified by its hex-encoded hash.
-func (s *CasperSubmitter) putTransaction(contractHash, entryPoint string, args *types.Args) (string, error) {
+func (s *BOT ChainSubmitter) putTransaction(contractHash, entryPoint string, args *types.Args) (string, error) {
 	pubKey := s.keys.PublicKey()
 
 	hashBytes, err := hex.DecodeString(contractHash)
@@ -204,7 +204,7 @@ func (s *CasperSubmitter) putTransaction(contractHash, entryPoint string, args *
 		types.TransactionTarget{
 			Stored: &types.StoredTarget{
 				ID:      types.TransactionInvocationTarget{ByHash: &hash},
-				Runtime: types.NewVmCasperV1TransactionRuntime(),
+				Runtime: types.NewVmBOT ChainV1TransactionRuntime(),
 			},
 		},
 		types.TransactionEntryPoint{Custom: &ep},
@@ -260,7 +260,7 @@ func (s *CasperSubmitter) putTransaction(contractHash, entryPoint string, args *
 // On success returns a PutTransactionResult with the confirmed hash so
 // callers can log a single value. On terminal (non-retryable) errors
 // returns the raw error immediately without further retries.
-func (s *CasperSubmitter) putWithIdempotentRetry(
+func (s *BOT ChainSubmitter) putWithIdempotentRetry(
 	ctx context.Context,
 	tx types.TransactionV1,
 	txHash string,
@@ -369,7 +369,7 @@ func (s *CasperSubmitter) putWithIdempotentRetry(
 // when the transaction is present in any form, (false, nil) when the
 // node clearly doesn't have it yet, or (false, err) when the lookup
 // itself failed for an unrelated reason.
-func (s *CasperSubmitter) checkTxLanded(ctx context.Context, txHash string) (bool, error) {
+func (s *BOT ChainSubmitter) checkTxLanded(ctx context.Context, txHash string) (bool, error) {
 	// Bound the lookup so a slow node can't wedge the retry loop for
 	// longer than the submit path itself was willing to wait.
 	lookupCtx, cancel := context.WithTimeout(ctx, 10*time.Second)
@@ -402,7 +402,7 @@ func synthesizePutResult(txHash string) rpc.PutTransactionResult {
 
 // Submit anchors a proof to the on-chain proof_registry contract.
 // The contract hash is read from CONTRACT_PROOF_REGISTRY env var.
-func (s *CasperSubmitter) Submit(p *prover.Proof) (string, error) {
+func (s *BOT ChainSubmitter) Submit(p *prover.Proof) (string, error) {
 	contractHash := os.Getenv("CONTRACT_PROOF_REGISTRY")
 	if contractHash == "" {
 		return "", fmt.Errorf("CONTRACT_PROOF_REGISTRY env var not set")
@@ -418,7 +418,7 @@ func (s *CasperSubmitter) Submit(p *prover.Proof) (string, error) {
 }
 
 // Revoke marks a proof as revoked on-chain.
-func (s *CasperSubmitter) Revoke(pid, reason string) (string, error) {
+func (s *BOT ChainSubmitter) Revoke(pid, reason string) (string, error) {
 	contractHash := os.Getenv("CONTRACT_PROOF_REGISTRY")
 	if contractHash == "" {
 		return "", fmt.Errorf("CONTRACT_PROOF_REGISTRY env var not set")
@@ -432,7 +432,7 @@ func (s *CasperSubmitter) Revoke(pid, reason string) (string, error) {
 }
 
 // SubmitModelRegistration registers a model on the model_registry contract.
-func (s *CasperSubmitter) SubmitModelRegistration(modelID, modelHash, verifierContract string, metadata map[string]string) (string, error) {
+func (s *BOT ChainSubmitter) SubmitModelRegistration(modelID, modelHash, verifierContract string, metadata map[string]string) (string, error) {
 	contractHash := os.Getenv("CONTRACT_MODEL_REGISTRY")
 	if contractHash == "" {
 		return "", fmt.Errorf("CONTRACT_MODEL_REGISTRY env var not set")
@@ -456,7 +456,7 @@ func (s *CasperSubmitter) SubmitModelRegistration(modelID, modelHash, verifierCo
 // zk-verifier contract (BACKLOG 1.8 + 2.6 anchor). governanceApproved=0 for
 // direct-owner calls, 1 for calls proved off-chain against governance's
 // is_executed(proposal_id)==1.
-func (s *CasperSubmitter) RegisterZkVk(circuitID, vkHash, curve, backend string, governanceApproved uint64) (string, error) {
+func (s *BOT ChainSubmitter) RegisterZkVk(circuitID, vkHash, curve, backend string, governanceApproved uint64) (string, error) {
 	contractHash := os.Getenv("CONTRACT_ZK_VERIFIER")
 	if contractHash == "" {
 		return "", fmt.Errorf("CONTRACT_ZK_VERIFIER env var not set")
@@ -473,7 +473,7 @@ func (s *CasperSubmitter) RegisterZkVk(circuitID, vkHash, curve, backend string,
 // RecordZkVerdict anchors an off-chain Groth16 verification verdict on-chain
 // against a specific (circuit_id, proof_hash). Public inputs are hashed off-chain
 // (sha256 of their canonical encoding) so the on-chain record stays fixed-size.
-func (s *CasperSubmitter) RecordZkVerdict(circuitID, proofHash, publicInputsHash, modelID string, valid bool) (string, error) {
+func (s *BOT ChainSubmitter) RecordZkVerdict(circuitID, proofHash, publicInputsHash, modelID string, valid bool) (string, error) {
 	contractHash := os.Getenv("CONTRACT_ZK_VERIFIER")
 	if contractHash == "" {
 		return "", fmt.Errorf("CONTRACT_ZK_VERIFIER env var not set")
@@ -492,7 +492,7 @@ func (s *CasperSubmitter) RecordZkVerdict(circuitID, proofHash, publicInputsHash
 }
 
 // AddZkVerifier authorizes an account hash to record verdicts.
-func (s *CasperSubmitter) AddZkVerifier(verifierAccountHash string) (string, error) {
+func (s *BOT ChainSubmitter) AddZkVerifier(verifierAccountHash string) (string, error) {
 	contractHash := os.Getenv("CONTRACT_ZK_VERIFIER")
 	if contractHash == "" {
 		return "", fmt.Errorf("CONTRACT_ZK_VERIFIER env var not set")

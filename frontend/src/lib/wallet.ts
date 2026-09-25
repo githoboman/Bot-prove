@@ -1,11 +1,11 @@
 /**
- * Casper Wallet integration via CSPR.click SDK.
+ * BOT Chain Wallet integration via CSPR.click SDK.
  *
  * Uses the official CSPR.click (cspr.click) platform for wallet connection,
- * supporting Casper Wallet, Ledger, MetaMask Snap, and WalletConnect.
+ * supporting BOT Chain Wallet, Ledger, MetaMask Snap, and WalletConnect.
  *
  * Keys:
- *   AppID: configured via CSPR.click dashboard for casperprover.xyz
+ *   AppID: configured via CSPR.click dashboard for botprove.xyz
  *   CSPR.cloud: API access for balance queries etc.
  */
 

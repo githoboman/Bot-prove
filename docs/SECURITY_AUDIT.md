@@ -1,4 +1,4 @@
-# CasperProver — Security Audit: Owner/Admin Lifecycle & Cross-Contract Invariants
+# BotProve — Security Audit: Owner/Admin Lifecycle & Cross-Contract Invariants
 
 **Scope:** all 9 contract crates in `contracts/` (all deployed as of 2026-07-27).  
 **Date:** 2026-07-20 (Gate 1, item 4 of `CP_FINAL_TASKS_V2_new.md`); extended 2026-07-27 to cover `governance` and `zk-verifier` after they went live, and to close a critical finding in `zk-verifier`.  
@@ -64,7 +64,7 @@ Without those three, **do not merge a renounce entry point in any contract**.
   - `record_stake` — credits *the caller* only. Cannot be used to inflate a third party's stake.
   - `unstake` — withdraws from *the caller's* recorded stake only, using `checked_sub` (no underflow).
 - **Cross-contract:** calls `proof-registry::get_proof` (read-only) before slashing.
-- **Reentrancy analysis:** the only external interaction after state mutation is `system::transfer_from_purse_to_account` in `unstake` and the `report_and_slash` payout. Both use Casper's native transfer primitives, not contract calls back into this crate, so there is no callback surface to re-enter. State (`stakes`, `slashed_proofs`, `total_recorded`) is updated *before* the transfer in both paths (checks-effects-interactions respected).
+- **Reentrancy analysis:** the only external interaction after state mutation is `system::transfer_from_purse_to_account` in `unstake` and the `report_and_slash` payout. Both use BOT Chain's native transfer primitives, not contract calls back into this crate, so there is no callback surface to re-enter. State (`stakes`, `slashed_proofs`, `total_recorded`) is updated *before* the transfer in both paths (checks-effects-interactions respected).
 - **Bookkeeping invariant:** `sum(stakes) + slash_reserve ≤ contract_purse_balance` — enforced by:
   - `record_stake` capping credit to `actual_balance − total_recorded` (post-2026-07-18 hardening — prevents unbacked credit).
   - `decrease_total_recorded()` on every `unstake` / `report_and_slash` payout.
@@ -105,7 +105,7 @@ Without those three, **do not merge a renounce entry point in any contract**.
 - **Cross-contract:** none.
 - **Reentrancy analysis:** no external calls. Status transitions (`ERR_ALREADY_DEPRECATED`, `ERR_ALREADY_REGISTERED`) prevent double-updates.
 - **Renounce risk:** installer-key loss freezes `set_price_bps` (pricing knob). Per-model owner-key loss freezes that model's lifecycle. Both are per-record blast radius, not systemic.
-- **Owner string format caveat:** `owner` is stored as `format!("{:?}", caller)` (Rust `Debug` output of `AccountHash`). This is *stable within a single Rust toolchain build* but has bitten other Casper projects on version bumps. **Follow-up:** normalize to `caller.to_string()` (hex, no prefix) in the next non-breaking migration; currently a comparison bug not a security bug because writer and comparator both use the same `Debug` format.
+- **Owner string format caveat:** `owner` is stored as `format!("{:?}", caller)` (Rust `Debug` output of `AccountHash`). This is *stable within a single Rust toolchain build* but has bitten other BOT Chain projects on version bumps. **Follow-up:** normalize to `caller.to_string()` (hex, no prefix) in the next non-breaking migration; currently a comparison bug not a security bug because writer and comparator both use the same `Debug` format.
 - **Verdict:** ⚠️ Deploy as-is is acceptable. The `owner` string format normalization is a P2 hygiene item — file as follow-up.
 
 ### 2.7 `proof-aggregation` (deployed 2026-07-25)
@@ -189,7 +189,7 @@ stake-slashing.unstake / .report_and_slash payout
   └─ system::transfer_from_purse_to_account          (native transfer)
 ```
 
-Every cross-contract edge is either **read-only** (returns via `runtime::ret`) or a **native system transfer** (not a contract-to-contract call that could re-enter). There is no callback path that lets a downstream contract re-enter an upstream contract in mid-write. **Casper's `call_contract` is synchronous but the contract being called cannot re-enter the caller unless the caller passes its own contract hash as an argument** — and none of our contracts do this.
+Every cross-contract edge is either **read-only** (returns via `runtime::ret`) or a **native system transfer** (not a contract-to-contract call that could re-enter). There is no callback path that lets a downstream contract re-enter an upstream contract in mid-write. **BOT Chain's `call_contract` is synchronous but the contract being called cannot re-enter the caller unless the caller passes its own contract hash as an argument** — and none of our contracts do this.
 
 ### 3.2 CEI (checks-effects-interactions) posture
 

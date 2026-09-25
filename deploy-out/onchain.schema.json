@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://casperprover.xyz/schemas/onchain-manifest.v1.json",
-  "title": "CasperProver on-chain deployment manifest (canonical)",
+  "$id": "https://botprove.xyz/schemas/onchain-manifest.v1.json",
+  "title": "BotProve on-chain deployment manifest (canonical)",
   "description": "Single source of truth for CP contract addresses, deployer, network, and generated-artifact list. Frontend/API/verify/docs read from this file (or from a build-time-generated copy).",
   "type": "object",
   "required": ["network", "project", "deployer", "contracts", "verification"],
@@ -18,7 +18,7 @@
         "description": {"type": "string"}
       }
     },
-    "network": {"type": "string", "enum": ["casper-test", "casper-mainnet"]},
+    "network": {"type": "string", "enum": ["bot-test", "bot-mainnet"]},
     "chain_name": {"type": "string"},
     "project": {"type": "string"},
     "deployer": {"type": "string", "pattern": "^0[123][0-9a-fA-F]+$"},

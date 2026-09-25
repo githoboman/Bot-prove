@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # build-and-measure.sh — deterministic reproducer for the CP contract WASM
-# size question: which contracts currently exceed the casper-js-sdk 5.0.12
+# size question: which contracts currently exceed the bot-js-sdk 5.0.12
 # ~65 KB install/upgrade cap, and by how much?
 #
 # Usage:

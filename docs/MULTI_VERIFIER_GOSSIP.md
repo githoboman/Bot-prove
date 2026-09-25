@@ -20,14 +20,14 @@ Instead, we distil the design here so:
 - when we do ship it (Gate G4 in `docs/MAINNET_LAUNCH_PLAN.md`,
   post-invest) the target is fixed.
 
-**Nothing about the CasperProver hackathon submission depends on this
+**Nothing about the BotProve hackathon submission depends on this
 document. The current verifier surface — `internal/verifier` + the
 `/verify` endpoint — is a single-node, single-verifier implementation
 and is honestly labelled as such.**
 
 ## Goal
 
-A CasperProver proof is currently verified locally by whichever engine
+A BotProve proof is currently verified locally by whichever engine
 the caller happens to hit. That is fine for a hackathon MVP and honest
 about its centralisation. Multi-verifier gossip changes the trust
 model to:
@@ -51,7 +51,7 @@ The properties we want:
    within a bounded window.
 4. **Sybil-resistance.** A single actor can't unilaterally add
    verifiers to the live set. Membership is either PoS-anchored
-   (stake tied on Casper via `stake_slashing`) or governance-anchored
+   (stake tied on BOT Chain via `stake_slashing`) or governance-anchored
    (M-of-N Adjudicator quorum from `REPUTATION_ECONOMICS.md` § 4).
 5. **Deterministic replay.** A verifier node that comes back online
    after a network partition can replay the gossip log and land on
@@ -114,7 +114,7 @@ Attackers can:
 Attackers can NOT:
 
 - Forge signatures of honest verifiers (standard crypto assumption).
-- Break the underlying Casper anchor's finality (that is the base
+- Break the underlying BOT Chain anchor's finality (that is the base
   trust root, already assumed by the whole engine).
 
 ## Verifier lifecycle
@@ -199,7 +199,7 @@ Two triggers:
 
 Both triggers land as a public artifact — verifiable by anyone with
 a copy of the mesh's gossip log — so an outside observer does not
-have to trust CasperProver to detect misbehaviour.
+have to trust BotProve to detect misbehaviour.
 
 ## Data structures
 
@@ -275,7 +275,7 @@ back to stage N-1 in one config flip.
   the top of that package's doc comment.
 - **NOT-ON-CHAIN** — the design *interacts* with on-chain contracts
   (stake_slashing, Adjudicator quorum) but is itself an off-chain
-  P2P layer. Anchoring the mesh's Verdict roots on Casper (for
+  P2P layer. Anchoring the mesh's Verdict roots on BOT Chain (for
   extra tamper-evidence) is contemplated in § "Rollout stages"
   stage 4, not now.
 - **NO-CODE-SHIPPED, NO-DEPS-ADDED, NO-PAID-SERVICES** — no changes

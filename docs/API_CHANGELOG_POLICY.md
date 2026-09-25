@@ -1,7 +1,7 @@
 # API Changelog & Versioning Policy
 
 > Status: **REAL** (policy doc). Governs `/v1/*` HTTP surface and future majors.
-> Author: CasperProver engine.
+> Author: BotProve engine.
 > Item 7.15 from `cp_BACKLOG_v3.md` (Pack AB).
 
 ---

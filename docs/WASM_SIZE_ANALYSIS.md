@@ -7,7 +7,7 @@ Last verified: 2026-07-25.
 
 Raw `cargo build --release --target wasm32-unknown-unknown` (with the existing
 workspace `opt-level="z" lto=true panic="abort"`) does NOT fit the three
-undeployed contracts under the casper-js-sdk 5.0.12 ~65 536 byte install cap.
+undeployed contracts under the bot-js-sdk 5.0.12 ~65 536 byte install cap.
 **One additional pass of `wasm-opt -Oz --strip-debug --strip-producers` puts
 all three under the cap.** Measured 2026-07-25 with `binaryen` version 119
 and `nightly-2025-04-01` (rustc 1.88.0-nightly, the toolchain that both
@@ -32,7 +32,7 @@ sequence, and the *Reproducer* section below to rerun end-to-end.
 
 ## What "undeployed" means here
 
-Four CP contracts are live on Casper testnet (see `frontend/public/onchain.json`):
+Four CP contracts are live on BOT Chain testnet (see `frontend/public/onchain.json`):
 
 - `proof-registry`   (installed 2026-06-29)
 - `verifier-gate`    (installed 2026-06-29)
@@ -49,17 +49,17 @@ the testnet install/upgrade path:
 - `proof-of-inference`    — 498 LOC
 
 `onchain.json.undeployed_contracts` records the reason as
-**"WASM >65KB limit"**. That number is not arbitrary. `casper-js-sdk` 5.0.12
+**"WASM >65KB limit"**. That number is not arbitrary. `bot-js-sdk` 5.0.12
 has a known-and-unresolved issue where `installOrUpgrade()` rejects
 install/upgrade transactions whose WASM payload exceeds ~65 536 bytes. The
-Casper node itself accepts larger payloads via `casper-client put-deploy` —
+BOT Chain node itself accepts larger payloads via `bot-client put-deploy` —
 this cap is a client-SDK bug, not a chain rule. The workaround options are:
 
-1. Ship the contract via `casper-client put-deploy` directly, bypassing the
+1. Ship the contract via `bot-client put-deploy` directly, bypassing the
    JS SDK path the CP frontend uses. This works but forks the deploy workflow
    away from the flow every other CP contract uses.
 2. Ship via JS SDK by first shrinking the WASM below the client cap.
-3. Wait for a fixed `casper-js-sdk` release (unclear ETA).
+3. Wait for a fixed `bot-js-sdk` release (unclear ETA).
 
 Option 2 is what this analysis targets: what is actually possible with the
 existing source and standard toolchain?
@@ -97,10 +97,10 @@ contracts only:
 
 ## Why the deployed 4 fit and the other 3 don't
 
-The four deployed contracts use `casper-contract` for boilerplate and
-`casper-types` for the type layer. Their business logic is thin: register a
+The four deployed contracts use `bot-contract` for boilerplate and
+`bot-types` for the type layer. Their business logic is thin: register a
 hash, look up a status flag, transfer tokens between purses. The size floor
-of a Casper contract in the current SDK is roughly 40 KB (formatter code,
+of a BOT Chain contract in the current SDK is roughly 40 KB (formatter code,
 error strings, allocator, panic machinery), so 20-25 KB of business logic
 fits under 65 KB.
 
@@ -123,7 +123,7 @@ The three undeployed contracts each cross that budget:
 
 Sorted by expected KB saved per hour of work:
 
-1. **Shorten every panic!/require! message to <8 chars.** Casper contracts
+1. **Shorten every panic!/require! message to <8 chars.** BOT Chain contracts
    currently panic with descriptive strings like `"insufficient stake for
    this slashing round"`. `opt-level=z` cannot fold these because they're
    string literals. Replacing with `require!(cond, "e01")` and documenting
@@ -139,7 +139,7 @@ Sorted by expected KB saved per hour of work:
    pipeline.** binaryen's -Oz pass runs several rewrites LLVM cannot: dead-
    basic-block elimination, redundant local propagation across function
    boundaries, string-table compaction. Typically 5-10% off the top of a
-   Casper-shaped WASM. Adding this to CI is 30 minutes.
+   BOT Chain-shaped WASM. Adding this to CI is 30 minutes.
 
 4. **Split large contracts into a controller + a session-code payload.**
    `proof-of-inference` can move rarely-hit paths (e.g. admin migration)
@@ -147,7 +147,7 @@ Sorted by expected KB saved per hour of work:
    how `stake-slashing-session` already works and it's the only way to
    guarantee under-cap when business logic keeps growing.
 
-5. **Turn off `casper-contract`'s default `test-support` feature.**
+5. **Turn off `bot-contract`'s default `test-support` feature.**
    Sometimes `default-features = false` on the crate dep drops 1-2 KB of
    assertions. Cheap to try.
 
@@ -163,8 +163,8 @@ Nightly-only options (currently avoided in this workspace):
 
 For each shrunk contract:
 
-1. `casper-client put-deploy --node-address https://testnet.cspr.cloud
-   --chain-name casper-test --secret-key <anna's PEM>
+1. `bot-client put-deploy --node-address https://testnet.cspr.cloud
+   --chain-name bot-test --secret-key <anna's PEM>
    --session-path <contract>.wasm --session-entry-point call
    --payment-amount 100000000000`
    (payment tunes by contract size; 100 CSPR is a safe upper bound.)

@@ -59,7 +59,7 @@ The roadmap doc is the vision. This file is the truth on-disk.
   the private key before accepting the pubkey. `docs/roadmap/BLS_QUORUM.md`
   §"Proof of possession" describes the challenge protocol.
 - **No on-chain verifier — yet.** The pairing check runs in the Go
-  engine. Casper WASM contracts do not have BLS pairing today. The
+  engine. BOT Chain WASM contracts do not have BLS pairing today. The
   on-chain path in `docs/roadmap/BLS_QUORUM.md` §"On-chain surface"
   is the design target; the current wire is: engine verifies →
   engine emits `witness_hash_hex` → on-chain contract stores the
@@ -141,7 +141,7 @@ The following are consciously deferred; each has a docs anchor.
 - DKG-based BLS-TSS (`bls12-381-tss-v1` reserved label). Requires an
   interactive protocol between signers; a real implementation belongs
   behind the `ceremony` subsystem in `docs/roadmap/CEREMONY.md`.
-- On-chain BLS pairing verifier. Blocked on Casper VM adding BLS12-381
+- On-chain BLS pairing verifier. Blocked on BOT Chain VM adding BLS12-381
   precompiles. Currently the on-chain contract commits
   `witness_hash_hex`.
 - Rogue-key attack proof-of-possession *challenge protocol* (as

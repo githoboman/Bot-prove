@@ -10,13 +10,13 @@ import (
 // See https://www.w3.org/TR/vc-data-model-2.0/ . The receipt maps as:
 //
 //   context           = ["https://www.w3.org/ns/credentials/v2",
-//                        "https://casperprover.io/context/cp-receipt-v1"]
-//   type              = ["VerifiableCredential", "CasperProverDecisionReceipt"]
+//                        "https://botprove.io/context/cp-receipt-v1"]
+//   type              = ["VerifiableCredential", "BotProveDecisionReceipt"]
 //   id                = receipt.id (urn:uuid:...)
 //   issuer            = receipt.issuer                (did)
 //   validFrom         = receipt.issued_at             (rfc3339)
 //   credentialSubject = { id: receipt.subject, ... facet outputs ... }
-//   proof.type        = "CasperProverProof2026"       (registered profile)
+//   proof.type        = "BotProveProof2026"       (registered profile)
 //   proof.cryptosuite = receipt.proof.scheme
 //   proof.proofValue  = receipt.proof.signature       (base64)
 //   proof.verification_method = receipt.proof.verification_method
@@ -90,15 +90,15 @@ func ToW3CVC(r DecisionReceipt) (W3CCredential, error) {
 	return W3CCredential{
 		Context: []string{
 			"https://www.w3.org/ns/credentials/v2",
-			"https://casperprover.io/context/cp-receipt-v1",
+			"https://botprove.io/context/cp-receipt-v1",
 		},
 		ID:                "urn:uuid:" + r.ID,
-		Type:              []string{"VerifiableCredential", "CasperProverDecisionReceipt"},
+		Type:              []string{"VerifiableCredential", "BotProveDecisionReceipt"},
 		Issuer:            r.Issuer,
 		ValidFrom:         r.IssuedAt,
 		CredentialSubject: subj,
 		Proof: W3CProof{
-			Type:               "CasperProverProof2026",
+			Type:               "BotProveProof2026",
 			Cryptosuite:        r.Proof.Scheme,
 			Created:            r.Proof.SignedAt,
 			VerificationMethod: r.Proof.VerificationMethod,

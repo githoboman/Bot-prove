@@ -1,6 +1,6 @@
 # Post-Quantum & Research Claims — Honesty Audit
 
-**Scope:** cryptographic claims made anywhere in the CasperProver repo — README, frontend, engine, SDK, docs. This document is the reference for what the codebase _actually_ delivers versus what remains research/roadmap. Any contributor adding a new PQ / quantum / ZK claim MUST reconcile it with this file first.
+**Scope:** cryptographic claims made anywhere in the BotProve repo — README, frontend, engine, SDK, docs. This document is the reference for what the codebase _actually_ delivers versus what remains research/roadmap. Any contributor adding a new PQ / quantum / ZK claim MUST reconcile it with this file first.
 
 Authoritative for §F of `handoff/CP_FINAL_TASKS_V2.md`.
 
@@ -73,7 +73,7 @@ All of the following are **roadmap**, not shipped:
 - Full bisection games (interactive verification) beyond the current single-shot challenge/slash path
 - VRF-based sortition for verifier committees
 - Range proofs (Bulletproofs / Bulletproofs++)
-- On-chain pairing verification on Casper (blocked by the lack of a mature BN254/BLS12-381 pairing precompile in Casper Condor 2.x)
+- On-chain pairing verification on BOT Chain (blocked by the lack of a mature BN254/BLS12-381 pairing precompile in BOT Chain Condor 2.x)
 
 Any PR shipping one of these MUST update this file's "What is real today" table and remove the corresponding row from the roadmap.
 

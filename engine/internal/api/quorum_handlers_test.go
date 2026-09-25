@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/quorum"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/quorum"
 )
 
 // enableQuorum populates a fresh registry with n signers (ids A, B, C, …)

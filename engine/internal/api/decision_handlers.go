@@ -25,8 +25,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/decision/attest"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/hitl"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/decision/attest"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/hitl"
 )
 
 // initDecisionPipeline builds the pool, adapter, judge and HITL

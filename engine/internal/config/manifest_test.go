@@ -19,10 +19,10 @@ func TestLoad_ReadsCanonicalManifest(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Load: %v", err)
 	}
-	if m.Project != "CasperProver" {
-		t.Fatalf("project = %q, want %q", m.Project, "CasperProver")
+	if m.Project != "BotProve" {
+		t.Fatalf("project = %q, want %q", m.Project, "BotProve")
 	}
-	if m.Network != "casper-test" && m.Network != "casper-mainnet" {
+	if m.Network != "bot-test" && m.Network != "bot-mainnet" {
 		t.Fatalf("unexpected network %q", m.Network)
 	}
 	if len(m.Contracts) < 4 {

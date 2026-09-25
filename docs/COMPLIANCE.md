@@ -1,4 +1,4 @@
-# CasperProver — Compliance Baseline
+# BotProve — Compliance Baseline
 
 **Status:** compliance-by-design baseline for the hackathon submission. This
 document catalogues how the current architecture maps to major regulatory
@@ -10,11 +10,11 @@ that a real counsel can pick up as a starting point.
 
 ---
 
-## 1. Regulatory scope — what CasperProver actually is
+## 1. Regulatory scope — what BotProve actually is
 
-CasperProver is a **cryptographic audit-trail engine for AI agent
+BotProve is a **cryptographic audit-trail engine for AI agent
 decisions**. Its purpose is *evidentiary*: it commits an agent's inputs
-and outputs to Casper so that a verifier can later prove, in
+and outputs to BOT Chain so that a verifier can later prove, in
 milliseconds, that a decision was made against a specific set of
 inputs and produced a specific set of outputs.
 
@@ -22,7 +22,7 @@ The relevant surfaces:
 
 | Surface | What it does | Custody? | Autonomy |
 |---|---|---|---|
-| Commit contract | Anchors Merkle roots of agent I/O on Casper | No fund custody; anchors hashes | Deterministic |
+| Commit contract | Anchors Merkle roots of agent I/O on BOT Chain | No fund custody; anchors hashes | Deterministic |
 | ZK layer (gnark Groth16) | Off-chain zero-knowledge proofs of statements about committed data | N/A | Off-chain |
 | PQ layer | Post-quantum signature/commitment scheme | N/A | Off-chain |
 | Proof-chain DAG | Directed acyclic graph linking sequential decisions | N/A | Deterministic |
@@ -33,18 +33,18 @@ The relevant surfaces:
 
 **Key architectural facts** that drive downstream classification:
 
-1. **CasperProver moves no money.** It anchors commitments and proofs.
+1. **BotProve moves no money.** It anchors commitments and proofs.
    The chain-side operation is `write hash` + `emit event`, not `transfer
    value`. No user funds are ever held or moved by the protocol.
-2. **CasperProver stores no personal data on-chain by default.** The
+2. **BotProve stores no personal data on-chain by default.** The
    on-chain object is a Merkle root over an off-chain evidence set. What
    is on-chain is a fixed-size hash. Personal data, if any, lives off-chain
    under retention policies the deployer configures.
-3. **CasperProver's ZK layer is data-minimising.** ZK proofs let a
+3. **BotProve's ZK layer is data-minimising.** ZK proofs let a
    verifier confirm a statement about the committed data without
    revealing the underlying data. This is the GDPR data-minimisation
    principle operationalised in crypto.
-4. **CasperProver is deterministic verification.** Verification uses
+4. **BotProve is deterministic verification.** Verification uses
    pinned tooling (`nightly-2025-01-01` toolchain, contract-build parity
    in CI). A judge or auditor can rebuild the deployed artifacts from
    source and independently check every anchored proof.
@@ -57,7 +57,7 @@ The relevant surfaces:
 
 ### Position
 
-CasperProver is **outside the CASP (Crypto-Asset Service Provider)
+BotProve is **outside the CASP (Crypto-Asset Service Provider)
 perimeter** because it performs none of the regulated crypto-asset
 services listed in Article 3 MiCA:
 
@@ -68,14 +68,14 @@ services listed in Article 3 MiCA:
   orders on behalf of clients.
 - Not investment advice.
 
-CasperProver writes commitment hashes to the chain and reads them back.
+BotProve writes commitment hashes to the chain and reads them back.
 This is a **utility-layer use of blockchain**, not a crypto-asset service
 under MiCA. Recital 22 makes clear that MiCA does not regulate every
 activity that touches blockchain; only the listed CASP services.
 
 ### Gaps / open questions for counsel
 
-1. **CSPR consumption for gas.** A deployer running CasperProver spends
+1. **CSPR consumption for gas.** A deployer running BotProve spends
    CSPR to pay for chain writes. This is *use* of a crypto-asset by the
    deployer, not provision of a crypto-asset service to a client.
    Nothing here creates a CASP obligation.
@@ -99,7 +99,7 @@ activity that touches blockchain; only the listed CASP services.
 
 ### Position
 
-**CasperProver is not itself an AI system.** It is an audit-trail engine
+**BotProve is not itself an AI system.** It is an audit-trail engine
 that anchors evidence *about* AI systems. Its role is verification,
 not decision-making. This puts CP in a fundamentally different position
 from an LLM-driven arbitration platform: CP is precisely the kind of
@@ -139,7 +139,7 @@ CP's alignment with the AI Act is on the **compliance-enabler** side:
 
 ## 4. EU — GDPR (Regulation (EU) 2016/679)
 
-This is where CasperProver is at its strongest. **ZK proofs are the
+This is where BotProve is at its strongest. **ZK proofs are the
 canonical data-minimisation technique** under Art. 5(1)(c) GDPR.
 
 ### Position
@@ -214,7 +214,7 @@ Reference: FinCEN FIN-2019-G001 (May 9, 2019).
 
 ### Position
 
-**CasperProver is not a money transmitter.** It does not accept value
+**BotProve is not a money transmitter.** It does not accept value
 and transmit it. It does not touch user funds at all. Even the CSPR
 spent for gas is the deployer's own operational expense; it does not
 transit through CP as a service.
@@ -244,7 +244,7 @@ Under the 2019 guidance:
 
 ## 6. US — NIST AI RMF 1.0 + GenAI Profile
 
-CasperProver is the closest thing in the ecosystem to an
+BotProve is the closest thing in the ecosystem to an
 **operationalised AI RMF Manage / Measure control**. Mapping:
 
 - **Govern.** This document is a governance artefact; the deployer's
@@ -303,4 +303,4 @@ Three lines for a compliance officer:
 ---
 
 *This document is written to hand to counsel, not to replace them. If you
-are deploying CasperProver in production, retain local counsel.*
+are deploying BotProve in production, retain local counsel.*

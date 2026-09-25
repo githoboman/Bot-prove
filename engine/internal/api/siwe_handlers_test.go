@@ -10,7 +10,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/api/siwe"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/api/siwe"
 )
 
 func newSIWEServer() *Server {

@@ -1,6 +1,6 @@
 # LEGAL/ — draft legal-and-policy surface
 
-This directory is a first-class part of CasperProver's honesty posture:
+This directory is a first-class part of BotProve's honesty posture:
 we do not want to ship a "verifiable AI attestation" product with no
 articulated terms, no acceptable-use rules, and no data-protection
 notice. So the maintainers wrote first drafts of each — clearly labelled
@@ -30,7 +30,7 @@ maintainers do not represent these drafts as legal advice.
 - **DRAFT** — self-authored by project maintainers, not reviewed by
   counsel; may contain gaps a lawyer would immediately flag.
 - **TESTNET-ONLY** — every clause that mentions "on-chain" refers to
-  the Casper testnet during the hackathon and beta period.
+  the BOT Chain testnet during the hackathon and beta period.
 
 ## Related non-legal surfaces referenced by these documents
 

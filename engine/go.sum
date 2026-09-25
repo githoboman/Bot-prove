@@ -200,8 +200,8 @@ github.com/leanovate/gopter v0.2.11/go.mod h1:aK3tzZP/C+p1m3SPRE4SYZFGP7jjkuSI4f
 github.com/lib/pq v1.12.3 h1:tTWxr2YLKwIvK90ZXEw8GP7UFHtcbTtty8zsI+YjrfQ=
 github.com/lib/pq v1.12.3/go.mod h1:/p+8NSbOcwzAEI7wiMXFlgydTwcgTr3OSKMsD2BitpA=
 github.com/magiconair/properties v1.8.5/go.mod h1:y3VJvCyxH9uVvJTWEGAELF3aiYNyPKd5NZ3oSwXrF60=
-github.com/make-software/casper-go-sdk/v2 v2.0.0 h1:k7gwpJoglwCK6saYfS2vtblYeTt3avHXfqf+RXAjEU8=
-github.com/make-software/casper-go-sdk/v2 v2.0.0/go.mod h1:Yy1eEYEY+pcZSPKcP2usAe4W0RmA4zJrAb0ScjrL4lo=
+github.com/make-software/bot-go-sdk/v2 v2.0.0 h1:k7gwpJoglwCK6saYfS2vtblYeTt3avHXfqf+RXAjEU8=
+github.com/make-software/bot-go-sdk/v2 v2.0.0/go.mod h1:Yy1eEYEY+pcZSPKcP2usAe4W0RmA4zJrAb0ScjrL4lo=
 github.com/mattn/go-colorable v0.0.9/go.mod h1:9vuHe8Xs5qXnSaW/c/ABM9alt+Vo+STaOChaDxuIBZU=
 github.com/mattn/go-colorable v0.1.13/go.mod h1:7S9/ev0klgBDR4GtXTXX8a3vIGJpMovkB8vQcUbaXHg=
 github.com/mattn/go-colorable v0.1.14 h1:9A9LHSqF/7dyVVX6g0U9cwm9pG3kP9gSzcuIPHPsaIE=

@@ -1,7 +1,7 @@
 /**
- * Client-side Merkle-proof verifier for CasperProver.
+ * Client-side Merkle-proof verifier for BotProve.
  *
- * The CasperProver engine builds a Merkle tree over four canonical leaves —
+ * The BotProve engine builds a Merkle tree over four canonical leaves —
  * `input_hash`, `output_hash`, `model_hash`, `proof_hash` — using the same
  * BLAKE2b-256 hash algorithm the server uses. This module lets a browser or
  * Node client recompute the root from `(leaf, path, leafIndex)` and compare

@@ -58,7 +58,7 @@ func (v Verdict) String() string {
 
 // MarshalJSON emits the string form so JSON receipts are human-readable.
 // Unmarshalling is not implemented — receipts are produced, not consumed,
-// by CasperProver.
+// by BotProve.
 func (v Verdict) MarshalJSON() ([]byte, error) {
 	return []byte(`"` + v.String() + `"`), nil
 }

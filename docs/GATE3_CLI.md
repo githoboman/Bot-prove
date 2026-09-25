@@ -10,7 +10,7 @@ or, without make:
 
 ```
 cd engine
-go run ./cmd/casperprover gate3 > receipt.json 2> summary.txt
+go run ./cmd/botprove gate3 > receipt.json 2> summary.txt
 ```
 
 The command runs four scripted scenarios end-to-end through the exact same
@@ -39,7 +39,7 @@ The four paths are the DoD of Gate 3 in the deadline plan (`CP_FINAL_TASKS_V2_ne
 ## What a passing run looks like
 
 ```
-=== CasperProver Gate 3 — Agentic Vertical Slice ===
+=== BotProve Gate 3 — Agentic Vertical Slice ===
 
 [PASS] approve    overall=AGREE     OverallVerdict == AGREE as expected.
          facet=safety          verdict=AGREE    live=3 agreement=1.00
@@ -70,7 +70,7 @@ Non-zero exit code if any scenario diverges from its expected outcome.
 Every wall-clock timestamp is zeroed after the judge runs and before evidence
 is built, so the `receipt_digest` at the bottom of the JSON is stable across
 runs on the same commit. This is enforced by
-[`gate3_test.go`](../engine/cmd/casperprover/gate3_test.go) — `go test ./cmd/casperprover -run TestGate3`.
+[`gate3_test.go`](../engine/cmd/botprove/gate3_test.go) — `go test ./cmd/botprove -run TestGate3`.
 
 If two runs on the same commit produce different digests, the demo is broken;
 open an issue with both receipts attached.

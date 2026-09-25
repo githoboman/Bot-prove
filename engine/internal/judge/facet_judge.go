@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/llm"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/llm"
 )
 
 // FacetJudge is the default facet-based Judge implementation.

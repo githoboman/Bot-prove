@@ -183,8 +183,8 @@ func NewOpenRouter(ring *KeyRing) *OpenAICompatProvider {
 		Model:   "meta-llama/llama-3.1-8b-instruct", // fast + cheap default
 		ExtraHeaders: map[string]string{
 			// OpenRouter uses these for attribution/analytics.
-			"HTTP-Referer": "https://casperprover.ai",
-			"X-Title":      "CasperProver Judge",
+			"HTTP-Referer": "https://botprove.ai",
+			"X-Title":      "BotProve Judge",
 		},
 	}, ring)
 }

@@ -3,7 +3,7 @@
 **Last verified:** 2026-07-25 (commits `3c5d84a` · `6db0849` · attestation slice).
 
 The decision attestation layer is a **verifiable off-chain judgement flow with
-on-chain commitments and gates**. Any principal holding a Casper wallet key
+on-chain commitments and gates**. Any principal holding a BOT Chain wallet key
 can submit a *decision commit* — a structured payload plus a nonce — to the
 proof-registry. Independent facet evaluators judge the commit against a fixed
 set of dimensions, an aggregation function collapses those judgements into a
@@ -134,7 +134,7 @@ listed in `docs/KNOWN_LIMITATIONS.md` with a link back to the roadmap:
 - **Threshold BLS quorum registry.** The current provider is a single
   deterministic fixture. Multi-evaluator threshold signatures are the
   30-day roadmap item.
-- **On-chain Groth16 verifier.** Casper 2.0 lacks a pairing precompile.
+- **On-chain Groth16 verifier.** BOT Chain 2.0 lacks a pairing precompile.
   The Groth16 proof is verified off-chain; the on-chain commitment is
   the ZK-friendly `CommitDigest`.
 - **Conformal / risk-controlled abstention.** The current confidence

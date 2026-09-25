@@ -1,4 +1,4 @@
-# CasperProver — Security Review Checklist
+# BotProve — Security Review Checklist
 
 *Backlog 10.7.* Every PR that changes surface (network, contract,
 auth, crypto, secrets, deploy pipeline) is reviewed against this

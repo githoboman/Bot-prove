@@ -1,6 +1,6 @@
-# CasperProver SDK
+# BotProve SDK
 
-`sdk/` is a standalone Go module (`github.com/anna-stolbovskaja/CasperProver/sdk`),
+`sdk/` is a standalone Go module (`github.com/anna-stolbovskaja/BotProve/sdk`),
 separate from `engine/`, so it can be published/imported independently. Every
 `Client` method maps 1:1 to a real route in `engine/internal/api/server.go` -
 see `docs/openapi.yaml` for the authoritative route list. Not every route has
@@ -15,7 +15,7 @@ import (
     "context"
     "fmt"
 
-    "github.com/anna-stolbovskaja/CasperProver/sdk"
+    "github.com/anna-stolbovskaja/BotProve/sdk"
 )
 
 func main() {

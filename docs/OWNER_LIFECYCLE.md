@@ -1,6 +1,6 @@
 # Owner Lifecycle
 
-How ownership of the four deployed CasperProver contracts is granted,
+How ownership of the four deployed BotProve contracts is granted,
 transferred, and (deliberately) not renounced. This document is the design
 target: not everything below is implemented in the hackathon build. Items
 marked **[shipped]** are enforced in source; items marked **[design]** are
@@ -9,7 +9,7 @@ see the intent — see the `Roadmap` at the bottom for the concrete tasks.
 
 ## Principals
 
-- **`owner`** — the Casper account that deployed the contract. Recorded at
+- **`owner`** — the BOT Chain account that deployed the contract. Recorded at
   install time in the `owner` named key of every contract. There is one
   live owner per contract.
 - **`pending_owner`** — an account that has been proposed as the next

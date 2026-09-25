@@ -12,10 +12,10 @@ import (
 	"testing"
 	"time"
 
-	pqcrypto "github.com/anna-stolbovskaja/CasperProver/engine/internal/crypto"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/crypto/keystore"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/decision/attest"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/hitl"
+	pqcrypto "github.com/anna-stolbovskaja/BotProve/engine/internal/crypto"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/crypto/keystore"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/decision/attest"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/hitl"
 )
 
 func mustKeystore(t *testing.T) keystore.Keystore {

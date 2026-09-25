@@ -95,7 +95,7 @@ export default function ApiDocs() {
           <h1 className="text-4xl font-extrabold mb-4">API Documentation</h1>
           <p className="text-gray-400 max-w-2xl leading-relaxed">
             Bot Prove exposes 32 REST endpoints. Base URL:{' '}
-            <code className="text-red-400 bg-red-500/10 px-2 py-0.5 rounded text-sm">https://casperprover-api-ylsh.onrender.com</code>
+            <code className="text-red-400 bg-red-500/10 px-2 py-0.5 rounded text-sm">https://botprove-api-ylsh.onrender.com</code>
           </p>
           <div className="mt-4 flex gap-3">
             <a href="https://github.com/anna-stolbovskaja/Bot Prove/blob/main/docs/openapi.yaml" target="_blank" rel="noreferrer"

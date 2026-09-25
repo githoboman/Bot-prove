@@ -1,6 +1,6 @@
 # Status & Roadmap
 
-> Current state as of 2026-07-26. All systems live on Casper testnet.
+> Current state as of 2026-07-26. All systems live on BOT Chain testnet.
 
 ## ✅ What's Live
 
@@ -18,7 +18,7 @@ All contract WASM is built in CI (`.github/workflows/check.yml →
 build-contracts`) with a size gate: `scripts/contract-size-report.sh`
 fails CI if any `.wasm` exceeds 200KB (hard gas ceiling); a warning
 fires above 65KB (historical `installOrUpgrade` limit under
-casper-js-sdk 5.0.12). The last three contracts above needed an
+bot-js-sdk 5.0.12). The last three contracts above needed an
 MVP-clean WASM toolchain fix (Rust nightly `-Z build-std`, disabled
 bulk-memory-opt/sign-ext/reference-types, `wasm-opt
 --signext-lowering`, stripped `target_features`) to pass that gate and
@@ -157,7 +157,7 @@ external-observer) with per-class mitigation ladder priced honestly.
 **Payload privacy ≠ metadata privacy.** The hash-only architectural boundary
 from `LEGAL/DATA_PROTECTION.md` solves *what* the Service sees; it does not
 solve *how much can be inferred from the fact that the Service saw anything*.
-Anchor addresses on Casper Network are pseudonyms, not anonymity primitives;
+Anchor addresses on BOT Chain Network are pseudonyms, not anonymity primitives;
 traffic patterns leak business rhythm; verifier-side calls fingerprint the
 Verifier. Any commit that promises "anonymous attestation" or "unlinkable
 proofs" without a hard REAL/SIMULATION qualifier is a defect.

@@ -1,11 +1,11 @@
-# How to Judge CasperProver — Casper Hackathon 2026
+# How to Judge BotProve — BOT Chain Hackathon 2026
 
 > A **2-minute** path for judges. If you have 20 minutes, follow the
 > deep-dive links; if you have 2, the *Fast path* is what you need.
 
 ## Fast path (2 minutes)
 
-1. Open the live console: **https://casperprover.xyz**
+1. Open the live console: **https://botprove.xyz**
 2. Click **Lab → ZK Proofs**.
    - Prove knowledge of preimage `42`. Real gnark BN254/MiMC Groth16.
    - Verify. Then change one byte and verify again → fails. That's
@@ -16,11 +16,11 @@
 That's it. Everything below is depth on how each of the 8 judging
 criteria is satisfied.
 
-## 8-criteria map — Casper Hackathon 2026
+## 8-criteria map — BOT Chain Hackathon 2026
 
 | # | Criterion | Where to look |
 |---|-----------|---------------|
-| 1 | **Casper-native architecture** | `contracts/` — 9 deployed Rust WASM contracts on testnet (proof-registry, verifier-gate, defi-mock, stake-slashing, proof-of-inference, model-registry, proof-aggregation, governance, zk-verifier). Cross-contract Merkle-inclusion verification. Contract hashes at `/lab/contracts` and in `README.md`. |
+| 1 | **BOT Chain-native architecture** | `contracts/` — 9 deployed Rust WASM contracts on testnet (proof-registry, verifier-gate, defi-mock, stake-slashing, proof-of-inference, model-registry, proof-aggregation, governance, zk-verifier). Cross-contract Merkle-inclusion verification. Contract hashes at `/lab/contracts` and in `README.md`. |
 | 2 | **Working demo on testnet** | `/lab/zk-proofs` — real gnark BN254/MiMC Groth16 prove + verify. `/lab/proofs` — deterministic proof engine with optional on-chain anchoring. 248+ testnet txs to date across all 9 contracts. |
 | 3 | **Technical correctness** | Engine tests: `engine/zk_gate4_test.go` (real Groth16 round-trip + sim banner regression). Contract tests: `contracts/tests/` including 28 tests for the proof-aggregation guard suite. Independent smoke suite: `./verify.sh`. |
 | 4 | **Novelty / originality** | Real gnark BN254/MiMC Groth16 as the primary ZK path (hash-based conceptual endpoints kept only as `[sim]` for comparison). Hybrid Ed25519 + ML-DSA-65 (FIPS 204) signatures. Merkle-inclusion cross-contract verification. Stake-slashing economic-security layer on-chain. |
@@ -33,7 +33,7 @@ criteria is satisfied.
 
 | Component | Status | Notes |
 |-----------|--------|-------|
-| 4 Casper testnet contracts (proof-registry, verifier-gate, defi-mock, stake-slashing) | **Real** (on-chain) | Hashes in README + `/lab/contracts`. |
+| 4 BOT Chain testnet contracts (proof-registry, verifier-gate, defi-mock, stake-slashing) | **Real** (on-chain) | Hashes in README + `/lab/contracts`. |
 | Cross-contract Merkle inclusion verification | **Real** (on-chain) | verifier-gate consumes proof-registry state. |
 | Stake slashing on revoked/invalid proofs | **Real** (on-chain) | Hardened redeploy 2026-07-19. |
 | Real gnark BN254 Groth16 (MiMC preimage) | **Real** (off-chain crypto) | `/zk/groth16-real/*` — primary ZK path. |
@@ -100,7 +100,7 @@ a judge key is explicitly supplied.
 
 ## Regulatory posture (30-second read)
 
-CasperProver is a **compliance enabler**, not a regulated entity. It
+BotProve is a **compliance enabler**, not a regulated entity. It
 produces ZK-proofs and Merkle-committed evidence for downstream
 systems that ARE regulated. Full analysis in `docs/COMPLIANCE.md`.
 
@@ -129,9 +129,9 @@ Honest gap-list is in `docs/COMPLIANCE.md` (formal legal opinion
 per commercial deployer, salting guidance for low-entropy pre-images,
 per-jurisdiction deployer runbooks).
 
-## Anti-linking pass — this project is CasperProver
+## Anti-linking pass — this project is BotProve
 
-CasperProver and AgentEscrow402 are **independent submissions** by
+BotProve and AgentEscrow402 are **independent submissions** by
 different owners. They share cryptographic primitives (Merkle
 provenance math) because both are open-source and portable across
 languages, not because one is a fork of the other. No shared
@@ -139,6 +139,6 @@ wallets, no shared branding, no shared demo story.
 
 ## Contact
 
-- Repo: https://github.com/anna-stolbovskaja/CasperProver
-- Live: https://casperprover.xyz
+- Repo: https://github.com/anna-stolbovskaja/BotProve
+- Live: https://botprove.xyz
 - SDK: Go module (see `sdk/`) + MCP server (32 tools)

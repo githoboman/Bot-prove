@@ -25,7 +25,7 @@ bug — please file it as an INVARIANT BREAK issue.
 
 To claim a small-model TLC / Apalache pass we would need, in this repo:
 
-1. `models/` directory containing a `CasperProverCore.tla` module (or
+1. `models/` directory containing a `BotProveCore.tla` module (or
    Quint / Apalache equivalent).
 2. A `MC.tla` model config bounding state (typically at most 3 accounts,
    4 stake amounts, 2 slash amounts).
@@ -59,7 +59,7 @@ The invariants worth modelling first (in this order):
   crates it depends on are large enough that "proving them correct"
   would be a multi-year research project. We rely on the audits and
   test suites those crates ship.
-- Proof of the Casper Condor 1.5 host functions. Not our surface.
+- Proof of the BOT Chain Condor 1.5 host functions. Not our surface.
 - Proof of the frontend or the SDK code paths. Not the kind of code
   that benefits from formal methods.
 

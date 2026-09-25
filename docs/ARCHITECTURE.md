@@ -20,7 +20,7 @@ graph TB
         KYC[KYC Demo]
     end
 
-    subgraph "Smart Contracts (Rust / Casper 2.x)"
+    subgraph "Smart Contracts (Rust / BOT Chain 2.x)"
         PR[proof-registry]
         VG[verifier-gate]
         DM[defi-mock]
@@ -38,7 +38,7 @@ graph TB
 
     subgraph "Storage"
         PG[(PostgreSQL)]
-        CS[Casper Testnet]
+        CS[BOT Chain Testnet]
     end
 
     UI --> API
@@ -66,7 +66,7 @@ sequenceDiagram
     participant E as Engine
     participant H as Hasher (SHA-256)
     participant M as Merkle Tree
-    participant C as Casper Network
+    participant C as BOT Chain Network
 
     A->>E: (input, output, model)
     E->>H: hash(input), hash(output), hash(model)

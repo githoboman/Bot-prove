@@ -7,14 +7,14 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/api"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/judge"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/judge/hitl"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/kyc"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/llm"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/prover"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/store"
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/verifier"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/api"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/judge"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/judge/hitl"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/kyc"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/llm"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/prover"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/store"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/verifier"
 )
 
 func main() {
@@ -47,7 +47,7 @@ func main() {
 }
 
 func usage() {
-	fmt.Fprintf(os.Stderr, "Usage: casperprover <command>\n\n")
+	fmt.Fprintf(os.Stderr, "Usage: botprove <command>\n\n")
 	fmt.Fprintf(os.Stderr, "Commands:\n")
 	fmt.Fprintf(os.Stderr, "  prove   Generate a demo proof\n")
 	fmt.Fprintf(os.Stderr, "  verify  Verify a demo proof\n")

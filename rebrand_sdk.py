@@ -3,12 +3,12 @@ import os
 def rename_file_contents_and_paths(root_dir):
     # Mapping for contents
     replacements = {
-        "CasperProver": "BotProve",
-        "casperprover": "botprove",
-        "Casper testnet": "BOT Chain testnet",
-        "Casper": "BOT Chain",
-        "casper": "bot",
-        "did:casper": "did:bot"
+        "BotProve": "BotProve",
+        "botprove": "botprove",
+        "BOT Chain testnet": "BOT Chain testnet",
+        "BOT Chain": "BOT Chain",
+        "bot": "bot",
+        "did:bot": "did:bot"
     }
     
     ignore_dirs = {'.git', 'node_modules', 'dist', 'build', '.next', 'artifacts', 'cache'}

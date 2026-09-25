@@ -110,7 +110,7 @@ const KYC: React.FC = () => {
       />
       <h2 className="text-2xl font-bold text-gray-100 mb-2">KYC Operations Lab</h2>
       <p className="text-gray-400 mb-6">
-        Manage and verify Know Your Customer (KYC) statuses for users, ensuring privacy-preserving compliance on Casper.
+        Manage and verify Know Your Customer (KYC) statuses for users, ensuring privacy-preserving compliance on BOT Chain.
       </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

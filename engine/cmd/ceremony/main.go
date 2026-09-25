@@ -1,5 +1,5 @@
 // Command ceremony runs the Groth16 trusted-setup ceremony (Phase 1 +
-// Phase 2) for CasperProver's PreimageCircuit, writes the resulting
+// Phase 2) for BotProve's PreimageCircuit, writes the resulting
 // proving/verifying keys and Phase-1 SRS commons to disk, and emits a
 // JSON attestation of the transcript.
 //
@@ -24,7 +24,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/anna-stolbovskaja/CasperProver/engine/internal/zkverifier/ceremony"
+	"github.com/anna-stolbovskaja/BotProve/engine/internal/zkverifier/ceremony"
 )
 
 func main() {

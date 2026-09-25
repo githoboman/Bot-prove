@@ -13,12 +13,12 @@ import { createRequire } from "node:module";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const require = createRequire(import.meta.url);
-const sdk = require(path.resolve(__dirname, "../frontend/node_modules/casper-js-sdk"));
+const sdk = require(path.resolve(__dirname, "../frontend/node_modules/bot-js-sdk"));
 
 const { ContractCallBuilder, HttpHandler, RpcClient, PrivateKey, KeyAlgorithm, Args, CLValue, CLTypeString } = sdk;
 
-const CHAIN = "casper-test";
-const NODE = "https://node.testnet.casper.network/rpc";
+const CHAIN = "bot-test";
+const NODE = "https://node.testnet.bot.network/rpc";
 const ANNA = PrivateKey.fromPem(fs.readFileSync("/tmp/anna.pem", "utf8"), KeyAlgorithm.SECP256K1);
 const DMO  = PrivateKey.fromPem(fs.readFileSync("/tmp/dmo.pem",  "utf8"), KeyAlgorithm.SECP256K1);
 const ANNA_AH_HEX = Buffer.from(ANNA.publicKey.accountHash().toBytes()).toString("hex");

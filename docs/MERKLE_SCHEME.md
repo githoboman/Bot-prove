@@ -3,7 +3,7 @@
 Backlog item **2.18 — reference / provenance vectors**.
 
 This document pins down the exact Merkle scheme this codebase implements so
-that any external verifier (JS, Rust, another Go module, a Casper contract)
+that any external verifier (JS, Rust, another Go module, a BOT Chain contract)
 can port it byte-for-byte. It also records the two known deviations from
 common Merkle designs so nobody is surprised at audit time.
 
