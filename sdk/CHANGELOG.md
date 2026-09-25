@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/githoboman/Bot-prove/compare/sdk/v0.1.2...sdk/v0.1.3) (2026-09-25)
+
+
+### Features
+
+* add multi-language SDKs, MCP server, examples, and publishing workflows ([8483c2d](https://github.com/githoboman/Bot-prove/commit/8483c2db6d19b26754fd1f9b7e9ca760007d4c49))
+
 ## [0.1.2](https://github.com/githoboman/Bot-prove/compare/sdk-go-vv0.1.1...sdk-go-vv0.1.2) (2026-07-29)
 
 
