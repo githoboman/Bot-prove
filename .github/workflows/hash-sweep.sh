@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# hash-sweep.sh — CI-friendly scan for superseded Casper contract hashes.
+# hash-sweep.sh — CI-friendly scan for superseded BOT Chain contract hashes.
 #
 # Runnable both in GitHub Actions and locally:
 #   bash .github/workflows/hash-sweep.sh

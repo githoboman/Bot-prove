@@ -1,11 +1,11 @@
-# CasperProver Python SDK
+# BotProve Python SDK
 
-Synchronous Python client and `cp` CLI for the CasperProver API.
+Synchronous Python client and `cp` CLI for the BotProve API.
 
 ## Install
 
 ```bash
-pip install casperprover-sdk
+pip install botprove-sdk
 # or from a local checkout:
 pip install -e sdk/python
 ```
@@ -13,7 +13,7 @@ pip install -e sdk/python
 ## Library
 
 ```python
-from casperprover_sdk import ProverClient
+from botprove_sdk import ProverClient
 
 client = ProverClient("http://localhost:9090")
 print(client.health())
@@ -32,7 +32,7 @@ assert client.verify(proof["id"])
 
 ## CLI
 
-Installed entry points: **`cprover`** (short) and **`casperprover`** (long).
+Installed entry points: **`cprover`** (short) and **`botprove`** (long).
 We avoid the name `cp` because it collides with the built-in Unix copy command.
 
 ```bash

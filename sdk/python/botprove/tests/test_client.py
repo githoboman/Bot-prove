@@ -1,7 +1,7 @@
-"""Tests for the CasperProver Python SDK.
+"""Tests for the BotProve Python SDK.
 
 These mirror the Go tests in sdk/primitives_test.go against a stdlib
-`http.server` fixture. Run via `python -m unittest casperprover.tests`
+`http.server` fixture. Run via `python -m unittest botprove.tests`
 from `sdk/python/`.
 """
 
@@ -13,7 +13,7 @@ import unittest
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from typing import Optional
 
-from casperprover import (
+from botprove import (
     BatchItem,
     Client,
     ProveRequest,

@@ -1,5 +1,5 @@
-// Command mcpserver runs the CasperProver MCP (Model Context Protocol)
-// server over stdio, backed by a real CasperProver API instance.
+// Command mcpserver runs the BotProve MCP (Model Context Protocol)
+// server over stdio, backed by a real BotProve API instance.
 //
 // Usage:
 //
@@ -16,7 +16,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/anna-stolbovskaja/CasperProver/sdk"
+	"github.com/anna-stolbovskaja/BotProve/sdk"
 )
 
 func main() {

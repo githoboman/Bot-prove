@@ -1,6 +1,6 @@
 name: sdk-publish-pypi
 
-# Publishes casperprover to PyPI.
+# Publishes botprove to PyPI.
 #
 # CI mode: on every push/PR touching sdk/python/**, builds the sdist +
 # wheel with `python -m build` and validates them with `twine check` so a
@@ -57,7 +57,7 @@ jobs:
         run: python -m pip install --upgrade pip build twine
       - name: Test
         working-directory: sdk/python
-        run: python -m unittest casperprover.tests.test_client -v
+        run: python -m unittest botprove.tests.test_client -v
       - name: Build sdist + wheel
         working-directory: sdk/python
         run: python -m build
@@ -70,10 +70,10 @@ jobs:
           set -e
           wheel=$(ls dist/*.whl | head -n1)
           python -m zipfile -l "$wheel" | tee /tmp/wheel.list
-          grep -q 'casperprover/client.py' /tmp/wheel.list
-          grep -q 'casperprover/receipt.py' /tmp/wheel.list
+          grep -q 'botprove/client.py' /tmp/wheel.list
+          grep -q 'botprove/receipt.py' /tmp/wheel.list
           # tests must NOT ship in the release wheel
-          if grep -q 'casperprover/tests' /tmp/wheel.list; then
+          if grep -q 'botprove/tests' /tmp/wheel.list; then
             echo "wheel contains tests/ — pyproject exclude is broken" >&2
             exit 1
           fi
@@ -109,7 +109,7 @@ jobs:
       id-token: write # required for Trusted Publishing
     environment:
       name: pypi-publish
-      url: https://pypi.org/project/casperprover/
+      url: https://pypi.org/project/botprove/
     steps:
       - uses: actions/download-artifact@v4
         with:

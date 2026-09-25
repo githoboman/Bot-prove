@@ -1,4 +1,4 @@
-# CasperProver TypeScript SDK
+# BotProve TypeScript SDK
 
 > **Status:** `v0.1.0`. Full-feature client with `prove`, `verify`, `batch`,
 > `anchor`, and a shared receipt validator. Feature parity with the Go and
@@ -7,7 +7,7 @@
 ## Install (once published)
 
 ```sh
-npm install @casperprover/sdk
+npm install @botprove/sdk
 ```
 
 Until the first release, add it as a path dependency or import directly
@@ -16,10 +16,10 @@ from the checkout.
 ## Quickstart
 
 ```ts
-import { Client, verifyReceiptBytes } from "@casperprover/sdk";
+import { Client, verifyReceiptBytes } from "@botprove/sdk";
 
 const c = new Client({
-  baseUrl: "https://casperprover-api-ylsh.onrender.com",
+  baseUrl: "https://botprove-api-ylsh.onrender.com",
   apiKey: "pk_...",
 });
 

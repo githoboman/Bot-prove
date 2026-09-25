@@ -1,6 +1,6 @@
 package sdk
 
-// Request-scoped options and API-versioning helpers for the CasperProver SDK.
+// Request-scoped options and API-versioning helpers for the BotProve SDK.
 //
 // These layer on top of the low-level Client transport and are consumed by
 // the high-level primitives in primitives.go. They are intentionally small,

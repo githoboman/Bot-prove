@@ -15,7 +15,7 @@ const (
 	defaultTimeout = 30 * time.Second
 )
 
-// Client is a Go client for the CasperProver REST API.
+// Client is a Go client for the BotProve REST API.
 //
 // Every method here maps 1:1 to a real route registered in
 // engine/internal/api/server.go - see docs/openapi.yaml for the
@@ -47,7 +47,7 @@ func WithAuthToken(token string) ClientOption {
 	return func(c *Client) { c.authToken = token }
 }
 
-// NewClient creates a CasperProver API client. Defaults to APIVersionV1;
+// NewClient creates a BotProve API client. Defaults to APIVersionV1;
 // override with WithAPIVersion(APIVersionUnversioned) for legacy routes.
 func NewClient(opts ...ClientOption) *Client {
 	c := &Client{

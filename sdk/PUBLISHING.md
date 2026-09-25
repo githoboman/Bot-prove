@@ -1,6 +1,6 @@
 # SDK publishing
 
-This document is the source of truth for how the three CasperProver SDKs
+This document is the source of truth for how the three BotProve SDKs
 ship. There are no paid services in the pipeline — everything runs on
 GitHub Actions minutes, npm, PyPI, and the public Go proxy.
 
@@ -8,9 +8,9 @@ GitHub Actions minutes, npm, PyPI, and the public Go proxy.
 
 | SDK        | Package                              | Registry             | Tag prefix    | Manifest of record            |
 |------------|--------------------------------------|----------------------|---------------|-------------------------------|
-| TypeScript | `@casperprover/sdk`                  | npmjs.com            | `sdk-ts-v*`   | `sdk/typescript/package.json` |
-| Python     | `casperprover`                       | pypi.org             | `sdk-py-v*`   | `sdk/python/pyproject.toml`   |
-| Go         | `.../CasperProver/sdk`               | proxy.golang.org     | `sdk/v*`      | `sdk/version.txt` (+ go.mod)  |
+| TypeScript | `@botprove/sdk`                  | npmjs.com            | `sdk-ts-v*`   | `sdk/typescript/package.json` |
+| Python     | `botprove`                       | pypi.org             | `sdk-py-v*`   | `sdk/python/pyproject.toml`   |
+| Go         | `.../BotProve/sdk`               | proxy.golang.org     | `sdk/v*`      | `sdk/version.txt` (+ go.mod)  |
 
 Every component is independently versioned. A `feat(sdk):` commit that
 touches all three bumps all three; a `fix(sdk-py):` touches only Python.
@@ -73,15 +73,15 @@ missing README, or corrupt wheel fails the PR:
 - **npm** — `npm pack --dry-run` + a grep on the tarball to prove
   `dist/index.js` and `dist/index.d.ts` are actually in the archive.
 - **PyPI** — `python -m build` + `twine check dist/*` + a `zipfile -l`
-  grep on the wheel that (a) `casperprover/client.py` is present and
-  (b) `casperprover/tests/**` is NOT bundled into the release wheel.
+  grep on the wheel that (a) `botprove/client.py` is present and
+  (b) `botprove/tests/**` is NOT bundled into the release wheel.
 - **Go** — `go mod tidy -diff`, `go vet`, `go test -race`, plus a check
   that the module path in `go.mod` matches the expected canonical path.
 
 ## Publishing credentials
 
 - **npm** — repo secret `NPM_TOKEN`, an *automation token* owned by an
-  account that is a maintainer of the `@casperprover` org. The publish
+  account that is a maintainer of the `@botprove` org. The publish
   job is gated on the `npm-publish` GitHub Environment so a reviewer
   approves each release.
 - **PyPI** — no long-lived secret. The publish job uses **Trusted

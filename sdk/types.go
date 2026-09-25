@@ -1,6 +1,6 @@
 package sdk
 
-// Response payloads from the CasperProver API are intentionally returned as
+// Response payloads from the BotProve API are intentionally returned as
 // map[string]any by Client methods (see client.go) rather than fixed structs:
 // several endpoints (proofs, aggregation batches, inference results) return
 // server-side maps whose optional fields vary by state (e.g. a batch only has

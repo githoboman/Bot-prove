@@ -1,6 +1,6 @@
 name: sdk-publish-npm
 
-# Publishes @casperprover/sdk to npm.
+# Publishes @botprove/sdk to npm.
 #
 # CI mode: on every push/PR touching sdk/typescript/**, runs a full
 # `npm pack --dry-run` so a broken package.json / missing file / bad
@@ -10,7 +10,7 @@ name: sdk-publish-npm
 # (which release-please cuts automatically for the sdk-ts component), or
 # manually via `workflow_dispatch` with `dry_run=false`. Requires the
 # repository secret `NPM_TOKEN` (an automation token with publish rights
-# on the @casperprover npm org). Publish job is gated on a GitHub
+# on the @botprove npm org). Publish job is gated on a GitHub
 # Environment (`npm-publish`) so a reviewer can hold releases.
 
 on:
@@ -95,7 +95,7 @@ jobs:
       id-token: write # for npm provenance
     environment:
       name: npm-publish
-      url: https://www.npmjs.com/package/@casperprover/sdk
+      url: https://www.npmjs.com/package/@botprove/sdk
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v4

@@ -2,7 +2,7 @@ package sdk
 
 // Typed request/response shapes for the v1 primitives.
 //
-// These mirror the JSON the CasperProver API returns; unknown fields on the
+// These mirror the JSON the BotProve API returns; unknown fields on the
 // wire are ignored (Go's json decoder default).
 
 // ProveRequest is the body of POST /v1/proofs.

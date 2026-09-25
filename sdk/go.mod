@@ -1,4 +1,4 @@
-module github.com/anna-stolbovskaja/CasperProver/sdk
+module github.com/anna-stolbovskaja/BotProve/sdk
 
 go 1.22.0
 

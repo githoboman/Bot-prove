@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-// newTestServer spins up a fake CasperProver API for round-trip tests.
+// newTestServer spins up a fake BotProve API for round-trip tests.
 func newTestServer(t *testing.T, method, path string, respStatus int, respBody map[string]any, wantAuth string) *httptest.Server {
 	t.Helper()
 	mux := http.NewServeMux()

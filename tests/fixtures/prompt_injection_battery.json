@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "CasperProver — prompt-injection & control-input battery",
+  "title": "BotProve — prompt-injection & control-input battery",
   "description": "Runnable adversarial-input fixtures for /inference/prove. Each row asserts an invariant on the proof pipeline. Fixtures cover control chars, unicode homoglyphs, direct-inject jailbreak markers, oversized payloads, and format-confusion. See docs/RED_TEAM.md § Attack vectors #7-#9 for context.",
   "generated_at": "2026-07-20",
   "target_endpoint": "POST /inference/prove",

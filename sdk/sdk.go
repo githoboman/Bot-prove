@@ -1,4 +1,4 @@
-// Package sdk provides a Go client for the CasperProver REST API and an
+// Package sdk provides a Go client for the BotProve REST API and an
 // MCP (Model Context Protocol) stdio server exposing a subset of it as
 // LLM-callable tools.
 //

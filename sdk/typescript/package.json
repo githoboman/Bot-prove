@@ -1,15 +1,15 @@
 {
-  "name": "@casperprover/sdk",
+  "name": "@botprove/sdk",
   "version": "0.1.2",
-  "description": "CasperProver TypeScript SDK - prove, verify, batch, anchor.",
+  "description": "BotProve TypeScript SDK - prove, verify, batch, anchor.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anna-stolbovskaja/CasperProver.git",
+    "url": "git+https://github.com/anna-stolbovskaja/BotProve.git",
     "directory": "sdk/typescript"
   },
-  "homepage": "https://github.com/anna-stolbovskaja/CasperProver#readme",
+  "homepage": "https://github.com/anna-stolbovskaja/BotProve#readme",
   "bugs": {
-    "url": "https://github.com/anna-stolbovskaja/CasperProver/issues"
+    "url": "https://github.com/anna-stolbovskaja/BotProve/issues"
   },
   "type": "module",
   "main": "dist/index.js",
@@ -36,11 +36,11 @@
     "access": "public"
   },
   "keywords": [
-    "casperprover",
+    "botprove",
     "zk",
     "groth16",
     "attestation",
-    "casper"
+    "bot"
   ],
   "license": "MIT",
   "devDependencies": {

@@ -1,4 +1,4 @@
-// Two-minute TypeScript / Node quickstart for the CasperProver API.
+// Two-minute TypeScript / Node quickstart for the BotProve API.
 //
 // Run (Node 20+):
 //     tsx sdk/examples/typescript/quickstart.ts

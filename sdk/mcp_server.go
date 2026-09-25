@@ -1,5 +1,5 @@
 // Package sdk provides an MCP (Model Context Protocol) server manifest and
-// stdio JSON-RPC loop (RunStdio) for CasperProver.
+// stdio JSON-RPC loop (RunStdio) for BotProve.
 //
 // This file only defines the tool manifest and the stdio transport loop; it
 // has no `func main` and cannot be run directly (`go run sdk/mcp_server.go`
@@ -452,7 +452,7 @@ var mcpTools = []MCPTool{
 // Manifest returns the MCP tool manifest.
 func Manifest() MCPManifest {
 	return MCPManifest{
-		Name:    "casperprover",
+		Name:    "botprove",
 		Version: "0.3.0",
 		Tools:   mcpTools,
 	}
@@ -474,7 +474,7 @@ type jsonrpcResponse struct {
 // RunStdio starts a JSON-RPC stdio loop for MCP.
 // Tool calls are forwarded to the given handler function.
 func RunStdio(handler func(name string, args map[string]interface{}) (string, error)) {
-	fmt.Fprintln(os.Stderr, "CasperProver MCP server (stdio)")
+	fmt.Fprintln(os.Stderr, "BotProve MCP server (stdio)")
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		line := scanner.Text()

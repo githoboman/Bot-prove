@@ -1,6 +1,6 @@
-"""CasperProver Python SDK - core client.
+"""BotProve Python SDK - core client.
 
-Thin stdlib-only wrapper around the CasperProver v1 REST API. Feature parity
+Thin stdlib-only wrapper around the BotProve v1 REST API. Feature parity
 with the Go SDK at sdk/primitives.go: `prove`, `verify`, `batch`, `anchor`,
 plus per-request idempotency-key support.
 
@@ -22,7 +22,7 @@ DEFAULT_TIMEOUT = 30.0
 
 
 class ApiError(Exception):
-    """Raised when the CasperProver API returns a non-2xx status."""
+    """Raised when the BotProve API returns a non-2xx status."""
 
     def __init__(self, status: int, body: str, message: str = "") -> None:
         self.status = status
@@ -160,7 +160,7 @@ class AnchorResponse:
 
 
 class Client:
-    """Synchronous CasperProver v1 client.
+    """Synchronous BotProve v1 client.
 
     Args:
         base_url: API base URL. Defaults to http://localhost:9090.

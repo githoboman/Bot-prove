@@ -1,5 +1,5 @@
 /**
- * CasperProver TypeScript SDK - core client.
+ * BotProve TypeScript SDK - core client.
  *
  * Uses global `fetch` (Node >= 20.6 and every modern browser). No runtime
  * dependencies. Feature parity with sdk/primitives.go.
@@ -85,7 +85,7 @@ export interface AnchorResponse {
   raw?: Record<string, unknown>;
 }
 
-/** Thrown when the CasperProver API returns a non-2xx status. */
+/** Thrown when the BotProve API returns a non-2xx status. */
 export class ApiError extends Error {
   public readonly status: number;
   public readonly body: string;

@@ -1,9 +1,9 @@
 /**
- * CasperProver TypeScript SDK.
+ * BotProve TypeScript SDK.
  *
  * @example
  * ```ts
- * import { Client, ProveRequest, verifyReceipt } from "@casperprover/sdk";
+ * import { Client, ProveRequest, verifyReceipt } from "@botprove/sdk";
  *
  * const c = new Client({ baseUrl: "http://localhost:9090", apiKey: "pk_..." });
  * const proof = await c.prove({ agent: "a", model: "m", input: "hi", output: "ok" });
@@ -11,7 +11,7 @@
  * ```
  *
  * Feature parity with the Go SDK (`sdk/primitives.go`) and the Python SDK
- * (`sdk/python/casperprover`). All hash primitives are bit-identical.
+ * (`sdk/python/botprove`). All hash primitives are bit-identical.
  */
 
 export {

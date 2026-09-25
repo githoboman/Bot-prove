@@ -1,4 +1,4 @@
-# CasperProver SDK smoke targets.
+# BotProve SDK smoke targets.
 #
 # `make smoke` runs the full offline unit-test suite across Go / Python /
 # TypeScript. `make smoke-live` additionally shells out to the quickstart
@@ -14,7 +14,7 @@ smoke-go:
 
 smoke-python:
 	@echo "-- python sdk"
-	@cd python && python3 -m unittest casperprover.tests.test_client -v
+	@cd python && python3 -m unittest botprove.tests.test_client -v
 
 smoke-typescript:
 	@echo "-- typescript sdk"

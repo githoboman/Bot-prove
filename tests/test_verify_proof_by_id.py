@@ -118,7 +118,7 @@ class TestStages:
         log = script.RunLog(proof_id="p1", started_at="now", api="http://x")
         with patch(
             "urllib.request.urlopen",
-            _make_urlopen({"casper.network/rpc": (200, {"jsonrpc": "2.0", "id": 1, "result": {"api_version": "2.0"}})}),
+            _make_urlopen({"bot.network/rpc": (200, {"jsonrpc": "2.0", "id": 1, "result": {"api_version": "2.0"}})}),
         ):
             script.stage_04_on_chain_registry(log)
         assert log.stages[0].status == "PASS"

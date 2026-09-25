@@ -10,10 +10,10 @@ import (
 	"strings"
 )
 
-// This file implements the CasperProver "proof receipt" client-side
+// This file implements the BotProve "proof receipt" client-side
 // validator. It is intentionally minimal and stdlib-only so an SDK consumer
 // with just Go stdlib can verify a receipt without pulling in gnark, the
-// server crypto package or a Casper RPC dependency.
+// server crypto package or a BOT Chain RPC dependency.
 //
 // A "receipt" here is the JSON shape the server returns from POST
 // /v1/proofs and GET /v1/proofs/{id}/export. This validator re-derives the

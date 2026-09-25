@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "CasperProver — equivocation & double-signing battery",
+  "title": "BotProve — equivocation & double-signing battery",
   "description": "Fixtures for detecting agent equivocation: same agent produces two conflicting proofs for the same (model, input) pair. This is the ZK/multi-agent analog of double-spend / slashing offense. See stake-slashing contract for the on-chain enforcement.",
   "generated_at": "2026-07-20",
   "target_flow": "POST /inference/prove twice with same (agent, model_id, input) but different `output`",
@@ -15,13 +15,13 @@
       "id": "EQV-01",
       "name": "textbook double-attestation",
       "proof_a": {
-        "agent": "did:casper:agent-1",
+        "agent": "did:bot:agent-1",
         "model_id": "gpt-x",
         "input": "is BTC > $50k?",
         "output": "yes"
       },
       "proof_b": {
-        "agent": "did:casper:agent-1",
+        "agent": "did:bot:agent-1",
         "model_id": "gpt-x",
         "input": "is BTC > $50k?",
         "output": "no"
@@ -35,13 +35,13 @@
       "id": "EQV-02",
       "name": "different agents — NOT equivocation",
       "proof_a": {
-        "agent": "did:casper:agent-1",
+        "agent": "did:bot:agent-1",
         "model_id": "gpt-x",
         "input": "same-question",
         "output": "yes"
       },
       "proof_b": {
-        "agent": "did:casper:agent-2",
+        "agent": "did:bot:agent-2",
         "model_id": "gpt-x",
         "input": "same-question",
         "output": "no"
@@ -55,13 +55,13 @@
       "id": "EQV-03",
       "name": "different models — NOT equivocation",
       "proof_a": {
-        "agent": "did:casper:agent-1",
+        "agent": "did:bot:agent-1",
         "model_id": "gpt-x-v1",
         "input": "same-question",
         "output": "yes"
       },
       "proof_b": {
-        "agent": "did:casper:agent-1",
+        "agent": "did:bot:agent-1",
         "model_id": "gpt-x-v2",
         "input": "same-question",
         "output": "no"
@@ -75,13 +75,13 @@
       "id": "EQV-04",
       "name": "same output — NOT equivocation (idempotent re-submit)",
       "proof_a": {
-        "agent": "did:casper:agent-1",
+        "agent": "did:bot:agent-1",
         "model_id": "gpt-x",
         "input": "same-question",
         "output": "yes"
       },
       "proof_b": {
-        "agent": "did:casper:agent-1",
+        "agent": "did:bot:agent-1",
         "model_id": "gpt-x",
         "input": "same-question",
         "output": "yes"
@@ -95,13 +95,13 @@
       "id": "EQV-05",
       "name": "whitespace-only output diff",
       "proof_a": {
-        "agent": "did:casper:agent-1",
+        "agent": "did:bot:agent-1",
         "model_id": "gpt-x",
         "input": "same-question",
         "output": "yes"
       },
       "proof_b": {
-        "agent": "did:casper:agent-1",
+        "agent": "did:bot:agent-1",
         "model_id": "gpt-x",
         "input": "same-question",
         "output": " yes"
@@ -115,13 +115,13 @@
       "id": "EQV-06",
       "name": "case-sensitivity",
       "proof_a": {
-        "agent": "did:casper:agent-1",
+        "agent": "did:bot:agent-1",
         "model_id": "gpt-x",
         "input": "same-question",
         "output": "YES"
       },
       "proof_b": {
-        "agent": "did:casper:agent-1",
+        "agent": "did:bot:agent-1",
         "model_id": "gpt-x",
         "input": "same-question",
         "output": "yes"

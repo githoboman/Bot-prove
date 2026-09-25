@@ -1,4 +1,4 @@
-"""Two-minute Python quickstart for the CasperProver API.
+"""Two-minute Python quickstart for the BotProve API.
 
 Run:
     python -m sdk.examples.python.quickstart

@@ -1,10 +1,10 @@
-"""CasperProver Python SDK.
+"""BotProve Python SDK.
 
 Public API::
 
-    from casperprover import Client, ProveRequest, VerifyReceipt
+    from botprove import Client, ProveRequest, VerifyReceipt
 
-    c = Client(base_url="https://casperprover-api-ylsh.onrender.com",
+    c = Client(base_url="https://botprove-api-ylsh.onrender.com",
                api_key="pk_...")
     proof = c.prove(ProveRequest(agent="a", model="m", input="hi", output="ok"))
     ok = c.verify(proof.id).valid

@@ -4,7 +4,7 @@
 //     go run ./sdk/examples/go/quickstart
 //
 // Expects the API up locally (make api-run or `cd engine && go run
-// ./cmd/casperprover serve`). Two-minute end-to-end: submit a proof,
+// ./cmd/botprove serve`). Two-minute end-to-end: submit a proof,
 // list, get, verify — no auth token needed unless you started the
 // server with API_KEY.
 package main
@@ -17,7 +17,7 @@ import (
 	"os"
 	"time"
 
-	sdk "github.com/anna-stolbovskaja/CasperProver/sdk"
+	sdk "github.com/anna-stolbovskaja/BotProve/sdk"
 )
 
 func main() {

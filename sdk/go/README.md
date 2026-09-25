@@ -1,4 +1,4 @@
-# CasperProver Go SDK
+# BotProve Go SDK
 
 > **Status:** `v0.1.0`. High-level `Prove` / `Verify` / `Batch` / `Anchor`
 > primitives + typed responses. The lower-level route methods in
@@ -7,16 +7,16 @@
 ## Install
 
 ```sh
-go get github.com/anna-stolbovskaja/CasperProver/sdk
+go get github.com/anna-stolbovskaja/BotProve/sdk
 ```
 
 ## Quickstart
 
 ```go
-import "github.com/anna-stolbovskaja/CasperProver/sdk"
+import "github.com/anna-stolbovskaja/BotProve/sdk"
 
 c := sdk.NewClient(
-    sdk.WithBaseURL("https://casperprover-api-ylsh.onrender.com"),
+    sdk.WithBaseURL("https://botprove-api-ylsh.onrender.com"),
     sdk.WithAuthToken("pk_..."),
 )
 
