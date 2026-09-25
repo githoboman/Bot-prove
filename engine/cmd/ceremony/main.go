@@ -24,7 +24,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/zkverifier/ceremony"
+	"github.com/githoboman/Bot-prove/engine/internal/zkverifier/ceremony"
 )
 
 func main() {

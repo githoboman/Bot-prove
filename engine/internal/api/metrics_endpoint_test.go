@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/observability"
+	"github.com/githoboman/Bot-prove/engine/internal/observability"
 )
 
 // TestMetricsEndpoint checks the observability handler serves the

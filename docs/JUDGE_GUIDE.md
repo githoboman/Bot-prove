@@ -43,7 +43,7 @@ Anchor: `deploy-out/onchain.json` is the single source of truth (SDK, frontend, 
 
 | # | Action | Expected evidence | Boundary |
 |---|---|---|---|
-| 1 | Open `https://botprove.xyz/lab/contracts` | All eight deployed contracts + explorer links | **ON-CHAIN** |
+| 1 | Open `https://bot-prove.vercel.app/lab/contracts` | All eight deployed contracts + explorer links | **ON-CHAIN** |
 | 2 | Run `python3 scripts/judge_demo.py` | Contract queries + API/frontend checks pass | **ON-CHAIN / LIVE SERVICE** |
 | 3 | Open `/lab/zk-proofs`, prove preimage `42`, then verify | Valid gnark BN254/MiMC Groth16 proof | **REAL CRYPTO, OFF-CHAIN** |
 | 4 | Flip one byte of `proof_hex`, verify again | Verification fails | **NEGATIVE SECURITY TEST** |
@@ -64,7 +64,7 @@ Anchor: `deploy-out/onchain.json` is the single source of truth (SDK, frontend, 
 | 5 | **Business model** | `docs/business-model.md`, `docs/pricing.md`, `docs/MAINNET_LAUNCH_PLAN.md` | SDK subscription tier, per-proof anchor fee, enterprise governance seat pricing, launch plan documented |
 | 6 | **Security & honest claims** | `README.md` badges, `docs/threat-model.md`, `docs/hackathon/CP_STRICT_MODE.md` | REAL / ON-CHAIN / SIMULATION labels on every surface; no "on-chain Groth16", no "ZK proof of ML inference"; reentrancy tests, invariant tests, gitleaks in CI |
 | 7 | **Documentation & DX** | `README.md`, `docs/quickstart.md`, `sdk/*/examples/`, `docs/JUDGE_GUIDE.md` | One-command demo, Go SDK quickstart, MCP server quickstart, architecture doc, data-room `/data-room` |
-| 8 | **Presentation** | `README.md`, submission video (link in DoraHacks), `docs/pitch.md` | Video walkthrough of `/lab/*`, honest scope in `CP_STRICT_MODE.md`, live deployed frontend `botprove.xyz` |
+| 8 | **Presentation** | `README.md`, submission video (link in DoraHacks), `docs/pitch.md` | Video walkthrough of `/lab/*`, honest scope in `CP_STRICT_MODE.md`, live deployed frontend `bot-prove.vercel.app` |
 
 ## 4. Claim boundary
 
@@ -93,7 +93,7 @@ A failed check exits non-zero and prints a bounded HTTP/network error without se
 
 - **Reproducible demo:** `scripts/judge_demo.py`, `verify.sh`
 - **On-chain manifest:** `deploy-out/onchain.json`
-- **Frontend:** `https://botprove.xyz` (routes `/lab/contracts`, `/lab/zk-proofs`, `/lab/pq-crypto`, `/lab/decisions`, `/lab/playground`)
+- **Frontend:** `https://bot-prove.vercel.app` (routes `/lab/contracts`, `/lab/zk-proofs`, `/lab/pq-crypto`, `/lab/decisions`, `/lab/playground`)
 - **API health:** `https://botprove-api-ylsh.onrender.com/health`
 - **SDK entry:** `sdk/go/README.md`, `sdk/mcp/README.md`
 - **Architecture:** `docs/architecture.md`

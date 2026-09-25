@@ -98,7 +98,7 @@ export default function ApiDocs() {
             <code className="text-red-400 bg-red-500/10 px-2 py-0.5 rounded text-sm">https://botprove-api-ylsh.onrender.com</code>
           </p>
           <div className="mt-4 flex gap-3">
-            <a href="https://github.com/anna-stolbovskaja/Bot Prove/blob/main/docs/openapi.yaml" target="_blank" rel="noreferrer"
+            <a href="https://github.com/githoboman/Bot-prove/blob/main/docs/openapi.yaml" target="_blank" rel="noreferrer"
                className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors">
               <ExternalLink className="w-3.5 h-3.5" /> OpenAPI spec
             </a>
@@ -142,7 +142,7 @@ export default function ApiDocs() {
         <div className="mt-12 border-t border-cp-border pt-8 text-center">
           <p className="text-sm text-gray-600">
             Full OpenAPI 3.0 spec available at{' '}
-            <a href="https://github.com/anna-stolbovskaja/Bot Prove/blob/main/docs/openapi.yaml" target="_blank" rel="noreferrer" className="text-red-400 hover:text-red-300">
+            <a href="https://github.com/githoboman/Bot-prove/blob/main/docs/openapi.yaml" target="_blank" rel="noreferrer" className="text-red-400 hover:text-red-300">
               docs/openapi.yaml
             </a>
           </p>

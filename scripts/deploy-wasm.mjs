@@ -7,7 +7,7 @@
 //   scripts/deploy-wasm.mjs <path-to-contract.wasm> <secret-key.pem> [payment-motes]
 //
 // Env:
-//   CASPER_NODE=<rpc-url>   default https://node.testnet.cspr.cloud/rpc
+//   CASPER_NODE=<rpc-url>   default https://node.rpc.bohr.life/rpc
 //   CASPER_CHAIN=<name>     default bot-test
 //
 // The script fails FAST with a clear message on:
@@ -61,7 +61,7 @@ async function main() {
   console.log(`[deploy] payment=${paymentMotes} motes`);
 
   const chainName = process.env.CASPER_CHAIN || "bot-test";
-  const nodeUrl   = process.env.CASPER_NODE  || "https://node.testnet.cspr.cloud/rpc";
+  const nodeUrl   = process.env.CASPER_NODE  || "https://node.rpc.bohr.life/rpc";
   const apiKey    = process.env.CSPR_CLOUD_API_KEY || "";
   console.log(`[deploy] chain=${chainName}  node=${nodeUrl}${apiKey?"  auth=on":""}`);
 
@@ -90,7 +90,7 @@ async function main() {
   const res = await rpc.putTransaction(deploy);
   const hash = (res && (res.transactionHash || res.transaction_hash || res.hash)) || JSON.stringify(res);
   console.log(`[deploy] submitted tx=${JSON.stringify(hash)}`);
-  console.log(`[deploy] explorer: https://testnet.cspr.live/transaction/${typeof hash === 'string' ? hash : ''}`);
+  console.log(`[deploy] explorer: https://scan.botchain.ai/transaction/${typeof hash === 'string' ? hash : ''}`);
 
   try {
     const finalized = await rpc.waitForTransaction(deploy, 120_000);

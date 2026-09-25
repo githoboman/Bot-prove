@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/judge"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/judge/hitl"
+	"github.com/githoboman/Bot-prove/engine/internal/judge"
+	"github.com/githoboman/Bot-prove/engine/internal/judge/hitl"
 )
 
 func fixedNow() time.Time {

@@ -64,7 +64,7 @@ these three sitting in `undeployed_contracts` since the hackathon).
 ```bash
 # 1. Confirm on-chain execution success + deployer + cost + block
 for h in 35c003e5…d5b5646 fd21b26e…bed07c267 bde5cfb7…7da95e; do
-  curl -s https://api.testnet.cspr.live/deploys/$h | jq .data
+  curl -s https://api.scan.botchain.ai/deploys/$h | jq .data
 done
 
 # 2. Confirm entry_points live in global state (indexer-independent)

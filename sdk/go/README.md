@@ -7,13 +7,13 @@
 ## Install
 
 ```sh
-go get github.com/anna-stolbovskaja/BotProve/sdk
+go get github.com/githoboman/Bot-prove/sdk
 ```
 
 ## Quickstart
 
 ```go
-import "github.com/anna-stolbovskaja/BotProve/sdk"
+import "github.com/githoboman/Bot-prove/sdk"
 
 c := sdk.NewClient(
     sdk.WithBaseURL("https://botprove-api-ylsh.onrender.com"),

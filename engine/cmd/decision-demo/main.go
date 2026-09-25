@@ -26,7 +26,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/decision/attest"
+	"github.com/githoboman/Bot-prove/engine/internal/decision/attest"
 )
 
 type receipt struct {

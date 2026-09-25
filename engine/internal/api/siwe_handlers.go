@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/api/siwe"
+	"github.com/githoboman/Bot-prove/engine/internal/api/siwe"
 )
 
 // siweChallengeReq / siweChallengeResp — issue a fresh SIWE-like

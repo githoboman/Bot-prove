@@ -10,7 +10,7 @@
 > opcodes) that fixed the size/opcode issues this doc previously
 > documented. All three deploys are recorded in
 > [`deploy-out/onchain.json`](../deploy-out/onchain.json) and confirmed
-> `processed` via `api.testnet.cspr.cloud/deploys/<hash>`.
+> `processed` via `api.rpc.bohr.life/deploys/<hash>`.
 >
 > **Update (2026-07-27):** `zk-verifier` (`contracts/zk-verifier/`) was
 > written post-hackathon-deadline as roadmap work (BACKLOG 1.8) and
@@ -19,7 +19,7 @@
 > referencing "8 contracts" quietly excluded it. Deployed to testnet
 > 2026-07-27 using the identical MVP-clean recipe (53107 B, under the
 > 65536 B installOrUpgrade cap), deploy `1cbae7c8...`, verified via
-> `api.testnet.cspr.cloud/deploys/<hash>`.
+> `api.rpc.bohr.life/deploys/<hash>`.
 >
 > Canonical status now lives in [`TX_MANIFEST.md`](TX_MANIFEST.md) —
 > BotProve has **9 contracts live** on testnet, none pending.

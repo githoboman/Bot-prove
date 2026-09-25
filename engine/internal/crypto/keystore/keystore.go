@@ -40,7 +40,7 @@ import (
 	"context"
 	"errors"
 
-	pqcrypto "github.com/anna-stolbovskaja/BotProve/engine/internal/crypto"
+	pqcrypto "github.com/githoboman/Bot-prove/engine/internal/crypto"
 )
 
 // Kind identifies a keystore backend.

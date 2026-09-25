@@ -11,7 +11,7 @@ import (
 	"path/filepath"
 	"sync"
 
-	pqcrypto "github.com/anna-stolbovskaja/BotProve/engine/internal/crypto"
+	pqcrypto "github.com/githoboman/Bot-prove/engine/internal/crypto"
 	"golang.org/x/crypto/argon2"
 	"golang.org/x/crypto/chacha20poly1305"
 )

@@ -79,7 +79,7 @@ const Overview: React.FC = () => {
             <li key={name} className="flex justify-between items-center">
               <span className="capitalize">{name.replace(/_/g, ' ')}:</span>
               <a
-                href={`https://testnet.cspr.live/contract/${address}`}
+                href={`https://scan.botchain.ai/contract/${address}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-mono text-sm text-red-400 hover:text-red-300 break-all ml-2 truncate max-w-[320px]"

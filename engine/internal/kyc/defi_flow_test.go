@@ -3,7 +3,7 @@ package kyc
 import (
 	"testing"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/prover"
+	"github.com/githoboman/Bot-prove/engine/internal/prover"
 )
 
 func TestNewDeFiFlow(t *testing.T) {

@@ -25,8 +25,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/decision/attest"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/hitl"
+	"github.com/githoboman/Bot-prove/engine/internal/decision/attest"
+	"github.com/githoboman/Bot-prove/engine/internal/hitl"
 )
 
 // initDecisionPipeline builds the pool, adapter, judge and HITL

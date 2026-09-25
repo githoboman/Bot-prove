@@ -7,14 +7,14 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/api"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/judge"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/judge/hitl"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/kyc"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/llm"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/prover"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/store"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/verifier"
+	"github.com/githoboman/Bot-prove/engine/internal/api"
+	"github.com/githoboman/Bot-prove/engine/internal/judge"
+	"github.com/githoboman/Bot-prove/engine/internal/judge/hitl"
+	"github.com/githoboman/Bot-prove/engine/internal/kyc"
+	"github.com/githoboman/Bot-prove/engine/internal/llm"
+	"github.com/githoboman/Bot-prove/engine/internal/prover"
+	"github.com/githoboman/Bot-prove/engine/internal/store"
+	"github.com/githoboman/Bot-prove/engine/internal/verifier"
 )
 
 func main() {

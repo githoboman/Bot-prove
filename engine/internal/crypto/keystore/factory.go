@@ -5,7 +5,7 @@ import (
 	"os"
 	"strings"
 
-	pqcrypto "github.com/anna-stolbovskaja/BotProve/engine/internal/crypto"
+	pqcrypto "github.com/githoboman/Bot-prove/engine/internal/crypto"
 )
 
 // FromEnv constructs the Keystore backend selected by environment vars.

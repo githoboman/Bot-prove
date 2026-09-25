@@ -38,7 +38,7 @@ package receipts
 import (
 	"time"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/decision/attest"
+	"github.com/githoboman/Bot-prove/engine/internal/decision/attest"
 )
 
 // Verdict mirrors attest.Verdict as its canonical string form. Copied

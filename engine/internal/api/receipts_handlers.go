@@ -8,9 +8,9 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/decision/attest"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/hitl"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/receipts"
+	"github.com/githoboman/Bot-prove/engine/internal/decision/attest"
+	"github.com/githoboman/Bot-prove/engine/internal/hitl"
+	"github.com/githoboman/Bot-prove/engine/internal/receipts"
 )
 
 // initReceiptsService wires the provenance-lineage receipt service.

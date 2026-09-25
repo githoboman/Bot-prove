@@ -27,7 +27,7 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/aggregator"
+	"github.com/githoboman/Bot-prove/engine/internal/aggregator"
 )
 
 // registerMerkleRecursionRoutes wires the /v1/aggregation/merkle-* endpoints.

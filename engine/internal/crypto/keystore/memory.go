@@ -3,7 +3,7 @@ package keystore
 import (
 	"context"
 
-	pqcrypto "github.com/anna-stolbovskaja/BotProve/engine/internal/crypto"
+	pqcrypto "github.com/githoboman/Bot-prove/engine/internal/crypto"
 )
 
 // MemoryKeystore is a thin adapter that satisfies the Keystore interface

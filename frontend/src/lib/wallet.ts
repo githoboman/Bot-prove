@@ -5,7 +5,7 @@
  * supporting BOT Chain Wallet, Ledger, MetaMask Snap, and WalletConnect.
  *
  * Keys:
- *   AppID: configured via CSPR.click dashboard for botprove.xyz
+ *   AppID: configured via CSPR.click dashboard for bot-prove.vercel.app
  *   CSPR.cloud: API access for balance queries etc.
  */
 

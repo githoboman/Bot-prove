@@ -33,7 +33,7 @@ const uniqSends = sends.filter(s => {
 console.log(`[reconcile] unique sends: ${uniqSends.length}`);
 
 async function fetchStatus(hash) {
-  const url = `https://api.testnet.cspr.live/deploys/${hash}`;
+  const url = `https://api.scan.botchain.ai/deploys/${hash}`;
   const res = await fetch(url);
   if (!res.ok) return { hash, found: false, http: res.status };
   const j = await res.json();
@@ -105,7 +105,7 @@ async function main() {
 
   const SUMMARY = path.join(REPORT_DIR, `mass-runner-final-summary.md`);
   let md = `# Mass runner final report — ${new Date().toISOString()}\n\n`;
-  md += `Reconciled ${uniqSends.length} transactions against testnet.cspr.live.\n\n`;
+  md += `Reconciled ${uniqSends.length} transactions against scan.botchain.ai.\n\n`;
   md += `## Totals\n\n`;
   md += `- **Total sent**: ${uniqSends.length}\n`;
   md += `- **Succeeded on-chain**: ${totalOk}\n`;

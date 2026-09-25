@@ -9,7 +9,7 @@ import (
 
 	"github.com/lib/pq"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/prover"
+	"github.com/githoboman/Bot-prove/engine/internal/prover"
 )
 
 type PG struct {

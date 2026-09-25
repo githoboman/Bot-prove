@@ -70,7 +70,7 @@ export default function McpDocs() {
             </a>. 32 tools, stdio transport. All backed by real API endpoints.
           </p>
           <div className="mt-4">
-            <a href="https://github.com/anna-stolbovskaja/Bot Prove/tree/main/sdk/cmd/mcpserver" target="_blank" rel="noreferrer"
+            <a href="https://github.com/githoboman/Bot-prove/tree/main/sdk/cmd/mcpserver" target="_blank" rel="noreferrer"
                className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors">
               <ExternalLink className="w-3.5 h-3.5" /> Source on GitHub
             </a>
@@ -166,8 +166,8 @@ CASPERPROVER_API_KEY=your-api-key \\
         <div className="mt-12 border-t border-cp-border pt-8 text-center">
           <p className="text-sm text-gray-600">
             MCP server source at{' '}
-            <a href="https://github.com/anna-stolbovskaja/Bot Prove/tree/main/sdk" target="_blank" rel="noreferrer" className="text-red-400 hover:text-red-300">
-              github.com/anna-stolbovskaja/Bot Prove/sdk
+            <a href="https://github.com/githoboman/Bot-prove/tree/main/sdk" target="_blank" rel="noreferrer" className="text-red-400 hover:text-red-300">
+              github.com/githoboman/Bot-prove/sdk
             </a>
           </p>
         </div>

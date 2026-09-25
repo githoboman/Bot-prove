@@ -8,7 +8,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/api/tenant"
+	"github.com/githoboman/Bot-prove/engine/internal/api/tenant"
 )
 
 // -----------------------------------------------------------------------------

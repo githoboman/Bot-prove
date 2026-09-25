@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/prover"
+	"github.com/githoboman/Bot-prove/engine/internal/prover"
 )
 
 func jsonBody(s string) *strings.Reader {

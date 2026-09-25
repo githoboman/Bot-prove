@@ -37,7 +37,7 @@ import (
 	"github.com/consensys/gnark/frontend"
 	"github.com/consensys/gnark/frontend/cs/r1cs"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/zkverifier/gnarkzk"
+	"github.com/githoboman/Bot-prove/engine/internal/zkverifier/gnarkzk"
 )
 
 // Config parameterises a ceremony run.

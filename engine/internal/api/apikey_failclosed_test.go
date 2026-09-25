@@ -22,7 +22,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/prover"
+	"github.com/githoboman/Bot-prove/engine/internal/prover"
 )
 
 // newEng builds a ProofEngine for use across the precondition-matrix

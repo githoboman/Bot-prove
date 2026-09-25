@@ -26,7 +26,7 @@ import (
 	"os"
 	"strings"
 
-	pqcrypto "github.com/anna-stolbovskaja/BotProve/engine/internal/crypto"
+	pqcrypto "github.com/githoboman/Bot-prove/engine/internal/crypto"
 )
 
 func (s *Server) keyRingEnabled() bool {

@@ -38,7 +38,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/decision/attest"
+	"github.com/githoboman/Bot-prove/engine/internal/decision/attest"
 )
 
 // Action is what Decide returns.

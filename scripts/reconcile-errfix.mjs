@@ -11,7 +11,7 @@ const sends = lines.map(l => JSON.parse(l)).filter(r => r.tx_hash);
 console.log(`[reconcile] tx count: ${sends.length}`);
 
 async function fetchOne(hash) {
-  const url = `https://api.testnet.cspr.live/deploys/${hash}`;
+  const url = `https://api.scan.botchain.ai/deploys/${hash}`;
   try {
     const res = await fetch(url);
     if (!res.ok) return { hash, found: false, http: res.status };

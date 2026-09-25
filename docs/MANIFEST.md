@@ -32,8 +32,8 @@ This regenerates `frontend/public/onchain.json`, validates each hash against BOT
   "chain_name": "bot-test",
   "project": "BotProve",
   "deployer": "0203975636c0c327...",
-  "explorer": "https://testnet.cspr.live",
-  "cspr_cloud": "https://testnet.cspr.cloud",
+  "explorer": "https://scan.botchain.ai",
+  "cspr_cloud": "https://rpc.bohr.life",
 
   // Metadata specific to the root canonical (stripped from frontend copy)
   "manifest_version": "1.0",

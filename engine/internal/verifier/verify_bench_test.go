@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/prover"
+	"github.com/githoboman/Bot-prove/engine/internal/prover"
 )
 
 func randBytes(n int, seed int64) []byte {

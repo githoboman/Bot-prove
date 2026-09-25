@@ -5,13 +5,13 @@
 
 ## Fast path (2 minutes)
 
-1. Open the live console: **https://botprove.xyz**
+1. Open the live console: **https://bot-prove.vercel.app**
 2. Click **Lab → ZK Proofs**.
    - Prove knowledge of preimage `42`. Real gnark BN254/MiMC Groth16.
    - Verify. Then change one byte and verify again → fails. That's
      real cryptography, not simulation.
 3. Open **Lab → Contracts**. Four deployed testnet contracts with
-   hashes; every hash links to `testnet.cspr.live`.
+   hashes; every hash links to `scan.botchain.ai`.
 
 That's it. Everything below is depth on how each of the 8 judging
 criteria is satisfied.
@@ -139,6 +139,6 @@ wallets, no shared branding, no shared demo story.
 
 ## Contact
 
-- Repo: https://github.com/anna-stolbovskaja/BotProve
-- Live: https://botprove.xyz
+- Repo: https://github.com/githoboman/Bot-prove
+- Live: https://bot-prove.vercel.app
 - SDK: Go module (see `sdk/`) + MCP server (32 tools)

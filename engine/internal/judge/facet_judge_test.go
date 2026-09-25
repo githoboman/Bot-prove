@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/llm"
+	"github.com/githoboman/Bot-prove/engine/internal/llm"
 )
 
 // fakeProvider — minimal Provider stub for judge tests.

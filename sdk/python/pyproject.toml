@@ -25,9 +25,9 @@ classifiers = [
 dependencies = []
 
 [project.urls]
-Homepage = "https://github.com/anna-stolbovskaja/BotProve"
-Repository = "https://github.com/anna-stolbovskaja/BotProve"
-Issues = "https://github.com/anna-stolbovskaja/BotProve/issues"
+Homepage = "https://github.com/githoboman/Bot-prove"
+Repository = "https://github.com/githoboman/Bot-prove"
+Issues = "https://github.com/githoboman/Bot-prove/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["botprove"]

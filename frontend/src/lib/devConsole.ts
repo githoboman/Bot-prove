@@ -27,7 +27,7 @@ export function installDevConsoleInfo(): void {
     'color:#9ca3af'
   );
   console.log(
-    '%cGitHub: %chttps://github.com/anna-stolbovskaja/Bot Prove  %c|  Docs: %c/docs/api',
+    '%cGitHub: %chttps://github.com/githoboman/Bot-prove  %c|  Docs: %c/docs/api',
     'color:#6b7280', 'color:#0ea5e9', 'color:#6b7280', 'color:#0ea5e9'
   );
 
@@ -41,7 +41,7 @@ export function installDevConsoleInfo(): void {
       const rows = Object.entries(manifest.contracts).map(([key, c]) => ({
         contract: key,
         hash: `${c.contract_hash.slice(0, 12)}…`,
-        explorer: `https://testnet.cspr.live/contract/${c.contract_hash}`,
+        explorer: `https://scan.botchain.ai/contract/${c.contract_hash}`,
       }));
       console.log(`%c${rows.length} contracts live on ${manifest.network}:`, 'color:#22c55e;font-weight:bold');
       console.table(rows);

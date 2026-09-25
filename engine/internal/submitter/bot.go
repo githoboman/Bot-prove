@@ -23,7 +23,7 @@ import (
 	"github.com/make-software/bot-go-sdk/v2/types/key"
 	"github.com/make-software/bot-go-sdk/v2/types/keypair"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/prover"
+	"github.com/githoboman/Bot-prove/engine/internal/prover"
 )
 
 const (

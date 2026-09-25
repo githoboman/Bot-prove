@@ -10,7 +10,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/api/siwe"
+	"github.com/githoboman/Bot-prove/engine/internal/api/siwe"
 )
 
 func newSIWEServer() *Server {

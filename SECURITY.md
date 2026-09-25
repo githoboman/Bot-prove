@@ -2,7 +2,7 @@
 
 ## Reporting
 
-Report security issues via [GitHub Security Advisories](https://github.com/anna-stolbovskaja/BotProve/security/advisories/new).
+Report security issues via [GitHub Security Advisories](https://github.com/githoboman/Bot-prove/security/advisories/new).
 
 Do not open public issues for vulnerabilities.
 

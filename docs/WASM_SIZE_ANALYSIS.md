@@ -163,7 +163,7 @@ Nightly-only options (currently avoided in this workspace):
 
 For each shrunk contract:
 
-1. `bot-client put-deploy --node-address https://testnet.cspr.cloud
+1. `bot-client put-deploy --node-address https://rpc.bohr.life
    --chain-name bot-test --secret-key <anna's PEM>
    --session-path <contract>.wasm --session-entry-point call
    --payment-amount 100000000000`

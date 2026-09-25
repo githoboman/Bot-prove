@@ -21,7 +21,7 @@ script coverage yet.
 
 ## HOOK (first 5 seconds)
 
-[SHOW: botprove.xyz hero — red "geni" figure, terminal: `bot-prover verify --model gpt-4o --input "loan_42" --anchor testnet`]
+[SHOW: bot-prove.vercel.app hero — red "geni" figure, terminal: `bot-prover verify --model gpt-4o --input "loan_42" --anchor testnet`]
 [SUBTITLE: "Your AI made a decision. Now prove it — cryptographically, on-chain."]
 
 ---
@@ -34,7 +34,7 @@ script coverage yet.
 
 [SUBTITLE: "SHA-256 + Merkle tree. Change one bit of input or output — the proof breaks."]
 
-[SHOW: Contracts tab → click `proof_registry` → testnet.cspr.live opens on the real deploy]
+[SHOW: Contracts tab → click `proof_registry` → scan.botchain.ai opens on the real deploy]
 
 [TOOLTIP: "9 contracts, all live on BOT Chain testnet — not a mockup."]
 
@@ -86,9 +86,9 @@ script coverage yet.
 
 ## OUTRO (1:55–2:00)
 
-[SHOW: botprove.xyz hero, stats bar: `9 contracts · 250+ testnet txns · 32 endpoints · 32 SDK/MCP tools`]
+[SHOW: bot-prove.vercel.app hero, stats bar: `9 contracts · 250+ testnet txns · 32 endpoints · 32 SDK/MCP tools`]
 [SUBTITLE: "BotProve. AI accountability, on-chain."]
-[B-ROLL: github.com/anna-stolbovskaja/BotProve]
+[B-ROLL: github.com/githoboman/Bot-prove]
 
 ---
 

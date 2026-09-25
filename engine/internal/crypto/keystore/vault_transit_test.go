@@ -10,7 +10,7 @@ import (
 	"strings"
 	"testing"
 
-	pqcrypto "github.com/anna-stolbovskaja/BotProve/engine/internal/crypto"
+	pqcrypto "github.com/githoboman/Bot-prove/engine/internal/crypto"
 )
 
 // vaultMock is a minimal in-memory Vault Transit substitute. It

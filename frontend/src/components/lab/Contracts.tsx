@@ -34,8 +34,8 @@ interface ContractRow extends PresentationMeta {
   deployDate?: string;
 }
 
-const EXPLORER_BASE_URL_FALLBACK = 'https://testnet.cspr.live/contract/';
-const GITHUB_BASE_URL = 'https://github.com/anna-stolbovskaja/Bot Prove/tree/main/contracts/';
+const EXPLORER_BASE_URL_FALLBACK = 'https://scan.botchain.ai/contract/';
+const GITHUB_BASE_URL = 'https://github.com/githoboman/Bot-prove/tree/main/contracts/';
 
 function joinContract(base: string): string {
   if (!base) return EXPLORER_BASE_URL_FALLBACK;

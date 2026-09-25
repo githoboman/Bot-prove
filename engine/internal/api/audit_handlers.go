@@ -29,7 +29,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/decision"
+	"github.com/githoboman/Bot-prove/engine/internal/decision"
 )
 
 // auditSink is process-wide. Server initializes it lazily on first use.

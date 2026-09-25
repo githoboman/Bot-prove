@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/hasher"
+	"github.com/githoboman/Bot-prove/engine/internal/hasher"
 )
 
 type ProofEngine struct {

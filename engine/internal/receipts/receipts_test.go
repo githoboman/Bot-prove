@@ -12,10 +12,10 @@ import (
 	"testing"
 	"time"
 
-	pqcrypto "github.com/anna-stolbovskaja/BotProve/engine/internal/crypto"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/crypto/keystore"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/decision/attest"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/hitl"
+	pqcrypto "github.com/githoboman/Bot-prove/engine/internal/crypto"
+	"github.com/githoboman/Bot-prove/engine/internal/crypto/keystore"
+	"github.com/githoboman/Bot-prove/engine/internal/decision/attest"
+	"github.com/githoboman/Bot-prove/engine/internal/hitl"
 )
 
 func mustKeystore(t *testing.T) keystore.Keystore {

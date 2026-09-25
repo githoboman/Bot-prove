@@ -61,9 +61,9 @@ Full tx hashes:
 - `4f2df881f92d97d9965767ddf4010111db775afb2584a98d78659f87e7926935`
 
 Explorer:
-- <https://testnet.cspr.live/deploy/0c531dffa257ba4a3f892fee31f0229f215a6bc91c51deca31c90e8b07ddc85c>
-- <https://testnet.cspr.live/deploy/412afa00e568c9f1439c4a73492749a6d75b289041db4657f5d63dacae676c16>
-- <https://testnet.cspr.live/deploy/4f2df881f92d97d9965767ddf4010111db775afb2584a98d78659f87e7926935>
+- <https://scan.botchain.ai/deploy/0c531dffa257ba4a3f892fee31f0229f215a6bc91c51deca31c90e8b07ddc85c>
+- <https://scan.botchain.ai/deploy/412afa00e568c9f1439c4a73492749a6d75b289041db4657f5d63dacae676c16>
+- <https://scan.botchain.ai/deploy/4f2df881f92d97d9965767ddf4010111db775afb2584a98d78659f87e7926935>
 
 ## What this proves
 

@@ -19,7 +19,7 @@
 - [x] Stake-slashing — real CSPR economic penalty (20% slash, permissionless bounty)
 - [x] Go SDK — 32 methods, 1:1 API mapping
 - [x] MCP server — 32 tools with full InputSchema definitions
-- [x] React lab at botprove.xyz — 11 interactive tabs, all calling real API
+- [x] React lab at bot-prove.vercel.app — 11 interactive tabs, all calling real API
 - [x] BOT Chain Wallet integration with demo fallback
 - [x] 194 tests (172 Go + 22 Rust)
 - [x] CI via GitHub Actions

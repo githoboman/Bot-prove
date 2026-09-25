@@ -8,9 +8,9 @@ import (
 	"log/slog"
 	"time"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/prover"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/store"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/submitter"
+	"github.com/githoboman/Bot-prove/engine/internal/prover"
+	"github.com/githoboman/Bot-prove/engine/internal/store"
+	"github.com/githoboman/Bot-prove/engine/internal/submitter"
 )
 
 // ModelRegistryEntry represents a registered AI model on the BOT Chain blockchain.

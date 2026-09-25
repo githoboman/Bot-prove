@@ -20,7 +20,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/judge"
+	"github.com/githoboman/Bot-prove/engine/internal/judge"
 )
 
 // Severity ranks the urgency of the escalation for the sink to route on.

@@ -7,8 +7,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/crypto/keystore"
-	pqcrypto "github.com/anna-stolbovskaja/BotProve/engine/internal/crypto"
+	"github.com/githoboman/Bot-prove/engine/internal/crypto/keystore"
+	pqcrypto "github.com/githoboman/Bot-prove/engine/internal/crypto"
 )
 
 // AdminSummary is the single-shot payload the FE admin dashboard

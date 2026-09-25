@@ -8,24 +8,24 @@
 
 *Commit an agent's inputs & outputs to BOT Chain. Verify the commitment in milliseconds. ZK & PQ layers optional; ZK verification is off-chain (gnark).*
 
-[![CI](https://github.com/anna-stolbovskaja/BotProve/actions/workflows/check.yml/badge.svg)](https://github.com/anna-stolbovskaja/BotProve/actions/workflows/check.yml)
-[![Verify](https://github.com/anna-stolbovskaja/BotProve/actions/workflows/verify.yml/badge.svg)](https://github.com/anna-stolbovskaja/BotProve/actions/workflows/verify.yml)
-[![Secret Scan](https://github.com/anna-stolbovskaja/BotProve/actions/workflows/secret-scan.yml/badge.svg)](https://github.com/anna-stolbovskaja/BotProve/actions/workflows/secret-scan.yml)
+[![CI](https://github.com/githoboman/Bot-prove/actions/workflows/check.yml/badge.svg)](https://github.com/githoboman/Bot-prove/actions/workflows/check.yml)
+[![Verify](https://github.com/githoboman/Bot-prove/actions/workflows/verify.yml/badge.svg)](https://github.com/githoboman/Bot-prove/actions/workflows/verify.yml)
+[![Secret Scan](https://github.com/githoboman/Bot-prove/actions/workflows/secret-scan.yml/badge.svg)](https://github.com/githoboman/Bot-prove/actions/workflows/secret-scan.yml)
 [![Go 1.24+](https://img.shields.io/badge/Go-1.24+-00ADD8.svg?style=flat-square&logo=go&logoColor=white)](https://go.dev)
 [![BOT Chain 2.x](https://img.shields.io/badge/BOT Chain-2.x-FF0000.svg?style=flat-square)](https://bot.network)
 [![MPL-2.0](https://img.shields.io/badge/license-MPL--2.0-orange.svg?style=flat-square)](LICENSE)
-[![Live Demo](https://img.shields.io/badge/demo-botprove.xyz-6366f1.svg?style=flat-square)](https://botprove.xyz/lab)
+[![Live Demo](https://img.shields.io/badge/demo-bot-prove.vercel.app-6366f1.svg?style=flat-square)](https://bot-prove.vercel.app/lab)
 
 ![Contracts](https://img.shields.io/badge/contracts-9%20deployed-brightgreen)
 ![Proofs](https://img.shields.io/badge/proofs-102%2B-blue)
 ![PQ Ready](https://img.shields.io/badge/post--quantum-ready-purple)
 
-[**Live Demo →**](https://botprove.xyz/lab) · [Judge Verification](docs/JUDGE_GUIDE.md) · [Architecture](docs/ARCHITECTURE.md) · [SDK](docs/SDK.md) · [Status & Roadmap](docs/KNOWN_LIMITATIONS.md)
+[**Live Demo →**](https://bot-prove.vercel.app/lab) · [Judge Verification](docs/JUDGE_GUIDE.md) · [Architecture](docs/ARCHITECTURE.md) · [SDK](docs/SDK.md) · [Status & Roadmap](docs/KNOWN_LIMITATIONS.md)
 
 **Three entry points on the landing page:**
-[Try the product](https://botprove.xyz/lab/playground) ·
-[For developers (API / SDK / MCP)](https://botprove.xyz/docs/api) ·
-[For evaluators (Proof & architecture)](https://botprove.xyz/lab/contracts) ·
+[Try the product](https://bot-prove.vercel.app/lab/playground) ·
+[For developers (API / SDK / MCP)](https://bot-prove.vercel.app/docs/api) ·
+[For evaluators (Proof & architecture)](https://bot-prove.vercel.app/lab/contracts) ·
 [Video script](docs/VIDEO_SCRIPT.md)
 
 </div>
@@ -44,7 +44,7 @@
 |---|---|---|
 | ![ZK Proofs](docs/screenshots/04-zk-proofs.png) | ![Contracts](docs/screenshots/05-contracts.png) | ![PQ Crypto](docs/screenshots/06-pq-crypto.png) |
 
-> Live at [botprove.xyz](https://botprove.xyz)
+> Live at [bot-prove.vercel.app](https://bot-prove.vercel.app)
 
 ---
 
@@ -185,7 +185,7 @@ graph TB
 **Prerequisites:** Go 1.24+, access to BOT Chain testnet node
 
 ```bash
-git clone https://github.com/anna-stolbovskaja/BotProve
+git clone https://github.com/githoboman/Bot-prove
 cd BotProve
 go mod download
 go run ./engine/cmd/...
@@ -238,15 +238,15 @@ All nine contracts are live — canonical manifest: [`deploy-out/onchain.json`](
 
 | Contract | Hash (first…last) | Purpose |
 |---|---|---|
-| **proof-registry** | [`e11088f1…7bc5`](https://testnet.cspr.live/contract/e11088f1f15a719f21c0c318d1f34d0b96419a22d60ac8fa384ecf5285fa7bc5) | Immutable proof store + reputation |
-| **verifier-gate** | [`06d69182…9b66`](https://testnet.cspr.live/contract/06d69182b13c4d041613fe7e6e0805cdb06f099eff4291b40154d78cc0c79b66) | Merkle inclusion checker + whitelist |
-| **defi-mock** | [`fe0c45f6…39ef`](https://testnet.cspr.live/contract/fe0c45f67c8cd99f0bda0047399a113588870ec0d79d9102f44107303f0b39ef) | KYC-gated DeFi vault |
-| **stake-slashing** | [`1ad1b3d9…3d52`](https://testnet.cspr.live/contract/1ad1b3d94be631532d6daf3a195fafc9dfe8a16504e87d87784d51089b983d52) | Economic penalties (hardened) |
-| **proof-aggregation** | [`b29f32ab…d2bb`](https://testnet.cspr.live/contract/b29f32abcc029d523de212bd7c87993f2f1bf96ba1523091c7b01adf6d63d2bb) | Batched proof anchoring |
-| **model-registry** | [`b3cdd1df…340a`](https://testnet.cspr.live/contract/b3cdd1df25714b341e34f6bb29f6c7900267e44c7742c81221e1eab5e64a340a) | Model provenance registry |
-| **proof-of-inference** | [`3d772fe1…b318`](https://testnet.cspr.live/contract/3d772fe1618fde438c4ffdaec22d83ffd9b4a1d769d6da32a38d56f12498b318) | Inference attestation ledger |
-| **governance** | [`38d2fbd2…cf3e`](https://testnet.cspr.live/contract/38d2fbd24998719fac160c27e2e5435a99bcdebd4c36beac76abe84063a0cf3e) | Timelock (48h) + 2-of-3 guardian recovery |
-| **zk-verifier** | [`4500da5d…dc96a1`](https://testnet.cspr.live/contract/4500da5d314f11f8a535b9c70fb67729da6b452efc6c302abf292b42b6dc96a1) | On-chain vk registry + off-chain Groth16 verdict recorder |
+| **proof-registry** | [`e11088f1…7bc5`](https://scan.botchain.ai/contract/e11088f1f15a719f21c0c318d1f34d0b96419a22d60ac8fa384ecf5285fa7bc5) | Immutable proof store + reputation |
+| **verifier-gate** | [`06d69182…9b66`](https://scan.botchain.ai/contract/06d69182b13c4d041613fe7e6e0805cdb06f099eff4291b40154d78cc0c79b66) | Merkle inclusion checker + whitelist |
+| **defi-mock** | [`fe0c45f6…39ef`](https://scan.botchain.ai/contract/fe0c45f67c8cd99f0bda0047399a113588870ec0d79d9102f44107303f0b39ef) | KYC-gated DeFi vault |
+| **stake-slashing** | [`1ad1b3d9…3d52`](https://scan.botchain.ai/contract/1ad1b3d94be631532d6daf3a195fafc9dfe8a16504e87d87784d51089b983d52) | Economic penalties (hardened) |
+| **proof-aggregation** | [`b29f32ab…d2bb`](https://scan.botchain.ai/contract/b29f32abcc029d523de212bd7c87993f2f1bf96ba1523091c7b01adf6d63d2bb) | Batched proof anchoring |
+| **model-registry** | [`b3cdd1df…340a`](https://scan.botchain.ai/contract/b3cdd1df25714b341e34f6bb29f6c7900267e44c7742c81221e1eab5e64a340a) | Model provenance registry |
+| **proof-of-inference** | [`3d772fe1…b318`](https://scan.botchain.ai/contract/3d772fe1618fde438c4ffdaec22d83ffd9b4a1d769d6da32a38d56f12498b318) | Inference attestation ledger |
+| **governance** | [`38d2fbd2…cf3e`](https://scan.botchain.ai/contract/38d2fbd24998719fac160c27e2e5435a99bcdebd4c36beac76abe84063a0cf3e) | Timelock (48h) + 2-of-3 guardian recovery |
+| **zk-verifier** | [`4500da5d…dc96a1`](https://scan.botchain.ai/contract/4500da5d314f11f8a535b9c70fb67729da6b452efc6c302abf292b42b6dc96a1) | On-chain vk registry + off-chain Groth16 verdict recorder |
 
 **On-chain activity:** 248+ testnet transactions across contract deploys and entry-point calls.
 
@@ -313,7 +313,7 @@ Full CLI reference: [`docs/CLI.md`](docs/CLI.md).
 ### Go SDK (32 methods)
 
 ```go
-import "github.com/anna-stolbovskaja/BotProve/sdk"
+import "github.com/githoboman/Bot-prove/sdk"
 
 client := sdk.New("https://botprove-api-ylsh.onrender.com")
 proof, _ := client.SubmitProof(ctx, sdk.ProofInput{...})

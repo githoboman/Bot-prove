@@ -1,6 +1,6 @@
 # Screenshots
 
-Real screenshots from botprove.xyz (July 27, 2026)
+Real screenshots from bot-prove.vercel.app (July 27, 2026)
 
 ## 01-homepage.png
 Landing page — "Your AI made a decision. Prove it." with mascot and terminal demo

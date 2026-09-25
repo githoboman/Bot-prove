@@ -2,11 +2,11 @@ import os
 
 def fix_references(root_dir):
     replacements = {
-        "github.com/anna-stolbovskaja/BotProve": "github.com/githoboman/Bot-prove",
-        "github.com/anna-stolbovskaja/Bot Prove": "github.com/githoboman/Bot-prove",
-        "testnet.cspr.live": "scan.botchain.ai",
-        "testnet.cspr.cloud": "rpc.bohr.life",
-        "botprove.xyz": "bot-prove.vercel.app"
+        "github.com/githoboman/Bot-prove": "github.com/githoboman/Bot-prove",
+        "github.com/githoboman/Bot-prove": "github.com/githoboman/Bot-prove",
+        "scan.botchain.ai": "scan.botchain.ai",
+        "rpc.bohr.life": "rpc.bohr.life",
+        "bot-prove.vercel.app": "bot-prove.vercel.app"
     }
     
     ignore_dirs = {'.git', 'node_modules', 'dist', 'build', '.next', 'artifacts', 'cache'}

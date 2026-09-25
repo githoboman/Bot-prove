@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	pqcrypto "github.com/anna-stolbovskaja/BotProve/engine/internal/crypto"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/receipts"
+	pqcrypto "github.com/githoboman/Bot-prove/engine/internal/crypto"
+	"github.com/githoboman/Bot-prove/engine/internal/receipts"
 )
 
 func enableReceiptsService(t *testing.T, s *Server) {

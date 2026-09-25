@@ -10,8 +10,8 @@ import (
 	"strings"
 	"testing"
 
-	pqcrypto "github.com/anna-stolbovskaja/BotProve/engine/internal/crypto"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/crypto/keystore"
+	pqcrypto "github.com/githoboman/Bot-prove/engine/internal/crypto"
+	"github.com/githoboman/Bot-prove/engine/internal/crypto/keystore"
 )
 
 // buildKeyRingServer builds a minimal Server wired with just the keyring

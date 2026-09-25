@@ -15,7 +15,7 @@
 set -euo pipefail
 
 API="${1:-https://botprove-api-ylsh.onrender.com}"
-FRONTEND="https://botprove.xyz"
+FRONTEND="https://bot-prove.vercel.app"
 PASS=0
 FAIL=0
 WARN=0

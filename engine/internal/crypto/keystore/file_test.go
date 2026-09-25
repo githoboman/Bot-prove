@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	pqcrypto "github.com/anna-stolbovskaja/BotProve/engine/internal/crypto"
+	pqcrypto "github.com/githoboman/Bot-prove/engine/internal/crypto"
 )
 
 // makeFileKS constructs a fresh FileKeystore in a temp directory. Caller

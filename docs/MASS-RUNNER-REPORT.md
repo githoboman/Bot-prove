@@ -47,7 +47,7 @@ Three back-to-back scripted runs, all committed to
 ## Aggregate result
 
 **492 unique transactions sent, all 492 finalised in a block. Every one is
-visible on `https://testnet.cspr.live`.**
+visible on `https://scan.botchain.ai`.**
 
 | Metric | Value |
 |---|---|

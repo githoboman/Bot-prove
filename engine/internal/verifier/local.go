@@ -4,8 +4,8 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/hasher"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/prover"
+	"github.com/githoboman/Bot-prove/engine/internal/hasher"
+	"github.com/githoboman/Bot-prove/engine/internal/prover"
 )
 
 type LocalVerifier struct{}

@@ -4,12 +4,12 @@
   "description": "BotProve TypeScript SDK - prove, verify, batch, anchor.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anna-stolbovskaja/BotProve.git",
+    "url": "git+https://github.com/githoboman/Bot-prove.git",
     "directory": "sdk/typescript"
   },
-  "homepage": "https://github.com/anna-stolbovskaja/BotProve#readme",
+  "homepage": "https://github.com/githoboman/Bot-prove#readme",
   "bugs": {
-    "url": "https://github.com/anna-stolbovskaja/BotProve/issues"
+    "url": "https://github.com/githoboman/Bot-prove/issues"
   },
   "type": "module",
   "main": "dist/index.js",

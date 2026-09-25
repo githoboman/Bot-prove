@@ -15,10 +15,10 @@ export default function SDKSection() {
               <h3 className="text-white font-bold mb-1">Go SDK</h3>
               <p className="text-sm text-gray-500">Native Go client — 32 methods covering proofs, ZK, PQ crypto, aggregation, and more.</p>
               <div className="mt-3 bg-black/40 rounded-lg px-4 py-2 font-mono text-xs text-gray-400 inline-block">
-                go get github.com/anna-stolbovskaja/Bot Prove/sdk
+                go get github.com/githoboman/Bot-prove/sdk
               </div>
             </div>
-            <pre className="p-5 text-xs font-mono text-gray-300 overflow-x-auto leading-relaxed"><code>{`import "github.com/anna-stolbovskaja/Bot Prove/sdk"
+            <pre className="p-5 text-xs font-mono text-gray-300 overflow-x-auto leading-relaxed"><code>{`import "github.com/githoboman/Bot-prove/sdk"
 
 client := sdk.New("https://botprove-api-ylsh.onrender.com")
 

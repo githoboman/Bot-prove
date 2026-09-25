@@ -24,7 +24,7 @@ export default function Footer() {
           <div>
             <h4 className="text-gray-300 font-semibold mb-3 text-sm">Developers</h4>
             <ul className="space-y-2 text-sm text-gray-500">
-              <li><a href="https://github.com/anna-stolbovskaja/Bot Prove" target="_blank" rel="noreferrer" className="hover:text-gray-300 transition-colors">GitHub</a></li>
+              <li><a href="https://github.com/githoboman/Bot-prove" target="_blank" rel="noreferrer" className="hover:text-gray-300 transition-colors">GitHub</a></li>
               <li><a href="/docs/api" className="hover:text-gray-300 transition-colors">API Reference</a></li>
               <li><a href="/docs/sdk" className="hover:text-gray-300 transition-colors">Go SDK</a></li>
               <li><a href="/docs/mcp" className="hover:text-gray-300 transition-colors">MCP Server</a></li>

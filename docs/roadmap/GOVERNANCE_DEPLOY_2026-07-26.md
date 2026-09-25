@@ -96,7 +96,7 @@ const args = Args.fromMap({
 });
 ```
 
-Submitted via `SessionBuilder.installOrUpgrade()` against `https://node.testnet.cspr.cloud/rpc` with `Authorization` header set to the cspr.cloud API key.
+Submitted via `SessionBuilder.installOrUpgrade()` against `https://node.rpc.bohr.life/rpc` with `Authorization` header set to the cspr.cloud API key.
 
 ## Failed pre-fix attempts (full honesty)
 
@@ -108,7 +108,7 @@ Payment budgets consumed by the failed pre-execution attempts were spent (no ref
 
 ```
 $ curl -sS -H "Authorization: $CSPR_CLOUD_API_KEY" \
-    "https://api.testnet.cspr.cloud/deploys/5f20ecfe2fc0a254db3daa965eb643b053102f14e53853f8c5c385424bdf60a2" \
+    "https://api.rpc.bohr.life/deploys/5f20ecfe2fc0a254db3daa965eb643b053102f14e53853f8c5c385424bdf60a2" \
     | jq '.data | {status, error_message, block_height, caller_hash, cost}'
 {
   "status": "processed",

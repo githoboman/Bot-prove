@@ -15,7 +15,7 @@ import (
 	"github.com/consensys/gnark/frontend"
 	"github.com/consensys/gnark-crypto/ecc"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/zkverifier/gnarkzk"
+	"github.com/githoboman/Bot-prove/engine/internal/zkverifier/gnarkzk"
 )
 
 // End-to-end: /v1/zk/anchor-verdict without a live BOT Chain submitter returns

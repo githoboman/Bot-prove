@@ -511,7 +511,7 @@ const Proofs: React.FC = () => {
               <div>
                 <h3 className="text-sm font-medium text-gray-400 mb-1">Deploy Hash (on-chain)</h3>
                 <a
-                  href={`https://testnet.cspr.live/deploy/${selectedProof.deploy_hash}`}
+                  href={`https://scan.botchain.ai/deploy/${selectedProof.deploy_hash}`}
                   target="_blank" rel="noopener noreferrer"
                   className="font-mono text-sm text-red-400 hover:text-red-300 break-all flex items-center gap-1"
                 >

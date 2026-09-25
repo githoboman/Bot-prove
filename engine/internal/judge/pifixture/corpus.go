@@ -25,8 +25,8 @@
 package pifixture
 
 import (
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/judge"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/llm"
+	"github.com/githoboman/Bot-prove/engine/internal/judge"
+	"github.com/githoboman/Bot-prove/engine/internal/llm"
 )
 
 // Case is one prompt-injection scenario.

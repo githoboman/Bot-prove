@@ -17,7 +17,7 @@ import (
 	"os"
 	"time"
 
-	sdk "github.com/anna-stolbovskaja/BotProve/sdk"
+	sdk "github.com/githoboman/Bot-prove/sdk"
 )
 
 func main() {

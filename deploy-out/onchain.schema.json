@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://botprove.xyz/schemas/onchain-manifest.v1.json",
+  "$id": "https://bot-prove.vercel.app/schemas/onchain-manifest.v1.json",
   "title": "BotProve on-chain deployment manifest (canonical)",
   "description": "Single source of truth for CP contract addresses, deployer, network, and generated-artifact list. Frontend/API/verify/docs read from this file (or from a build-time-generated copy).",
   "type": "object",

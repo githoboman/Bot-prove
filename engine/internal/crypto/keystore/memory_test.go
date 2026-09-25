@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	pqcrypto "github.com/anna-stolbovskaja/BotProve/engine/internal/crypto"
+	pqcrypto "github.com/githoboman/Bot-prove/engine/internal/crypto"
 )
 
 func TestMemoryKeystore_RoundTrip(t *testing.T) {

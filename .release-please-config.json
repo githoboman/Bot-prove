@@ -29,7 +29,7 @@
     },
     "sdk": {
       "release-type": "go",
-      "package-name": "github.com/anna-stolbovskaja/BotProve/sdk",
+      "package-name": "github.com/githoboman/Bot-prove/sdk",
       "component": "sdk",
       "tag-separator": "/",
       "include-component-in-tag": true,

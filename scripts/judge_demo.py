@@ -22,7 +22,7 @@ _FALLBACK_CONTRACTS = {
     "ZK Verifier": "4a5d09419fbc147e4114adb2e50473addd5d7057ae58c6223e0edaa4fb89a262",
 }
 _FALLBACK_API = "https://botprove-api-ylsh.onrender.com"
-_FALLBACK_SITE = "https://botprove.xyz"
+_FALLBACK_SITE = "https://bot-prove.vercel.app"
 RPC = "https://node.testnet.bot.network/rpc"
 
 _MANIFEST_KEYS = {
@@ -184,7 +184,7 @@ def main() -> int:
     else:
         for result in results: print_result(result)
         print("\nProof boundary: REAL CRYPTO = off-chain gnark/BN254 MiMC; ON-CHAIN = BOT Chain hashes/registries; SIMULATION = legacy conceptual endpoints.")
-        print("Docs: https://github.com/anna-stolbovskaja/BotProve#readme")
+        print("Docs: https://github.com/githoboman/Bot-prove#readme")
     failures = sum(not r.ok for r in results)
     skipped = sum(r.detail.startswith("SKIP") for r in results)
     passed = len(results) - failures - skipped

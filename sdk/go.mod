@@ -1,4 +1,4 @@
-module github.com/anna-stolbovskaja/BotProve/sdk
+module github.com/githoboman/Bot-prove/sdk
 
 go 1.22.0
 

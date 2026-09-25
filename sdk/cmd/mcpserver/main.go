@@ -16,7 +16,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/anna-stolbovskaja/BotProve/sdk"
+	"github.com/githoboman/Bot-prove/sdk"
 )
 
 func main() {

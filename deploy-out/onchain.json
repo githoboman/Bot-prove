@@ -3,8 +3,8 @@
     "chain_name": "bot-test",
     "project": "BotProve",
     "deployer_note": "All 8 canonical contracts are deployed by defi_mock_owner (public key 0202da6cfba1c1e595fdcd6539146611326e5506479d89dab735b252dc200b80f7e7, account-hash 84ff0a4692ddeaa2c2991b0a9b084e48772968c242ff9434106571e77d23be10). Previous multi-deployer split is deprecated.",
-    "explorer": "https://testnet.cspr.live",
-    "cspr_cloud": "https://testnet.cspr.cloud",
+    "explorer": "https://scan.botchain.ai",
+    "cspr_cloud": "https://rpc.bohr.life",
     "contracts": {
         "proof_registry": {
             "contract_hash": "e11088f1f15a719f21c0c318d1f34d0b96419a22d60ac8fa384ecf5285fa7bc5",
@@ -180,7 +180,7 @@
     },
     "verification": {
         "api_health": "https://botprove-api-ylsh.onrender.com/health",
-        "frontend": "https://botprove.xyz",
+        "frontend": "https://bot-prove.vercel.app",
         "verify_script": "./verify.sh"
     }
 }

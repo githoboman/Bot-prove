@@ -1,6 +1,6 @@
 package prover
 
-import "github.com/anna-stolbovskaja/BotProve/engine/internal/config"
+import "github.com/githoboman/Bot-prove/engine/internal/config"
 
 // SeedDemoData populates the engine with realistic demo proofs so that
 // the lab always has meaningful data even after a restart.

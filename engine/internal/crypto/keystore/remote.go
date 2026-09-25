@@ -12,7 +12,7 @@ import (
 	"sync"
 	"time"
 
-	pqcrypto "github.com/anna-stolbovskaja/BotProve/engine/internal/crypto"
+	pqcrypto "github.com/githoboman/Bot-prove/engine/internal/crypto"
 )
 
 // RemoteKeystoreStub documents the HTTP contract an HSM/KMS gateway must

@@ -16,10 +16,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/judge"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/judge/equivocation"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/judge/hitl"
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/llm"
+	"github.com/githoboman/Bot-prove/engine/internal/judge"
+	"github.com/githoboman/Bot-prove/engine/internal/judge/equivocation"
+	"github.com/githoboman/Bot-prove/engine/internal/judge/hitl"
+	"github.com/githoboman/Bot-prove/engine/internal/llm"
 )
 
 // scriptedProvider is a minimal in-package fake to control per-provider vote.

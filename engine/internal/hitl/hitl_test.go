@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/decision/attest"
+	"github.com/githoboman/Bot-prove/engine/internal/decision/attest"
 )
 
 func newCommit(agg attest.Verdict, vetoedBy attest.FacetKind, facets []attest.FacetVerdict) attest.DecisionCommit {

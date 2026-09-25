@@ -233,13 +233,13 @@ Found and fixed real production issues, not just doc drift:
 ## [1.0.0] — 2026-06-30
 
 ### Added
-- **Proof Registry contract** deployed on BOT Chain testnet ([96e97c4d...a10708](https://testnet.cspr.live/contract/e11088f1f15a719f21c0c318d1f34d0b96419a22d60ac8fa384ecf5285fa7bc5)) — stores Merkle roots, proof metadata, verification status
-- **Verifier Gate contract** ([a37f9cde...9f77d3](https://testnet.cspr.live/contract/06d69182b13c4d041613fe7e6e0805cdb06f099eff4291b40154d78cc0c79b66)) — checks inclusion proofs, manages access control
-- **DeFi Mock contract** ([b9b11a97...b81d3](https://testnet.cspr.live/contract/b9b11a976af20b4b5d128c44e5ee118b8830c26a79f4b603cdf0a00e537b81d3)) — sample vault gated by verifier-gate, demonstrating KYC-gated DeFi flow
+- **Proof Registry contract** deployed on BOT Chain testnet ([96e97c4d...a10708](https://scan.botchain.ai/contract/e11088f1f15a719f21c0c318d1f34d0b96419a22d60ac8fa384ecf5285fa7bc5)) — stores Merkle roots, proof metadata, verification status
+- **Verifier Gate contract** ([a37f9cde...9f77d3](https://scan.botchain.ai/contract/06d69182b13c4d041613fe7e6e0805cdb06f099eff4291b40154d78cc0c79b66)) — checks inclusion proofs, manages access control
+- **DeFi Mock contract** ([b9b11a97...b81d3](https://scan.botchain.ai/contract/b9b11a976af20b4b5d128c44e5ee118b8830c26a79f4b603cdf0a00e537b81d3)) — sample vault gated by verifier-gate, demonstrating KYC-gated DeFi flow
 - **Merkle tree builder** in Go engine — SHA-256 leaf hashing over `{H(input), H(output), H(model)}` triplets, binary tree construction, path serialization
 - **Four proof types supported**: `merkle-inclusion`, `kyc-eligibility`, `balance-range`, `transaction-membership`
 - **REST API** at `https://botprove-api-ylsh.onrender.com` — endpoints: `POST /api/v1/proof/submit`, `POST /api/v1/proof/verify`, `GET /api/v1/proofs`, `GET /api/v1/stats`
-- **Lab** at `botprove.xyz/lab` — 72 live proofs registered on testnet, proof type breakdown, verification status badges
+- **Lab** at `bot-prove.vercel.app/lab` — 72 live proofs registered on testnet, proof type breakdown, verification status badges
 - **Go SDK** (`sdk/`) — `client.go` with submit/verify helpers, Python client (`python_client.py`)
 - **MCP server** (`sdk/mcp_server.go`) — Model Context Protocol adapter so AI frameworks (Claude, LangChain) can call BotProve as a tool
 - **Contract test suite** (`contracts/tests/`) — integration tests covering registry, gate, and mock interactions

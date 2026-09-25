@@ -15,7 +15,7 @@ pip install -e sdk/python
 ## Configure
 
 ```bash
-export CP_BASE_URL=https://api.botprove.xyz   # or http://localhost:9090 in dev
+export CP_BASE_URL=https://api.bot-prove.vercel.app   # or http://localhost:9090 in dev
 ```
 
 Every command also accepts `--base-url` and `--timeout`.

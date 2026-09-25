@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/api/tenant"
+	"github.com/githoboman/Bot-prove/engine/internal/api/tenant"
 )
 
 // Tenant admin endpoints (BA / backlog 10.1 + 10.2).

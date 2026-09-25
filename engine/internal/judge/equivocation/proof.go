@@ -28,7 +28,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/anna-stolbovskaja/BotProve/engine/internal/judge"
+	"github.com/githoboman/Bot-prove/engine/internal/judge"
 )
 
 // Proof is the canonical evidence blob for one DISAGREE task result.

@@ -27,7 +27,7 @@ export default function SdkDocs() {
             Native Go client with 34 methods covering all 32 API endpoints. Import as a standalone module.
           </p>
           <div className="mt-4">
-            <a href="https://github.com/anna-stolbovskaja/Bot Prove/tree/main/sdk" target="_blank" rel="noreferrer"
+            <a href="https://github.com/githoboman/Bot-prove/tree/main/sdk" target="_blank" rel="noreferrer"
                className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors">
               <ExternalLink className="w-3.5 h-3.5" /> Source on GitHub
             </a>
@@ -38,7 +38,7 @@ export default function SdkDocs() {
         <div className="mb-10">
           <h2 className="text-lg font-bold text-white mb-4">Installation</h2>
           <div className="bg-black/60 rounded-xl border border-cp-border p-5">
-            <pre className="text-sm font-mono text-gray-300"><code>go get github.com/anna-stolbovskaja/Bot Prove/sdk</code></pre>
+            <pre className="text-sm font-mono text-gray-300"><code>go get github.com/githoboman/Bot-prove/sdk</code></pre>
           </div>
         </div>
 
@@ -51,7 +51,7 @@ export default function SdkDocs() {
 import (
     "context"
     "fmt"
-    "github.com/anna-stolbovskaja/Bot Prove/sdk"
+    "github.com/githoboman/Bot-prove/sdk"
 )
 
 func main() {
@@ -145,8 +145,8 @@ print("valid:", ok)`}</code></pre>
         <div className="mt-12 border-t border-cp-border pt-8 text-center">
           <p className="text-sm text-gray-600">
             Full SDK source and docs at{' '}
-            <a href="https://github.com/anna-stolbovskaja/Bot Prove/tree/main/sdk" target="_blank" rel="noreferrer" className="text-red-400 hover:text-red-300">
-              github.com/anna-stolbovskaja/Bot Prove/sdk
+            <a href="https://github.com/githoboman/Bot-prove/tree/main/sdk" target="_blank" rel="noreferrer" className="text-red-400 hover:text-red-300">
+              github.com/githoboman/Bot-prove/sdk
             </a>
           </p>
         </div>
