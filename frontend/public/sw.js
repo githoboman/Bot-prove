@@ -11,7 +11,7 @@
  * Those change and must never be shown as fresh when they aren't.
  */
 
-const CACHE_VERSION = 'cp-shell-v3'
+const CACHE_VERSION = 'bot-prove-v4'
 const SHELL_ASSETS = [
   '/',
   '/index.html',
