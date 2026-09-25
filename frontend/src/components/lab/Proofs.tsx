@@ -26,7 +26,7 @@ import { toast } from '../ui/toast';
 import SectionIntro from './SectionIntro';
 import ConfirmModal from './ConfirmModal';
 import { TableSkeleton } from '../ui/Skeleton';
-import { useWallet } from '../../lib/CsprClickProvider';
+import { useWallet } from '../../lib/WalletProvider';
 import { submitProofOnChain, revokeProofOnChain } from '../../lib/liveTx';
 import { shortKey } from '../../lib/wallet';
 

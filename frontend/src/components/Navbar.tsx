@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
 import { useLocation } from 'react-router-dom'
-import { useWallet } from '../lib/CsprClickProvider'
+import { useWallet } from '../lib/WalletProvider'
 import { shortKey } from '../lib/wallet'
 
 interface Props { mobileOpen: boolean; setMobileOpen: (v: boolean) => void }

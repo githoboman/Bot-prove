@@ -4,7 +4,7 @@ import Breadcrumbs from './Breadcrumbs';
 import KeyboardHelpModal from './KeyboardHelpModal';
 import { useKeyboardShortcuts } from '../../lib/useKeyboardShortcuts';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { useWallet } from '../../lib/CsprClickProvider';
+import { useWallet } from '../../lib/WalletProvider';
 import { shortKey } from '../../lib/wallet';
 import {
   Wallet,

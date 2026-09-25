@@ -52,11 +52,11 @@ export default function Footer() {
             <p>&copy; 2026 Bot Prove. MPL-2.0 License.</p>
           </div>
           <div className="flex items-center gap-3">
-            <a href="https://t.me/casperprover" target="_blank" rel="noreferrer" className="text-gray-500 hover:text-purple-400 transition-colors text-sm" title="Telegram community">Telegram</a>
+            <a href="https://t.me/BOTChainNetwork" target="_blank" rel="noreferrer" className="text-gray-500 hover:text-purple-400 transition-colors text-sm" title="Telegram community">Telegram</a>
             <span className="text-gray-700">·</span>
-            <a href="https://x.com/casperprover" target="_blank" rel="noreferrer" className="text-gray-500 hover:text-purple-400 transition-colors text-sm" title="X (Twitter)">X</a>
+            <a href="https://x.com/BOTChain_ai" target="_blank" rel="noreferrer" className="text-gray-500 hover:text-purple-400 transition-colors text-sm" title="X (Twitter)">X</a>
             <span className="text-gray-700">·</span>
-            <a href="https://github.com/anna-stolbovskaja/Bot Prove" target="_blank" rel="noreferrer" className="text-gray-500 hover:text-purple-400 transition-colors text-sm">GitHub</a>
+            <a href="https://github.com/githoboman/Bot-prove" target="_blank" rel="noreferrer" className="text-gray-500 hover:text-purple-400 transition-colors text-sm">GitHub</a>
           </div>
           <p className="text-xs text-gray-600">BOT Chain Grant Program 2026</p>
         </div>

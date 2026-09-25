@@ -16,7 +16,7 @@ import {
 import * as api from '../../lib/api';
 import { toast } from '../ui/toast';
 import SectionIntro from './SectionIntro';
-import { useWallet } from '../../lib/CsprClickProvider';
+import { useWallet } from '../../lib/WalletProvider';
 import { submitProofOnChain, registerAgentOnChain } from '../../lib/liveTx';
 import { getCachedManifest } from '../../lib/onchain';
 function getContractHash(key: string): string | null {

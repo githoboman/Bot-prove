@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { useState, useEffect, useCallback } from 'react'
-import CsprClickWrapper from './lib/CsprClickProvider'
+import WalletWrapper from './lib/WalletProvider'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import LiveDemo from './components/LiveDemo'
@@ -73,7 +73,7 @@ export default function App() {
   }, [mobileOpen])
 
   return (
-    <CsprClickWrapper>
+    <WalletWrapper>
     <div className="min-h-screen flex flex-col">
       <ScrollProgress />
       <ScrollToTop />
@@ -106,6 +106,6 @@ export default function App() {
       </main>
       <Footer />
     </div>
-    </CsprClickWrapper>
+    </WalletWrapper>
   )
 }
