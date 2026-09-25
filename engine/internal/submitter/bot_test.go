@@ -29,9 +29,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/make-software/bot-go-sdk/v2/rpc"
-	"github.com/make-software/bot-go-sdk/v2/types"
-	"github.com/make-software/bot-go-sdk/v2/types/key"
+	"github.com/make-software/casper-go-sdk/v2/rpc"
+	"github.com/make-software/casper-go-sdk/v2/types"
+	"github.com/make-software/casper-go-sdk/v2/types/key"
 )
 
 // -----------------------------------------------------------------------------
@@ -82,9 +82,9 @@ func (f *fakeSubmitter) GetTransactionByTransactionHash(ctx context.Context, txH
 	return rpc.InfoGetTransactionResult{}, nil
 }
 
-// makeBOT ChainWithFake builds a BOT ChainSubmitter wired to the fake without
+// makeBotChainWithFake builds a BotChainSubmitter wired to the fake without
 // touching the real network. Retry timing is compressed to keep tests fast.
-func makeBOT ChainWithFake(t *testing.T, fake *fakeSubmitter) *BOT ChainSubmitter {
+func makeBotChainWithFake(t *testing.T, fake *fakeSubmitter) *BotChainSubmitter {
 	t.Helper()
 	// Deterministic dummy hash so synthesizePutResult produces a valid key.
 	h, err := key.NewHash("0000000000000000000000000000000000000000000000000000000000000000")
@@ -92,7 +92,7 @@ func makeBOT ChainWithFake(t *testing.T, fake *fakeSubmitter) *BOT ChainSubmitte
 		t.Fatalf("dummy hash: %v", err)
 	}
 	fake.fixedHash = h
-	return &BOT ChainSubmitter{
+	return &BotChainSubmitter{
 		chain:  "test-net",
 		client: fake,
 		retry: retryConfig{
@@ -190,7 +190,7 @@ func TestPutWithIdempotentRetry_FirstAttemptSucceeds(t *testing.T) {
 	fake := &fakeSubmitter{
 		putScript: []programmed{{err: nil}},
 	}
-	s := makeBOT ChainWithFake(t, fake)
+	s := makeBotChainWithFake(t, fake)
 
 	_, err := s.putWithIdempotentRetry(context.Background(), dummyTx(), stableHexHash, "submit_proof")
 	if err != nil {
@@ -217,7 +217,7 @@ func TestPutWithIdempotentRetry_TransientThenSuccess(t *testing.T) {
 			{err: errors.New("transaction not found")}, // not landed yet
 		},
 	}
-	s := makeBOT ChainWithFake(t, fake)
+	s := makeBotChainWithFake(t, fake)
 
 	_, err := s.putWithIdempotentRetry(context.Background(), dummyTx(), stableHexHash, "submit_proof")
 	if err != nil {
@@ -247,7 +247,7 @@ func TestPutWithIdempotentRetry_IdempotencyRecovery(t *testing.T) {
 			{err: nil}, // tx IS on-chain despite the transient error
 		},
 	}
-	s := makeBOT ChainWithFake(t, fake)
+	s := makeBotChainWithFake(t, fake)
 
 	res, err := s.putWithIdempotentRetry(context.Background(), dummyTx(), stableHexHash, "submit_proof")
 	if err != nil {
@@ -282,7 +282,7 @@ func TestPutWithIdempotentRetry_FinalAttemptLookupLanded(t *testing.T) {
 			{err: nil}, // post-loop check: it actually landed
 		},
 	}
-	s := makeBOT ChainWithFake(t, fake)
+	s := makeBotChainWithFake(t, fake)
 
 	_, err := s.putWithIdempotentRetry(context.Background(), dummyTx(), stableHexHash, "submit_proof")
 	if err != nil {
@@ -306,7 +306,7 @@ func TestPutWithIdempotentRetry_NonRetryableStopsFirstCall(t *testing.T) {
 			{err: errors.New("HTTP 422 invalid transaction: bad payment")},
 		},
 	}
-	s := makeBOT ChainWithFake(t, fake)
+	s := makeBotChainWithFake(t, fake)
 
 	_, err := s.putWithIdempotentRetry(context.Background(), dummyTx(), stableHexHash, "submit_proof")
 	if err == nil {
@@ -337,7 +337,7 @@ func TestPutWithIdempotentRetry_BrokenLookupAborts(t *testing.T) {
 			{err: errors.New("HTTP 500 internal server error")}, // lookup itself unhealthy
 		},
 	}
-	s := makeBOT ChainWithFake(t, fake)
+	s := makeBotChainWithFake(t, fake)
 
 	_, err := s.putWithIdempotentRetry(context.Background(), dummyTx(), stableHexHash, "submit_proof")
 	if err == nil {
@@ -370,7 +370,7 @@ func TestPutWithIdempotentRetry_MaxAttemptsExhausted(t *testing.T) {
 			{err: errors.New("transaction not found")}, // final post-loop
 		},
 	}
-	s := makeBOT ChainWithFake(t, fake)
+	s := makeBotChainWithFake(t, fake)
 
 	_, err := s.putWithIdempotentRetry(context.Background(), dummyTx(), stableHexHash, "submit_proof")
 	if err == nil {
@@ -399,7 +399,7 @@ func TestPutWithIdempotentRetry_ContextCancellationAbortsBackoff(t *testing.T) {
 			{err: errors.New("transaction not found")},
 		},
 	}
-	s := makeBOT ChainWithFake(t, fake)
+	s := makeBotChainWithFake(t, fake)
 	// Deliberately-slow backoff so the cancellation path is exercised.
 	s.retry.initialBackoff = 10 * time.Second
 
@@ -452,7 +452,7 @@ func TestSynthesizePutResult_PreservesHash(t *testing.T) {
 
 func TestRegisterZkVk_MissingEnvFails(t *testing.T) {
 	_ = os.Unsetenv("CONTRACT_ZK_VERIFIER")
-	s := &BOT ChainSubmitter{}
+	s := &BotChainSubmitter{}
 	_, err := s.RegisterZkVk("mimc_v1", "aa", "bn254", "groth16", 0)
 	if err == nil {
 		t.Fatal("expected error when CONTRACT_ZK_VERIFIER unset")
@@ -464,7 +464,7 @@ func TestRegisterZkVk_MissingEnvFails(t *testing.T) {
 
 func TestRecordZkVerdict_MissingEnvFails(t *testing.T) {
 	_ = os.Unsetenv("CONTRACT_ZK_VERIFIER")
-	s := &BOT ChainSubmitter{}
+	s := &BotChainSubmitter{}
 	_, err := s.RecordZkVerdict("mimc_v1", "aa", "bb", "gpt-4o-mini", true)
 	if err == nil {
 		t.Fatal("expected error when CONTRACT_ZK_VERIFIER unset")
@@ -473,7 +473,7 @@ func TestRecordZkVerdict_MissingEnvFails(t *testing.T) {
 
 func TestAddZkVerifier_MissingEnvFails(t *testing.T) {
 	_ = os.Unsetenv("CONTRACT_ZK_VERIFIER")
-	s := &BOT ChainSubmitter{}
+	s := &BotChainSubmitter{}
 	_, err := s.AddZkVerifier("00000000000000000000000000000000000000000000000000000000deadbeef")
 	if err == nil {
 		t.Fatal("expected error when CONTRACT_ZK_VERIFIER unset")
@@ -483,7 +483,7 @@ func TestAddZkVerifier_MissingEnvFails(t *testing.T) {
 func TestAddZkVerifier_BadAccountHash(t *testing.T) {
 	_ = os.Setenv("CONTRACT_ZK_VERIFIER", "00")
 	defer func() { _ = os.Unsetenv("CONTRACT_ZK_VERIFIER") }()
-	s := &BOT ChainSubmitter{}
+	s := &BotChainSubmitter{}
 	_, err := s.AddZkVerifier("not-hex")
 	if err == nil {
 		t.Fatal("expected error on malformed account hash")

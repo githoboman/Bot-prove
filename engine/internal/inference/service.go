@@ -28,12 +28,12 @@ type ModelRegistryEntry struct {
 type InferenceService struct {
 	eng *prover.ProofEngine
 	db  *store.PG
-	sub *submitter.BOT ChainSubmitter
+	sub *submitter.BotChainSubmitter
 	log *slog.Logger
 }
 
 // New creates a new InferenceService instance.
-func New(eng *prover.ProofEngine, db *store.PG, sub *submitter.BOT ChainSubmitter) *InferenceService {
+func New(eng *prover.ProofEngine, db *store.PG, sub *submitter.BotChainSubmitter) *InferenceService {
 	return &InferenceService{
 		eng: eng,
 		db:  db,

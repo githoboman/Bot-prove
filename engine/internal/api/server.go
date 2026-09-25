@@ -74,7 +74,7 @@ type Server struct {
 	ver       *verifier.LocalVerifier
 	kyc       *kyc.DemoKYC
 	db        *store.PG
-	sub       *submitter.BOT ChainSubmitter
+	sub       *submitter.BotChainSubmitter
 	inf       *inference.InferenceService
 	zk        *zkverifier.Groth16Verifier
 	realZK    *gnarkzk.Setup    // legacy PreimageCircuit-only setup, kept for backwards compat
@@ -212,7 +212,7 @@ func New(eng *prover.ProofEngine, port int, db *store.PG) (*Server, error) {
 	}
 	keyPath := os.Getenv("DEPLOYER_KEY_PATH")
 
-	var sub *submitter.BOT ChainSubmitter
+	var sub *submitter.BotChainSubmitter
 	if keyPath != "" {
 		sub = submitter.New(nodeURL, chain, keyPath)
 		slog.Info("submitter configured", "node", nodeURL, "chain", chain)
