@@ -53,7 +53,7 @@ let inflight: Promise<OnChainManifest> | null = null;
 export async function loadManifest(): Promise<OnChainManifest> {
   if (cached) return cached;
   if (inflight) return inflight;
-  inflight = fetch('/onchain.json', { cache: 'force-cache' })
+  inflight = fetch('/onchain.json')
     .then((r) => {
       if (!r.ok) throw new Error(`onchain manifest fetch failed: HTTP ${r.status}`);
       return r.json() as Promise<OnChainManifest>;
