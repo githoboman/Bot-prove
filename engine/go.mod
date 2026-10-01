@@ -1,6 +1,6 @@
 module github.com/githoboman/Bot-prove/engine
 
-go 1.25.7
+go 1.26.0
 
 require (
 	filippo.io/edwards25519 v1.2.0
@@ -22,9 +22,9 @@ require (
 	github.com/ronanh/intcomp v1.1.1 // indirect
 	github.com/rs/zerolog v1.34.0 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
-	golang.org/x/crypto v0.48.0
+	golang.org/x/crypto v0.57.0
 	golang.org/x/sync v0.19.0 // indirect
-	golang.org/x/sys v0.41.0 // indirect
+	golang.org/x/sys v0.48.0 // indirect
 )
 
 require (
