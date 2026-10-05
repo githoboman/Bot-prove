@@ -72,7 +72,7 @@ const Contracts: React.FC = () => {
     if (dep) {
       return {
         ...p,
-        address: dep.contract_hash,
+        address: dep.contract_address || dep.contract_hash || null,
         deployed: true,
         deployDate: dep.deployed_at ? dep.deployed_at.slice(0, 10) : undefined,
       };

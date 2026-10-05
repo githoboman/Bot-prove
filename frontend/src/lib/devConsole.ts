@@ -38,11 +38,14 @@ export function installDevConsoleInfo(): void {
     ]);
 
     if (manifest) {
-      const rows = Object.entries(manifest.contracts).map(([key, c]) => ({
-        contract: key,
-        hash: `${c.contract_hash.slice(0, 12)}…`,
-        explorer: `https://scan.botchain.ai/contract/${c.contract_hash}`,
-      }));
+      const rows = Object.entries(manifest.contracts).map(([key, c]) => {
+        const addr = c.contract_address || c.contract_hash || 'unknown';
+        return {
+          contract: key,
+          hash: `${addr.slice(0, 12)}…`,
+          explorer: `https://scan.botchain.ai/contract/${addr}`,
+        };
+      });
       console.log(`%c${rows.length} contracts live on ${manifest.network}:`, 'color:#22c55e;font-weight:bold');
       console.table(rows);
     }
