@@ -176,6 +176,16 @@
                 "unpause"
             ],
             "notes": "MVP-clean WASM (53107 B) - same nightly-2025-01-01 + build-std recipe as governance/proof-aggregation/model-registry/proof-of-inference. On-chain ZK verifier registry / verdict recorder (BACKLOG 1.8): stores vk digests + records off-chain Groth16 verifier verdicts; NOT a pairing verifier (BOT Chain Condor 2.x has no precompiled pairing, BACKLOG 1.14). Owner = caller at install time (anna-stolbovskaja, same account as the other 8 canonical contracts). This was the one contract still only compiled, never deployed, as of 2026-07-27 - closes that gap; Bot Prove now has 9 contracts live on testnet. REDEPLOYED 2026-07-27/28 to fix a P0 owner-check bypass (see docs/SECURITY_AUDIT.md sec 2.10) - installOrUpgrade from the original anna-stolbovskaja account deterministically reverted (ApiError::InvalidArgument, pre-existing vks/verdicts/verifiers NamedKeys on that account per docs/DEPLOYMENT_LESSONS.md Lesson 3), so this redeploy used a fresh dedicated wallet instead. Owner/admin key for register_vk/disable_vk/pause/unpause is therefore this new deployer key, NOT anna-stolbovskaja (the only one of the 9 contracts where this differs) - see docs/roadmap/ZK_VERIFIER_REDEPLOY_2026-07-27.md."
+        },
+        "botchain_prover": {
+            "network": "botchain-mainnet",
+            "contract_address": "0x601794aFcE3443668f0280ACA1c2e522739478f7",
+            "deployer": "0x78C6ec422D7ad8e75C0d9D1fDDA34C1112CB79b8",
+            "deploy_hash": "0x58f6fd6bfad38c9f0b7e301587475a765f7f8c0b4d9e5b1b6693321e9b4e009f",
+            "version": 1,
+            "deployed_at": "2026-10-02T12:52:13Z",
+            "source": "contracts/BotChainProver.sol",
+            "notes": "EVM Mainnet deployment for BotChainProver"
         }
     },
     "verification": {

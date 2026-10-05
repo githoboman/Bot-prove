@@ -7,10 +7,13 @@ import { getCachedManifest } from './onchain';
 
 export const BOT_CHAIN_NAME = 'bot-test';
 
-export let PROOF_REGISTRY_HASH = '0x039Cb3CDe633f3FeA8b3DC0D0a7E762C400a0126'; // Default BOT Chain Testnet contract address
+export let PROOF_REGISTRY_HASH = '0x601794aFcE3443668f0280ACA1c2e522739478f7'; // Default to Botchain Mainnet deploy
 
 export function getProofRegistryHash(): string {
-  return getCachedManifest()?.contracts?.proof_registry?.contract_hash ?? PROOF_REGISTRY_HASH;
+  // Use botchain_prover if available, fallback to the hardcoded mainnet hash
+  return getCachedManifest()?.contracts?.botchain_prover?.contract_address || 
+         getCachedManifest()?.contracts?.proof_registry?.contract_hash || 
+         PROOF_REGISTRY_HASH;
 }
 
 export type LiveTxResult =
@@ -21,6 +24,27 @@ export type LiveTxResult =
 // Utility to encode strings into hex for raw EVM calldata if needed (simplified)
 function stringToHex(str: string) {
   return Array.from(str).map(c => c.charCodeAt(0).toString(16).padStart(2, '0')).join('');
+}
+
+// Helper to pad hex string to 32 bytes (64 chars)
+function pad32(hex: string) {
+  return hex.replace('0x', '').padStart(64, '0');
+}
+
+// Minimal ABI Encoder for: function storeProof(bytes32 proofHash, string memory model)
+function encodeStoreProof(proofHash: string, modelStr: string): string {
+  const selector = '9fb43444'; // keccak256("storeProof(bytes32,string)")
+  const p1 = pad32(proofHash);
+  const p2Offset = pad32(Number(64).toString(16)); // Offset to dynamic string is 64 bytes (0x40)
+  
+  // Encode string length and data
+  const hexStr = stringToHex(modelStr);
+  const strLen = pad32((hexStr.length / 2).toString(16));
+  // Pad string data to multiple of 32 bytes (64 hex chars)
+  const padLen = Math.ceil(hexStr.length / 64) * 64;
+  const strData = hexStr.padEnd(padLen, '0');
+  
+  return '0x' + selector + p1 + p2Offset + strLen + strData;
 }
 
 /**
@@ -39,15 +63,11 @@ export async function submitProofOnChain(
   if (!window.ethereum) return { ok: false, cancelled: false, error: "No wallet detected" };
 
   try {
-    // In a real app, you would encode the function selector and arguments using ethers.js
-    // For this migration, we send a dummy transaction to the contract address to simulate the interaction
-    // to fulfill the hackathon requirements without needing the full ABI encoder bundle
     const txParams = {
       to: getProofRegistryHash(),
       from: opts.senderPublicKeyHex,
       value: '0x0',
-      // Dummy data payload representing submit_proof
-      data: '0x' + stringToHex(`submit_proof:${opts.proofHash}:${opts.modelHash}`) 
+      data: encodeStoreProof(opts.proofHash, opts.modelHash)
     };
 
     const txHash = await window.ethereum.request({
