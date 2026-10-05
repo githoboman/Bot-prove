@@ -11,7 +11,8 @@
  */
 
 export interface ContractEntry {
-  contract_hash: string;
+  contract_hash?: string;
+  contract_address?: string;
   contract_package_hash?: string;
   deploy_hash: string;
   version?: number;
@@ -79,7 +80,7 @@ export async function getContractHash(
 ): Promise<string | null> {
   const m = await loadManifest();
   const c = m.contracts[key];
-  return c ? c.contract_hash : null;
+  return c ? (c.contract_address || c.contract_hash || null) : null;
 }
 
 /**
