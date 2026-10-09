@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "botprove"
-version = "0.1.2"
+version = "0.1.3"
 description = "BotProve Python SDK — prove, verify, batch, anchor with client-side receipt validation."
 readme = "README.md"
 requires-python = ">=3.9"
