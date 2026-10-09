@@ -22,13 +22,17 @@ async function fetcher<T>(
       ...options,
     });
 
-    const data = await response.json();
-
-    if (!response.ok) {
-      return { success: false, error: data.error || data.message || 'An unknown error occurred', message: data.message };
+    const contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('application/json')) {
+      const data = await response.json();
+      if (!response.ok) {
+        return { success: false, error: data.error || data.message || 'An unknown error occurred', message: data.message };
+      }
+      return { success: true, data };
+    } else {
+      const text = await response.text();
+      return { success: false, error: `API error (${response.status}): ${text.slice(0, 100)}` };
     }
-
-    return { success: true, data };
   } catch (error) {
     if (import.meta.env.DEV) console.error(`API call to ${endpoint} failed:`, error);
     return { success: false, error: (error as Error).message || 'Network error' };
