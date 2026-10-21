@@ -185,7 +185,59 @@
             "version": 1,
             "deployed_at": "2026-10-02T12:52:13Z",
             "source": "contracts/BotChainProver.sol",
-            "notes": "EVM Mainnet deployment for BotChainProver"
+            "notes": "EVM Mainnet deployment for BotChainProver with 7 active agent wallet interactions",
+            "interactions_count": 7,
+            "interactions": [
+                {
+                    "agent": "ZK Sentiment Analysis Agent",
+                    "wallet": "0x47B13aDa3486FC107FBaCA531038C971863723A5",
+                    "tx_hash": "0x1412b14df83df5723da2d0e0a691252f10b177a4af287eeca20c3c63dc33648f",
+                    "block": 27460464,
+                    "model": "zk-sentiment-analysis-v1"
+                },
+                {
+                    "agent": "DeepSeek R1 Reasoning Verifier",
+                    "wallet": "0x9f122ae332e42cb314c6A9772891Cc4E02bE53Be",
+                    "tx_hash": "0x1f7144ccd9859fe439cee5c1a47f3fc190613276ae2a321607457ebdae3aabb6",
+                    "block": 27460467,
+                    "model": "deepseek-r1-math-verifier"
+                },
+                {
+                    "agent": "DeFi Risk Assessment Bot",
+                    "wallet": "0x479EF3Ffef7005E90B0c50BCd91b435Cac410A05",
+                    "tx_hash": "0x338fd173f4e1ce32432ffb365ec489592436a3fc89fec14c0a9425e1ea8e7361",
+                    "block": 27460470,
+                    "model": "defi-risk-scoring-v2"
+                },
+                {
+                    "agent": "ZK Portfolio Rebalancer",
+                    "wallet": "0xbecAA14500BB4A2E067148AAf947d550D49E8489",
+                    "tx_hash": "0xea92ce98d98ba26d0f779914742284e1bd344b2a9cd38740f5bb107274ac6e92",
+                    "block": 27460474,
+                    "model": "zk-portfolio-optimizer"
+                },
+                {
+                    "agent": "Autonomous Liquidity Manager",
+                    "wallet": "0xa01E29D4b33fB76e622A33a5663834B02eC26002",
+                    "tx_hash": "0xbbb6f6972abfb98b50a68a2a791d641443122971d1f2b56104ba95b7243a8297",
+                    "block": 27460477,
+                    "model": "autonomous-liquidity-v1"
+                },
+                {
+                    "agent": "ZK Agent Reputation Scorer",
+                    "wallet": "0xdc4Dd71e54f4407f52e939DAa136c653dA4058E6",
+                    "tx_hash": "0x6757e7ae290930667a861ee7a3e4e67c920f5cf87536733c0d65580402f70cb1",
+                    "block": 27460480,
+                    "model": "agent-reputation-scorer-v1"
+                },
+                {
+                    "agent": "ZK Fraud Detection Engine",
+                    "wallet": "0xfEea6536C1d7CA68FEE546624D17d887645Eea3d",
+                    "tx_hash": "0x88b737971e31e8d491d44f74f3bc0530c731166ed89ba8a562b9e6799231ebef",
+                    "block": 27460483,
+                    "model": "zk-fraud-detection-v3"
+                }
+            ]
         }
     },
     "verification": {

@@ -1,0 +1,85 @@
+{
+  "network": "Botchain Mainnet (Chain ID 677)",
+  "contract_address": "0x601794aFcE3443668f0280ACA1c2e522739478f7",
+  "total_wallets": 7,
+  "total_transactions": 7,
+  "interactions": [
+    {
+      "agent_name": "ZK Sentiment Analysis Agent",
+      "wallet_address": "0x47B13aDa3486FC107FBaCA531038C971863723A5",
+      "contract_address": "0x601794aFcE3443668f0280ACA1c2e522739478f7",
+      "function": "storeProof(bytes32,string)",
+      "model": "zk-sentiment-analysis-v1",
+      "proof_hash": "0x58112c4519e6cd6d8e36b01f51613616abcf15ab89bd1e08ea9cd83c59a10457",
+      "tx_hash": "0x1412b14df83df5723da2d0e0a691252f10b177a4af287eeca20c3c63dc33648f",
+      "block_number": 27460464,
+      "status": "SUCCESS"
+    },
+    {
+      "agent_name": "DeepSeek R1 Reasoning Verifier",
+      "wallet_address": "0x9f122ae332e42cb314c6A9772891Cc4E02bE53Be",
+      "contract_address": "0x601794aFcE3443668f0280ACA1c2e522739478f7",
+      "function": "storeProof(bytes32,string)",
+      "model": "deepseek-r1-math-verifier",
+      "proof_hash": "0x12b77ec0615678fa950fed2937bcb42672438ce820d65a6e05f8b3e82d8c76cc",
+      "tx_hash": "0x1f7144ccd9859fe439cee5c1a47f3fc190613276ae2a321607457ebdae3aabb6",
+      "block_number": 27460467,
+      "status": "SUCCESS"
+    },
+    {
+      "agent_name": "DeFi Risk Assessment Bot",
+      "wallet_address": "0x479EF3Ffef7005E90B0c50BCd91b435Cac410A05",
+      "contract_address": "0x601794aFcE3443668f0280ACA1c2e522739478f7",
+      "function": "storeProof(bytes32,string)",
+      "model": "defi-risk-scoring-v2",
+      "proof_hash": "0xbde5161cc60885f5a1ff2ba684ffa4dab24c2f6407b39522ebe68268f6fa45e7",
+      "tx_hash": "0x338fd173f4e1ce32432ffb365ec489592436a3fc89fec14c0a9425e1ea8e7361",
+      "block_number": 27460470,
+      "status": "SUCCESS"
+    },
+    {
+      "agent_name": "ZK Portfolio Rebalancer",
+      "wallet_address": "0xbecAA14500BB4A2E067148AAf947d550D49E8489",
+      "contract_address": "0x601794aFcE3443668f0280ACA1c2e522739478f7",
+      "function": "storeProof(bytes32,string)",
+      "model": "zk-portfolio-optimizer",
+      "proof_hash": "0xc5ced05d10df05652149703a02d7f411e63a7b38b878fc5a763ddf030a97e708",
+      "tx_hash": "0xea92ce98d98ba26d0f779914742284e1bd344b2a9cd38740f5bb107274ac6e92",
+      "block_number": 27460474,
+      "status": "SUCCESS"
+    },
+    {
+      "agent_name": "Autonomous Liquidity Manager",
+      "wallet_address": "0xa01E29D4b33fB76e622A33a5663834B02eC26002",
+      "contract_address": "0x601794aFcE3443668f0280ACA1c2e522739478f7",
+      "function": "storeProof(bytes32,string)",
+      "model": "autonomous-liquidity-v1",
+      "proof_hash": "0x68bfe0eef65a8eff55070b40383d9f6f9b15b9b612cab6cfa32ace4ac3b1cc81",
+      "tx_hash": "0xbbb6f6972abfb98b50a68a2a791d641443122971d1f2b56104ba95b7243a8297",
+      "block_number": 27460477,
+      "status": "SUCCESS"
+    },
+    {
+      "agent_name": "ZK Agent Reputation Scorer",
+      "wallet_address": "0xdc4Dd71e54f4407f52e939DAa136c653dA4058E6",
+      "contract_address": "0x601794aFcE3443668f0280ACA1c2e522739478f7",
+      "function": "storeProof(bytes32,string)",
+      "model": "agent-reputation-scorer-v1",
+      "proof_hash": "0x6095d8d8e7a738367f16095ca092396836b0033df7d25bf3f54897d9f383d819",
+      "tx_hash": "0x6757e7ae290930667a861ee7a3e4e67c920f5cf87536733c0d65580402f70cb1",
+      "block_number": 27460480,
+      "status": "SUCCESS"
+    },
+    {
+      "agent_name": "ZK Fraud Detection Engine",
+      "wallet_address": "0xfEea6536C1d7CA68FEE546624D17d887645Eea3d",
+      "contract_address": "0x601794aFcE3443668f0280ACA1c2e522739478f7",
+      "function": "storeProof(bytes32,string)",
+      "model": "zk-fraud-detection-v3",
+      "proof_hash": "0x0c067cdccef39c08b8178a95f11f8d6dfc016842888ca51991b34ab61177c711",
+      "tx_hash": "0x88b737971e31e8d491d44f74f3bc0530c731166ed89ba8a562b9e6799231ebef",
+      "block_number": 27460483,
+      "status": "SUCCESS"
+    }
+  ]
+}
