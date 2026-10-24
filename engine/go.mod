@@ -4,7 +4,7 @@ go 1.25.7
 
 require (
 	filippo.io/edwards25519 v1.2.0
-	github.com/cloudflare/circl v1.6.4
+	github.com/cloudflare/circl v1.6.5
 	github.com/consensys/gnark v0.15.0
 	github.com/consensys/gnark-crypto v0.20.1
 	github.com/leanovate/gopter v0.2.11
@@ -22,9 +22,9 @@ require (
 	github.com/ronanh/intcomp v1.1.1 // indirect
 	github.com/rs/zerolog v1.34.0 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
-	golang.org/x/crypto v0.48.0
+	golang.org/x/crypto v0.54.0
 	golang.org/x/sync v0.19.0 // indirect
-	golang.org/x/sys v0.41.0 // indirect
+	golang.org/x/sys v0.47.0 // indirect
 )
 
 require (
